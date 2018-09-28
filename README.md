@@ -1,2 +1,2 @@
-# react-master-group-1
+# React
 

@@ -1,0 +1,35 @@
+{
+  "name": "react-master",
+  "version": "1.0.0",
+  "author": "Quentin SOMAZZI",
+  "description": "React Master",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:qsomazzi/react-master.git"
+  },
+  "scripts": {
+    "build:prod": "./node_modules/.bin/webpack --config webpack.config.js --env=prod",
+    "watch": "./node_modules/.bin/webpack --watch --devtool eval --env=dev"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "prop-types": "^15.6.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-mixin": "^4.0.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.6.1",
+    "webpack-merge": "^4.1.0"
+  }
+}
