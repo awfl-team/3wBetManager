@@ -1,23 +1,17 @@
 {
-  "name": "react-master",
-  "version": "2.0.0",
-  "author": "Quentin SOMAZZI",
-  "description": "React Master",
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.com:qsomazzi/react-master.git"
-  },
+  "name": "topkek",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "bootstrap": "^4.1.3",
-    "react": "^16.5.2",
-    "react-bootstrap": "^1.0.0-beta.1",
-    "react-dom": "^16.5.2",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.3"
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
