@@ -1,6 +1,6 @@
 .PHONY: help \
 		infra-clean infra-shell-node infra-stop infra-up \
-		app-assets-watch app-install-front
+		app-build app-install-front app-start
 		
 default: help
 
@@ -28,9 +28,11 @@ infra-up: ## to create and start all the containers
 #                APP                   #
 ########################################
 
-app-assets-watch: ## to watch front assets compilation
-	docker-compose exec --user root node /bin/sh -c "cd $(PROJECT_DIR) && npm run watch";
+app-build: ## to build the app for production
+	docker-compose exec --user root node /bin/sh -c "cd $(PROJECT_DIR) && npm run build";
 
 app-install-front: ## to install Front dependencies
 	docker-compose exec --user root node /bin/sh -c "cd $(PROJECT_DIR) && npm install";
-	docker-compose exec --user root node /bin/sh -c "cd $(PROJECT_DIR) && npm run build:prod";
+
+app-start: ## to compile and start the app
+	docker-compose exec --user root node /bin/sh -c "cd $(PROJECT_DIR) && npm start";
