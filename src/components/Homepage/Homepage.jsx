@@ -27,10 +27,10 @@ function Homepage() {
               Imagine-a-Company
             </h1>
             <h2>Do whatever you want when you want to.</h2>
-            <div className="ui huge primary button">
+            <Link to="/dashboard" className="ui huge primary button">
               Get Started
               <i className="right arrow icon" />
-            </div>
+            </Link>
           </div>
 
         </div>
