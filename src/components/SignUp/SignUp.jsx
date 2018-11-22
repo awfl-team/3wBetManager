@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function SignUp() {
   return (
-    <div>
+    <div className="register-page">
       <div className="ui middle aligned center aligned grid">
         <div className="column">
           <h2 className="ui teal image header">

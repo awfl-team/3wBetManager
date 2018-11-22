@@ -13,10 +13,10 @@ class UserLayout extends React.Component {
   render() {
     const { visible } = this.state;
     return (
-      <div>
+      <div className="layout">
         <Menu inverted>
-          <Container>
-            <Menu.Item as="a" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
+          <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
+          <Container className="navbar">
             <Menu.Item as="a" header>
               Project Name
             </Menu.Item>
@@ -58,7 +58,7 @@ class UserLayout extends React.Component {
           </Sidebar>
 
           <Sidebar.Pusher>
-            <Segment basic>
+            <Segment basic className="content-container">
               <Route path="/dashboard" component={Dashboard} />
             </Segment>
           </Sidebar.Pusher>
