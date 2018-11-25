@@ -7,7 +7,7 @@ function SignUp() {
       <div className="ui middle aligned center aligned grid">
         <div className="column">
           <h2 className="ui teal image header">
-            <img src="assets/images/logo.png" className="image" alt="yes" />
+            <img src="assets/images/logo.png" className="image" alt="" />
             <div className="content">
               Create a new account
             </div>
