@@ -1,29 +1,32 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import UserService from '../../service/UserService';
-import Dashboard from '../Dashboard/Dashboard';
+import AuthService from '../../service/AuthService';
 
 class Login extends React.Component {
     state = {
       toDashboard: false,
+      errorMessage: '',
     };
 
     handleSubmit(event) {
       event.preventDefault();
       UserService.login(event.target.email.value, event.target.password.value)
-        .then(() => {
+        .then((response) => {
+          AuthService.setTokenInLocalStorage(response);
           this.setState({ toDashboard: true });
         })
         .catch((error) => {
-          // display error message
+          this.setState({ errorMessage: error.response.data });
         });
     }
 
     render() {
       const { toDashboard } = this.state;
+      const { errorMessage } = this.state;
 
       if (toDashboard) {
-        return <Redirect to="/dashboard" component={Dashboard} />;
+        return <Redirect to="/dashboard" />;
       }
       return (
         <div className="login-page">
@@ -60,7 +63,9 @@ class Login extends React.Component {
                   <button type="submit" className="ui fluid large teal submit button">Login</button>
                 </div>
 
-                <div className="ui error message" />
+                <div className="ui error message">
+                  {errorMessage}
+                </div>
 
               </form>
 

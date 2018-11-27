@@ -13,4 +13,8 @@ export default class AuthService {
     const token = JSON.stringify(loginResponse.data);
     localStorage.setItem('3wtoken', token);
   }
+
+  static getToken() {
+    return localStorage.getItem('3wtoken');
+  }
 }

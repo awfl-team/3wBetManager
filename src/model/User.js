@@ -1,8 +1,17 @@
 export default class User {
     Id;
+
     Role;
+
     Password;
+
     Email;
+
     Username;
-    Role;
+
+    constructor(email, username, password) {
+      this.Email = email;
+      this.Username = username;
+      this.Password = password;
+    }
 }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AuthService from './service/AuthService';
 
 const api = axios.create({
   // api c# url
@@ -7,7 +8,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('jwt');
+    const token = AuthService.getToken();
     const configuration = config;
     if (token) configuration.headers.Authorization = `Bearer${token}`;
     return configuration;
