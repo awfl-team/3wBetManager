@@ -17,7 +17,7 @@ function Homepage() {
               <a className="item">Careers</a>
               <div className="right item">
                 <Link to="/login" className="ui inverted button">Log in</Link>
-                <a className="ui inverted button">Sign Up</a>
+                <Link to="/signup" className="ui inverted button">Sign Up</Link>
               </div>
             </div>
           </div>
