@@ -1,0 +1,12 @@
+.main-button {
+  background-color: $red !important;
+  color: white;
+  transition: $main-transition;
+  border-radius: 25px !important;
+  border: $red 2px solid !important;
+  &:hover {
+    border: $red 2px solid;
+    background-color: white !important;
+    color: $red !important;
+  }
+}

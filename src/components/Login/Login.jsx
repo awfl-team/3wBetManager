@@ -32,21 +32,20 @@ class Login extends React.Component {
         <div className="login-page">
           <div className="ui middle aligned center aligned grid">
             <div className="column">
-              <h2 className="ui teal image header">
-                <img src="assets/images/logo.png" className="image" />
+              <h2 className="ui teal authentication-header">
                 <div className="content">
-                                Log-in to your account
+                                Connectez-vous
                 </div>
               </h2>
               <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
-                <div className="ui stacked segment">
+                <div className="ui stacked">
                   <div className="field">
                     <div className="ui left icon input">
                       <i className="user icon" />
                       <input
                         type="text"
                         name="email"
-                        placeholder="E-mail address"
+                        placeholder="E-mail"
                       />
                     </div>
                   </div>
@@ -56,11 +55,11 @@ class Login extends React.Component {
                       <input
                         type="password"
                         name="password"
-                        placeholder="Password"
+                        placeholder="Mot de passe"
                       />
                     </div>
                   </div>
-                  <button type="submit" className="ui fluid large teal submit button">Login</button>
+                  <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
                 </div>
 
                 <div className="ui error message">
@@ -70,7 +69,7 @@ class Login extends React.Component {
               </form>
 
               <div className="ui message">
-                            New to us?
+                            Nouveau ? &nbsp;
                 <Link to="/signup">Sign Up</Link>
               </div>
             </div>

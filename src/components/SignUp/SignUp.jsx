@@ -23,40 +23,39 @@ class SignUp extends React.Component {
       <div className="register-page">
         <div className="ui middle aligned center aligned grid">
           <div className="column">
-            <h2 className="ui teal image header">
-              <img src="assets/images/logo.png" className="image" alt="" />
+            <h2 className="ui teal authentication-header">
               <div className="content">
-                Create a new account
+                Créer un nouveau compte
               </div>
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
-              <div className="ui stacked segment">
+              <div className="ui stacked">
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="user icon" />
-                    <input type="text" name="email" placeholder="E-mail address" />
+                    <input type="text" name="email" placeholder="E-mail" />
                   </div>
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="user icon" />
-                    <input type="text" name="username" placeholder="Username" />
+                    <input type="text" name="username" placeholder="Nom d'utilisateur" />
                   </div>
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="lock icon" />
-                    <input type="password" name="password" placeholder="Password" />
+                    <input type="password" name="password" placeholder="Mot de passe" />
                   </div>
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="lock icon" />
-                    <input type="password" name="confirmPassword" placeholder="Confirm Password" />
+                    <input type="password" name="confirmPassword" placeholder="Confirmer le mot de passe" />
                   </div>
                 </div>
-                <button type="submit" className="ui fluid large teal submit button">
-Singn Up
+                <button type="submit" className="ui fluid large teal submit button main-button">
+Inscription
                 </button>
               </div>
 
@@ -65,8 +64,8 @@ Singn Up
             </form>
 
             <div className="ui message">
-              Already have an account ?
-              <Link to="/login">Log In</Link>
+              Vous avez déjà un compte ? &nbsp;
+              <Link to="/login">Connexion</Link>
             </div>
           </div>
         </div>
