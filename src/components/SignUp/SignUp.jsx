@@ -5,14 +5,11 @@ import User from '../../model/User';
 
 
 class SignUp extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+    state = {
       password: '',
       confirmPassword: '',
-      errorMessage: '',
+      errorMessage: null,
     };
-  }
 
   handlePasswordChange = (event) => {
     this.setState({ password: event.target.value });
@@ -28,21 +25,19 @@ class SignUp extends React.Component {
       event.target.username.value,
       event.target.password.value);
     if (event.target.password.value !== event.target.confirmPassword.value) {
-      alert('Password and confimrPassword aren\'t the same');
     } else {
       UserService.signUp(user)
         .then((response) => {
           console.log(response);
         })
         .catch((error) => {
-          console.log(error);
-          this.setState({ errorMessage: error });
+          this.setState({ errorMessage: error.response.data });
         });
     }
   }
 
   render() {
-    const { confirmPassword, password } = this.state;
+    const { confirmPassword, password, errorMessage } = this.state;
     const isEnabled = (password !== confirmPassword || password === '' || confirmPassword === '');
     return (
       <div className="register-page">
@@ -105,7 +100,9 @@ class SignUp extends React.Component {
               <Link to="/login">Log In</Link>
 
             </div>
-            <div>{this.state.errorMessage}</div>
+            {errorMessage != null
+             && <div>{errorMessage}</div>
+            }
           </div>
         </div>
       </div>
