@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
+import AuthService from '../../service/AuthService';
 
 
 class SignUp extends React.Component {
-    state = {
-      password: '',
-      confirmPassword: '',
-      errorMessage: null,
-    };
+  state = {
+    password: '',
+    confirmPassword: '',
+    errorMessage: null,
+    toDashboard: false
+  };
 
   handlePasswordChange = (event) => {
     this.setState({ password: event.target.value });
@@ -27,16 +29,26 @@ class SignUp extends React.Component {
     if (event.target.password.value !== event.target.confirmPassword.value) {
     } else {
       UserService.signUp(user)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          this.setState({ errorMessage: error.response.data });
+        .then(() => {
+          UserService.login(user.Email, user.Password)
+            .then((response) => {
+              AuthService.setTokenInLocalStorage(response);
+            }).then((response) => {
+              this.setState({ toDashboard: true });
+              console.log(response);
+            }).catch((error) => {
+              this.setState({ errorMessage: error.response.data });
+            });
         });
     }
   }
 
   render() {
+    const { toDashboard } = this.state;
+
+    if (toDashboard) {
+      return <Redirect to="/dashboard" />;
+    }
     const { confirmPassword, password, errorMessage } = this.state;
     const isEnabled = (password !== confirmPassword || password === '' || confirmPassword === '');
     return (
@@ -101,8 +113,8 @@ class SignUp extends React.Component {
 
             </div>
             {errorMessage != null
-             && <div>{errorMessage}</div>
-            }
+              && <div>{errorMessage}</div>
+              }
           </div>
         </div>
       </div>

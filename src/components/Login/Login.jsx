@@ -61,11 +61,9 @@ class Login extends React.Component {
                   </div>
                   <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
                 </div>
-
-                <div className="ui error message">
-                  {errorMessage}
-                </div>
-
+                {errorMessage != null
+                && <div>{errorMessage}</div>
+                }
               </form>
 
               <div className="ui message">
