@@ -45,3 +45,13 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#root {
+    height: 100%;
+    .register-page, .login-page {
+        height: 100%;
+        & > div {
+          height: 100%;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+.layout {
+  .menu, .pushable {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .menu {
+    a{
+      &.active{
+        transition: all 0.2s ease;
+        &.item {
+          background-color: $red !important;
+          &:hover {
+          }
+        }
+      }
+    }
+  }
+
+  .navbar {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .menu-hamburger {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .content-container {
+    background-color: $lightgrey !important;
+  }
+  .ui.inverted.menu .item {
+    &:not(.active) {
+      &:not(.menu-hamburger) {
+        &:hover {
+          color: $red !important;
+          font-weight: bold;
+          background-color: white !important;
+          i {
+            color: $red;
+          }
+        }
+      }
+    }
+  }
+
+}

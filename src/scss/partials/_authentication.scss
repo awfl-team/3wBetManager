@@ -1,0 +1,19 @@
+.register-page, .login-page {
+  background: $darkgrey;
+  .authentication-header {
+    color: white;
+    font-weight: bold;
+  }
+
+  input, .message {
+    border-radius: 25px !important;
+  }
+
+  input {
+    border: 2px transparent solid !important;
+
+    &:focus {
+      border: 2px $red solid !important;
+    }
+  }
+}
