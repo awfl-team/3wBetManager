@@ -15,4 +15,16 @@ export default class UserService {
       Username: user.Username,
     });
   }
+
+  static getByEmail(email) {
+    return API.get(`/users/GetByEmail?email=${email}`);
+  }
+
+  static updateUser(user) {
+    return API.put(`/users/put/${user.Id}`, {
+      Email: user.Email,
+      Password: user.Password,
+      Username: user.Username,
+    });
+  }
 }

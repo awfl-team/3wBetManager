@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
@@ -10,16 +10,16 @@ class SignUp extends React.Component {
     password: '',
     confirmPassword: '',
     errorMessage: null,
-    toDashboard: false
+    toDashboard: false,
   };
 
   handlePasswordChange = (event) => {
     this.setState({ password: event.target.value });
-  }
+  };
 
   handlePasswordConfirmationChange = (event) => {
     this.setState({ confirmPassword: event.target.value });
-  }
+  };
 
   handleSubmit(event) {
     event.preventDefault();
@@ -27,18 +27,17 @@ class SignUp extends React.Component {
       event.target.username.value,
       event.target.password.value);
     if (event.target.password.value !== event.target.confirmPassword.value) {
+      // TODO fix this void if
     } else {
       UserService.signUp(user)
         .then(() => {
           UserService.login(user.Email, user.Password)
             .then((response) => {
               AuthService.setTokenInLocalStorage(response);
-            }).then((response) => {
               this.setState({ toDashboard: true });
-              console.log(response);
-            }).catch((error) => {
-              this.setState({ errorMessage: error.response.data });
             });
+        }).catch((error) => {
+          this.setState({ errorMessage: error.response.data });
         });
     }
   }

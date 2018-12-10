@@ -4,14 +4,25 @@ import {
   Container, Dropdown, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
+import AuthService from '../../service/AuthService';
+import Profile from '../Profile/Profile';
 
 class UserLayout extends React.Component {
-  state = { visible: true };
+  state = {
+    visible: true,
+    username: Object,
+  };
+
+  componentDidMount() {
+    const token = AuthService.getToken();
+    const userInfo = AuthService.getUserInfo(token);
+    this.setState({ username: userInfo.unique_name });
+  }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
   render() {
-    const { visible } = this.state;
+    const { visible, username } = this.state;
     return (
       <div className="layout">
         <Menu inverted>
@@ -22,9 +33,9 @@ class UserLayout extends React.Component {
             </Menu.Item>
             <Menu.Item as="a">Home</Menu.Item>
 
-            <Dropdown item simple text="Dropdown">
+            <Dropdown item simple text={username.toString()}>
               <Dropdown.Menu>
-                <Dropdown.Item>List Item</Dropdown.Item>
+                <Dropdown.Item as={NavLink} to="/profile">My profile</Dropdown.Item>
                 <Dropdown.Item>List Item</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Header>Header Item</Dropdown.Header>
@@ -60,6 +71,7 @@ class UserLayout extends React.Component {
           <Sidebar.Pusher>
             <Segment basic className="content-container">
               <Route path="/dashboard" component={Dashboard} />
+              <Route path="/profile" component={Profile} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
