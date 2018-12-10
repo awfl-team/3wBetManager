@@ -43,12 +43,14 @@ class SignUp extends React.Component {
   }
 
   render() {
-    const { toDashboard } = this.state;
+    const {
+      confirmPassword, password, errorMessage, toDashboard,
+    } = this.state;
 
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
-    const { confirmPassword, password, errorMessage } = this.state;
+
     const isEnabled = (password !== confirmPassword || password === '' || confirmPassword === '');
     return (
       <div className="register-page">

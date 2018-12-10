@@ -10,7 +10,7 @@ api.interceptors.request.use(
   (config) => {
     const token = AuthService.getToken();
     const configuration = config;
-    if (token) configuration.headers.Authorization = `Bearer${token}`;
+    if (token !== null) configuration.headers.Authorization = `Bearer${token}`;
     return configuration;
   },
   error => Promise.reject(error),

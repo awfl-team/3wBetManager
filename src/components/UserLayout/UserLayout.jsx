@@ -1,19 +1,23 @@
 import React from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Redirect, Route } from 'react-router-dom';
 import {
   Container, Dropdown, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
+import UserService from '../../service/UserService';
 
 class UserLayout extends React.Component {
   state = {
     visible: true,
     username: Object,
+    toHome: false,
+    toLogin: false,
   };
 
   componentDidMount() {
+    // TODO redirect to login if the token is not valid
     const token = AuthService.getToken();
     const userInfo = AuthService.getUserInfo(token);
     this.setState({ username: userInfo.unique_name });
@@ -21,8 +25,22 @@ class UserLayout extends React.Component {
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
+  logout() {
+    AuthService.logout();
+    this.setState({ toHome: true });
+  }
+
   render() {
-    const { visible, username } = this.state;
+    const {
+      visible, username, toHome, toLogin,
+    } = this.state;
+
+    if (toHome) {
+      return <Redirect to="/" />;
+    }
+    if (toLogin) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="layout">
         <Menu inverted>
@@ -36,7 +54,7 @@ class UserLayout extends React.Component {
             <Dropdown item simple text={username.toString()}>
               <Dropdown.Menu>
                 <Dropdown.Item as={NavLink} to="/profile">My profile</Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
+                <Dropdown.Item onClick={() => this.logout()}>logout</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Header>Header Item</Dropdown.Header>
                 <Dropdown.Item>
