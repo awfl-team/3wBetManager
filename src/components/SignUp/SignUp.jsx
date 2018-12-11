@@ -7,10 +7,20 @@ import AuthService from '../../service/AuthService';
 
 class SignUp extends React.Component {
   state = {
+    email: '',
+    username: '',
     password: '',
     confirmPassword: '',
     errorMessage: null,
     toDashboard: false,
+  };
+
+  handleEmailChange = (event) => {
+    this.setState({ email: event.target.value });
+  };
+
+  handleUsernameChange = (event) => {
+    this.setState({ username: event.target.value });
   };
 
   handlePasswordChange = (event) => {
@@ -26,35 +36,43 @@ class SignUp extends React.Component {
     const user = new User(event.target.email.value,
       event.target.username.value,
       event.target.password.value);
-    if (event.target.password.value !== event.target.confirmPassword.value) {
-      // TODO fix this void if
-    } else {
-      UserService.signUp(user)
-        .then(() => {
-          UserService.login(user.Email, user.Password)
-            .then((response) => {
-              AuthService.setTokenInLocalStorage(response);
-              this.setState({ toDashboard: true });
-            });
-        }).catch((error) => {
-          this.setState({ errorMessage: error.response.data });
+    if (event.target.password.value === event.target.confirmPassword.value) {
+        UserService.signUp(user)
+            .then(() => {
+                UserService.login(user.Email, user.Password)
+                    .then((response) => {
+                        AuthService.setTokenInLocalStorage(response);
+                        this.setState({ toDashboard: true });
+                    });
+            }).catch((error) => {
+            this.setState({ errorMessage: error.response.data });
+            document.getElementById('messageContainer').classList = 'errorMessage show';
+            setTimeout(() => {
+                document.getElementById('messageContainer').classList = 'errorMessage hide';
+            }, 3000);
         });
+    } else {
+      // @todo set state errorMessage
     }
   }
 
   render() {
     const {
-      confirmPassword, password, errorMessage, toDashboard,
+      confirmPassword, password, errorMessage, toDashboard, email, username
     } = this.state;
 
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
 
-    const isEnabled = (password !== confirmPassword || password === '' || confirmPassword === '');
+    const isPasswordOk = (password === confirmPassword && password !== '' && confirmPassword !== '' && password.length > 6 && confirmPassword.length > 6);
+    const isEmailOk = (/^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_]+\.[A-Za-z]+$/.test(email));
+    const isUsernameOk = (username.length > 5);
+    const isEnabled = (isPasswordOk && isEmailOk && isUsernameOk);
+
     return (
       <div className="register-page">
-        <div className="ui middle aligned center aligned grid">
+        <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
               <div className="content">
@@ -66,13 +84,13 @@ class SignUp extends React.Component {
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="user icon" />
-                    <input type="text" name="email" placeholder="E-mail" />
+                    <input type="text" name="email" placeholder="E-mail" value={email} onChange={this.handleEmailChange.bind(this)} className={isEmailOk ? 'okInput': '' + email !== '' && !isEmailOk ? 'errorInput': ''}/>
                   </div>
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="user icon" />
-                    <input type="text" name="username" placeholder="Nom d'utilisateur" />
+                    <input type="text" name="username" placeholder="Nom d'utilisateur" value={username} onChange={this.handleUsernameChange.bind(this)} className={isUsernameOk ? 'okInput': '' + username !== '' && !isUsernameOk ? 'errorInput': ''}/>
                   </div>
                 </div>
                 <div className="field">
@@ -84,6 +102,7 @@ class SignUp extends React.Component {
                       placeholder="Password"
                       value={password}
                       onChange={this.handlePasswordChange.bind(this)}
+                      className={password.length !== 0 && password.length < 6 || password !== confirmPassword ? 'errorInput':'' + password.length > 6 && password === confirmPassword ? 'okInput':''}
                     />
                   </div>
                 </div>
@@ -96,16 +115,23 @@ class SignUp extends React.Component {
                       placeholder="Confirm Password"
                       value={confirmPassword}
                       onChange={this.handlePasswordConfirmationChange.bind(this)}
+                      className={confirmPassword.length !== 0 && confirmPassword.length < 6 || password !== confirmPassword ? 'errorInput':'' + confirmPassword.length > 6 && password === confirmPassword ? 'okInput':''}
                     />
                   </div>
                 </div>
-                <button disabled={isEnabled} type="submit" className="ui fluid large teal submit button main-button">
-                    Sign Up
+                {isEnabled &&
+                <button type="submit" className="ui fluid large teal submit button main-button">
+                  Sign Up
                 </button>
+                }
+
               </div>
 
               <div className="ui error message" />
-
+                <div className={errorMessage ? 'errorMessage show': 'errorMessage'} id={'messageContainer'}>{errorMessage != null
+                && {errorMessage}
+                }
+                </div>
             </form>
 
             <div className="ui message">
@@ -113,9 +139,6 @@ class SignUp extends React.Component {
               <Link to="/login">Log In</Link>
 
             </div>
-            {errorMessage != null
-              && <div>{errorMessage}</div>
-              }
           </div>
         </div>
       </div>
