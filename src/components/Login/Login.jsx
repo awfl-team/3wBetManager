@@ -6,31 +6,46 @@ import AuthService from '../../service/AuthService';
 class Login extends React.Component {
     state = {
       toDashboard: false,
-      errorMessage: '',
+      email: '',
+      password: '',
+      errorMessage: null,
+    };
+
+    handleEmailChange = (event) => {
+      this.setState({ email: event.target.value });
+    };
+
+    handlePasswordChange = (event) => {
+      this.setState({ password: event.target.value });
     };
 
     handleSubmit(event) {
       event.preventDefault();
-      UserService.login(event.target.email.value, event.target.password.value)
+
+     UserService.login(event.target.email.value, event.target.password.value)
         .then((response) => {
           AuthService.setTokenInLocalStorage(response);
           this.setState({ toDashboard: true });
         })
         .catch((error) => {
           this.setState({ errorMessage: error.response.data });
+            document.getElementById('messageContainer').classList = 'errorMessage show';
+            setTimeout(() => {
+                document.getElementById('messageContainer').classList = 'errorMessage hide';
+            }, 3000);
         });
     }
 
     render() {
-      const { toDashboard } = this.state;
-      const { errorMessage } = this.state;
+      const { toDashboard, errorMessage, email, password} = this.state;
+      const isEmailOk = (/^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_]+\.[A-Za-z]+$/.test(email));
 
       if (toDashboard) {
         return <Redirect to="/dashboard" />;
       }
       return (
         <div className="login-page">
-          <div className="ui middle aligned center aligned grid">
+          <div className="ui middle aligned center aligned fullpage">
             <div className="column">
               <h2 className="ui teal authentication-header">
                 <div className="content">
@@ -46,6 +61,7 @@ class Login extends React.Component {
                         type="text"
                         name="email"
                         placeholder="E-mail"
+                        value={email} onChange={this.handleEmailChange.bind(this)} className={isEmailOk ? 'okInput': '' + email !== '' && !isEmailOk ? 'errorInput': ''}
                       />
                     </div>
                   </div>
@@ -56,14 +72,19 @@ class Login extends React.Component {
                         type="password"
                         name="password"
                         placeholder="Mot de passe"
+                        value={password}
+                        onChange={this.handlePasswordChange.bind(this)}
+                        className={password.length !== 0 && password.length < 6 ? 'errorInput':'' + password.length > 6 ? 'okInput':''}
+
                       />
                     </div>
                   </div>
                   <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
                 </div>
-                {errorMessage != null
-                && <div>{errorMessage}</div>
+                 <div className={errorMessage ? 'errorMessage show': 'errorMessage'} id={'messageContainer'}>{errorMessage != null
+                && {errorMessage}
                 }
+                </div>
               </form>
 
               <div className="ui message">
