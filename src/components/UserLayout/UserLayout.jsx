@@ -6,7 +6,6 @@ import {
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
-import UserService from '../../service/UserService';
 
 class UserLayout extends React.Component {
   state = {
@@ -16,12 +15,25 @@ class UserLayout extends React.Component {
     toLogin: false,
   };
 
+
+  componentWillMount() {
+    const { history } = this.props;
+    if (AuthService.getToken() !== null) {
+      AuthService.validateToken()
+        .then(() => {
+        })
+        .catch(() => {
+          // history.push('login');
+        });
+    }
+  }
+
   componentDidMount() {
-    // TODO redirect to login if the token is not valid
     const token = AuthService.getToken();
     const userInfo = AuthService.getUserInfo(token);
     this.setState({ username: userInfo.unique_name });
   }
+
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
