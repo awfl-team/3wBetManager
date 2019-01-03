@@ -2,14 +2,14 @@ import API from '../api';
 
 export default class UserService {
   static login(email, password) {
-    return API.post('/users/login', {
+    return API.post('/auth/login', {
       Email: email,
       Password: password,
     });
   }
 
   static signUp(user) {
-    return API.post('/users/register', {
+    return API.post('/auth/register', {
       Email: user.Email,
       Password: user.Password,
       Username: user.Username,
@@ -18,10 +18,6 @@ export default class UserService {
 
   static getByEmail(email) {
     return API.get(`/users/GetByEmail?email=${email}`);
-  }
-
-  static validateToken() {
-    return API.get('/token/validate');
   }
 
   static updateUser(user) {

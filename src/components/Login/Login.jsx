@@ -2,13 +2,15 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
+import Error from '../Error/Error';
+import VerifyService from '../../service/VerifyService';
 
 class Login extends React.Component {
     state = {
       toDashboard: false,
       email: '',
       password: '',
-      errorMessage: null,
+      errorMessage: '',
     };
 
     handleEmailChange = (event) => {
@@ -22,23 +24,20 @@ class Login extends React.Component {
     handleSubmit(event) {
       event.preventDefault();
 
-     UserService.login(event.target.email.value, event.target.password.value)
+      UserService.login(event.target.email.value, event.target.password.value)
         .then((response) => {
           AuthService.setTokenInLocalStorage(response);
           this.setState({ toDashboard: true });
         })
         .catch((error) => {
           this.setState({ errorMessage: error.response.data });
-            document.getElementById('messageContainer').classList = 'errorMessage show';
-            setTimeout(() => {
-                document.getElementById('messageContainer').classList = 'errorMessage hide';
-            }, 3000);
         });
     }
 
     render() {
-      const { toDashboard, errorMessage, email, password} = this.state;
-      const isEmailOk = (/^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_]+\.[A-Za-z]+$/.test(email));
+      const {
+        toDashboard, errorMessage, email, password,
+      } = this.state;
 
       if (toDashboard) {
         return <Redirect to="/dashboard" />;
@@ -61,7 +60,10 @@ class Login extends React.Component {
                         type="text"
                         name="email"
                         placeholder="E-mail"
-                        value={email} onChange={this.handleEmailChange.bind(this)} className={isEmailOk ? 'okInput': '' + email !== '' && !isEmailOk ? 'errorInput': ''}
+                        value={email}
+                        onChange={this.handleEmailChange.bind(this)}
+                        className={VerifyService.isEmailOk(email) ? 'okInput' : `${email}` !== ''
+                        && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                       />
                     </div>
                   </div>
@@ -74,17 +76,15 @@ class Login extends React.Component {
                         placeholder="Mot de passe"
                         value={password}
                         onChange={this.handlePasswordChange.bind(this)}
-                        className={password.length !== 0 && password.length < 6 ? 'errorInput':'' + password.length > 6 ? 'okInput':''}
+                        className={password.length !== 0 && VerifyService.passwordSize(password)
+                          ? 'errorInput' : `${password.length}` > 6 ? 'okInput' : ''}
 
                       />
                     </div>
                   </div>
                   <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
                 </div>
-                 <div className={errorMessage ? 'errorMessage show': 'errorMessage'} id={'messageContainer'}>{errorMessage != null
-                && {errorMessage}
-                }
-                </div>
+                <Error errorMessage={errorMessage} />
               </form>
 
               <div className="ui message">

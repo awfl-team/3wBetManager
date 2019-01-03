@@ -6,7 +6,6 @@ import {
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
-import UserService from '../../service/UserService';
 
 class UserLayout extends React.Component {
   state = {
@@ -15,13 +14,6 @@ class UserLayout extends React.Component {
     toHome: false,
     toLogin: false,
   };
-
-  // componentDidMount() {
-  //   // TODO redirect to login if the token is not valid
-  //   const token = AuthService.getToken();
-  //   const userInfo = AuthService.getUserInfo(token);
-  //   this.setState({ username: userInfo.unique_name });
-  // }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
@@ -85,12 +77,11 @@ class UserLayout extends React.Component {
               Channels
             </Menu.Item>
           </Sidebar>
-          <div>
-          </div>
-          <Sidebar.Pusher  className={!visible ? 'full-width': ''}>
+          <div />
+          <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
             <Segment basic className="content-container">
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/profile" component={Profile} />
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/profile" component={Profile} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

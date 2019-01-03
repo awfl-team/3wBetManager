@@ -1,23 +1,10 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import AuthService from '../../service/AuthService';
-import UserService from '../../service/UserService';
 
 class Homepage extends React.Component {
   state = {
     toDashboard: false,
   };
-
-  componentDidMount() {
-    if (AuthService.getToken() !== null) {
-      UserService.validateToken()
-        .then(() => {
-        })
-        .catch(() => {
-          this.setState({ toDashboard: true });
-        });
-    }
-  }
 
   render() {
     const { toDashboard } = this.state;

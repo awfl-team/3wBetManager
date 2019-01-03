@@ -3,6 +3,8 @@ import { Link, Redirect } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
+import VerifyService from '../../service/VerifyService';
+import Error from '../Error/Error';
 
 
 class SignUp extends React.Component {
@@ -11,7 +13,7 @@ class SignUp extends React.Component {
     username: '',
     password: '',
     confirmPassword: '',
-    errorMessage: null,
+    errorMessage: '',
     toDashboard: false,
   };
 
@@ -37,37 +39,31 @@ class SignUp extends React.Component {
       event.target.username.value,
       event.target.password.value);
     if (event.target.password.value === event.target.confirmPassword.value) {
-        UserService.signUp(user)
-            .then(() => {
-                UserService.login(user.Email, user.Password)
-                    .then((response) => {
-                        AuthService.setTokenInLocalStorage(response);
-                        this.setState({ toDashboard: true });
-                    });
-            }).catch((error) => {
-            this.setState({ errorMessage: error.response.data });
-            document.getElementById('messageContainer').classList = 'errorMessage show';
-            setTimeout(() => {
-                document.getElementById('messageContainer').classList = 'errorMessage hide';
-            }, 3000);
+      UserService.signUp(user)
+        .then(() => {
+          UserService.login(user.Email, user.Password)
+            .then((response) => {
+              AuthService.setTokenInLocalStorage(response);
+              this.setState({ toDashboard: true });
+            });
+        }).catch((error) => {
+          this.setState({ errorMessage: error.response.data });
         });
-    } else {
-      // @todo set state errorMessage
     }
   }
 
   render() {
     const {
-      confirmPassword, password, errorMessage, toDashboard, email, username
+      confirmPassword, password, errorMessage, toDashboard, email, username,
     } = this.state;
 
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
 
-    const isPasswordOk = (password === confirmPassword && password !== '' && confirmPassword !== '' && password.length > 6 && confirmPassword.length > 6);
-    const isEmailOk = (/^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_]+\.[A-Za-z]+$/.test(email));
-    const isUsernameOk = (username.length > 5);
+    const isPasswordOk = VerifyService.isPasswordOk(password, confirmPassword);
+    const isEmailOk = VerifyService.isEmailOk(email);
+    const isUsernameOk = VerifyService.isUsernameOk(username);
     const isEnabled = (isPasswordOk && isEmailOk && isUsernameOk);
 
     return (
@@ -84,13 +80,29 @@ class SignUp extends React.Component {
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="user icon" />
-                    <input type="text" name="email" placeholder="E-mail" value={email} onChange={this.handleEmailChange.bind(this)} className={isEmailOk ? 'okInput': '' + email !== '' && !isEmailOk ? 'errorInput': ''}/>
+                    <input
+                      type="text"
+                      name="email"
+                      placeholder="E-mail"
+                      value={email}
+                      onChange={this.handleEmailChange.bind(this)}
+                      className={isEmailOk ? 'okInput' : `${email}` !== ''
+                          && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
+                    />
                   </div>
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
                     <i className="user icon" />
-                    <input type="text" name="username" placeholder="Nom d'utilisateur" value={username} onChange={this.handleUsernameChange.bind(this)} className={isUsernameOk ? 'okInput': '' + username !== '' && !isUsernameOk ? 'errorInput': ''}/>
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Nom d'utilisateur"
+                      value={username}
+                      onChange={this.handleUsernameChange.bind(this)}
+                      className={isUsernameOk ? 'okInput' : `${username}` !== ''
+                      && !isUsernameOk ? 'errorInput' : ''}
+                    />
                   </div>
                 </div>
                 <div className="field">
@@ -102,7 +114,9 @@ class SignUp extends React.Component {
                       placeholder="Password"
                       value={password}
                       onChange={this.handlePasswordChange.bind(this)}
-                      className={password.length !== 0 && password.length < 6 || password !== confirmPassword ? 'errorInput':'' + password.length > 6 && password === confirmPassword ? 'okInput':''}
+                      className={password.length !== 0 && password.length < 6
+                          || password !== confirmPassword ? 'errorInput' : `${password.length}` > 6
+                          && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
                 </div>
@@ -115,29 +129,28 @@ class SignUp extends React.Component {
                       placeholder="Confirm Password"
                       value={confirmPassword}
                       onChange={this.handlePasswordConfirmationChange.bind(this)}
-                      className={confirmPassword.length !== 0 && confirmPassword.length < 6 || password !== confirmPassword ? 'errorInput':'' + confirmPassword.length > 6 && password === confirmPassword ? 'okInput':''}
+                      className={confirmPassword.length !== 0 && confirmPassword.length < 6
+                          || password !== confirmPassword ? 'errorInput' : `${confirmPassword.length}` > 6
+                          && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
                 </div>
-                {isEnabled &&
-                <button type="submit" className="ui fluid large teal submit button main-button">
-                  Sign Up
-                </button>
-                }
-
+                {isEnabled && (
+                  <button
+                    type="submit"
+                    className="ui fluid large teal submit button main-button"
+                  >
+                        Sign Up
+                  </button>
+                )
+                  }
               </div>
-
               <div className="ui error message" />
-                <div className={errorMessage ? 'errorMessage show': 'errorMessage'} id={'messageContainer'}>{errorMessage != null
-                && {errorMessage}
-                }
-                </div>
+              <Error errorMessage={errorMessage} />
             </form>
-
             <div className="ui message">
                 Already have an account ? &nbsp;
               <Link to="/login">Log In</Link>
-
             </div>
           </div>
         </div>
