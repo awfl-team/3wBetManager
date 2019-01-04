@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import {Button, Container, Divider, Grid, Header, Icon, List} from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
@@ -26,18 +26,50 @@ class Profile extends React.Component {
   render() {
     const { user, errorMessage } = this.state;
     return (
-      <div>
+      <div id={'profile'}>
+        <Header as={'h2'} icon textAlign={'center'}>
+          <Icon name={'user'} circular />
+          <Header.Content>My profile</Header.Content>
+        </Header>
+        <Container textAlign={'center'} className={'container-centered'}>
+          <Button
+            content='Email'
+            icon='mail'
+            fluid
+            label={{ basic: true, color: 'basic', pointing: 'left', content: user.Email }}
+          />
+          <Button
+            content='Username'
+            icon='user'
+            fluid
+            label={{ basic: true, color: 'basic', pointing: 'left', content: user.Username }}
+          />
+          <Button
+            color='green'
+            content='Score'
+            icon='winner'
+            fluid
+            label={{ basic: true, color: 'green', pointing: 'left', content: user.Point + ' pts' }}
+          />
+
+
+          <Container className={'container-actions'}>
+            <Button circular icon={'trash'} color={'red'} size={'huge'} />
+            <Button circular icon={'pencil'} color={'orange'} size={'huge'} />
+          </Container>
+        </Container>
+
+        <Divider section />
+
+        <Header as={'h2'} icon textAlign={'center'}>
+          <Icon name={'pie graph'} circular />
+          <Header.Content>Stats</Header.Content>
+        </Header>
+
         {errorMessage != null
         && <div>{errorMessage}</div>
         }
-        <h2>My Profile</h2>
-        <ul>
-          <li>{user.Email}</li>
-          <li>{user.Username}</li>
-          <li>{user.Point}</li>
-        </ul>
-        <Button color="red">Delete profile</Button>
-        <Button color="yellow">Update profile</Button>
+
       </div>
     );
   }
