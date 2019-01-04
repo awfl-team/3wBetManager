@@ -101,7 +101,7 @@ class SignUp extends React.Component {
                       value={username}
                       onChange={this.handleUsernameChange.bind(this)}
                       className={isUsernameOk ? 'okInput' : `${username}` !== ''
-                      && !isUsernameOk ? 'errorInput' : ''}
+                          && !isUsernameOk ? 'errorInput' : ''}
                     />
                   </div>
                 </div>
