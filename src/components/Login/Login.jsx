@@ -76,7 +76,7 @@ class Login extends React.Component {
                       placeholder="Mot de passe"
                       value={password}
                       onChange={this.handlePasswordChange.bind(this)}
-                      className={password.length !== 0 && VerifyService.passwordSize(password)
+                      className={password.length !== 0 && password.length < 6
                         ? 'errorInput' : `${password.length}` > 6 ? 'okInput' : ''}
                     />
                   </div>
