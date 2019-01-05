@@ -15,6 +15,12 @@ class UserLayout extends React.Component {
     toLogin: false,
   };
 
+  componentDidMount() {
+    const token = AuthService.getToken();
+    const userInfo = AuthService.getUserInfo(token);
+    this.setState({ username: userInfo.unique_name });
+  }
+
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
   logout() {
@@ -38,28 +44,16 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Menu.Item as="a" header>
-              Project Name
-            </Menu.Item>
-            <Menu.Item as="a">Home</Menu.Item>
-
             <Dropdown item simple text={username.toString()}>
               <Dropdown.Menu>
                 <Dropdown.Item as={NavLink} to="/profile">My profile</Dropdown.Item>
                 <Dropdown.Item onClick={() => this.logout()}>logout</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Header>Header Item</Dropdown.Header>
-                <Dropdown.Item>
-                  <i className="dropdown icon" />
-                  <span className="text">Submenu</span>
-                  <Dropdown.Menu>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            <Menu.Item as="a" header>
+              Project Name
+            </Menu.Item>
+            <Menu.Item as="a">Home</Menu.Item>
           </Container>
         </Menu>
         <Sidebar.Pushable as={Segment}>
