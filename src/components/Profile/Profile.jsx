@@ -53,12 +53,12 @@ class Profile extends React.Component {
             }}
           />
           <Button
-            color="green"
+            color="blue"
             content="Score"
             icon="winner"
             fluid
             label={{
-              basic: true, color: 'green', pointing: 'left', content: `${user.Point} pts`,
+              basic: true, color: 'blue', pointing: 'left', content: `${user.Point} pts`,
             }}
           />
 
