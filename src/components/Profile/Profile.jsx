@@ -1,8 +1,12 @@
 import React from 'react';
-import {Button, Container, Divider, Grid, Header, Icon, List} from 'semantic-ui-react';
+import {
+  Button, Container, Divider, Header, Icon,
+} from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
+
 
 class Profile extends React.Component {
   state = {
@@ -26,43 +30,49 @@ class Profile extends React.Component {
   render() {
     const { user, errorMessage } = this.state;
     return (
-      <div id={'profile'}>
-        <Header as={'h2'} icon textAlign={'center'}>
-          <Icon name={'user'} circular />
+      <div id="profile">
+        <Header as="h2" icon textAlign="center">
+          <Icon name="user" circular />
           <Header.Content>My profile</Header.Content>
         </Header>
-        <Container textAlign={'center'} className={'container-centered'}>
+        <Container textAlign="center" className="container-centered">
           <Button
-            content='Email'
-            icon='mail'
+            content="Email"
+            icon="mail"
             fluid
-            label={{ basic: true, color: 'basic', pointing: 'left', content: user.Email }}
+            label={{
+              basic: true, color: 'basic', pointing: 'left', content: user.Email,
+            }}
           />
           <Button
-            content='Username'
-            icon='user'
+            content="Username"
+            icon="user"
             fluid
-            label={{ basic: true, color: 'basic', pointing: 'left', content: user.Username }}
+            label={{
+              basic: true, color: 'basic', pointing: 'left', content: user.Username,
+            }}
           />
           <Button
-            color='green'
-            content='Score'
-            icon='winner'
+            color="green"
+            content="Score"
+            icon="winner"
             fluid
-            label={{ basic: true, color: 'green', pointing: 'left', content: user.Point + ' pts' }}
+            label={{
+              basic: true, color: 'green', pointing: 'left', content: `${user.Point} pts`,
+            }}
           />
 
 
-          <Container className={'container-actions'}>
-            <Button circular icon={'trash'} color={'red'} size={'huge'} />
-            <Button circular icon={'pencil'} color={'orange'} size={'huge'} />
+          <Container className="container-actions">
+            <Button circular icon="trash" color="red" size="huge" />
+            <Button as={NavLink} to="/update-profile" circular icon="pencil" color="orange" size="huge" />
           </Container>
         </Container>
 
         <Divider section />
 
-        <Header as={'h2'} icon textAlign={'center'}>
-          <Icon name={'pie graph'} circular />
+        <Header as="h2" icon textAlign="center">
+          <Icon name="pie graph" circular />
           <Header.Content>Stats</Header.Content>
         </Header>
 

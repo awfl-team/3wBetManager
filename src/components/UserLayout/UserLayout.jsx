@@ -6,6 +6,7 @@ import {
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
+import UpdateProfile from '../UpdateProfile/UpdateProfile';
 
 class UserLayout extends React.Component {
   state = {
@@ -76,6 +77,7 @@ class UserLayout extends React.Component {
             <Segment basic className="content-container">
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
+              <Route path="/update-profile" component={UpdateProfile} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
