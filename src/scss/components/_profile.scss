@@ -1,5 +1,8 @@
 #profile {
   .container-centered{
+    .form {
+      max-width: 450px;
+    }
     & > .button {
       margin: 5px;
       cursor: default;

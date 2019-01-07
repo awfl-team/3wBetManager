@@ -4,6 +4,9 @@ import UserService from '../../service/UserService';
 import User from '../../model/User';
 import Error from '../Error/Error';
 
+import {Header, Button, Container, Icon} from "semantic-ui-react";
+import {NavLink} from "react-router-dom";
+
 class UpdateProfile extends React.Component {
   state = {
     user: User,
@@ -41,12 +44,17 @@ class UpdateProfile extends React.Component {
   render() {
     const { user, errorMessage } = this.state;
     return (
-      <div id="update-profile">
-        <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
+      <div id="profile">
+        <Header as="h2" icon textAlign="center">
+          <Icon name="cogs" circular />
+          <Header.Content>Update my profile</Header.Content>
+        </Header>
+        <Container textAlign="center" className="container-centered">
+          <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
           <div className="ui stacked">
             <div className="field">
               <div className="ui left icon input">
-                <i className="user icon" />
+                <Icon name="mail" />
                 <input
                   type="text"
                   name="email"
@@ -57,7 +65,7 @@ class UpdateProfile extends React.Component {
             </div>
             <div className="field">
               <div className="ui left icon input">
-                <i className="lock icon" />
+                <Icon name="user" />
                 <input
                   type="text"
                   name="username"
@@ -68,7 +76,7 @@ class UpdateProfile extends React.Component {
             </div>
             <div className="field">
               <div className="ui left icon input">
-                <i className="lock icon" />
+                <Icon name="lock" />
                 <input
                   type="password"
                   name="password"
@@ -78,7 +86,7 @@ class UpdateProfile extends React.Component {
             </div>
             <div className="field">
               <div className="ui left icon input">
-                <i className="lock icon" />
+                <Icon name="lock" />
                 <input
                   type="password"
                   name="confirmPassword"
@@ -86,15 +94,13 @@ class UpdateProfile extends React.Component {
                 />
               </div>
             </div>
-            <button
-              type="submit"
-              className="ui fluid large teal submit button main-button"
-            >
-Submit
-            </button>
           </div>
           <Error errorMessage={errorMessage} />
-        </form>
+            <Container className="container-actions">
+              <Button type="submit" circular color="green" size="huge">Submit </Button>
+            </Container>
+          </form>
+        </Container>
       </div>
     );
   }
