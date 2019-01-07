@@ -45,16 +45,15 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Dropdown item simple text={username.toString()}>
-              <Dropdown.Menu>
-                <Dropdown.Item as={NavLink} to="/profile">My profile</Dropdown.Item>
-                <Dropdown.Item onClick={() => this.logout()}>logout</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Menu.Item as="a" header>
-              Project Name
+            <Menu.Item>
+              {username.toString()}
             </Menu.Item>
-            <Menu.Item as="a">Home</Menu.Item>
+            <Menu.Item as={NavLink} to="/profile">
+              My profile
+            </Menu.Item>
+            <Menu.Item as="a" onClick={() => this.logout()} >
+              Logout
+            </Menu.Item>
           </Container>
         </Menu>
         <Sidebar.Pushable as={Segment}>

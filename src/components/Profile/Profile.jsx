@@ -41,7 +41,7 @@ class Profile extends React.Component {
             icon="mail"
             fluid
             label={{
-              basic: true, color: 'basic', pointing: 'left', content: user.Email,
+              basic: true, pointing: 'left', content: user.Email,
             }}
           />
           <Button
@@ -49,23 +49,25 @@ class Profile extends React.Component {
             icon="user"
             fluid
             label={{
-              basic: true, color: 'basic', pointing: 'left', content: user.Username,
+              basic: true, pointing: 'left', content: user.Username,
             }}
           />
           <Button
-            color="green"
+            color="blue"
             content="Score"
             icon="winner"
             fluid
             label={{
-              basic: true, color: 'green', pointing: 'left', content: `${user.Point} pts`,
+              basic: true, color: 'blue', pointing: 'left', content: `${user.Point} pts`,
             }}
           />
 
 
           <Container className="container-actions">
             <Button circular icon="trash" color="red" size="huge" />
-            <Button as={NavLink} to="/update-profile" circular icon="pencil" color="orange" size="huge" />
+            <Button as={NavLink} to="/update-profile" circular color="orange" size="huge">
+              <Icon name='pencil' />
+            </Button>
           </Container>
         </Container>
 
