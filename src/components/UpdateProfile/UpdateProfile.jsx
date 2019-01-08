@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 class UpdateProfile extends React.Component {
   state = {
     user: User,
-    errorMessage: '',
+    message: '',
   };
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class UpdateProfile extends React.Component {
         this.setState({ user: response.data });
       })
       .catch((error) => {
-        this.setState({ errorMessage: error.response.data });
+        this.setState({ message: error.response.data });
       });
   }
 
@@ -35,13 +35,13 @@ class UpdateProfile extends React.Component {
       UserService.updateUser(user).then((response) => {
       })
         .catch((error) => {
-          this.setState({ errorMessage: error.response.data });
+          this.setState({ message: error.response.data });
         });
     }
   }
 
   render() {
-    const { user, errorMessage } = this.state;
+    const { user, message } = this.state;
     return (
       <div id="profile">
         <Header as="h2" icon textAlign="center">

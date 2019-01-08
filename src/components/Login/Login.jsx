@@ -10,7 +10,7 @@ class Login extends React.Component {
     toDashboard: false,
     email: '',
     password: '',
-    errorMessage: '',
+    message: '',
   };
 
   handleEmailChange = (event) => {
@@ -30,13 +30,13 @@ class Login extends React.Component {
         this.setState({ toDashboard: true });
       })
       .catch((error) => {
-        this.setState({ errorMessage: error.response.data });
+        this.setState({ message: error.response.data });
       });
   }
 
   render() {
     const {
-      toDashboard, errorMessage, email, password,
+      toDashboard, message, email, password,
     } = this.state;
 
     if (toDashboard) {

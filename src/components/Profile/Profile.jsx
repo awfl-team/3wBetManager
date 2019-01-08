@@ -11,7 +11,7 @@ import User from '../../model/User';
 class Profile extends React.Component {
   state = {
     user: User,
-    errorMessage: '',
+    message: '',
   };
 
   componentDidMount() {
@@ -23,12 +23,12 @@ class Profile extends React.Component {
         this.setState({ user: response.data });
       })
       .catch((error) => {
-        this.setState({ errorMessage: error.response.data });
+        this.setState({ message: error.response.data });
       });
   }
 
   render() {
-    const { user, errorMessage } = this.state;
+    const { user, message } = this.state;
     return (
       <div id="profile">
         <Header as="h2" icon textAlign="center">
@@ -65,9 +65,7 @@ class Profile extends React.Component {
 
           <Container className="container-actions">
             <Button circular icon="trash" color="red" size="huge" />
-            <Button as={NavLink} to="/update-profile" circular color="orange" size="huge">
-              <Icon name='pencil' />
-            </Button>
+            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge"></Button>
           </Container>
         </Container>
 
@@ -78,8 +76,8 @@ class Profile extends React.Component {
           <Header.Content>Stats</Header.Content>
         </Header>
 
-        {errorMessage != null
-        && <div>{errorMessage}</div>
+        {message != null
+        && <div>{message}</div>
         }
 
       </div>

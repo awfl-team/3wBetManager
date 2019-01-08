@@ -12,7 +12,7 @@ class SignUp extends React.Component {
     username: '',
     password: '',
     confirmPassword: '',
-    errorMessage: '',
+    message: '',
     toDashboard: false,
   };
 
@@ -46,14 +46,14 @@ class SignUp extends React.Component {
               this.setState({ toDashboard: true });
             });
         }).catch((error) => {
-          this.setState({ errorMessage: error.response.data });
+          this.setState({ message: error.response.data });
         });
     }
   }
 
   render() {
     const {
-      confirmPassword, password, errorMessage, toDashboard, email, username,
+      confirmPassword, password, message, toDashboard, email, username,
     } = this.state;
 
     if (toDashboard) {
