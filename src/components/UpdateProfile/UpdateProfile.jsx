@@ -2,7 +2,6 @@ import * as React from 'react';
 import AuthService from '../../service/AuthService';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
-import Error from '../Error/Error';
 
 import {Header, Button, Container, Icon} from "semantic-ui-react";
 import {NavLink} from "react-router-dom";
@@ -95,7 +94,6 @@ class UpdateProfile extends React.Component {
               </div>
             </div>
           </div>
-          <Error errorMessage={errorMessage} />
             <Container className="container-actions">
               <Button type="submit" circular color="green" size="huge">Submit </Button>
             </Container>

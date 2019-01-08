@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
-import Error from '../Error/Error';
 import VerifyService from '../../service/VerifyService';
+import {addSnackBar} from "../../actions/SnackBarActions";
 
 class Login extends React.Component {
   state = {
@@ -83,8 +83,9 @@ class Login extends React.Component {
                 </div>
                 <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
               </div>
-              <Error errorMessage={errorMessage} />
             </form>
+
+
 
             <div className="ui message">
                 Nouveau ? &nbsp;

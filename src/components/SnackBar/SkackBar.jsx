@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Error extends React.Component {
+class SkackBar extends React.Component {
   render() {
     const { errorMessage } = this.props;
     return (
@@ -15,4 +15,4 @@ class Error extends React.Component {
     );
   }
 }
-export default Error;
+export default SkackBar;
