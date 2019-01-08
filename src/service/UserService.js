@@ -20,6 +20,10 @@ export default class UserService {
     return API.get(`/users/GetByEmail?email=${email}`);
   }
 
+  static deleteUser(user) {
+    return API.delete(`/users/delete/${user.Id}`);
+  }
+
   static updateUser(user) {
     return API.put(`/users/put/${user.Id}`, {
       Email: user.Email,
