@@ -102,7 +102,7 @@ class Profile extends React.Component {
                 </Button>
               </Modal.Actions>
             </Modal>
-            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge"></Button>
+            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge"/>
           </Container>
         </Container>
 
