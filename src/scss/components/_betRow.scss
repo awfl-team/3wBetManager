@@ -1,0 +1,66 @@
+#betRows {
+  .betRow {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    &:first-child {
+
+    }
+    &:not(:first-child) {
+      margin-top: 50px;
+
+      &:before {
+        content: '';
+        width: 320px;
+        height: 2px;
+        background-color: $darkgrey;
+        position: absolute;
+        top: -25px;
+        left: calc(50% - 160px);
+        @media screen and (max-width: 800px) {
+          display: none;
+        }
+      }
+    }
+
+    .container {
+      &-hometeam, &-versus-details, &-awayteam {
+        display: flex;
+        flex: 1 1 auto;
+      }
+
+      &-hometeam,  &-awayteam {
+        .team {
+          &-image {
+            img {
+              min-width: 75px;
+              max-width: 150px;
+              min-height: 75px;
+              max-height: 150px;
+              height: 100%;
+              width: 100%;
+
+              @media screen and (max-width: 800px) {
+                display: none;
+              }
+            }
+          }
+          &-info {
+            margin: 15px;
+          }
+        }
+      }
+      &-hometeam {
+        justify-content: flex-start;
+      }
+      &-versus-details {
+        align-items: center;
+        justify-content: space-around;
+      }
+      &-awayteam {
+        justify-content: flex-end;
+      }
+    }
+  }
+}
