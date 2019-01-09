@@ -1,4 +1,4 @@
 import {combineReducers} from "redux";
-import snackbars from "./snackbar";
+import snackbar          from './snackbar';
 
-export default combineReducers({snackbars})
+export default combineReducers({snackbar})
