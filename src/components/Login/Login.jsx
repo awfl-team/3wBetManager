@@ -1,14 +1,14 @@
-import React              from 'react';
+import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import UserService        from '../../service/UserService';
-import AuthService        from '../../service/AuthService';
-import VerifyService      from '../../service/VerifyService';
-import {addSnackBar}      from "../../actions/SnackBarActions";
-import { connect }        from 'react-redux';
+import { connect } from 'react-redux';
+import UserService from '../../service/UserService';
+import AuthService from '../../service/AuthService';
+import VerifyService from '../../service/VerifyService';
+import { addSnackBar } from '../../actions/SnackBarActions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    addSnackbar: ({message, type }) => dispatch(addSnackBar(message, type))
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
   };
 }
 
@@ -37,14 +37,13 @@ class LoginComponent extends React.Component {
         this.setState({ toDashboard: true });
       })
       .catch((error) => {
-      this.props.addSnackbar({message: error.response.data, type: 'danger'});
-        this.setState({ message: error.response.data });
+        this.props.addSnackbar({ message: error.response.data, type: 'danger' });
       });
   }
 
   render() {
     const {
-      toDashboard, message, email, password,
+      toDashboard, email, password,
     } = this.state;
 
     if (toDashboard) {
@@ -105,5 +104,5 @@ class LoginComponent extends React.Component {
   }
 }
 
-const Login = connect(null, mapDispatchToProps)(LoginComponent)
+const Login = connect(null, mapDispatchToProps)(LoginComponent);
 export default Login;
