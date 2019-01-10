@@ -1,17 +1,16 @@
 import React from 'react';
 import {
-  Button, Container, Divider, Header, Icon,
+  Button, Container, Divider, Header, Icon, Modal,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
 
-
 class Profile extends React.Component {
   state = {
     user: User,
-    message: '',
+    modalOpen: false,
   };
 
   componentDidMount() {
@@ -27,8 +26,22 @@ class Profile extends React.Component {
       });
   }
 
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
+
+  handleDelete = () => {
+    AuthService.logout();
+    UserService.deleteUser(this.state.user)
+      .then(() => this.props.history.push('/'))
+      .catch((error) => {
+        this.setState({ modalOpen: false });
+        this.setState({ errorMessage: error.response.data });
+      });
+  };
+
   render() {
-    const { user, message } = this.state;
+    const { user } = this.state;
     return (
       <div id="profile">
         <Header as="h2" icon textAlign="center">
@@ -61,11 +74,37 @@ class Profile extends React.Component {
               basic: true, color: 'blue', pointing: 'left', content: `${user.Point} pts`,
             }}
           />
-
-
           <Container className="container-actions">
             <Button circular icon="trash" color="red" size="huge" />
-            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge"></Button>
+            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge" />
+            <Modal
+              trigger={<Button onClick={this.handleOpen} circular icon="trash" color="red" size="huge" />}
+              open={this.state.modalOpen}
+              onClose={this.handleClose}
+              basic
+              size="small"
+            >
+              <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
+              <Modal.Content>
+                <h3>
+                  If you confirm this action, your profile
+                  and all your datas will be wipe from our website !
+                </h3>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="red" onClick={this.handleClose} inverted>
+                  <Icon name="remove" />
+                  {' '}
+                  Cancel
+                </Button>
+                <Button color="green" onClick={this.handleDelete} inverted>
+                  <Icon name="checkmark" />
+                  {' '}
+              Yes, delete me !
+                </Button>
+              </Modal.Actions>
+            </Modal>
+            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge" />
           </Container>
         </Container>
 
@@ -75,11 +114,6 @@ class Profile extends React.Component {
           <Icon name="pie graph" circular />
           <Header.Content>Stats</Header.Content>
         </Header>
-
-        {message != null
-        && <div>{message}</div>
-        }
-
       </div>
     );
   }
