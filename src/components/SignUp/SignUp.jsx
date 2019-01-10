@@ -1,12 +1,19 @@
-import React from 'react';
+import React              from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import UserService from '../../service/UserService';
-import User from '../../model/User';
-import AuthService from '../../service/AuthService';
-import VerifyService from '../../service/VerifyService';
+import UserService        from '../../service/UserService';
+import User               from '../../model/User';
+import AuthService        from '../../service/AuthService';
+import VerifyService      from '../../service/VerifyService';
+import { addSnackBar }    from '../../actions/SnackBarActions';
+import { connect }        from 'react-redux';
 
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({message, type}) => dispatch(addSnackBar(message, type))
+  };
+}
 
-class SignUp extends React.Component {
+class SignUpComponent extends React.Component {
   state = {
     email: '',
     username: '',
@@ -46,7 +53,7 @@ class SignUp extends React.Component {
               this.setState({ toDashboard: true });
             });
         }).catch((error) => {
-          this.setState({ message: error.response.data });
+        this.props.addSnackbar({message: error.response.data, type: 'danger'});
         });
     }
   }
@@ -156,5 +163,7 @@ class SignUp extends React.Component {
     );
   }
 }
+
+const SignUp = connect(null, mapDispatchToProps)(SignUpComponent);
 
 export default SignUp;
