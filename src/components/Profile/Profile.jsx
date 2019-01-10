@@ -75,8 +75,6 @@ class Profile extends React.Component {
             }}
           />
           <Container className="container-actions">
-            <Button circular icon="trash" color="red" size="huge" />
-            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge" />
             <Modal
               trigger={<Button onClick={this.handleOpen} circular icon="trash" color="red" size="huge" />}
               open={this.state.modalOpen}
