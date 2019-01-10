@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Redirect, Route } from 'react-router-dom';
 import {
-  Container, Dropdown, Icon, Menu, Segment, Sidebar,
+  Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
@@ -51,7 +51,7 @@ class UserLayout extends React.Component {
             <Menu.Item as={NavLink} to="/profile">
               My profile
             </Menu.Item>
-            <Menu.Item as="a" onClick={() => this.logout()} >
+            <Menu.Item as="a" onClick={() => this.logout()}>
               Logout
             </Menu.Item>
           </Container>

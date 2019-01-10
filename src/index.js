@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer from './reducers';
-import { addSnackBar } from './actions/SnackBarActions';
 
 const store = createStore(rootReducer);
 window.store = store;
