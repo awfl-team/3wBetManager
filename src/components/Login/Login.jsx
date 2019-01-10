@@ -37,13 +37,9 @@ class LoginComponent extends React.Component {
         this.setState({ toDashboard: true });
       })
       .catch((error) => {
+      this.props.addSnackbar({message: error.response.data, type: 'danger'});
         this.setState({ message: error.response.data });
       });
-  }
-
-  haha() {
-    console.log('hey');
-    this.props.addSnackbar({message: 'xdd', type: 'success'});
   }
 
   render() {
@@ -96,8 +92,6 @@ class LoginComponent extends React.Component {
                 <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
               </div>
             </form>
-
-            <button type="submit" className="ui fluid large teal submit button main-button" onClick={this.haha.bind(this)}>lol</button>
 
 
             <div className="ui message">
