@@ -36,7 +36,7 @@ class Profile extends React.Component {
       .then(() => this.props.history.push('/'))
       .catch((error) => {
         this.setState({ modalOpen: false });
-        this.setState({ errorMessage: error.response.data });
+        this.props.addSnackbar({ message: error.response.data, type: 'danger' });
       });
   };
 
