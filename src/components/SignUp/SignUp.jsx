@@ -4,7 +4,6 @@ import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
-import Error from '../Error/Error';
 
 
 class SignUp extends React.Component {
@@ -13,7 +12,7 @@ class SignUp extends React.Component {
     username: '',
     password: '',
     confirmPassword: '',
-    errorMessage: '',
+    message: '',
     toDashboard: false,
   };
 
@@ -47,14 +46,14 @@ class SignUp extends React.Component {
               this.setState({ toDashboard: true });
             });
         }).catch((error) => {
-          this.setState({ errorMessage: error.response.data });
+          this.setState({ message: error.response.data });
         });
     }
   }
 
   render() {
     const {
-      confirmPassword, password, errorMessage, toDashboard, email, username,
+      confirmPassword, password, message, toDashboard, email, username,
     } = this.state;
 
     if (toDashboard) {
@@ -146,7 +145,6 @@ class SignUp extends React.Component {
                   }
               </div>
               <div className="ui error message" />
-              <Error errorMessage={errorMessage} />
             </form>
             <div className="ui message">
                 Already have an account ? &nbsp;

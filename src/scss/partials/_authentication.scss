@@ -48,26 +48,3 @@ button[type="submit"] {
     display: block;
   }
 }
-
-.errorMessage {
-  width: 320px;
-  height: 40px;
-  position: fixed;
-  bottom: -50px;
-  left: calc(50% - 160px);
-  background-color: #eb1c24;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  transition: all 0.5s ease;
-
-
-  &.show {
-    transform: translateY(-80px);
-  }
-
-  &.hide {
-    transform: translateY(130px);
-  }
-}

@@ -1,16 +1,23 @@
-import React from 'react';
+import React              from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import UserService from '../../service/UserService';
-import AuthService from '../../service/AuthService';
-import Error from '../Error/Error';
-import VerifyService from '../../service/VerifyService';
+import UserService        from '../../service/UserService';
+import AuthService        from '../../service/AuthService';
+import VerifyService      from '../../service/VerifyService';
+import {addSnackBar}      from "../../actions/SnackBarActions";
+import { connect }        from 'react-redux';
 
-class Login extends React.Component {
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({message, type }) => dispatch(addSnackBar(message, type))
+  };
+}
+
+class LoginComponent extends React.Component {
   state = {
     toDashboard: false,
     email: '',
     password: '',
-    errorMessage: '',
+    message: '',
   };
 
   handleEmailChange = (event) => {
@@ -30,13 +37,18 @@ class Login extends React.Component {
         this.setState({ toDashboard: true });
       })
       .catch((error) => {
-        this.setState({ errorMessage: error.response.data });
+        this.setState({ message: error.response.data });
       });
+  }
+
+  haha() {
+    console.log('hey');
+    this.props.addSnackbar({message: 'xdd', type: 'success'});
   }
 
   render() {
     const {
-      toDashboard, errorMessage, email, password,
+      toDashboard, message, email, password,
     } = this.state;
 
     if (toDashboard) {
@@ -83,8 +95,10 @@ class Login extends React.Component {
                 </div>
                 <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
               </div>
-              <Error errorMessage={errorMessage} />
             </form>
+
+            <button type="submit" className="ui fluid large teal submit button main-button" onClick={this.haha.bind(this)}>lol</button>
+
 
             <div className="ui message">
                 Nouveau ? &nbsp;
@@ -97,5 +111,5 @@ class Login extends React.Component {
   }
 }
 
-
+const Login = connect(null, mapDispatchToProps)(LoginComponent)
 export default Login;
