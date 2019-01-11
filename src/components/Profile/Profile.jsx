@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Button, Container, Divider, Header, Icon, Modal,
 } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
@@ -100,7 +100,9 @@ class Profile extends React.Component {
                 </Button>
               </Modal.Actions>
             </Modal>
-            <Button as={NavLink} to="/update-profile" icon="pencil" circular color="orange" size="huge" />
+            <Link to="/update-profile" className="button ui circular orange huge icon">
+              <Icon name="pencil"/>
+            </Link>
           </Container>
         </Container>
 
