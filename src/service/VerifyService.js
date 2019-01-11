@@ -4,15 +4,26 @@ export default class VerifyService {
   }
 
   static isUsernameOk(value) {
-    return value.length >= 6;
+    return value.length > 3;
   }
 
-  static isPasswordOk(password, confirmPassword) {
-    return password === confirmPassword && password !== ''
-        && confirmPassword !== '' && password.length >= 6 && confirmPassword.length >= 6;
+  static isPasswordNumberChars(password) {
+    return (/.{12,}$/.test(password));
   }
 
-  static passwordSize(value) {
-    return value.length >= 6;
+  static isPasswordSpecialChar(password) {
+    return (/.*?[#?!@$%^&*-]/).test(password);
   }
+
+  static isPasswordUppercase(password) {
+    return (/(?=.*[A-Z])/).test(password);
+  }
+
+  static isPasswordIdentical(password, confirmPassword) {
+    return password === confirmPassword && password !== '' && confirmPassword !== '';
+}
+  static isPasswordWithNumber(password) {
+    return (/(?=.*\d)/.test(password));
+  }
+
 }
