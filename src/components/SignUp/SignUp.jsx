@@ -96,6 +96,9 @@ class SignUpComponent extends React.Component {
                           && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
+                  { !isEmailOk && email &&
+                  <p className="field-info">This field require a valid email</p>
+                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -110,6 +113,9 @@ class SignUpComponent extends React.Component {
                           && !isUsernameOk ? 'errorInput' : ''}
                     />
                   </div>
+                  { !isUsernameOk && username &&
+                  <p className="field-info">This field require a least 6 characters</p>
+                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -125,6 +131,9 @@ class SignUpComponent extends React.Component {
                           && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
+                  { !isPasswordOk && password &&
+                    <p className="field-info">This field require a least 6 characters and must be identical with the confirmation field</p>
+                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -140,16 +149,18 @@ class SignUpComponent extends React.Component {
                           && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
+                  { !isPasswordOk && confirmPassword &&
+                    <p className="field-info">This field require a least 6 characters and must be identical with the password field</p>
+                  }
                 </div>
-                {isEnabled && (
-                  <button
+                <button
                     type="submit"
                     className="ui fluid large teal submit button main-button"
+                    disabled={!isEnabled}
                   >
                         Sign Up
                   </button>
-                )
-                  }
+
               </div>
               <div className="ui error message" />
             </form>

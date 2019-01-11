@@ -16,8 +16,6 @@
         transition: all 0.2s ease;
         &.item {
           background-color: $red !important;
-          &:hover {
-          }
         }
       }
     }
@@ -48,14 +46,17 @@
   }
 
   .ui.inverted.menu .item {
-    &:not(.active) {
-      &:not(.menu-hamburger) {
-        &:hover {
-          color: $red !important;
-          font-weight: bold;
-          background-color: white !important;
-          i {
-            color: $red;
+    &:not(.user-info) {
+      &:not(.active) {
+        &:not(.menu-hamburger) {
+          &:hover {
+            color: $red !important;
+            font-weight: bold;
+            background-color: white !important;
+
+            i {
+              color: $red;
+            }
           }
         }
       }

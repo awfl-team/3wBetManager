@@ -4,15 +4,15 @@ export default class VerifyService {
   }
 
   static isUsernameOk(value) {
-    return value.length > 6;
+    return value.length >= 6;
   }
 
   static isPasswordOk(password, confirmPassword) {
     return password === confirmPassword && password !== ''
-        && confirmPassword !== '' && password.length > 6 && confirmPassword.length > 6;
+        && confirmPassword !== '' && password.length >= 6 && confirmPassword.length >= 6;
   }
 
   static passwordSize(value) {
-    return value.length > 6;
+    return value.length >= 6;
   }
 }
