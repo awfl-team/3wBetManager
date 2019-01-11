@@ -46,6 +46,9 @@ class LoginComponent extends React.Component {
       toDashboard, email, password,
     } = this.state;
 
+    const isPasswordOk = VerifyService.passwordSize(password);
+    const isEmailOk = VerifyService.isEmailOk(email);
+
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
@@ -55,7 +58,7 @@ class LoginComponent extends React.Component {
           <div className="column">
             <h2 className="ui teal authentication-header">
               <div className="content">
-                  Connectez-vous
+                  Sign-in
               </div>
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
@@ -66,13 +69,16 @@ class LoginComponent extends React.Component {
                     <input
                       type="text"
                       name="email"
-                      placeholder="E-mail"
+                      placeholder="Email"
                       value={email}
                       onChange={this.handleEmailChange.bind(this)}
                       className={VerifyService.isEmailOk(email) ? 'okInput' : `${email}` !== ''
                           && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
+                  { !isEmailOk && email &&
+                  <p className="field-info">This field require a valid email</p>
+                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -80,21 +86,24 @@ class LoginComponent extends React.Component {
                     <input
                       type="password"
                       name="password"
-                      placeholder="Mot de passe"
+                      placeholder="Password"
                       value={password}
                       onChange={this.handlePasswordChange.bind(this)}
                       className={password.length !== 0 && password.length < 6
                         ? 'errorInput' : `${password.length}` > 6 ? 'okInput' : ''}
                     />
                   </div>
+                  { !isPasswordOk && password &&
+                  <p className="field-info">This field require a least 6 characters</p>
+                  }
                 </div>
-                <button type="submit" className="ui fluid large teal submit button main-button">Connexion</button>
+                <button type="submit" className="ui fluid large teal submit button main-button">Submit</button>
               </div>
             </form>
 
 
             <div className="ui message">
-                Nouveau ? &nbsp;
+                New ? &nbsp;
               <Link to="/signup">Sign Up</Link>
             </div>
           </div>

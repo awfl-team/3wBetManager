@@ -92,12 +92,10 @@ class Profile extends React.Component {
               <Modal.Actions>
                 <Button color="red" onClick={this.handleClose} inverted>
                   <Icon name="remove" />
-                  {' '}
                   Cancel
                 </Button>
                 <Button color="green" onClick={this.handleDelete} inverted>
                   <Icon name="checkmark" />
-                  {' '}
               Yes, delete me !
                 </Button>
               </Modal.Actions>

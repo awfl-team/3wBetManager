@@ -45,7 +45,7 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Menu.Item>
+            <Menu.Item className="user-info">
               {username.toString()}
             </Menu.Item>
             <Menu.Item as={NavLink} to="/profile">

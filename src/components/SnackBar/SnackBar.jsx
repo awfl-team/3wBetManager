@@ -40,8 +40,6 @@ class SnackbarsComponent extends React.Component {
   }
 
   render() {
-    console.log(this.props.snackbar);
-
     return (
       <div className={this.state.classes.join(' ')} id="messageContainer">
         {this.props.snackbar ? this.props.snackbar.message : ''}
