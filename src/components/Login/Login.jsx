@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
-import { addSnackBar } from '../../actions/SnackBarActions';
+import {setUser} from '../../actions/UserActions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+    setUser: user => dispatch(setUser(user)),
   };
 }
 
@@ -33,6 +33,7 @@ class LoginComponent extends React.Component {
     UserService.login(event.target.email.value, event.target.password.value)
       .then((response) => {
         AuthService.setTokenInLocalStorage(response);
+        this.props.setUser()
         this.setState({ toDashboard: true });
       });
   }

@@ -1,6 +1,6 @@
 import { ADD_SNACKBAR, REMOVE_SNACKBAR } from '../actions/SnackBarActions';
 
-const snackbar = (state = null, action) => {
+const snackBarReducer = (state = null, action) => {
   switch (action.type) {
     case ADD_SNACKBAR:
       return Object.assign({}, state,
@@ -15,4 +15,4 @@ const snackbar = (state = null, action) => {
   }
 };
 
-export default snackbar;
+export default snackBarReducer;
