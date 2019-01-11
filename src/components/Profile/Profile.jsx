@@ -86,7 +86,7 @@ class Profile extends React.Component {
               <Modal.Content>
                 <h3>
                   If you confirm this action, your profile
-                  and all your datas will be wipe from our website !
+                  and all your datas will be wiped from our website !
                 </h3>
               </Modal.Content>
               <Modal.Actions>
