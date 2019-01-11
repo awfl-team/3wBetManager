@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {Button, Container, Header, Icon,} from 'semantic-ui-react';
+import {
+  Button, Container, Header, Icon,
+} from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
@@ -15,9 +17,6 @@ class UpdateProfile extends React.Component {
     UserService.getByEmail(userInfo.email)
       .then((response) => {
         this.setState({ user: response.data });
-      })
-      .catch((error) => {
-        this.setState({ message: error.response.data });
       });
   }
 
@@ -31,10 +30,7 @@ class UpdateProfile extends React.Component {
     user.Id = this.state.user.Id;
     if (event.target.password.value === event.target.confirmPassword.value) {
       UserService.updateUser(user).then((response) => {
-      })
-        .catch((error) => {
-          this.setState({ message: error.response.data });
-        });
+      });
     }
   }
 

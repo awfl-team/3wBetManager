@@ -19,9 +19,6 @@ class BetLayout extends React.Component {
     UserService.getByEmail(userInfo.email)
       .then((response) => {
         this.setState({ user: response.data });
-      })
-      .catch((error) => {
-        this.setState({ errorMessage: error.response.data });
       });
   }
 

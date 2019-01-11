@@ -52,8 +52,6 @@ class SignUpComponent extends React.Component {
               AuthService.setTokenInLocalStorage(response);
               this.setState({ toDashboard: true });
             });
-        }).catch((error) => {
-          this.props.addSnackbar({ message: error.response.data, type: 'danger' });
         });
     }
   }

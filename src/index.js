@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.css';
 import './scss/main.scss';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import rootReducer from './reducers';
+import store from './store';
 
-const store = createStore(rootReducer);
-window.store = store;
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

@@ -34,9 +34,6 @@ class LoginComponent extends React.Component {
       .then((response) => {
         AuthService.setTokenInLocalStorage(response);
         this.setState({ toDashboard: true });
-      })
-      .catch((error) => {
-        this.props.addSnackbar({ message: error.response.data, type: 'danger' });
       });
   }
 

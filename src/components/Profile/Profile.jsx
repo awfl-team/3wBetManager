@@ -1,6 +1,8 @@
 import React from 'react';
-import {Button, Container, Divider, Header, Icon, Modal,} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import {
+  Button, Container, Divider, Header, Icon, Modal,
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
@@ -18,9 +20,6 @@ class Profile extends React.Component {
     UserService.getByEmail(userInfo.email)
       .then((response) => {
         this.setState({ user: response.data });
-      })
-      .catch((error) => {
-        this.setState({ message: error.response.data });
       });
   }
 
@@ -31,11 +30,7 @@ class Profile extends React.Component {
   handleDelete = () => {
     AuthService.logout();
     UserService.deleteUser(this.state.user)
-      .then(() => this.props.history.push('/'))
-      .catch((error) => {
-        this.setState({ modalOpen: false });
-        this.props.addSnackbar({ message: error.response.data, type: 'danger' });
-      });
+      .then(() => this.props.history.push('/'));
   };
 
   render() {
@@ -99,7 +94,7 @@ class Profile extends React.Component {
               </Modal.Actions>
             </Modal>
             <Link to="/update-profile" className="button ui circular orange huge icon">
-              <Icon name="pencil"/>
+              <Icon name="pencil" />
             </Link>
           </Container>
         </Container>
