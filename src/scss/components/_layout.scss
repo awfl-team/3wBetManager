@@ -1,8 +1,13 @@
 .layout {
+  height: 100%;
   .menu, .pushable {
     margin: 0;
     border: 0;
     border-radius: 0;
+  }
+
+  .pushable {
+    height: calc(100% - 40px);
   }
 
   .menu {
@@ -11,8 +16,6 @@
         transition: all 0.2s ease;
         &.item {
           background-color: $red !important;
-          &:hover {
-          }
         }
       }
     }
@@ -29,18 +32,31 @@
     justify-content: center;
   }
 
-  .content-container {
-    background-color: $lightgrey !important;
+  .pusher {
+    &.full-width {
+      width: 100%
+    }
+    width: calc(100% - 150px);
   }
+
+
+  .content-container {
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+
   .ui.inverted.menu .item {
-    &:not(.active) {
-      &:not(.menu-hamburger) {
-        &:hover {
-          color: $red !important;
-          font-weight: bold;
-          background-color: white !important;
-          i {
-            color: $red;
+    &:not(.user-info) {
+      &:not(.active) {
+        &:not(.menu-hamburger) {
+          &:hover {
+            color: $red !important;
+            font-weight: bold;
+            background-color: white !important;
+
+            i {
+              color: $red;
+            }
           }
         }
       }

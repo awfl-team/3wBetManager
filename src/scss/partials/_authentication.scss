@@ -1,8 +1,27 @@
 .register-page, .login-page {
-  background: $darkgrey;
+  background: $grey;
+
+  .fullpage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+
+    & > div {
+      text-align: center;
+      max-width: 450px;
+      min-width: 300px;
+      width: 100%;
+    }
+  }
   .authentication-header {
     color: white;
     font-weight: bold;
+  }
+
+  .field-info {
+    color: $red;
   }
 
   input, .message {
@@ -13,7 +32,23 @@
     border: 2px transparent solid !important;
 
     &:focus {
+      border: 2px $blue solid !important;
+    }
+    &.errorInput {
       border: 2px $red solid !important;
     }
+    &.okInput {
+      border: 2px $green solid !important;
+    }
+
+  }
+}
+
+button[type="submit"] {
+  &.hide {
+    display: none !important;
+  }
+  &.show{
+    display: block;
   }
 }

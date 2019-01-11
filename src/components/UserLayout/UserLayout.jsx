@@ -1,44 +1,58 @@
 import React from 'react';
-import { NavLink, Route } from 'react-router-dom';
-import {
-  Container, Dropdown, Icon, Menu, Segment, Sidebar,
-} from 'semantic-ui-react';
+import {NavLink, Redirect, Route} from 'react-router-dom';
+import {Container, Icon, Menu, Segment, Sidebar,} from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
+import AuthService from '../../service/AuthService';
+import Profile from '../Profile/Profile';
+import UpdateProfile from '../UpdateProfile/UpdateProfile';
+import BetLayout from "../BetLayout/BetLayout";
 
 class UserLayout extends React.Component {
-  state = { visible: true };
+  state = {
+    visible: true,
+    username: Object,
+    toHome: false,
+    toLogin: false,
+  };
+
+  componentDidMount() {
+    const token = AuthService.getToken();
+    const userInfo = AuthService.getUserInfo(token);
+    this.setState({ username: userInfo.unique_name });
+  }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
+  logout() {
+    AuthService.logout();
+    this.setState({ toHome: true });
+  }
+
   render() {
-    const { visible } = this.state;
+    const {
+      visible, username, toHome, toLogin,
+    } = this.state;
+
+    if (toHome) {
+      return <Redirect to="/" />;
+    }
+    if (toLogin) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="layout">
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Menu.Item as="a" header>
-              Project Name
+            <Menu.Item className="user-info">
+              {username.toString()}
             </Menu.Item>
-            <Menu.Item as="a">Home</Menu.Item>
-
-            <Dropdown item simple text="Dropdown">
-              <Dropdown.Menu>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Header>Header Item</Dropdown.Header>
-                <Dropdown.Item>
-                  <i className="dropdown icon" />
-                  <span className="text">Submenu</span>
-                  <Dropdown.Menu>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Menu.Item as={NavLink} to="/profile">
+              My profile
+            </Menu.Item>
+            <Menu.Item as="a" onClick={() => this.logout()}>
+              Logout
+            </Menu.Item>
           </Container>
         </Menu>
         <Sidebar.Pushable as={Segment}>
@@ -46,6 +60,10 @@ class UserLayout extends React.Component {
             <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
               <Icon name="home" />
               Home
+            </Menu.Item>
+            <Menu.Item as={NavLink} activeClassName="active" to="/mybets">
+              <Icon name="ticket" />
+              My Bets
             </Menu.Item>
             <Menu.Item as={NavLink} activeClassName="active" to="/xd">
               <Icon name="gamepad" />
@@ -56,10 +74,13 @@ class UserLayout extends React.Component {
               Channels
             </Menu.Item>
           </Sidebar>
-
-          <Sidebar.Pusher>
+          <div />
+          <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
             <Segment basic className="content-container">
               <Route path="/dashboard" component={Dashboard} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/update-profile" component={UpdateProfile} />
+              <Route path="/mybets" component={BetLayout} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

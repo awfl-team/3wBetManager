@@ -1,0 +1,16 @@
+#profile {
+  .container-centered{
+    .form {
+      max-width: 450px;
+    }
+    & > .button {
+      margin: 5px;
+      cursor: default;
+      min-width: 200px;
+
+      button {
+        cursor: default;
+      }
+    }
+  }
+}
