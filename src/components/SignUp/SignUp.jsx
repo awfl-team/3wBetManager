@@ -6,6 +6,7 @@ import User from '../../model/User';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
 import { addSnackBar } from '../../actions/SnackBarActions';
+import classNames from 'classnames/bind';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -66,7 +67,6 @@ class SignUpComponent extends React.Component {
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
-
     const isEmailOk = VerifyService.isEmailOk(email);
     const isUsernameOk = VerifyService.isUsernameOk(username);
     const isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
@@ -75,7 +75,17 @@ class SignUpComponent extends React.Component {
     const isPasswordUppercase = VerifyService.isPasswordUppercase(password);
     const isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
     const isPasswordOk = (isPasswordNumberCharOk && isPasswordWithNumber && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
+    const showDiv = (password === '' || isPasswordOk);
     const isEnabled = (isEmailOk && isUsernameOk && isPasswordNumberCharOk && isPasswordWithNumber && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
+
+
+    const formInfoClass = classNames({ 'form-info-hidden': showDiv, 'form-info': !showDiv});
+    const formFieldIdentical = classNames({ 'validate-form-info': isPasswordIdentical, 'error-form-info': !isPasswordIdentical });
+    const formFieldNumber = classNames({ 'validate-form-info': isPasswordNumberCharOk, 'error-form-info': !isPasswordNumberCharOk });
+    const formdFieldUppercase = classNames({ 'validate-form-info': isPasswordUppercase, 'error-form-info': !isPasswordUppercase });
+    const formFieldSpecial = classNames({ 'validate-form-info': isPasswordSpecialChar, 'error-form-info': !isPasswordSpecialChar });
+    const formFieldWithNumber = classNames({ 'validate-form-info': isPasswordWithNumber, 'error-form-info': !isPasswordWithNumber });
+    const formMultipleInfos = classNames({ 'validate-form-info': isPasswordUppercase && isPasswordSpecialChar && isPasswordWithNumber, 'error-form-info': !isPasswordUppercase || !isPasswordSpecialChar || !isPasswordWithNumber});
 
     return (
       <div className="register-page">
@@ -141,17 +151,19 @@ class SignUpComponent extends React.Component {
                     />
                   </div>
                 </div>
-                <div className={password === "" || isPasswordOk ? 'form-info-hidden' : 'form-info'}>
-                  <h2 class="form-info-title"> Don't forget to :</h2>
-                  <p className={isPasswordIdentical ? 'validate-form-info' : 'error-form-info'}>
+                <div className={formInfoClass}>
+                  <h2 className="form-info-title"> Don't forget to :</h2>
+                  <p className={formFieldIdentical}>
                     <i className="info circle icon"/> The password must be identical with the password field</p>
-                  <p className={isPasswordNumberCharOk ? 'validate-form-info' : 'error-form-info'}>
+                  <p className={formFieldNumber}>
                     <i className="info circle icon"/> The password requires at least 12 characters</p>
-                  <p className={isPasswordUppercase && isPasswordSpecialChar && isPasswordWithNumber  ? 'validate-form-info' : 'error-form-info'}>
+                  <p className={formMultipleInfos}>
                     <i className="info circle icon"/> The password requires a <span
-                      className={isPasswordUppercase ? 'validate-form-info' : 'error-form-info'}>uppercase</span>, a <span
-                      className={isPasswordSpecialChar ? 'validate-form-info' : 'error-form-info'}> special character</span> and <span
-                      className={isPasswordWithNumber ? 'validate-form-info' : 'error-form-info'}>a number</span></p>
+                      className={formdFieldUppercase}>
+                    uppercase
+                  </span>, a <span
+                      className={formFieldSpecial}> special character</span> and <span
+                      className={formFieldWithNumber}>a number</span></p>
                 </div>
                 <button
                   type="submit"
