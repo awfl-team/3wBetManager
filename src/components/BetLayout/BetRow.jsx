@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Dimmer, Grid, Image, Label, Message, Segment} from 'semantic-ui-react';
+import {Container, Image, Label, Message} from 'semantic-ui-react';
 
 class BetRow extends React.Component {
   state = {}
@@ -23,6 +23,7 @@ class BetRow extends React.Component {
                   </div>
                 </div>
                 <div className="container-versus">
+                  <div className="match-info">Match's date</div>
                   <div className="container-versus-details">
                     <div className="home-score ">2</div>
                     <div className="versus-text"> - </div>
@@ -48,6 +49,7 @@ class BetRow extends React.Component {
                   15 pts
                 </Message.Header>
                 <div className="container-versus-details">
+                  <div className="bet-date">Bet's date</div>
                   <div className="container-versus-details-results-bet">
                     <Label color='green'>
                       Perfect bet
@@ -55,9 +57,6 @@ class BetRow extends React.Component {
                   </div>
                 </div>
               </Message>
-              <div className="betRow-mask">
-                <p>Match infos</p>
-              </div>
             </div>
             <div className="betRow">
               <div className="betRow-info">
@@ -71,6 +70,7 @@ class BetRow extends React.Component {
                   </div>
                 </div>
                 <div className="container-versus">
+                  <div className="match-info">Match's date</div>
                   <div className="container-versus-details">
                     <div className="home-score ">4</div>
                     <div className="versus-text"> - </div>
@@ -96,6 +96,7 @@ class BetRow extends React.Component {
                   0 pts
                 </Message.Header>
                 <div className="container-versus-details">
+                  <div className="bet-date">Bet's date</div>
                   <div className="container-versus-details-results-bet">
                     <Label color='red'>
                       Wrong bet
@@ -103,9 +104,6 @@ class BetRow extends React.Component {
                   </div>
                 </div>
               </Message>
-              <div className="betRow-mask">
-                <p>Match infos</p>
-              </div>
             </div>
           </Container>
         </div>

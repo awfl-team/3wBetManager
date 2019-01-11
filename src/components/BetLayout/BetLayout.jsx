@@ -4,6 +4,7 @@ import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
 import BetCup from './BetCup';
+import {Link} from 'react-router-dom';
 
 
 
@@ -44,19 +45,19 @@ class BetLayout extends React.Component {
             </Grid.Column>
             <Grid.Column floated='right' width={5}>
               <div align="right">
-                <Button icon labelPosition='right' color="green">
+                <Link to="/addbets" className="ui green icon right labeled button">
                   Let's do ma' bets boi
-                  <Icon name='right arrow' />
-                </Button>
+                  <Icon name="right arrow"/>
+                </Link>
               </div>
             </Grid.Column>
           </Grid>
         </Container>
         <Container fluid>
-          <BetCup/>
+          <BetCup />
         </Container>
       </div>
-      );
+    );
   }
 }
 
