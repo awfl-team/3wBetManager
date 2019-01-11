@@ -1,0 +1,167 @@
+#betRows {
+  .betRow {
+    position: relative;
+    padding: 15px;
+    border: 1px $lightgrey dashed;
+    display: flex;
+
+
+    &-mask {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: #000000cf;
+      color: white;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: $main-transition;
+    }
+    &:hover {
+      .betRow-mask {
+        opacity: 1;
+      }
+    }
+
+
+    &:not(:first-child) {
+      margin-top: 50px;
+
+      &:before {
+        content: '';
+        width: 320px;
+        height: 2px;
+        background-color: $lightgrey;
+        position: absolute;
+        top: -25px;
+        left: calc(50% - 160px);
+        @media screen and (max-width: 800px) {
+          display: none;
+        }
+      }
+    }
+    &-info, &-results {
+      display: flex;
+      justify-content: space-between;
+
+      .container {
+        &-hometeam, &-versus, &-awayteam {
+          display: flex;
+          flex: 1 1 33%;
+        }
+        &-versus {
+          flex: 0 1 15%;
+          flex-wrap: wrap;
+        }
+
+        &-hometeam,  &-awayteam {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          .team {
+            &-image {
+              img {
+                min-width: 75px;
+                max-width: 150px;
+                min-height: 75px;
+                max-height: 150px;
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
+
+                &.win {
+                  border: 5px $green solid;
+                }
+                &.loose {
+                  border: 5px $red solid;
+                }
+
+                @media screen and (max-width: 800px) {
+                  display: none;
+                }
+              }
+            }
+            &-info {
+              position: relative;
+              margin: 15px;
+              width: 100%;
+              text-align: center;
+            }
+          }
+        }
+        &-versus-details,  &-versus-details-results{
+          flex: 1 0 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+        }
+        &-versus-details  {
+
+          &-results {
+            margin-bottom: 10px;
+            font-size: 20px;
+          }
+          .versus-text {
+            font-weight: bold;
+          }
+        }
+      }
+
+    }
+    &-info {
+      flex: 1 1 80%;
+      .container{
+        &-versus-details {
+          border-radius: 25px;
+          align-self: center;
+          height: 50px;
+          line-height: 42px;
+          font-size: 40px;
+          box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+          background: #F8F8F9;
+
+          &-results {
+            border-radius: 25px;
+            align-self: center;
+            height: 30px;
+            line-height: 22px;
+            font-size: 20px;
+
+          }
+
+          .home-score, .away-score {
+            display: flex;
+            width: 50px;
+            height: 50px;
+            justify-content: center;
+          }
+        }
+      }
+    }
+    &-results {
+      flex-wrap: wrap;
+      margin: 0;
+      flex: 1 0 200px;
+      min-width: 200px;
+      min-height: 200px;
+      .header {
+        font-size: 30px;
+        align-self: flex-end;
+        flex: 1 0 100%;
+        justify-content: center;
+        display: flex;
+        margin-bottom: 10px;
+      }
+      .container-versus-details  {
+        display: flex;
+        flex-wrap: wrap;
+        align-self: flex-start;
+      }
+    }
+  }
+
+}
