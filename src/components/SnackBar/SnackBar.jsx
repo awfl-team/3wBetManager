@@ -1,6 +1,6 @@
-import React              from 'react';
-import { connect }        from 'react-redux';
-import { removeSnackBar } from '../../actions/SnackBarActions';
+import React from 'react';
+import {connect} from 'react-redux';
+import {removeSnackBar} from '../../actions/SnackBarActions';
 
 const mapStateToProps = state => {
   return {snackbar: state.snackbar};

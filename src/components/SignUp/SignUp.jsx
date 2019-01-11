@@ -1,15 +1,15 @@
-import React              from 'react';
+import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import UserService        from '../../service/UserService';
-import User               from '../../model/User';
-import AuthService        from '../../service/AuthService';
-import VerifyService      from '../../service/VerifyService';
-import { addSnackBar }    from '../../actions/SnackBarActions';
-import { connect }        from 'react-redux';
+import { connect } from 'react-redux';
+import UserService from '../../service/UserService';
+import User from '../../model/User';
+import AuthService from '../../service/AuthService';
+import VerifyService from '../../service/VerifyService';
+import { addSnackBar } from '../../actions/SnackBarActions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    addSnackbar: ({message, type}) => dispatch(addSnackBar(message, type))
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
   };
 }
 
@@ -53,7 +53,7 @@ class SignUpComponent extends React.Component {
               this.setState({ toDashboard: true });
             });
         }).catch((error) => {
-        this.props.addSnackbar({message: error.response.data, type: 'danger'});
+          this.props.addSnackbar({ message: error.response.data, type: 'danger' });
         });
     }
   }
@@ -96,8 +96,8 @@ class SignUpComponent extends React.Component {
                           && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
-                  { !isEmailOk && email &&
-                  <p className="field-info">This field require a valid email</p>
+                  { !isEmailOk && email
+                  && <p className="field-info">This field require a valid email</p>
                   }
                 </div>
                 <div className="field">
@@ -113,8 +113,8 @@ class SignUpComponent extends React.Component {
                           && !isUsernameOk ? 'errorInput' : ''}
                     />
                   </div>
-                  { !isUsernameOk && username &&
-                  <p className="field-info">This field require a least 6 characters</p>
+                  { !isUsernameOk && username
+                  && <p className="field-info">This field require a least 6 characters</p>
                   }
                 </div>
                 <div className="field">
@@ -131,8 +131,8 @@ class SignUpComponent extends React.Component {
                           && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
-                  { !isPasswordOk && password &&
-                    <p className="field-info">This field require a least 6 characters and must be identical with the confirmation field</p>
+                  { !isPasswordOk && password
+                    && <p className="field-info">This field require a least 6 characters and must be identical with the confirmation field</p>
                   }
                 </div>
                 <div className="field">
@@ -149,17 +149,17 @@ class SignUpComponent extends React.Component {
                           && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
-                  { !isPasswordOk && confirmPassword &&
-                    <p className="field-info">This field require a least 6 characters and must be identical with the password field</p>
+                  { !isPasswordOk && confirmPassword
+                    && <p className="field-info">This field require a least 6 characters and must be identical with the password field</p>
                   }
                 </div>
                 <button
-                    type="submit"
-                    className="ui fluid large teal submit button main-button"
-                    disabled={!isEnabled}
-                  >
+                  type="submit"
+                  className="ui fluid large teal submit button main-button"
+                  disabled={!isEnabled}
+                >
                         Sign Up
-                  </button>
+                </button>
 
               </div>
               <div className="ui error message" />

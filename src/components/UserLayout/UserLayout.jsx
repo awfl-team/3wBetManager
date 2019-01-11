@@ -1,8 +1,6 @@
 import React from 'react';
-import { NavLink, Redirect, Route } from 'react-router-dom';
-import {
-  Container, Icon, Menu, Segment, Sidebar,
-} from 'semantic-ui-react';
+import {NavLink, Redirect, Route} from 'react-router-dom';
+import {Container, Icon, Menu, Segment, Sidebar,} from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';

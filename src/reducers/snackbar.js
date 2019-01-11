@@ -6,9 +6,8 @@ const snackbar = (state = null, action) => {
       return Object.assign({}, state,
         {
           message: action.snackbar.message,
-          type   : action.snackbar.type,
-        },
-      );
+          type: action.snackbar.type,
+        });
     case REMOVE_SNACKBAR:
       return null;
     default:

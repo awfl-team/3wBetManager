@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  Button, Container, Divider, Header, Icon, Modal,
-} from 'semantic-ui-react';
-import {Link, NavLink} from 'react-router-dom';
+import {Button, Container, Divider, Header, Icon, Modal,} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
@@ -86,7 +84,7 @@ class Profile extends React.Component {
               <Modal.Content>
                 <h3>
                   If you confirm this action, your profile
-                  and all your datas will be wipe from our website !
+                  and all your datas will be wiped from our website !
                 </h3>
               </Modal.Content>
               <Modal.Actions>

@@ -17,7 +17,6 @@ class LoginComponent extends React.Component {
     toDashboard: false,
     email: '',
     password: '',
-    message: '',
   };
 
   handleEmailChange = (event) => {
@@ -76,8 +75,8 @@ class LoginComponent extends React.Component {
                           && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
-                  { !isEmailOk && email &&
-                  <p className="field-info">This field require a valid email</p>
+                  { !isEmailOk && email
+                  && <p className="field-info">This field require a valid email</p>
                   }
                 </div>
                 <div className="field">
@@ -93,8 +92,8 @@ class LoginComponent extends React.Component {
                         ? 'errorInput' : `${password.length}` > 6 ? 'okInput' : ''}
                     />
                   </div>
-                  { !isPasswordOk && password &&
-                  <p className="field-info">This field require a least 6 characters</p>
+                  { !isPasswordOk && password
+                  && <p className="field-info">This field require a least 6 characters</p>
                   }
                 </div>
                 <button type="submit" className="ui fluid large teal submit button main-button">Submit</button>
