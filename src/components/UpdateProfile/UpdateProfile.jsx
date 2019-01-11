@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-  Header, Button, Container, Icon,
-} from 'semantic-ui-react';
+import {Button, Container, Header, Icon,} from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';

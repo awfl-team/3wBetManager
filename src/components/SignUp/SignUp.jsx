@@ -1,11 +1,11 @@
-import React              from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import UserService        from '../../service/UserService';
-import User               from '../../model/User';
-import AuthService        from '../../service/AuthService';
-import VerifyService      from '../../service/VerifyService';
-import { addSnackBar }    from '../../actions/SnackBarActions';
-import { connect }        from 'react-redux';
+import React from 'react';
+import {Link, Redirect} from 'react-router-dom';
+import UserService from '../../service/UserService';
+import User from '../../model/User';
+import AuthService from '../../service/AuthService';
+import VerifyService from '../../service/VerifyService';
+import {addSnackBar} from '../../actions/SnackBarActions';
+import {connect} from 'react-redux';
 
 function mapDispatchToProps(dispatch) {
   return {

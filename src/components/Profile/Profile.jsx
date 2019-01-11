@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  Button, Container, Divider, Header, Icon, Modal,
-} from 'semantic-ui-react';
-import {Link, NavLink} from 'react-router-dom';
+import {Button, Container, Divider, Header, Icon, Modal,} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';

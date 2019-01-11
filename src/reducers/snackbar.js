@@ -1,4 +1,4 @@
-import { ADD_SNACKBAR, REMOVE_SNACKBAR } from '../actions/SnackBarActions';
+import {ADD_SNACKBAR, REMOVE_SNACKBAR} from '../actions/SnackBarActions';
 
 const snackbar = (state = null, action) => {
   switch (action.type) {
