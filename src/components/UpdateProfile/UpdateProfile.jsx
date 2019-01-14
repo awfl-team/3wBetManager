@@ -1,8 +1,9 @@
 import * as React from 'react';
-import {Button, Container, Header, Icon,} from 'semantic-ui-react';
+import {
+  Button, Container, Header, Icon,
+} from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
-import AuthService from '../../service/AuthService';
 
 class UpdateProfile extends React.Component {
   state = {
@@ -11,8 +12,7 @@ class UpdateProfile extends React.Component {
   };
 
   componentDidMount() {
-    const userInfo = AuthService.getUserInfo(AuthService.getToken());
-    UserService.getByEmail(userInfo.email)
+    UserService.getFromToken()
       .then((response) => {
         this.setState({ user: response.data });
       })
