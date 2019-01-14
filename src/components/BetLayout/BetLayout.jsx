@@ -1,11 +1,12 @@
 import React from 'react';
-import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react';
+import {
+  Button, Container, Grid, Icon,
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
 import BetCup from './BetCup';
-import {Link} from 'react-router-dom';
-
 
 
 class BetLayout extends React.Component {
@@ -20,9 +21,6 @@ class BetLayout extends React.Component {
     UserService.getByEmail(userInfo.email)
       .then((response) => {
         this.setState({ user: response.data });
-      })
-      .catch((error) => {
-        this.setState({ errorMessage: error.response.data });
       });
   }
 
@@ -32,7 +30,7 @@ class BetLayout extends React.Component {
       <div id="betLayout">
         <Container fluid>
           <Grid>
-            <Grid.Column floated='left' width={5}>
+            <Grid.Column floated="left" width={5}>
               <Button
                 color="blue"
                 content="Score"
@@ -43,11 +41,11 @@ class BetLayout extends React.Component {
                 }}
               />
             </Grid.Column>
-            <Grid.Column floated='right' width={5}>
+            <Grid.Column floated="right" width={5}>
               <div align="right">
                 <Link to="/addbets" className="ui green icon right labeled button">
                   Let's do ma' bets boi
-                  <Icon name="right arrow"/>
+                  <Icon name="right arrow" />
                 </Link>
               </div>
             </Grid.Column>

@@ -17,7 +17,7 @@ export default class UserService {
   }
 
   static getByEmail(email) {
-    return API.get(`/users/GetByEmail?email=${email}`);
+    return API.get(`/users/getbyemail?email=${email}`);
   }
 
   static deleteUser(user) {
