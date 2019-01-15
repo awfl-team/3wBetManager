@@ -3,8 +3,9 @@ import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
-import BetCup from './BetCup';
-import {Link} from 'react-router-dom';
+import BetLayoutResult from './BetLayoutResult';
+import {Link, Route} from 'react-router-dom';
+import BetSubmitLayout from "./BetSubmitLayout";
 
 
 
@@ -45,16 +46,25 @@ class BetLayout extends React.Component {
             </Grid.Column>
             <Grid.Column floated='right' width={5}>
               <div align="right">
-                <Link to="/addbets" className="ui green icon right labeled button">
-                  Let's do ma' bets boi
-                  <Icon name="right arrow"/>
+                {this.props.history.location.pathname === "/bet/myBets" &&
+                <Link to="/bet/submitBets" className="ui green icon right labeled button">
+                    Let's do ma' bets boi
+                    <Icon name="right arrow"/>
                 </Link>
+                }
+                {this.props.history.location.pathname === "/bet/submitBets" &&
+                  <Link to="/bet/myBets" className="ui green icon right labeled button">
+                      Let's see ma' bets boi
+                      <Icon name="right arrow"/>
+                  </Link>
+                }
               </div>
             </Grid.Column>
           </Grid>
         </Container>
         <Container fluid>
-          <BetCup />
+          <Route path="/bet/myBets" component={BetLayoutResult} />
+          <Route path="/bet/submitBets" component={BetSubmitLayout} />
         </Container>
       </div>
     );

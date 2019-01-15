@@ -1,8 +1,9 @@
 import React from 'react';
-import {Accordion, Container, Icon} from 'semantic-ui-react';
-import BetRow from "./BetRow";
+import {Accordion, Button, Container, Icon} from 'semantic-ui-react';
+import BetRowResult from "./BetRowResult";
+import BetSubmitRow from "./BetSubmitRow";
 
-class BetCup extends React.Component {
+class BetSubmitLayout extends React.Component {
   state = { activeIndex: 0 }
 
   handleClick = (e, titleProps) => {
@@ -25,20 +26,23 @@ class BetCup extends React.Component {
                 Cup #1
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
-                <BetRow/>
+                <BetSubmitRow />
               </Accordion.Content>
               <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
                 <Icon name='dropdown' />
                 Cup #2
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 1}>
-                <BetRow/>
+                <BetSubmitRow />
               </Accordion.Content>
             </Accordion>
           </Container>
+            <Container fluid className="submit-bets-action">
+                <Button type="submit" color="green">Submit</Button>
+            </Container>
         </div>
     );
   }
 }
 
-export default BetCup;
+export default BetSubmitLayout;

@@ -1,17 +1,18 @@
 import React from 'react';
 import {Container, Image, Label, Message} from 'semantic-ui-react';
 
-class BetRow extends React.Component {
+class BetRowResult extends React.Component {
   state = {}
   handleShow = () => this.setState({ active: true })
   handleHide = () => this.setState({ active: false })
 
   render() {
     const { active } = this.state
+
     return (
         <div id="betRows">
           <Container fluid>
-            <div className="betRow" onMouseEnter={() => {}} >
+            <div className="betRow">
               <div className="betRow-info">
                 <div className="container-hometeam">
                   <div className="team-image">
@@ -111,4 +112,4 @@ class BetRow extends React.Component {
   }
 }
 
-export default BetRow;
+export default BetRowResult;

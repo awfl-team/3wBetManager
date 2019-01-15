@@ -6,6 +6,7 @@ import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import BetLayout from "../BetLayout/BetLayout";
+import BetSubmitLayout from "../BetLayout/BetSubmitLayout";
 
 class UserLayout extends React.Component {
   state = {
@@ -68,7 +69,7 @@ class UserLayout extends React.Component {
               <Icon name="home" />
               Home
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/mybets">
+            <Menu.Item as={NavLink} activeClassName="active" to="/bet/myBets">
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
@@ -87,7 +88,7 @@ class UserLayout extends React.Component {
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
-              <Route path="/mybets" component={BetLayout} />
+              <Route path="/bet" component={BetLayout} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
