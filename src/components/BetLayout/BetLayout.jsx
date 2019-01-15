@@ -6,6 +6,7 @@ import User from '../../model/User';
 import BetLayoutResult from './BetLayoutResult';
 import {Link, Route} from 'react-router-dom';
 import BetSubmitLayout from "./BetSubmitLayout";
+import PageScroller from "../PageScroller/PageScroller";
 
 
 
@@ -31,7 +32,7 @@ class BetLayout extends React.Component {
     const { user } = this.state;
     return (
       <div id="betLayout">
-        <Container fluid>
+        <Container fluid id="bet-header">
           <Grid>
             <Grid.Column floated='left' width={5}>
               <Button
@@ -66,6 +67,7 @@ class BetLayout extends React.Component {
           <Route path="/bet/myBets" component={BetLayoutResult} />
           <Route path="/bet/submitBets" component={BetSubmitLayout} />
         </Container>
+        <PageScroller />
       </div>
     );
   }
