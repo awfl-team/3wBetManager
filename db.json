@@ -1,0 +1,28 @@
+{
+  "users" : [
+    {
+      "Id" : "5c3b7befa73e41519f6e3f69",
+      "Point" : 0,
+      "Role" : "USER",
+      "Password" : "$2a$11$vbnQFerLOtK6EBe2NpgPO.5YKMPv5rHQ8tNYL0N5y76XXlT6bAgyi",
+      "Email" : "florian@test.com",
+      "Username" : "Florian1"
+    }
+  ],
+  "competitions": [
+    {"Id":2000,"Name":"FIFA World Cup","Code":"WC","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2018-08-23T12:16:17Z"},
+    {"Id":2001,"Name":"UEFA Champions League","Code":"CL","EmblemUrl":"https://upload.wikimedia.org/wikipedia/en/b/bf/UEFA_Champions_League_logo_2.svg","Plan":"TIER_ONE","LastUpdated":"2018-12-13T18:55:02Z"},
+    {"Id":2002,"Name":"Bundesliga","Code":"BL1","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2018-12-24T00:45:00Z"},
+    {"Id":2003,"Name":"Eredivisie","Code":"DED","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2018-12-23T19:45:07Z"},
+    {"Id":2013,"Name":"Série A","Code":"BSA","EmblemUrl":null, "Plan":"TIER_ONE","LastUpdated":"2018-12-03T22:10:11Z"},
+    {"Id":2014,"Name":"Primera Division","Code":"PD","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2019-01-12T19:21:43Z"},
+    {"Id":2015,"Name":"Ligue 1","Code":"FL1","EmblemUrl":null, "Plan":"TIER_ONE","LastUpdated":"2019-01-12T19:21:43Z"},
+    {"Id":2016,"Name":"Championship","Code":"ELC","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2019-01-12T19:22:23Z"},
+    {"Id":2017,"Name":"Primeira Liga","Code":"PPL","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2019-01-12T19:11:43Z"},
+    {"Id":2018,"Name":"European Championship","Code":"EC","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2018-08-23T12:16:01Z"},
+    {"Id":2019,"Name":"Serie A","Code":"SA","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2018-12-30T16:20:04Z"},
+    {"Id":2021,"Name":"Premier League","Code":"PL","EmblemUrl":null,"Plan":"TIER_ONE","LastUpdated":"2019-01-12T19:23:23Z"}
+  ],
+  "bets": [
+  ]
+}
