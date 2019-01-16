@@ -4,7 +4,6 @@ import {
 } from 'semantic-ui-react';
 import { Link, Route } from 'react-router-dom';
 import UserService from '../../service/UserService';
-import AuthService from '../../service/AuthService';
 import User from '../../model/User';
 import BetLayoutResult from './BetLayoutResult';
 import BetSubmitLayout from './BetSubmitLayout';
@@ -16,10 +15,7 @@ class BetLayout extends React.Component {
   };
 
   componentDidMount() {
-    // TODO I think is better to use the store in this case
-    const token = AuthService.getToken();
-    const userInfo = AuthService.getUserInfo(token);
-    UserService.getByEmail(userInfo.email)
+    UserService.getFromToken()
       .then((response) => {
         this.setState({ user: response.data });
       });

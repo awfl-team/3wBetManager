@@ -3,14 +3,14 @@ import AuthService from './service/AuthService';
 
 const api = axios.create({
   // api c# url
-  baseURL: 'http://localhost:9000/api/',
+  baseURL: 'http://localhost:9000/',
 });
 
 api.interceptors.request.use(
   (config) => {
     const token = AuthService.getToken();
     const configuration = config;
-    if (token !== null) configuration.headers.Authorization = `Bearer${token}`;
+    if (token !== null) configuration.headers.Authorization = `Bearer ${token}`;
     return configuration;
   },
   error => Promise.reject(error),

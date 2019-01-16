@@ -8,12 +8,7 @@ class BetRowResult extends React.Component {
     console.log(this.props.competitionId);
   }
 
-  handleShow = () => this.setState({ active: true });
-
-  handleHide = () => this.setState({ active: false });
-
   render() {
-    const { active } = this.state;
     return (
       <div id="betRows">
         <Container fluid>
