@@ -1,20 +1,18 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {removeSnackBar} from '../../actions/SnackBarActions';
+import { connect } from 'react-redux';
+import { removeSnackBar } from '../../actions/SnackBarActions';
 
-const mapStateToProps = state => {
-  return {snackbar: state.snackbar};
-};
+const mapStateToProps = state => ({ snackbar: state.snackbar });
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeSnackBar: () => dispatch(removeSnackBar())
+    removeSnackBar: () => dispatch(removeSnackBar()),
   };
 }
 
 class SnackbarsComponent extends React.Component {
   state = {
-    classes             : ['snackbar'],
+    classes: ['snackbar'],
     updatedFromComponent: false,
   };
 
@@ -25,14 +23,14 @@ class SnackbarsComponent extends React.Component {
     if (this.props.snackbar && !prevProps.snackbar) {
       setTimeout(() => {
         this.setState({
-          classes             : [...this.state.classes,`snackbar-${this.props.snackbar.type}`, 'show'],
+          classes: [...this.state.classes, `snackbar-${this.props.snackbar.type}`, 'show'],
           updatedFromComponent: true,
         });
       }, 5);
       setTimeout(() => {
         this.props.removeSnackBar();
         this.setState({
-          classes             : ['snackbar'],
+          classes: ['snackbar'],
           updatedFromComponent: true,
         });
       }, 5000);
@@ -45,7 +43,7 @@ class SnackbarsComponent extends React.Component {
         {this.props.snackbar ? this.props.snackbar.message : ''}
       </div>
     );
-  };
+  }
 }
 
 const SnackBar = connect(mapStateToProps, mapDispatchToProps)(SnackbarsComponent);

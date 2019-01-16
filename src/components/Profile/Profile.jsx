@@ -12,10 +12,7 @@ class Profile extends React.Component {
   };
 
   componentDidMount() {
-    // TODO I think is better to use the store in this case
-    const token = AuthService.getToken();
-    const userInfo = AuthService.getUserInfo(token);
-    UserService.getByEmail(userInfo.email)
+    UserService.getFromToken()
       .then((response) => {
         this.setState({ user: response.data });
       })
