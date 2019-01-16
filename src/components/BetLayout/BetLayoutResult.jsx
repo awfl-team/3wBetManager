@@ -1,9 +1,9 @@
 import React from 'react';
 import { Accordion, Container, Icon } from 'semantic-ui-react';
-import BetRow from './BetRow';
 import CompetitionService from '../../service/CompetionService';
+import BetRowResult from './BetRowResult';
 
-class BetCup extends React.Component {
+class BetLayoutResult extends React.Component {
   state = {
     activeIndex: 0,
     competitions: [],
@@ -41,7 +41,7 @@ class BetCup extends React.Component {
                   {competition.Name}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === index}>
-                  <BetRow competitionId={competition.Id} />
+                  <BetRowResult competitionId={competition.Id} />
                 </Accordion.Content>
               </div>
             ))}
@@ -52,4 +52,4 @@ class BetCup extends React.Component {
   }
 }
 
-export default BetCup;
+export default BetLayoutResult;
