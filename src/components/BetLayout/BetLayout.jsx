@@ -1,14 +1,11 @@
 import React from 'react';
-import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react';
+import {Button, Container, Grid, Icon} from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
 import BetLayoutResult from './BetLayoutResult';
 import {Link, Route} from 'react-router-dom';
 import BetSubmitLayout from "./BetSubmitLayout";
-import PageScroller from "../PageScroller/PageScroller";
-
-
 
 class BetLayout extends React.Component {
   state = {
@@ -32,7 +29,7 @@ class BetLayout extends React.Component {
     const { user } = this.state;
     return (
       <div id="betLayout">
-        <Container fluid id="bet-header">
+        <Container fluid>
           <Grid>
             <Grid.Column floated='left' width={5}>
               <Button
@@ -67,7 +64,6 @@ class BetLayout extends React.Component {
           <Route path="/bet/myBets" component={BetLayoutResult} />
           <Route path="/bet/submitBets" component={BetSubmitLayout} />
         </Container>
-        <PageScroller />
       </div>
     );
   }
