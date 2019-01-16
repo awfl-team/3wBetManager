@@ -6,7 +6,7 @@ import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import BetLayout from "../BetLayout/BetLayout";
-import BetSubmitLayout from "../BetLayout/BetSubmitLayout";
+import PageScroller from "../PageScroller/PageScroller";
 
 class UserLayout extends React.Component {
   state = {
@@ -85,10 +85,12 @@ class UserLayout extends React.Component {
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
             <Segment basic className="content-container">
+              <div id="scroll-anchor" />
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/bet" component={BetLayout} />
+              <PageScroller/>
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

@@ -4,7 +4,7 @@ import { Button, Icon } from 'semantic-ui-react';
 class PageScroller extends React.Component {
 
   handleClick() {
-    document.getElementById("bet-header").scrollIntoView({behavior: "smooth"});
+    document.getElementById("scroll-anchor").scrollIntoView({behavior: "smooth"});
   }
 
   render() {
