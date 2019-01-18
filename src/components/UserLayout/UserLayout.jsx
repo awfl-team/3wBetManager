@@ -6,6 +6,7 @@ import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import BetLayout from "../BetLayout/BetLayout";
+import withAuth from '../AuthGuard/AuthGuard';
 
 class UserLayout extends React.Component {
   state = {
@@ -25,6 +26,7 @@ class UserLayout extends React.Component {
 
   logout() {
     AuthService.logout();
+    this.props.history.push('/login');
     this.setState({ toHome: true });
   }
 
@@ -89,4 +91,4 @@ class UserLayout extends React.Component {
   }
 }
 
-export default UserLayout;
+export default withAuth(UserLayout);
