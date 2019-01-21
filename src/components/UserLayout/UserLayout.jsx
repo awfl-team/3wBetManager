@@ -1,43 +1,37 @@
 import React from 'react';
-import {NavLink, Redirect, Route} from 'react-router-dom';
-import {Container, Icon, Menu, Segment, Sidebar,} from 'semantic-ui-react';
+import { NavLink, Redirect, Route } from 'react-router-dom';
+import {
+  Container, Icon, Menu, Segment, Sidebar,
+} from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
-import BetLayout from "../BetLayout/BetLayout";
+import BetLayout from '../BetLayout/BetLayout';
+import withAuth from '../AuthGuard/AuthGuard';
 
 class UserLayout extends React.Component {
   state = {
     visible: true,
-    username: Object,
     toHome: false,
-    toLogin: false,
   };
-
-  componentDidMount() {
-    const token = AuthService.getToken();
-    const userInfo = AuthService.getUserInfo(token);
-    this.setState({ username: userInfo.unique_name });
-  }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
   logout() {
     AuthService.logout();
+    this.props.history.push('/login');
     this.setState({ toHome: true });
   }
 
   render() {
     const {
-      visible, username, toHome, toLogin,
+      visible, toHome,
     } = this.state;
+    const { user } = this.props;
 
     if (toHome) {
       return <Redirect to="/" />;
-    }
-    if (toLogin) {
-      return <Redirect to="/login" />;
     }
     return (
       <div className="layout">
@@ -45,7 +39,7 @@ class UserLayout extends React.Component {
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
             <Menu.Item className="user-info">
-              {username.toString()}
+              {user.unique_name.toString()}
             </Menu.Item>
             <Menu.Item as={NavLink} to="/profile">
               My profile
@@ -89,4 +83,4 @@ class UserLayout extends React.Component {
   }
 }
 
-export default UserLayout;
+export default withAuth(UserLayout);
