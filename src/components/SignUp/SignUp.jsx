@@ -151,12 +151,21 @@ class SignUpComponent extends React.Component {
                     />
                   </div>
                 </div>
+                <button
+                  type="submit"
+                  className="ui fluid large teal submit button main-button"
+                  disabled={!isEnabled}
+                >
+                        Sign Up
+                </button>
                 <div className={formInfoClass}>
                   <h2 className="form-info-title"> Don't forget to :</h2>
                   <p className={formFieldIdentical}>
-                    <i className="info circle icon"/> The password must be identical with the password field</p>
+                    <i className="info circle icon"/> The password must be identical with the
+                    password field</p>
                   <p className={formFieldNumber}>
-                    <i className="info circle icon"/> The password requires at least 12 characters</p>
+                    <i className="info circle icon"/> The password requires at least 12 characters
+                  </p>
                   <p className={formMultipleInfos}>
                     <i className="info circle icon"/> The password requires a <span
                       className={formdFieldUppercase}>
@@ -165,14 +174,6 @@ class SignUpComponent extends React.Component {
                       className={formFieldSpecial}> special character</span> and <span
                       className={formFieldWithNumber}>a number</span></p>
                 </div>
-                <button
-                  type="submit"
-                  className="ui fluid large teal submit button main-button"
-                  disabled={!isEnabled}
-                >
-                        Sign Up
-                </button>
-
               </div>
               <div className="ui error message" />
             </form>
