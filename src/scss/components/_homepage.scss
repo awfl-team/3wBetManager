@@ -68,3 +68,39 @@
 .secondary.pointing.menu .toc.item {
     display: none;
 }
+
+#homepage{
+    .hp-Header {
+        background-image: url("https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80") !important;
+        object-fit: cover;
+        background-size: cover !important;
+        position: relative;
+
+        &> .mask {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            mix-blend-mode: overlay;
+            background: rgba(0, 0, 0, 0.65);
+        }
+    }
+
+    .row {
+        margin-bottom: 50px;
+        img {
+            border-radius: 50%;
+            height: 320px;
+            width: 320px;
+            object-fit: cover;
+            @media screen and (max-width: 768px) {
+                display: none;
+            }
+            @media (min-width: 768px) and (max-width: 992px) {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    }
+}
