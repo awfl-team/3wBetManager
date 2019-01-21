@@ -45,9 +45,6 @@ class LoginComponent extends React.Component {
       toDashboard, email, password,
     } = this.state;
 
-    const isPasswordOk = VerifyService.passwordSize(password);
-    const isEmailOk = VerifyService.isEmailOk(email);
-
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
@@ -75,9 +72,6 @@ class LoginComponent extends React.Component {
                           && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
-                  { !isEmailOk && email
-                  && <p className="field-info">This field require a valid email</p>
-                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -92,11 +86,10 @@ class LoginComponent extends React.Component {
                         ? 'errorInput' : `${password.length}` > 6 ? 'okInput' : ''}
                     />
                   </div>
-                  { !isPasswordOk && password
-                  && <p className="field-info">This field require a least 6 characters</p>
-                  }
                 </div>
-                <button type="submit" className="ui fluid large teal submit button main-button">Submit</button>
+                <button type="submit"
+                        disabled={password.length === 0 || email.length === 0}
+                        className="ui fluid large teal submit button main-button">Submit</button>
               </div>
             </form>
 
