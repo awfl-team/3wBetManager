@@ -3,9 +3,19 @@ import {
   Accordion, Button, Container, Icon,
 } from 'semantic-ui-react';
 import BetSubmitRow from './BetSubmitRow';
+import CompetitionService from '../../service/CompetionService';
 
 class BetSubmitLayout extends React.Component {
-  state = { activeIndex: 0 };
+  state = {
+    activeIndex: 0,
+    competitions: [],
+  };
+
+  componentDidMount() {
+    CompetitionService.getAllCompetions().then((response) => {
+      this.setState({ competitions: response.data });
+    });
+  }
 
   handleClick = (e, titleProps) => {
     const { index } = titleProps;
@@ -16,26 +26,27 @@ class BetSubmitLayout extends React.Component {
   };
 
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex, competitions } = this.state;
 
     return (
       <div id="betCup">
         <Container fluid>
           <Accordion fluid styled>
-            <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-              <Icon name="dropdown" />
-                Cup #1
-            </Accordion.Title>
-            <Accordion.Content active={activeIndex === 0}>
-              <BetSubmitRow />
-            </Accordion.Content>
-            <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
-              <Icon name="dropdown" />
-                Cup #2
-            </Accordion.Title>
-            <Accordion.Content active={activeIndex === 1}>
-              <BetSubmitRow />
-            </Accordion.Content>
+            {competitions.map((competition, index) => (
+              <div key={competition.Id}>
+                <Accordion.Title
+                  active={activeIndex === index}
+                  index={index}
+                  onClick={this.handleClick}
+                >
+                  <Icon name="dropdown" />
+                  {competition.Name}
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex === index}>
+                  <BetSubmitRow competitionId={competition.Id} />
+                </Accordion.Content>
+              </div>
+            ))}
           </Accordion>
         </Container>
         <Container fluid className="submit-bets-action">
