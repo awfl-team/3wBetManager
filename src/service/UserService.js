@@ -31,4 +31,8 @@ export default class UserService {
       Username: user.Username,
     });
   }
+
+  static getTop50Betters() {
+    return API.get('/users/top50');
+  }
 }

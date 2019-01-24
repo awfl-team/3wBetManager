@@ -1,10 +1,23 @@
 import React from 'react';
 import {Icon, Label, Table} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+import UserService from '../../service/UserService';
 
 class BestBettersTable extends React.Component {
+  state = {
+    top50: []
+};
 
-  render() {
+  componentDidMount(){
+    UserService.getTop50Betters().then((response) => {
+      this.setState({top50: response.data});
+      console.log(this.state.top50);
+    });
+  }
+
+  render()
+{
+    const { top50 } = this.state;
     return (
       <div id="bestBettersTable">
         <Table celled structured compact inverted>
@@ -35,104 +48,23 @@ class BestBettersTable extends React.Component {
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-
           <Table.Body>
-            <Table.Row textAlign="center">
-              <Table.Cell>Alpha Team</Table.Cell>
-              <Table.Cell>Project 1</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>
-                jpp
-              </Table.Cell>
-              <Table.Cell />
-              <Table.Cell />
-              <Table.Cell>
-                <Link to="/xd" className="button ui blue small icon">
-                  <Icon name="eye" />
-                </Link>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row textAlign="center">
-              <Table.Cell>Alpha Team</Table.Cell>
-              <Table.Cell>Project 1</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>
-                jpp
-              </Table.Cell>
-              <Table.Cell />
-              <Table.Cell />
-              <Table.Cell>
-                <Link to="/xd" className="button ui blue small icon">
-                  <Icon name="eye" />
-                </Link>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row textAlign="center">
-              <Table.Cell>Alpha Team</Table.Cell>
-              <Table.Cell>Project 1</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>
-                jpp
-              </Table.Cell>
-              <Table.Cell />
-              <Table.Cell />
-              <Table.Cell>
-                <Link to="/xd" className="button ui blue small icon">
-                  <Icon name="eye" />
-                </Link>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row textAlign="center">
-              <Table.Cell>Alpha Team</Table.Cell>
-              <Table.Cell>Project 1</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>
-                jpp
-              </Table.Cell>
-              <Table.Cell />
-              <Table.Cell />
-              <Table.Cell>
-                <Link to="/xd" className="button ui blue small icon">
-                  <Icon name="eye" />
-                </Link>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row textAlign="center">
-              <Table.Cell>Alpha Team</Table.Cell>
-              <Table.Cell>Project 1</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>
-                jpp
-              </Table.Cell>
-              <Table.Cell />
-              <Table.Cell />
-              <Table.Cell>
-                <Link to="/xd" className="button ui blue small icon">
-                  <Icon name="eye" />
-                </Link>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row textAlign="center">
-              <Table.Cell>Alpha Team</Table.Cell>
-              <Table.Cell>Project 1</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>2</Table.Cell>
-              <Table.Cell>
-                jpp
-              </Table.Cell>
-              <Table.Cell />
-              <Table.Cell />
-              <Table.Cell>
-                <Link to="/xd" className="button ui blue small icon">
-                  <Icon name="eye" />
-                </Link>
-              </Table.Cell>
-            </Table.Row>
+            {top50.map((user, index) => (
+                <Table.Row key={user.Id} textAlign="center">
+                  <Table.Cell>{index + 1}</Table.Cell>
+                  <Table.Cell>{user.Username}</Table.Cell>
+                  <Table.Cell>{user.Point}</Table.Cell>
+                  <Table.Cell>{user.NbBets}</Table.Cell>
+                  <Table.Cell>{user.NbWrongBets}</Table.Cell>
+                  <Table.Cell>{user.NbOkBets}</Table.Cell>
+                  <Table.Cell>{user.NbPerfectBets}</Table.Cell>
+                  <Table.Cell>
+                      < Link to={ '/users/' + user.Id} className="button ui blue small icon">
+                      <Icon name="eye" />
+                      </Link>
+                  </Table.Cell>
+                </Table.Row>
+            ))}
           </Table.Body>
         </Table>
       </div>

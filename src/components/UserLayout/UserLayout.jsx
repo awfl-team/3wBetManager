@@ -77,6 +77,7 @@ class UserLayout extends React.Component {
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/mybets" component={BetLayout} />
               <Route path="/bestBetters" component={BestBettersLayout} />
+              <Route path="/users/:userId" component={Profile} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

@@ -9,12 +9,6 @@ class BestBettersLayout extends React.Component {
   render() {
     return (
       <div id="bestBettersLayout">
-        <Header as="h2" icon textAlign="center">
-          <Header.Content>My position</Header.Content>
-        </Header>
-        <Container fluid>
-          <BestBettersCurrentUserTable />
-        </Container>
         <Divider section />
         <Header as="h2" icon textAlign="center">
           <Header.Content>Top 50</Header.Content>
