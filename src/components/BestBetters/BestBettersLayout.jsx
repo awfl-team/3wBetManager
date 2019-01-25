@@ -3,7 +3,6 @@ import {
   Container, Divider, Header,
 } from 'semantic-ui-react';
 import BestBettersTable from './BestBettersTable';
-import BestBettersCurrentUserTable from './BestBettersCurrentUserTable';
 
 class BestBettersLayout extends React.Component {
   render() {
