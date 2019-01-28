@@ -1,9 +1,9 @@
 export default class Bet {
     Id;
 
-    IdMatch;
+    Match;
 
-    UserId;
+    User;
 
     Date = new Date();
 

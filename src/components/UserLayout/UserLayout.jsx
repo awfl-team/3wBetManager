@@ -1,12 +1,14 @@
 import React from 'react';
-import {NavLink, Redirect, Route} from 'react-router-dom';
-import {Container, Icon, Menu, Segment, Sidebar,} from 'semantic-ui-react';
+import { NavLink, Redirect, Route } from 'react-router-dom';
+import {
+  Container, Icon, Menu, Segment, Sidebar,
+} from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
-import BetLayout from "../BetLayout/BetLayout";
-import PageScroller from "../PageScroller/PageScroller";
+import BetLayout from '../BetLayout/BetLayout';
+import PageScroller from '../PageScroller/PageScroller';
 
 class UserLayout extends React.Component {
   state = {
@@ -33,7 +35,7 @@ class UserLayout extends React.Component {
 
   render() {
     const {
-      visible, username, toHome, toLogin, userPoints
+      visible, username, toHome, toLogin, userPoints,
     } = this.state;
 
     if (toHome) {
@@ -52,7 +54,7 @@ class UserLayout extends React.Component {
             </Menu.Item>
             <Menu.Item className="user-info">
               {/* userPoints.toString() */}
-              {/*@todo display user points*/}
+              {/* @todo display user points */}
               === pts
             </Menu.Item>
             <Menu.Item as={NavLink} to="/profile">
@@ -90,7 +92,7 @@ class UserLayout extends React.Component {
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/bet" component={BetLayout} />
-              <PageScroller/>
+              <PageScroller />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

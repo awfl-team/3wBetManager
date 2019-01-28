@@ -3,19 +3,50 @@ import {
   Container, Image, Input,
 } from 'semantic-ui-react';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import BetService from '../../service/BetService';
+import Bet from '../../model/Bet';
+import { addTableBet } from '../../actions/TableBet';
 
-class BetSubmitRow extends React.Component {
-  state = {
-    bets: [],
-    matches: [],
+function mapDispatchToProps(dispatch) {
+  return {
+    addBet: ({ bet }) => dispatch(addTableBet(bet)),
   };
+}
+
+class BetSubmitRowComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.createBet = this.createBet.bind(this);
+    this.state = {
+      bets: [],
+      matches: [],
+      newBets: [],
+    };
+  }
 
   componentDidMount() {
     BetService.getCurrentBetAndMatches(this.props.competitionId).then((response) => {
       this.setState({ bets: response.data.Bets });
       this.setState({ matches: response.data.Matches });
     });
+  }
+
+  createBet(event, match, inputName) {
+    const { newBets } = this.state;
+    const findIndexBet = newBets.findIndex(bet => bet.Match.Id === match.Id);
+    if (findIndexBet === -1) {
+      const newBet = new Bet();
+      if (inputName === 'home') newBet.HomeTeamScore = event.target.value;
+      if (inputName === 'away') newBet.AwayTeamScore = event.target.value;
+      newBet.Match = match;
+      newBets.push(newBet);
+    } else {
+      if (inputName === 'home') newBets[findIndexBet].HomeTeamScore = event.target.value;
+      if (inputName === 'away') newBets[findIndexBet].AwayTeamScore = event.target.value;
+    }
+    this.setState({ newBets });
+    console.log(newBets);
   }
 
   render() {
@@ -83,11 +114,11 @@ class BetSubmitRow extends React.Component {
                   <div className="match-info">{moment(match.UtcDate).format('DD/MM/YYYY')}</div>
                   <div className="container-versus-details">
                     <div className="home-score ">
-                      <Input fluid type="number" max="9" min="0" />
+                      <Input onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />
                     </div>
                     <div className="versus-text"> -</div>
                     <div className="away-score loose">
-                      <Input fluid type="number" max="9" min="0" />
+                      <Input onChange={event => this.createBet(event, match, 'away')} fluid type="number" max="9" min="0" />
                     </div>
                   </div>
                 </div>
@@ -109,4 +140,5 @@ class BetSubmitRow extends React.Component {
   }
 }
 
+const BetSubmitRow = connect(null, mapDispatchToProps)(BetSubmitRowComponent);
 export default BetSubmitRow;

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Accordion, Button, Container, Icon,
 } from 'semantic-ui-react';
-import BetSubmitRow from './BetSubmitRow';
+import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
 
 class BetSubmitLayout extends React.Component {
@@ -43,7 +43,7 @@ class BetSubmitLayout extends React.Component {
                   {competition.Name}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === index}>
-                  <BetSubmitRow competitionId={competition.Id} />
+                  <BetSubmitRowComponent competitionId={competition.Id} />
                 </Accordion.Content>
               </div>
             ))}
