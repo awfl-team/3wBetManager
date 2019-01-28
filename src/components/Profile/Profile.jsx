@@ -114,7 +114,7 @@ class Profile extends React.Component {
               <Icon name="pencil"/>
             </Link>
             <Modal
-              trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="secondary" size="huge" />}
+              trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
               open={this.state.modalResetOpen}
               onClose={this.handleCloseReset}
               basic
