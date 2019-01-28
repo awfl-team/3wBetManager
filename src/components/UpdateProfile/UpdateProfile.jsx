@@ -1,19 +1,13 @@
 import * as React from 'react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
-import connect from 'react-redux/es/connect/connect';
+import VerifyService from '../../service/VerifyService';
+import classNames from 'classnames/bind';
 import {
   Button, Container, Header, Icon,
 } from 'semantic-ui-react';
-import { addSnackBar } from '../../actions/SnackBarActions';
-import VerifyService from '../../service/VerifyService';
-import classNames from 'classnames/bind';
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-  };
-}
+
 class UpdateProfile extends React.Component {
   state = {
     user: User,
@@ -63,6 +57,7 @@ class UpdateProfile extends React.Component {
     user.Id = this.state.user.Id;
     if (event.target.password.value === event.target.confirmPassword.value) {
       UserService.updateUser(user).then((response) => {
+        this.props.history.push('/profile');
       })
         .catch((error) => {
           this.setState({ message: error.response.data });
@@ -183,5 +178,5 @@ class UpdateProfile extends React.Component {
     );
   }
 }
-const updateUser = connect(null, mapDispatchToProps)(UpdateProfile);
-export default updateUser;
+
+export default UpdateProfile;

@@ -8,7 +8,8 @@ import User from '../../model/User';
 class Profile extends React.Component {
   state = {
     user: User,
-    modalOpen: false,
+    modalDeleteOpen: false,
+    modalResetOpen: false,
   };
 
   componentDidMount() {
@@ -21,18 +22,27 @@ class Profile extends React.Component {
       });
   }
 
-  handleOpen = () => this.setState({ modalOpen: true });
+  handleOpenDelete = () => this.setState({ modalDeleteOpen: true });
 
-  handleClose = () => this.setState({ modalOpen: false });
+  handleCloseDelete = () => this.setState({ modalDeleteOpen: false });
+
+  handleOpenReset = () => this.setState({ modalResetOpen: true });
+
+  handleCloseReset = () => this.setState({ modalResetOpen: false });
 
   handleDelete = () => {
     AuthService.logout();
     UserService.deleteUser(this.state.user)
       .then(() => this.props.history.push('/'))
       .catch((error) => {
-        this.setState({ modalOpen: false });
+        this.setState({ modalDeleteOpen: false });
         this.props.addSnackbar({ message: error.response.data, type: 'danger' });
       });
+  };
+
+  handleReset = () => {
+    UserService.resetUser(this.state.user)
+      .then(() => this.props.history.push('/dashboard'));
   };
 
   render() {
@@ -72,9 +82,9 @@ class Profile extends React.Component {
           />
           <Container className="container-actions">
             <Modal
-              trigger={<Button onClick={this.handleOpen} circular icon="trash" color="red" size="huge" />}
-              open={this.state.modalOpen}
-              onClose={this.handleClose}
+              trigger={<Button onClick={this.handleOpenDelete} circular icon="trash" color="red" size="huge" />}
+              open={this.state.modalDeleteOpen}
+              onClose={this.handleCloseDelete}
               basic
               size="small"
             >
@@ -86,7 +96,7 @@ class Profile extends React.Component {
                 </h3>
               </Modal.Content>
               <Modal.Actions>
-                <Button color="red" onClick={this.handleClose} inverted>
+                <Button color="red" onClick={this.handleCloseDelete} inverted>
                   <Icon name="remove" />
                   Cancel
                 </Button>
@@ -99,6 +109,31 @@ class Profile extends React.Component {
             <Link to="/update-profile" className="button ui circular orange huge icon">
               <Icon name="pencil"/>
             </Link>
+            <Modal
+              trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="secondary" size="huge" />}
+              open={this.state.modalResetOpen}
+              onClose={this.handleCloseReset}
+              basic
+              size="small"
+            >
+              <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
+              <Modal.Content>
+                <h3>
+                  If you confirm this action, your earned points, bets and statistics will be reset !
+                  In exchange, your account will be credited by 500pts to reborn from ashes.
+                </h3>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="red" onClick={this.handleCloseReset} inverted>
+                  <Icon name="remove" />
+                  Cancel
+                </Button>
+                <Button color="green" onClick={this.handleReset} inverted>
+                  <Icon name="checkmark" />
+                  Yes, do it !
+                </Button>
+              </Modal.Actions>
+            </Modal>
           </Container>
         </Container>
 

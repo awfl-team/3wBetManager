@@ -24,6 +24,10 @@ export default class UserService {
     return API.delete(`/users/${user.Id}`);
   }
 
+  static resetUser(user) {
+    return API.put(`/users/${user.Id}/reset`);
+  }
+
   static updateUser(user) {
     return API.put(`/users/${user.Id}`, {
       Email: user.Email,
