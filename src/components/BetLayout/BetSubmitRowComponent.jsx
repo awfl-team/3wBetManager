@@ -5,12 +5,11 @@ import {
 import moment from 'moment';
 import { connect } from 'react-redux';
 import BetService from '../../service/BetService';
-import Bet from '../../model/Bet';
-import { addTableBet } from '../../actions/TableBet';
+import { addTableBet } from '../../actions/TableBetActions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    addBet: ({ bet }) => dispatch(addTableBet(bet)),
+    addBet: ({ event, match, inputName }) => dispatch(addTableBet(event, match, inputName)),
   };
 }
 
@@ -21,7 +20,6 @@ class BetSubmitRowComponent extends React.Component {
     this.state = {
       bets: [],
       matches: [],
-      newBets: [],
     };
   }
 
@@ -33,20 +31,7 @@ class BetSubmitRowComponent extends React.Component {
   }
 
   createBet(event, match, inputName) {
-    const { newBets } = this.state;
-    const findIndexBet = newBets.findIndex(bet => bet.Match.Id === match.Id);
-    if (findIndexBet === -1) {
-      const newBet = new Bet();
-      if (inputName === 'home') newBet.HomeTeamScore = event.target.value;
-      if (inputName === 'away') newBet.AwayTeamScore = event.target.value;
-      newBet.Match = match;
-      newBets.push(newBet);
-    } else {
-      if (inputName === 'home') newBets[findIndexBet].HomeTeamScore = event.target.value;
-      if (inputName === 'away') newBets[findIndexBet].AwayTeamScore = event.target.value;
-    }
-    this.setState({ newBets });
-    console.log(newBets);
+    this.props.addBet({ event, match, inputName });
   }
 
   render() {
