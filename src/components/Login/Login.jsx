@@ -57,7 +57,7 @@ class LoginComponent extends React.Component {
                   Sign-in
               </div>
             </h2>
-            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
+            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
               <div className="ui stacked">
                 <div className="field">
                   <div className="ui left icon input">

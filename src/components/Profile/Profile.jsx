@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Divider, Header, Icon, Modal,} from 'semantic-ui-react';
+import {Button, Container, Divider, Header, Icon, Modal, Radio} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
@@ -44,6 +44,7 @@ class Profile extends React.Component {
           <Header.Content>My profile</Header.Content>
         </Header>
         <Container textAlign="center" className="container-centered">
+          <div className="profile-accessibility"><label>Private mode</label><Radio toggle /></div>
           <Button
             content="Email"
             icon="mail"

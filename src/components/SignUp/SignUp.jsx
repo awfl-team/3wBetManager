@@ -61,7 +61,7 @@ class SignUpComponent extends React.Component {
 
   render() {
     const {
-      confirmPassword, password, message, toDashboard, email, username,
+      confirmPassword, password, toDashboard, email, username, message
     } = this.state;
 
     if (toDashboard) {
@@ -75,11 +75,10 @@ class SignUpComponent extends React.Component {
     const isPasswordUppercase = VerifyService.isPasswordUppercase(password);
     const isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
     const isPasswordOk = (isPasswordNumberCharOk && isPasswordWithNumber && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
-    const showDiv = (password === '' || isPasswordOk);
     const isEnabled = (isEmailOk && isUsernameOk && isPasswordNumberCharOk && isPasswordWithNumber && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
 
-
-    const formInfoClass = classNames({ 'form-info-hidden': showDiv, 'form-info': !showDiv});
+    const formFieldUsernameOk = classNames({ 'validate-form-info': isUsernameOk, 'error-form-info': !isUsernameOk });
+    const formFieldEmailOk = classNames({ 'validate-form-info': isEmailOk, 'error-form-info': !isEmailOk });
     const formFieldIdentical = classNames({ 'validate-form-info': isPasswordIdentical, 'error-form-info': !isPasswordIdentical });
     const formFieldNumber = classNames({ 'validate-form-info': isPasswordNumberCharOk, 'error-form-info': !isPasswordNumberCharOk });
     const formdFieldUppercase = classNames({ 'validate-form-info': isPasswordUppercase, 'error-form-info': !isPasswordUppercase });
@@ -96,7 +95,7 @@ class SignUpComponent extends React.Component {
                   Create a new account
               </div>
             </h2>
-            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
+            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
               <div className="ui stacked">
                 <div className="field">
                   <div className="ui left icon input">
@@ -158,21 +157,27 @@ class SignUpComponent extends React.Component {
                 >
                         Sign Up
                 </button>
-                <div className={formInfoClass}>
-                  <h2 className="form-info-title"> Don't forget to :</h2>
+                <div className="form-info validation">
+                  <p className={formFieldEmailOk}>
+                    <i className="info circle icon" /> The email must respect the valid email format
+                  </p>
+                  <p className={formFieldUsernameOk}>
+                    <i className="info circle icon" /> The username requires at least 3 characters
+                  </p>
                   <p className={formFieldIdentical}>
-                    <i className="info circle icon"/> The password must be identical with the
-                    password field</p>
+                    <i className="info circle icon" /> The password must be identical with the
+                    password field
+                  </p>
                   <p className={formFieldNumber}>
-                    <i className="info circle icon"/> The password requires at least 12 characters
+                    <i className="info circle icon" /> The password requires at least 12 characters
                   </p>
                   <p className={formMultipleInfos}>
-                    <i className="info circle icon"/> The password requires a <span
-                      className={formdFieldUppercase}>
+                    <i className="info circle icon" /> The password requires a <span
+                    className={formdFieldUppercase}>
                     uppercase
                   </span>, a <span
-                      className={formFieldSpecial}> special character</span> and <span
-                      className={formFieldWithNumber}>a number</span></p>
+                    className={formFieldSpecial}> special character</span> and <span
+                    className={formFieldWithNumber}>a number</span></p>
                 </div>
               </div>
               <div className="ui error message" />
