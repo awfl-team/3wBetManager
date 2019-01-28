@@ -9,10 +9,13 @@ export default class User {
 
     Username;
 
-    constructor(email, username, password = null, role = null) {
+    IsPrivate;
+
+    constructor(email, username, password = null, role = null, isPrivate = true) {
       this.Email = email;
       this.Username = username;
       this.Password = password;
       this.Role = role;
+      this.IsPrivate = isPrivate;
     }
 }

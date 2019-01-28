@@ -24,6 +24,10 @@ export default class UserService {
     return API.delete(`/users/${user.Id}`);
   }
 
+  static handleVisibilityUser(user) {
+    return API.delete(`/users/${user.Id}/visibility`);
+  }
+
   static resetUser(user) {
     return API.put(`/users/${user.Id}/reset`);
   }

@@ -10,6 +10,7 @@ class Profile extends React.Component {
     user: User,
     modalDeleteOpen: false,
     modalResetOpen: false,
+    isPrivate: false,
   };
 
   componentDidMount() {
@@ -46,7 +47,7 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { user, isPrivate } = this.state;
     return (
       <div id="profile">
         <Header as="h2" icon textAlign="center">
@@ -54,7 +55,10 @@ class Profile extends React.Component {
           <Header.Content>My profile</Header.Content>
         </Header>
         <Container textAlign="center" className="container-centered">
-          <div className="profile-accessibility"><label>Private mode</label><Radio toggle /></div>
+          <div className="profile-accessibility">
+            <label>Private mode</label>
+            <Radio toggle onClick={this.handleVisibilityUser} />
+          </div>
           <Button
             content="Email"
             icon="mail"
