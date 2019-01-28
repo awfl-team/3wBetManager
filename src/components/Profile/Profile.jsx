@@ -41,7 +41,6 @@ class Profile extends React.Component {
   };
 
   handleReset = () => {
-    //@todo reset user points and bets and statitics on backend
     UserService.resetUser(this.state.user)
       .then(() => this.props.history.push('/dashboard'));
   };

@@ -12,7 +12,6 @@ import AuthService from '../../service/AuthService';
 class UpdateProfile extends React.Component {
   state = {
     user: User,
-    message: '',
     email: '',
     username: '',
     password: '',
