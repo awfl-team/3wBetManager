@@ -2,8 +2,18 @@ import React from 'react';
 import {
   Accordion, Button, Container, Icon,
 } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
+import { purgeTableBet } from '../../actions/TableBetActions';
+
+const mapStateToProps = state => ({ bets: state.bets });
+
+function mapDispatchToProps(dispatch) {
+  return {
+    purgeTableBet: () => dispatch(purgeTableBet()),
+  };
+}
 
 class BetSubmitLayout extends React.Component {
   state = {
@@ -23,6 +33,7 @@ class BetSubmitLayout extends React.Component {
     const newIndex = activeIndex === index ? -1 : index;
 
     this.setState({ activeIndex: newIndex });
+    console.log(this.props.bets);
   };
 
   render() {
@@ -57,4 +68,5 @@ class BetSubmitLayout extends React.Component {
   }
 }
 
-export default BetSubmitLayout;
+const BetSubmit = connect(mapStateToProps, mapDispatchToProps)(BetSubmitLayout);
+export default BetSubmit;

@@ -27,17 +27,6 @@ class BetLayout extends React.Component {
       <div id="betLayout">
         <Container fluid>
           <Grid>
-            <Grid.Column floated="left" width={5}>
-              <Button
-                color="blue"
-                content="Score"
-                icon="winner"
-                fluid
-                label={{
-                  basic: true, color: 'blue', pointing: 'left', content: `${user.Point} pts`,
-                }}
-              />
-            </Grid.Column>
             <Grid.Column floated="right" width={5}>
               <div align="right">
                 {this.props.history.location.pathname === '/bet/myBets' && (
