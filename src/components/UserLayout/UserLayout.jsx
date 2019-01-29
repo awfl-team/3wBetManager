@@ -7,8 +7,10 @@ import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
-import BetLayout from '../BetLayout/BetLayout';
 import withAuth from '../AuthGuard/AuthGuard';
+import BetLayout from '../BetLayout/BetLayout';
+import BestBettersLayout from '../BestBetters/BestBettersLayout';
+import ConsultProfile from '../Profile/ConsultProfile';
 
 class UserLayout extends React.Component {
   state = {
@@ -55,9 +57,9 @@ class UserLayout extends React.Component {
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/xd">
-              <Icon name="gamepad" />
-              Games
+            <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters">
+              <Icon name="star" />
+              Best betters
             </Menu.Item>
             <Menu.Item as="a">
               <Icon name="camera" />
@@ -71,6 +73,8 @@ class UserLayout extends React.Component {
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/mybets" component={BetLayout} />
+              <Route path="/bestBetters" component={BestBettersLayout} />
+              <Route path="/user/:userId" component={ConsultProfile} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

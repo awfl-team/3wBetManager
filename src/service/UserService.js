@@ -16,6 +16,10 @@ export default class UserService {
     });
   }
 
+  static getUserById(id) {
+    return API.get(`users/${id}`);
+  }
+
   static getFromToken() {
     return API.get('users/token');
   }
@@ -40,5 +44,9 @@ export default class UserService {
       Password: user.Password,
       Username: user.Username,
     });
+  }
+
+  static getTop50Betters() {
+    return API.get('/users/top50');
   }
 }
