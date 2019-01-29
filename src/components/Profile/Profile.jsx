@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Divider, Header, Icon, Modal,} from 'semantic-ui-react';
+import {Button, Container, Divider, Header, Icon, Modal, Radio} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
@@ -8,35 +8,56 @@ import User from '../../model/User';
 class Profile extends React.Component {
   state = {
     user: User,
-    modalOpen: false,
+    modalDeleteOpen: false,
+    modalResetOpen: false,
+    isPrivate: false,
   };
 
   componentDidMount() {
     UserService.getFromToken()
       .then((response) => {
         this.setState({ user: response.data });
+        this.setState({ isPrivate: response.data.IsPrivate });
       })
       .catch((error) => {
         this.setState({ message: error.response.data });
       });
   }
 
-  handleOpen = () => this.setState({ modalOpen: true });
+  handleOpenDelete = () => this.setState({ modalDeleteOpen: true });
 
-  handleClose = () => this.setState({ modalOpen: false });
+  handleCloseDelete = () => this.setState({ modalDeleteOpen: false });
+
+  handleOpenReset = () => this.setState({ modalResetOpen: true });
+
+  handleCloseReset = () => this.setState({ modalResetOpen: false });
 
   handleDelete = () => {
     AuthService.logout();
     UserService.deleteUser(this.state.user)
       .then(() => this.props.history.push('/'))
       .catch((error) => {
-        this.setState({ modalOpen: false });
+        this.setState({ modalDeleteOpen: false });
         this.props.addSnackbar({ message: error.response.data, type: 'danger' });
       });
   };
 
+  handleReset = () => {
+    UserService.resetUser(this.state.user)
+      .then(() => this.props.history.push('/dashboard'));
+  };
+
+  handleVisibilityUser = () => {
+    this.setState({isPrivate: !this.state.isPrivate});
+    UserService.handleVisibilityUser(this.state.isPrivate)
+      .then(() => {
+
+      });
+
+  };
+
   render() {
-    const { user } = this.state;
+    const { user, isPrivate } = this.state;
     return (
       <div id="profile">
         <Header as="h2" icon textAlign="center">
@@ -44,6 +65,10 @@ class Profile extends React.Component {
           <Header.Content>My profile</Header.Content>
         </Header>
         <Container textAlign="center" className="container-centered">
+          <div className="profile-accessibility">
+            <label>Private mode</label>
+            <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate} />
+          </div>
           <Button
             content="Email"
             icon="mail"
@@ -71,9 +96,9 @@ class Profile extends React.Component {
           />
           <Container className="container-actions">
             <Modal
-              trigger={<Button onClick={this.handleOpen} circular icon="trash" color="red" size="huge" />}
-              open={this.state.modalOpen}
-              onClose={this.handleClose}
+              trigger={<Button onClick={this.handleOpenDelete} circular icon="trash" color="red" size="huge" />}
+              open={this.state.modalDeleteOpen}
+              onClose={this.handleCloseDelete}
               basic
               size="small"
             >
@@ -85,7 +110,7 @@ class Profile extends React.Component {
                 </h3>
               </Modal.Content>
               <Modal.Actions>
-                <Button color="red" onClick={this.handleClose} inverted>
+                <Button color="red" onClick={this.handleCloseDelete} inverted>
                   <Icon name="remove" />
                   Cancel
                 </Button>
@@ -98,6 +123,31 @@ class Profile extends React.Component {
             <Link to="/update-profile" className="button ui circular orange huge icon">
               <Icon name="pencil"/>
             </Link>
+            <Modal
+              trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
+              open={this.state.modalResetOpen}
+              onClose={this.handleCloseReset}
+              basic
+              size="small"
+            >
+              <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
+              <Modal.Content>
+                <h3>
+                  If you confirm this action, your earned points, bets and statistics will be reset !
+                  In exchange, your account will be credited by 500pts to reborn from ashes.
+                </h3>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="red" onClick={this.handleCloseReset} inverted>
+                  <Icon name="remove" />
+                  Cancel
+                </Button>
+                <Button color="green" onClick={this.handleReset} inverted>
+                  <Icon name="checkmark" />
+                  Yes, do it !
+                </Button>
+              </Modal.Actions>
+            </Modal>
           </Container>
         </Container>
 

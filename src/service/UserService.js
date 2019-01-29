@@ -24,6 +24,16 @@ export default class UserService {
     return API.delete(`/users/${user.Id}`);
   }
 
+  static handleVisibilityUser(isPrivate) {
+    return API.put('/users/visibility', {
+      IsPrivate: isPrivate,
+    });
+  }
+
+  static resetUser(user) {
+    return API.put(`/users/${user.Id}/reset`);
+  }
+
   static updateUser(user) {
     return API.put(`/users/${user.Id}`, {
       Email: user.Email,

@@ -4,7 +4,7 @@ export default class VerifyService {
   }
 
   static isUsernameOk(value) {
-    return value.length > 3;
+    return value.length >= 3;
   }
 
   static isPasswordNumberChars(password) {

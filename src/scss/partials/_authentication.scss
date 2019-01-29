@@ -15,37 +15,7 @@
       max-width: 450px;
       min-width: 300px;
       width: 100%;
-      .form-info {
-        transition: $main-transition;
-        opacity: 1;
-        color: $grey;
-        text-align: left;
-        margin: 0em 0em 1em;
-        transform-origin: center center;
-        font-size:11px;
-        height: 120px;
-        .form-info-title {
-          color:white;
 
-        }
-        .neutral-form-info {
-          color: $red;
-        }
-        .validate-form-info{
-          color:$green;
-        }
-        .error-form-info {
-          color: $red;
-        }
-      }
-      .form-info-hidden {
-        opacity: 0;
-        height: 0;
-        transition: $main-transition;
-        .form-info-title {
-          color: transparent;
-        }
-      }
     }
 
   }
