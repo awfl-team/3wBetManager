@@ -1,16 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
-import {setUser} from '../../actions/UserActions';
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setUser: user => dispatch(setUser(user)),
-  };
-}
 
 class LoginComponent extends React.Component {
   state = {
@@ -33,7 +25,6 @@ class LoginComponent extends React.Component {
     UserService.login(event.target.email.value, event.target.password.value)
       .then((response) => {
         AuthService.setTokenInLocalStorage(response);
-        this.props.setUser()
         this.setState({ toDashboard: true });
       });
   }
@@ -110,5 +101,4 @@ class LoginComponent extends React.Component {
   }
 }
 
-const Login = connect(null, mapDispatchToProps)(LoginComponent);
-export default Login;
+export default LoginComponent;

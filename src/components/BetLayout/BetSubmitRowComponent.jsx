@@ -9,7 +9,7 @@ import { addTableBet } from '../../actions/TableBetActions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    addBet: ({ event, match, inputName }) => dispatch(addTableBet(event, match, inputName)),
+    addBet: ({ match, inputName, value }) => dispatch(addTableBet(match, inputName, value)),
   };
 }
 
@@ -31,7 +31,7 @@ class BetSubmitRowComponent extends React.Component {
   }
 
   createBet(event, match, inputName) {
-    this.props.addBet({ event, match, inputName });
+    this.props.addBet({ match, inputName, value: event.target.value });
   }
 
   render() {
