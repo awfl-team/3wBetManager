@@ -16,6 +16,10 @@ export default class UserService {
     });
   }
 
+  static getUserById(id) {
+    return API.get(`users/${id}`);
+  }
+
   static getFromToken() {
     return API.get('users/token');
   }

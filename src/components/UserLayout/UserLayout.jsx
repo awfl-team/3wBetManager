@@ -10,6 +10,7 @@ import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import withAuth from '../AuthGuard/AuthGuard';
 import BetLayout from '../BetLayout/BetLayout';
 import BestBettersLayout from '../BestBetters/BestBettersLayout';
+import ConsultProfile from '../Profile/ConsultProfile';
 
 class UserLayout extends React.Component {
   state = {
@@ -77,7 +78,7 @@ class UserLayout extends React.Component {
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/mybets" component={BetLayout} />
               <Route path="/bestBetters" component={BestBettersLayout} />
-              <Route path="/users/:userId" component={Profile} />
+              <Route path="/user/:userId" component={ConsultProfile} />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
