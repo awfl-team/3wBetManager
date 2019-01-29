@@ -28,7 +28,6 @@ class UserLayout extends React.Component {
     const {
       visible, toHome,
     } = this.state;
-    const { user } = this.props;
 
     if (toHome) {
       return <Redirect to="/" />;
@@ -38,9 +37,6 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Menu.Item className="user-info">
-              {user.unique_name.toString()}
-            </Menu.Item>
             <Menu.Item as={NavLink} to="/profile">
               My profile
             </Menu.Item>
