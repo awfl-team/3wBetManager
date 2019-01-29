@@ -11,7 +11,7 @@ export default class User {
 
     IsPrivate;
 
-    constructor(email, username, password = null, role = null, isPrivate = true) {
+    constructor(email, username = null, password = null, role = null, isPrivate = null) {
       this.Email = email;
       this.Username = username;
       this.Password = password;

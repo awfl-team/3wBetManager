@@ -17,6 +17,7 @@ class Profile extends React.Component {
     UserService.getFromToken()
       .then((response) => {
         this.setState({ user: response.data });
+        this.setState({ isPrivate: response.data.IsPrivate });
       })
       .catch((error) => {
         this.setState({ message: error.response.data });
@@ -46,6 +47,15 @@ class Profile extends React.Component {
       .then(() => this.props.history.push('/dashboard'));
   };
 
+  handleVisibilityUser = () => {
+    this.setState({isPrivate: !this.state.isPrivate});
+    UserService.handleVisibilityUser(this.state.user, this.state.isPrivate)
+      .then(() => {
+
+      });
+
+  };
+
   render() {
     const { user, isPrivate } = this.state;
     return (
@@ -57,7 +67,7 @@ class Profile extends React.Component {
         <Container textAlign="center" className="container-centered">
           <div className="profile-accessibility">
             <label>Private mode</label>
-            <Radio toggle onClick={this.handleVisibilityUser} />
+            <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate} />
           </div>
           <Button
             content="Email"
