@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
-import VerifyService from '../../service/VerifyService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
 function mapDispatchToProps(dispatch) {
@@ -68,8 +67,6 @@ class LoginComponent extends React.Component {
                       placeholder="Email"
                       value={email}
                       onChange={this.handleEmailChange.bind(this)}
-                      className={VerifyService.isEmailOk(email) ? 'okInput' : `${email}` !== ''
-                          && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
                 </div>
@@ -82,13 +79,10 @@ class LoginComponent extends React.Component {
                       placeholder="Password"
                       value={password}
                       onChange={this.handlePasswordChange.bind(this)}
-                      className={password.length !== 0 && password.length < 6
-                        ? 'errorInput' : `${password.length}` > 6 ? 'okInput' : ''}
                     />
                   </div>
                 </div>
                 <button type="submit"
-                        disabled={password.length === 0 || email.length === 0}
                         className="ui fluid large teal submit button main-button">Submit</button>
               </div>
             </form>
