@@ -1,5 +1,4 @@
 import * as jwtdecode from 'jwt-decode';
-import API from '../api';
 
 export default class AuthService {
   static getUserInfo(token) {
@@ -12,14 +11,10 @@ export default class AuthService {
 
   static setTokenInLocalStorage(loginResponse) {
     const token = JSON.stringify(loginResponse.data);
-    localStorage.setItem('3wtoken', token);
+    localStorage.setItem('3wtoken', token.replace(/['"]+/g, ''));
   }
 
   static getToken() {
     return localStorage.getItem('3wtoken');
-  }
-
-  static validateToken() {
-    return API.get('/token/validate');
   }
 }

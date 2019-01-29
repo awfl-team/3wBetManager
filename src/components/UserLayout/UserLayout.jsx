@@ -1,16 +1,20 @@
 import React from 'react';
-import {NavLink, Redirect, Route} from 'react-router-dom';
-import {Container, Icon, Menu, Segment, Sidebar,} from 'semantic-ui-react';
+import { NavLink, Redirect, Route } from 'react-router-dom';
+import {
+  Container, Icon, Menu, Segment, Sidebar,
+} from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
-import BetLayout from "../BetLayout/BetLayout";
+import BetLayout from '../BetLayout/BetLayout';
+import PageScroller from '../PageScroller/PageScroller';
 
 class UserLayout extends React.Component {
   state = {
     visible: true,
     username: Object,
+    userPoints: Object,
     toHome: false,
     toLogin: false,
   };
@@ -19,6 +23,7 @@ class UserLayout extends React.Component {
     const token = AuthService.getToken();
     const userInfo = AuthService.getUserInfo(token);
     this.setState({ username: userInfo.unique_name });
+    this.setState({ userPoints: userInfo.points });
   }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
@@ -30,7 +35,7 @@ class UserLayout extends React.Component {
 
   render() {
     const {
-      visible, username, toHome, toLogin,
+      visible, username, toHome, toLogin, userPoints,
     } = this.state;
 
     if (toHome) {
@@ -47,6 +52,11 @@ class UserLayout extends React.Component {
             <Menu.Item className="user-info">
               {username.toString()}
             </Menu.Item>
+            <Menu.Item className="user-info">
+              {/* userPoints.toString() */}
+              {/* @todo display user points */}
+              === pts
+            </Menu.Item>
             <Menu.Item as={NavLink} to="/profile">
               My profile
             </Menu.Item>
@@ -61,7 +71,7 @@ class UserLayout extends React.Component {
               <Icon name="home" />
               Home
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/mybets">
+            <Menu.Item as={NavLink} activeClassName="active" to="/bet/myBets">
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
@@ -77,10 +87,12 @@ class UserLayout extends React.Component {
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
             <Segment basic className="content-container">
+              <div id="scroll-anchor" />
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
-              <Route path="/mybets" component={BetLayout} />
+              <Route path="/bet" component={BetLayout} />
+              <PageScroller />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

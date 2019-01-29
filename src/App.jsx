@@ -7,6 +7,7 @@ import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import UserLayout from './components/UserLayout/UserLayout';
 import SnackBar from './components/SnackBar/SnackBar';
+import BetSubmitLayout from "./components/BetLayout/BetSubmitLayout";
 
 class App extends React.Component {
   state = {

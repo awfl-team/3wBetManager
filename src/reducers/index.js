@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import snackBarReducer from './snackBarReducer';
-import userReducer from './userReducer';
+import snackbar from "./snackbarReducer";
+import bets from "./tableBetReducer";
 
-export default combineReducers({ snackbar: snackBarReducer, user: userReducer });
+export default combineReducers({ snackbar, bets });
