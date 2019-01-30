@@ -10,15 +10,27 @@ export default class BetService {
     return API.get(`bets/${competitionId}/current`);
   }
 
+  static AddOrUpdateBet(bets) {
+    return API.post('bets', bets);
+  }
+
+  static ParseBetList(bets) {
+    bets.forEach((bet, index) => {
+      if (bet.HomeTeamScore === '' || bet.AwayTeamScore === ''
+          || bet.HomeTeamScore === undefined || bet.AwayTeamScore === undefined) {
+        bets.splice(index, 1);
+      }
+    });
+    return bets;
+  }
+
+
   static createOrUpdateBet(state, action) {
-    console.log(state);
-    console.log(action.match);
     const findIndexBet = state.findIndex(bet => bet.Match.Id === action.match.match.Id);
     if (findIndexBet === -1) {
       const newBet = new Bet();
       if (action.inputName.inputName === 'home') newBet.HomeTeamScore = action.value.value;
       if (action.inputName.inputName === 'away') newBet.AwayTeamScore = action.value.value;
-      console.log(action.inputName);
       newBet.Match = action.match.match;
       return [...state, newBet];
     }
