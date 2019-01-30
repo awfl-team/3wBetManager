@@ -29,6 +29,7 @@ export default class UserService {
   }
 
   static handleVisibilityUser(isPrivate) {
+    console.log(isPrivate)
     return API.put('/users/visibility', {
       IsPrivate: isPrivate,
     });
