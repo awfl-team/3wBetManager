@@ -91,11 +91,13 @@ class BetSubmitLayout extends React.Component {
             <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
             <Modal.Content>
               <h3>
-                If you add or update this bets, it will cost
+                If you add or update
+                {betsLength > 1 ? ' those ' : ' this '}
+                bets, it will cost you
                 {' '}
                 {betsLength * 10}
                 {' '}
-                points
+                points !
               </h3>
             </Modal.Content>
             <Modal.Actions>
