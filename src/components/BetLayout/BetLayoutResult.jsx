@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Container, Icon } from 'semantic-ui-react';
+import {Accordion, Container, Header, Icon} from 'semantic-ui-react';
 import CompetitionService from '../../service/CompetionService';
 import BetRowResult from './BetRowResult';
 
@@ -28,6 +28,10 @@ class BetLayoutResult extends React.Component {
 
     return (
       <div id="betCup">
+        <Header as="h2" icon textAlign="center">
+          <Icon name="star" circular />
+          <Header.Content>Results</Header.Content>
+        </Header>
         <Container fluid>
           <Accordion fluid styled>
             {competitions.map((competition, index) => (

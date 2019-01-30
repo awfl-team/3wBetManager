@@ -31,13 +31,13 @@ class BetLayout extends React.Component {
               <div align="right">
                 {this.props.history.location.pathname === '/bet/myBets' && (
                 <Link to="/bet/submitBets" className="ui green icon right labeled button">
-                    Let's do ma' bets boi
+                    Manage my bets
                   <Icon name="right arrow" />
                 </Link>
                 )}
                 {this.props.history.location.pathname === '/bet/submitBets' && (
                 <Link to="/bet/myBets" className="ui green icon right labeled button">
-                      Let's see ma' bets boi
+                      My results
                   <Icon name="right arrow" />
                 </Link>
                 )}

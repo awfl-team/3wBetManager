@@ -62,6 +62,10 @@ class BetSubmitLayout extends React.Component {
 
     return (
       <div id="betCup">
+        <Header as="h2" icon textAlign="center">
+          <Icon name="ticket" circular />
+          <Header.Content>Available bets</Header.Content>
+        </Header>
         <Container fluid>
           <Accordion fluid styled>
             {competitions.map((competition, index) => (
