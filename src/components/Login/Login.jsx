@@ -1,15 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
-import { addSnackBar } from '../../actions/SnackBarActions';
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-  };
-}
 
 class LoginComponent extends React.Component {
   state = {
@@ -33,9 +25,6 @@ class LoginComponent extends React.Component {
       .then((response) => {
         AuthService.setTokenInLocalStorage(response);
         this.setState({ toDashboard: true });
-      })
-      .catch((error) => {
-        this.props.addSnackbar({ message: error.response.data, type: 'danger' });
       });
   }
 
@@ -99,5 +88,4 @@ class LoginComponent extends React.Component {
   }
 }
 
-const Login = connect(null, mapDispatchToProps)(LoginComponent);
-export default Login;
+export default LoginComponent;

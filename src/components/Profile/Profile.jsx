@@ -1,6 +1,8 @@
 import React from 'react';
-import {Button, Container, Divider, Header, Icon, Modal, Radio} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {
+  Button, Container, Divider, Header, Icon, Modal, Radio,
+} from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
@@ -34,12 +36,7 @@ class Profile extends React.Component {
 
   handleDelete = () => {
     AuthService.logout();
-    UserService.deleteUser(this.state.user)
-      .then(() => this.props.history.push('/'))
-      .catch((error) => {
-        this.setState({ modalDeleteOpen: false });
-        this.props.addSnackbar({ message: error.response.data, type: 'danger' });
-      });
+    UserService.deleteUser(this.state.user).then(() => this.props.history.push('/'));
   };
 
   handleReset = () => {
@@ -48,12 +45,11 @@ class Profile extends React.Component {
   };
 
   handleVisibilityUser = () => {
-    this.setState({isPrivate: !this.state.isPrivate});
+    this.setState({ isPrivate: !this.state.isPrivate });
     UserService.handleVisibilityUser(this.state.isPrivate)
       .then(() => {
 
       });
-
   };
 
   render() {
@@ -121,7 +117,7 @@ class Profile extends React.Component {
               </Modal.Actions>
             </Modal>
             <Link to="/update-profile" className="button ui circular orange huge icon">
-              <Icon name="pencil"/>
+              <Icon name="pencil" />
             </Link>
             <Modal
               trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
@@ -133,7 +129,8 @@ class Profile extends React.Component {
               <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
               <Modal.Content>
                 <h3>
-                  If you confirm this action, your earned points, bets and statistics will be reset !
+                  If you confirm this action,
+                  your earned points, bets and statistics will be reset !
                   In exchange, your account will be credited by 500pts to reborn from ashes.
                 </h3>
               </Modal.Content>

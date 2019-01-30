@@ -15,23 +15,23 @@ class App extends React.Component {
   };
 
   render() {
-    const {toLogin} = this.state;
+    const { toLogin } = this.state;
     if (toLogin) {
-      return <Redirect to="/login"/>;
+      return <Redirect to="/login" />;
     }
     return (
-        <div>
-          <Router>
-            <Switch>
-              <Route path="/" exact component={Homepage}/>
-              <Route path="/login" exact component={Login}/>
-              <Route path="/signup" exact component={SignUp}/>
-              <Route path="/404" exact component={NotFound}/>
-            <Route component={UserLayout}/>
-            </Switch>
-          </Router>
-          <SnackBar/>
-        </div>
+      <div>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Homepage} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/signup" exact component={SignUp} />
+            <Route path="/404" exact component={NotFound} />
+            <Route component={UserLayout} />
+          </Switch>
+        </Router>
+        <SnackBar />
+      </div>
     );
   }
 }

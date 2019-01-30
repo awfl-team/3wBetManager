@@ -1,31 +1,9 @@
-#betRows {
+#betRows, #betRowsResults {
   .betRow {
     position: relative;
     padding: 15px;
     border: 1px $lightgrey dashed;
     display: flex;
-
-
-    &-mask {
-      position: absolute;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      background: #000000cf;
-      color: white;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: $main-transition;
-    }
-    &:hover {
-      .betRow-mask {
-        opacity: 1;
-      }
-    }
-
 
     &:not(:first-child) {
       margin-top: 50px;
@@ -55,6 +33,11 @@
         &-versus {
           flex: 0 1 15%;
           flex-wrap: wrap;
+          align-items: center;
+          .match-info {
+            width: 100%;
+            text-align: center;
+          }
         }
 
         &-hometeam,  &-awayteam {
@@ -66,18 +49,18 @@
             &-image {
               img {
                 min-width: 75px;
-                max-width: 150px;
+                max-width: 100px;
                 min-height: 75px;
-                max-height: 150px;
+                max-height: 100px;
                 height: 100%;
                 width: 100%;
                 border-radius: 50%;
 
                 &.win {
-                  border: 5px $green solid;
+                  border: 2px $green solid;
                 }
                 &.loose {
-                  border: 5px $red solid;
+                  border: 2px $red solid;
                 }
 
                 @media screen and (max-width: 800px) {
@@ -100,7 +83,10 @@
           justify-content: space-around;
         }
         &-versus-details  {
-
+          .bet-date {
+            width: 100%;
+            text-align: center;
+          }
           &-results {
             margin-bottom: 10px;
             font-size: 20px;
@@ -147,7 +133,7 @@
       margin: 0;
       flex: 1 0 200px;
       min-width: 200px;
-      min-height: 200px;
+      min-height: 100px;
       .header {
         font-size: 30px;
         align-self: flex-end;
@@ -164,4 +150,28 @@
     }
   }
 
+}
+
+#betRowsResults {
+  .betRow {
+    .container-versus-details {
+      align-self: flex-start;
+      box-shadow: none;
+      background: transparent;
+      .home-score, .away-score {
+        .input {
+          width: 50px;
+          height: 50px;
+          input {
+            padding: 0;
+            text-align: center;
+            &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }
