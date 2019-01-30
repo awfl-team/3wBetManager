@@ -40,7 +40,7 @@ class Profile extends React.Component {
   };
 
   handleReset = () => {
-    UserService.resetUser(this.state.user)
+    UserService.resetUser()
       .then(() => this.props.history.push('/dashboard'));
   };
 

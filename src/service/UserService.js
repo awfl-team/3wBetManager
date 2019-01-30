@@ -34,8 +34,8 @@ export default class UserService {
     });
   }
 
-  static resetUser(user) {
-    return API.put(`/users/${user.Id}/reset`);
+  static resetUser() {
+    return API.put('/users/reset');
   }
 
   static updateUser(user) {
