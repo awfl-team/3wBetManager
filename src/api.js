@@ -5,7 +5,7 @@ import store from './store';
 
 
 const api = axios.create({
-  // api c# url
+  // api c# url   baseURL: 'http://151.80.136.92:9000/',
   baseURL: 'http://localhost:9000/',
 });
 

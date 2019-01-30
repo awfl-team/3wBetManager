@@ -20,9 +20,6 @@ class Profile extends React.Component {
       .then((response) => {
         this.setState({ user: response.data });
         this.setState({ isPrivate: response.data.IsPrivate });
-      })
-      .catch((error) => {
-        this.setState({ message: error.response.data });
       });
   }
 
@@ -46,9 +43,9 @@ class Profile extends React.Component {
 
   handleVisibilityUser = () => {
     this.setState({ isPrivate: !this.state.isPrivate });
-    UserService.handleVisibilityUser(this.state.isPrivate)
+    UserService.handleVisibilityUser(!this.state.isPrivate)
       .then(() => {
-
+        // @todo call success snackbar
       });
   };
 
