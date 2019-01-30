@@ -46,10 +46,7 @@ class Profile extends React.Component {
 
   handleVisibilityUser = () => {
     this.setState({ isPrivate: !this.state.isPrivate });
-    UserService.handleVisibilityUser(this.state.isPrivate)
-      .then(() => {
-
-      });
+    UserService.handleVisibilityUser(!this.state.isPrivate);
   };
 
   render() {
