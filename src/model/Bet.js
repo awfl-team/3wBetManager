@@ -1,9 +1,17 @@
 export default class Bet {
     Id;
-    IdMatch;
-    UserId;
+
+    Match;
+
+    User;
+
     Date = new Date();
-    HomeValue;
-    AwayValue;
+
+    HomeTeamScore;
+
+    AwayTeamScore;
+
     PointsWon;
+
+    Status;
 }

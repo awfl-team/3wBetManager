@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
+
+
 class NotFound extends React.Component {
+  handleClick = () => {
+    this.props.history.push('/');
+  };
+
   render() {
     return (
       <div className="notFound-page">
@@ -10,7 +16,7 @@ class NotFound extends React.Component {
             <h2 className="ui teal authentication-header">
               <div className="content">
                   <p className="notFound-header">OUPS, 404</p>
-                  <p>Click here to go back in time !</p>
+                  <p onClick={this.handleClick} className="back-button">Click here to go back in time !</p>
               </div>
             </h2>
           </div>

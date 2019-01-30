@@ -8,9 +8,10 @@ import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import withAuth from '../AuthGuard/AuthGuard';
-import BetLayout from '../BetLayout/BetLayout';
 import BestBettersLayout from '../BestBetters/BestBettersLayout';
 import ConsultProfile from '../Profile/ConsultProfile';
+import BetLayout from '../BetLayout/BetLayout';
+import PageScroller from '../PageScroller/PageScroller';
 
 class UserLayout extends React.Component {
   state = {
@@ -53,7 +54,7 @@ class UserLayout extends React.Component {
               <Icon name="home" />
               Home
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/mybets">
+            <Menu.Item as={NavLink} activeClassName="active" to="/bet/myBets">
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
@@ -69,12 +70,15 @@ class UserLayout extends React.Component {
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
             <Segment basic className="content-container">
+              <div id="scroll-anchor" />
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/mybets" component={BetLayout} />
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
+              <Route path="/bet" component={BetLayout} />
+              <PageScroller />
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

@@ -6,7 +6,6 @@ import User from '../../model/User';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import classNames from 'classnames/bind';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -14,7 +13,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class SignUpComponent extends React.Component {
+class UserFormComponent extends React.Component {
   state = {
     email: '',
     username: '',
@@ -59,30 +58,17 @@ class SignUpComponent extends React.Component {
 
   render() {
     const {
-      confirmPassword, password, toDashboard, email, username, message
+      confirmPassword, password, message, toDashboard, email, username,
     } = this.state;
 
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
+
+    const isPasswordOk = VerifyService.isPasswordOk(password, confirmPassword);
     const isEmailOk = VerifyService.isEmailOk(email);
     const isUsernameOk = VerifyService.isUsernameOk(username);
-    const isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
-    const isPasswordNumberCharOk = VerifyService.isPasswordNumberChars(password);
-    const isPasswordSpecialChar = VerifyService.isPasswordSpecialChar(password);
-    const isPasswordUppercase = VerifyService.isPasswordUppercase(password);
-    const isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
-    const isPasswordOk = (isPasswordNumberCharOk && isPasswordWithNumber && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
-    const isEnabled = (isEmailOk && isUsernameOk && isPasswordNumberCharOk && isPasswordWithNumber && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
-
-    const formFieldUsernameOk = classNames({ 'validate-form-info': isUsernameOk, 'error-form-info': !isUsernameOk });
-    const formFieldEmailOk = classNames({ 'validate-form-info': isEmailOk, 'error-form-info': !isEmailOk });
-    const formFieldIdentical = classNames({ 'validate-form-info': isPasswordIdentical, 'error-form-info': !isPasswordIdentical });
-    const formFieldNumber = classNames({ 'validate-form-info': isPasswordNumberCharOk, 'error-form-info': !isPasswordNumberCharOk });
-    const formdFieldUppercase = classNames({ 'validate-form-info': isPasswordUppercase, 'error-form-info': !isPasswordUppercase });
-    const formFieldSpecial = classNames({ 'validate-form-info': isPasswordSpecialChar, 'error-form-info': !isPasswordSpecialChar });
-    const formFieldWithNumber = classNames({ 'validate-form-info': isPasswordWithNumber, 'error-form-info': !isPasswordWithNumber });
-    const formMultipleInfos = classNames({ 'validate-form-info': isPasswordUppercase && isPasswordSpecialChar && isPasswordWithNumber, 'error-form-info': !isPasswordUppercase || !isPasswordSpecialChar || !isPasswordWithNumber});
+    const isEnabled = (isPasswordOk && isEmailOk && isUsernameOk);
 
     return (
       <div className="register-page">
@@ -93,7 +79,7 @@ class SignUpComponent extends React.Component {
                   Create a new account
               </div>
             </h2>
-            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
+            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
               <div className="ui stacked">
                 <div className="field">
                   <div className="ui left icon input">
@@ -108,6 +94,9 @@ class SignUpComponent extends React.Component {
                           && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
+                  { !isEmailOk && email
+                  && <p className="field-info">This field require a valid email</p>
+                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -115,12 +104,16 @@ class SignUpComponent extends React.Component {
                     <input
                       type="text"
                       name="username"
-                      placeholder="Username"
+                      placeholder="Nom d'utilisateur"
                       value={username}
                       onChange={this.handleUsernameChange.bind(this)}
-                      className={isUsernameOk ? 'okInput' : username.length === 0 ? '' : 'errorInput'}
+                      className={isUsernameOk ? 'okInput' : `${username}` !== ''
+                          && !isUsernameOk ? 'errorInput' : ''}
                     />
                   </div>
+                  { !isUsernameOk && username
+                  && <p className="field-info">This field require a least 6 characters</p>
+                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -131,9 +124,14 @@ class SignUpComponent extends React.Component {
                       placeholder="Password"
                       value={password}
                       onChange={this.handlePasswordChange.bind(this)}
-                      className={isPasswordOk ? 'okInput' : password.length === 0 ? '' : 'errorInput'}
+                      className={password.length !== 0 && password.length < 6
+                          || password !== confirmPassword ? 'errorInput' : `${password.length}` > 6
+                          && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
+                  { !isPasswordOk && password
+                    && <p className="field-info">This field require a least 6 characters and must be identical with the confirmation field</p>
+                  }
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
@@ -144,9 +142,14 @@ class SignUpComponent extends React.Component {
                       placeholder="Confirm Password"
                       value={confirmPassword}
                       onChange={this.handlePasswordConfirmationChange.bind(this)}
-                      className={isPasswordOk ? 'okInput' : confirmPassword.length === 0 ? '' : 'errorInput'}
+                      className={confirmPassword.length !== 0 && confirmPassword.length < 6
+                          || password !== confirmPassword ? 'errorInput' : `${confirmPassword.length}` > 6
+                          && password === confirmPassword ? 'okInput' : ''}
                     />
                   </div>
+                  { !isPasswordOk && confirmPassword
+                    && <p className="field-info">This field require a least 6 characters and must be identical with the password field</p>
+                  }
                 </div>
                 <button
                   type="submit"
@@ -155,28 +158,7 @@ class SignUpComponent extends React.Component {
                 >
                         Sign Up
                 </button>
-                <div className="form-info validation">
-                  <p className={formFieldEmailOk}>
-                    <i className="info circle icon" /> The email must respect the valid email format
-                  </p>
-                  <p className={formFieldUsernameOk}>
-                    <i className="info circle icon" /> The username requires at least 3 characters
-                  </p>
-                  <p className={formFieldIdentical}>
-                    <i className="info circle icon" /> The password must be identical with the
-                    password field
-                  </p>
-                  <p className={formFieldNumber}>
-                    <i className="info circle icon" /> The password requires at least 12 characters
-                  </p>
-                  <p className={formMultipleInfos}>
-                    <i className="info circle icon" /> The password requires a <span
-                    className={formdFieldUppercase}>
-                    uppercase
-                  </span>, a <span
-                    className={formFieldSpecial}> special character</span> and <span
-                    className={formFieldWithNumber}>a number</span></p>
-                </div>
+
               </div>
               <div className="ui error message" />
             </form>
@@ -191,6 +173,6 @@ class SignUpComponent extends React.Component {
   }
 }
 
-const SignUp = connect(null, mapDispatchToProps)(SignUpComponent);
+const UserForm = connect(null, mapDispatchToProps)(UserFormComponent);
 
-export default SignUp;
+export default UserForm;

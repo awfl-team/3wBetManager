@@ -1,8 +1,11 @@
 import axios from 'axios';
 import AuthService from './service/AuthService';
+import { addSnackBar } from './actions/SnackBarActions';
+import store from './store';
+
 
 const api = axios.create({
-  // api c# url
+  // api c# url   baseURL: 'http://151.80.136.92:9000/',
   baseURL: 'http://localhost:9000/',
 });
 
@@ -15,5 +18,11 @@ api.interceptors.request.use(
   },
   error => Promise.reject(error),
 );
+
+api.interceptors.response.use(null, ((error) => {
+  store.dispatch(addSnackBar(error.response ? error.response.data : 'Connection lost with the'
+      + ' server :(', 'danger'));
+  return Promise.reject(error);
+}));
 
 export default api;
