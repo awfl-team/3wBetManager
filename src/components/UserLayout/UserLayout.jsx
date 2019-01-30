@@ -13,19 +13,9 @@ import PageScroller from '../PageScroller/PageScroller';
 class UserLayout extends React.Component {
   state = {
     visible: true,
-    username: Object,
-    userPoints: Object,
     toHome: false,
     toLogin: false,
   };
-
-  componentDidMount() {
-    const token = AuthService.getToken();
-    const userInfo = AuthService.getUserInfo(token);
-    this.setState({ username: userInfo.unique_name });
-    this.setState({ userPoints: userInfo.points });
-  }
-
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
   logout() {
@@ -35,7 +25,7 @@ class UserLayout extends React.Component {
 
   render() {
     const {
-      visible, username, toHome, toLogin, userPoints,
+      visible, username, toHome, toLogin,
     } = this.state;
 
     if (toHome) {
@@ -49,14 +39,6 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Menu.Item className="user-info">
-              {username.toString()}
-            </Menu.Item>
-            <Menu.Item className="user-info">
-              {/* userPoints.toString() */}
-              {/* @todo display user points */}
-              === pts
-            </Menu.Item>
             <Menu.Item as={NavLink} to="/profile">
               My profile
             </Menu.Item>
