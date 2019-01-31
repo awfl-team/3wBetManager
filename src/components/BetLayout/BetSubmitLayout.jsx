@@ -50,8 +50,8 @@ class BetSubmitLayout extends React.Component {
   };
 
   handleSubmit = () => {
-    const betsParse = BetService.ParseBetList(this.props.bets);
-    BetService.AddOrUpdateBet(betsParse).then(() => {
+    const bets = this.props.bets;
+    BetService.AddOrUpdateBet(bets).then(() => {
       this.props.purgeTableBet();
       this.handleClose();
     });
