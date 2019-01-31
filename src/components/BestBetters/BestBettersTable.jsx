@@ -59,8 +59,8 @@ class BestBettersTable extends React.Component {
                   <Table.Cell>{user.NbOkBets}</Table.Cell>
                   <Table.Cell>{user.NbPerfectBets}</Table.Cell>
                   <Table.Cell>
-                    {user.Visible &&
-                    < Link to={'/users/' + user.Id} className="button ui blue small icon">
+                    {!user.IsPrivate &&
+                    <Link to={'/user/' + user.Id} className="button ui blue small icon">
                       <Icon name="eye" />
                       </Link>
                     }
