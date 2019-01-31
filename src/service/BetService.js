@@ -26,8 +26,9 @@ export default class BetService {
 
 
   static createOrUpdateBet(state, action) {
-    console.log(action);
     const findIndexBet = state.findIndex(bet => bet.Match.Id === action.match.Id);
+
+    // new Bet
     if (findIndexBet === -1) {
       const newBet = new Bet();
       if (action.inputName === 'home') newBet.HomeTeamScore = action.value;
@@ -35,8 +36,14 @@ export default class BetService {
       newBet.Match = action.match;
       return [...state, newBet];
     }
-    if (action.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value;
-    if (action.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value;
+    // remove bet
+    if (action.value === '' && state[findIndexBet].HomeTeamScore === 0 && state[findIndexBet].AwayTeamScore === 0) {
+      return state.splice(findIndexBet, 1);
+    }
+
+    // update bet
+    if (action.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value === '' ? 0 : action.value;
+    if (action.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value === '' ? 0 : action.value;
 
 
     return state;
