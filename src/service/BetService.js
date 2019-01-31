@@ -32,7 +32,6 @@ export default class BetService {
 
     // remove bet
     if (action.value === '' && state[findIndexBet].HomeTeamScore === 0 && state[findIndexBet].AwayTeamScore === 0) {
-      console.log('aaaaaaaaaa');
       return [...state.slice(0, findIndexBet), ...state.slice(findIndexBet + 1)];
     }
 
