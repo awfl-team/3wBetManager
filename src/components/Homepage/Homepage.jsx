@@ -70,6 +70,31 @@ function Homepage() {
             </div>
           </div>
         </div>
+
+        <div className="ui inverted vertical footer segment">
+          <div className="ui container">
+            <div className="ui stackable inverted divided equal height stackable grid">
+              <div className="three wide column">
+                <h4 className="ui inverted header">Shorcuts</h4>
+                <div className="ui inverted link list">
+                  <a href="/login" className="item">Sign in</a>
+                  <a href="/signup" className="item">Sign up</a>
+                </div>
+              </div>
+              <div className="three wide column">
+                <h4 className="ui inverted header">Contact</h4>
+                <div className="ui inverted link list">
+                  <a href="mailto:awfl@adw.fr" className="item">awfl@adw.fr</a>
+                </div>
+              </div>
+              <div className="seven wide column">
+                <h4 className="ui inverted header">Details</h4>
+                <p>Edited by ADW LTE, France</p>
+                <p>All rights reserved, 2019</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
