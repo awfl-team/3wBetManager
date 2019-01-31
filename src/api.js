@@ -6,7 +6,7 @@ import store from './store';
 
 const api = axios.create({
   // api c# url   baseURL: 'http://151.80.136.92:9000/',
-  baseURL: 'http://localhost:9000/',
+  baseURL: 'http://151.80.136.92:9000/',
 });
 
 api.interceptors.request.use(
@@ -20,8 +20,11 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(null, ((error) => {
-  store.dispatch(addSnackBar(error.response ? error.response.data : 'Connection lost with the'
-      + ' server :(', 'danger'));
+  let message = 'Connection lost with the server :(';
+  if (error.response) {
+    message = error.response.data.Message ? error.response.data.Message : error.response.data;
+  }
+  store.dispatch(addSnackBar(message, 'danger'));
   return Promise.reject(error);
 }));
 
