@@ -14,6 +14,7 @@ class Profile extends React.Component {
     modalDeleteOpen: false,
     modalResetOpen: false,
     isPrivate: false,
+    canReset: true,
   };
 
   componentDidMount() {
@@ -21,6 +22,7 @@ class Profile extends React.Component {
       .then((response) => {
         this.setState({ user: response.data });
         this.setState({ isPrivate: response.data.IsPrivate });
+        this.setState({ canReset: response.data.Life !== 0 });
       });
   }
 
@@ -51,7 +53,7 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { user, isPrivate } = this.state;
+    const { user, isPrivate, canReset } = this.state;
     return (
       <div id="profile">
         <Header as="h2" icon textAlign="center">
@@ -69,8 +71,14 @@ class Profile extends React.Component {
             <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate}/>
           </div>
           <div className="profile-lives">
-            <Rating icon='heart' defaultRating={3} maxRating={3} disabled size="massive" />
-          </div>
+            <Popup
+              trigger={<Rating icon='heart' rating={user.Life} maxRating={3} disabled size="massive" />}
+              content={user.Life !== 0 ? `You can reset your account` : 'You can\'t reset your account anymore'}
+              inverted
+              position="right center"
+            />
+
+      </div>
           <div className="profile-coins">
             <Icon color='yellow' name='copyright' size="big" />
             <label>{user.Point}</label>
@@ -120,8 +128,8 @@ class Profile extends React.Component {
             <Link to="/update-profile" className="button ui circular orange huge icon">
               <Icon name="pencil" />
             </Link>
-            <Modal
-              trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
+            { canReset === true
+            && <Modal trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
               open={this.state.modalResetOpen}
               onClose={this.handleCloseReset}
               basic
@@ -149,6 +157,8 @@ class Profile extends React.Component {
                 </Button>
               </Modal.Actions>
             </Modal>
+            }
+
           </Container>
         </Container>
 
