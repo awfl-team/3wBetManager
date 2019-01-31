@@ -21,25 +21,11 @@ class ConsultProfile extends React.Component {
         <div id="profile">
           <Header as="h2" icon textAlign="center">
             <Icon name="user" circular/>
-            <Header.Content>My profile</Header.Content>
+            <Header.Content>
+              { user.Username }
+              's profile</Header.Content>
           </Header>
           <Container textAlign="center" className="container-centered">
-            <Button
-                content="Email"
-                icon="mail"
-                fluid
-                label={{
-                  basic: true, pointing: 'left', content: user.Email,
-                }}
-            />
-            <Button
-                content="Username"
-                icon="user"
-                fluid
-                label={{
-                  basic: true, pointing: 'left', content: user.Username,
-                }}
-            />
             <Button
                 color="blue"
                 content="Score"
