@@ -30,7 +30,6 @@ class BetSubmitLayout extends React.Component {
   componentDidMount() {
     CompetitionService.getAllCompetions().then((response) => {
       this.setState({competitions: response.data});
-      console.log(response.data)
     });
   }
 
@@ -114,7 +113,7 @@ class BetSubmitLayout extends React.Component {
                 {' '}
                 {betsLength * 10}
                 {' '}
-                points !
+                <Icon color='yellow' name='copyright' /> !
               </h3>
             </Modal.Content>
             <Modal.Actions>

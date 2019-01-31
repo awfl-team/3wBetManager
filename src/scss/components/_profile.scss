@@ -3,19 +3,40 @@
     .form {
       max-width: 450px;
     }
-    .profile-accessibility, .profile-lives {
-      margin: 10px;
-      display: flex;
-      align-items: center;
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      label {
-        width: 100%;
-        margin-right: 5px;
+
+    .profile {
+      &-accessibility ,&-lives, &-coins {
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 10px;
+        label {
+          width: 100%;
+          margin-right: 5px;
+        }
+      }
+
+      &-accessibility {
+        right: 10px;
+
+      }
+
+
+      &-lives, &-coins {
+        left: 10px;
+      }
+
+      &-coins {
+        top: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        color: $yellow;
       }
     }
-    
+
+
     & > .button {
       margin: 5px;
       cursor: default;

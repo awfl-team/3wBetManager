@@ -25,3 +25,11 @@
     bottom: 20px;
   }
 }
+
+.ui.heart.rating .active.icon:before {
+  color: $red !important;
+}
+
+.ui.toggle.checkbox input:checked ~ label:before {
+  background-color: $red !important;
+}

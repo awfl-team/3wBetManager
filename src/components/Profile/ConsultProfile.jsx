@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Header, Icon} from 'semantic-ui-react';
+import {Button, Container, Header, Icon, Rating} from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import API from '../../api';
@@ -25,6 +25,13 @@ class ConsultProfile extends React.Component {
             <Header.Content>My profile</Header.Content>
           </Header>
           <Container textAlign="center" className="container-centered">
+            <div className="profile-lives">
+              <Rating icon='heart' defaultRating={3} maxRating={3} disabled size="massive" />
+            </div>
+            <div className="profile-coins">
+              <Icon color='yellow' name='copyright' size="big" />
+              <label>{user.Point}</label>
+            </div>
             <Button
                 content="Email"
                 icon="mail"
@@ -39,15 +46,6 @@ class ConsultProfile extends React.Component {
                 fluid
                 label={{
                   basic: true, pointing: 'left', content: user.Username,
-                }}
-            />
-            <Button
-                color="blue"
-                content="Score"
-                icon="winner"
-                fluid
-                label={{
-                  basic: true, color: 'blue', pointing: 'left', content: `${user.Point} pts`,
                 }}
             />
           </Container>
