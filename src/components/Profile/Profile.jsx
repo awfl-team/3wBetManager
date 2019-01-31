@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Button, Container, Divider, Header, Icon, Modal, Radio, Rating,
+  Button, Container, Divider, Header, Icon, Label, Modal, Popup, Radio, Rating,
 } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
@@ -60,12 +60,20 @@ class Profile extends React.Component {
         </Header>
         <Container textAlign="center" className="container-centered">
           <div className="profile-accessibility">
-            <h3>Private mode</h3>
-            <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate} />
+            <Popup
+              trigger={<Icon name={ this.state.isPrivate ? 'eye slash': 'eye' } size="big" />}
+              content={this.state.isPrivate ? 'Your profile is private': 'Your profile is public' }
+              inverted
+              position="left center"
+            />
+            <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate}/>
           </div>
           <div className="profile-lives">
-            <h3>Lifes</h3>
             <Rating icon='heart' defaultRating={3} maxRating={3} disabled size="massive" />
+          </div>
+          <div className="profile-coins">
+            <Icon color='yellow' name='copyright' size="big" />
+            <label>{user.Point}</label>
           </div>
           <Button
             content="Email"
@@ -81,15 +89,6 @@ class Profile extends React.Component {
             fluid
             label={{
               basic: true, pointing: 'left', content: user.Username,
-            }}
-          />
-          <Button
-            color="blue"
-            content="Score"
-            icon="winner"
-            fluid
-            label={{
-              basic: true, color: 'blue', pointing: 'left', content: `${user.Point} pts`,
             }}
           />
           <Container className="container-actions">
@@ -135,7 +134,7 @@ class Profile extends React.Component {
                   your earned points, bets and statistics will be reset !
                   In exchange, your account will be credited by 500pts to reborn from ashes.
                   <br/><br/>
-                  It'll cost you one
+                  You will loose one&nbsp;
                   <Rating icon='heart' defaultRating={1} maxRating={1} disabled size="huge" />
                 </h3>
               </Modal.Content>

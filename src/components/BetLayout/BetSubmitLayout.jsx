@@ -113,7 +113,7 @@ class BetSubmitLayout extends React.Component {
                 {' '}
                 {betsLength * 10}
                 {' '}
-                points !
+                <Icon color='yellow' name='copyright' /> !
               </h3>
             </Modal.Content>
             <Modal.Actions>
