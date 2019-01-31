@@ -49,24 +49,29 @@ class BestBettersTable extends React.Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {top50.map((user, index) => (
-                <Table.Row key={user.Id} textAlign="center">
-                  <Table.Cell>{index + 1}</Table.Cell>
-                  <Table.Cell>{user.Username}</Table.Cell>
-                  <Table.Cell>{user.Point}</Table.Cell>
-                  <Table.Cell>{user.NbBets}</Table.Cell>
-                  <Table.Cell>{user.NbWrongBets}</Table.Cell>
-                  <Table.Cell>{user.NbOkBets}</Table.Cell>
-                  <Table.Cell>{user.NbPerfectBets}</Table.Cell>
-                  <Table.Cell>
-                    {!user.IsPrivate &&
-                    <Link to={'/user/' + user.Id} className="button ui blue small icon">
-                      <Icon name="eye" />
-                      </Link>
-                    }
-                  </Table.Cell>
-                </Table.Row>
-            ))}
+            {top50.map((user, index) =>
+                {
+                  return (
+                  user.NbBets !== 0 &&
+                      <Table.Row key={user.Id} textAlign="center">
+                        <Table.Cell>{index + 1}</Table.Cell>
+                        <Table.Cell>{user.Username}</Table.Cell>
+                        <Table.Cell>{user.Point}</Table.Cell>
+                        <Table.Cell>{user.NbBets}</Table.Cell>
+                        <Table.Cell>{user.NbWrongBets}</Table.Cell>
+                        <Table.Cell>{user.NbOkBets}</Table.Cell>
+                        <Table.Cell>{user.NbPerfectBets}</Table.Cell>
+                        <Table.Cell>
+                          {!user.IsPrivate &&
+                          <Link to={'/user/' + user.Id} className="button ui blue small icon">
+                            <Icon name="eye"/>
+                          </Link>
+                          }
+                        </Table.Cell>
+                      </Table.Row>
+                  );
+                }
+            )}
           </Table.Body>
         </Table>
       </div>

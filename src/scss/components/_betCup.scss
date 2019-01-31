@@ -4,3 +4,30 @@
     position: relative;
   }
 }
+
+.noBetFound {
+  margin-top:20%;
+  text-align: center;
+}
+
+.notFound-smiley {
+}
+
+.noBetFound-header{
+  font-size: 21px;
+  color: #e1e1e1;
+}
+.back-button{
+  font-size:35px;
+  transition: all 0.5s;
+}
+
+.back-button:hover {
+  font-size: 35px;
+  color:red;
+  transition: all 0.5s;
+}
+
+#betLoader {
+  margin-top: 20%;
+}
