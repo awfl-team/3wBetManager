@@ -7,9 +7,9 @@ export default class Match {
 
     LastUpdated = new Date();
 
-    HomeTeam;
+    HomeTeam = 0;
 
-    AwayTeam;
+    AwayTeam = 0;
 
     Goals;
 

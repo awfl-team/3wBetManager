@@ -1,4 +1,5 @@
 import React from 'react';
+import withAuth from '../AuthGuard/AuthGuard';
 
 function Dashboard() {
   return (
@@ -7,4 +8,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default withAuth(Dashboard);

@@ -3,6 +3,7 @@ import {
   Container, Divider, Header,
 } from 'semantic-ui-react';
 import BestBettersTable from './BestBettersTable';
+import withAuth from '../AuthGuard/AuthGuard';
 
 class BestBettersLayout extends React.Component {
   render() {
@@ -20,4 +21,4 @@ class BestBettersLayout extends React.Component {
   }
 }
 
-export default BestBettersLayout;
+export default withAuth(BestBettersLayout);

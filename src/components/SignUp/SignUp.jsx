@@ -1,18 +1,10 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
-import { addSnackBar } from '../../actions/SnackBarActions';
-import classNames from 'classnames/bind';
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-  };
-}
 
 class SignUpComponent extends React.Component {
   state = {
@@ -191,6 +183,4 @@ class SignUpComponent extends React.Component {
   }
 }
 
-const SignUp = connect(null, mapDispatchToProps)(SignUpComponent);
-
-export default SignUp;
+export default SignUpComponent;

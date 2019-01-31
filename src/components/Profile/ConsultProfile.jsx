@@ -3,6 +3,7 @@ import {Button, Container, Header, Icon} from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import API from '../../api';
+import withAuth from '../AuthGuard/AuthGuard';
 
 class ConsultProfile extends React.Component {
   state = {
@@ -41,4 +42,4 @@ class ConsultProfile extends React.Component {
   }
 }
 
-export default ConsultProfile;
+export default withAuth(ConsultProfile);

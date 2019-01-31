@@ -14,17 +14,6 @@ export default class BetService {
     return API.post('bets', bets);
   }
 
-  static ParseBetList(bets) {
-    bets.forEach((bet, index) => {
-      if (bet.HomeTeamScore === '' || bet.AwayTeamScore === ''
-          || bet.HomeTeamScore === undefined || bet.AwayTeamScore === undefined) {
-        bets.splice(index, 1);
-      }
-    });
-    return bets;
-  }
-
-
   static createOrUpdateBet(state, action) {
     const findIndexBet = state.findIndex(bet => bet.Match.Id === action.match.Id);
 
