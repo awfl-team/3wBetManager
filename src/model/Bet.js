@@ -7,9 +7,9 @@ export default class Bet {
 
     Date = new Date();
 
-    HomeTeamScore;
+    HomeTeamScore = 0;
 
-    AwayTeamScore;
+    AwayTeamScore = 0;
 
     PointsWon;
 

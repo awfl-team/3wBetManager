@@ -27,7 +27,7 @@ export default class BetService {
     }
     // remove bet
     if (action.value === '' && state[findIndexBet].HomeTeamScore === 0 && state[findIndexBet].AwayTeamScore === 0) {
-      return state.splice(findIndexBet, 1);
+      return [...state.slice(0, findIndexBet), ...state.slice(findIndexBet + 1)];
     }
 
     // update bet

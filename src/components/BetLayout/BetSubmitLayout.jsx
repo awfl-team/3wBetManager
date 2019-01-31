@@ -30,7 +30,6 @@ class BetSubmitLayout extends React.Component {
   componentDidMount() {
     CompetitionService.getAllCompetions().then((response) => {
       this.setState({competitions: response.data});
-      console.log(response.data)
     });
   }
 
