@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Accordion, Button, Container, Header, Icon, Modal,
+  Accordion, Button, Container, Header, Icon, Label, Modal,
 } from 'semantic-ui-react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
-import { purgeTableBet } from '../../actions/TableBetActions';
+import {purgeTableBet} from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
 
-const mapStateToProps = state => ({ bets: state.bets });
+const mapStateToProps = state => ({bets: state.bets});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -22,28 +22,32 @@ class BetSubmitLayout extends React.Component {
     competitions: [],
     modalOpen: false,
     betsLength: 0,
+    isDisabled: false,
+    alreadyUpdate: false
   };
+
 
   componentDidMount() {
     CompetitionService.getAllCompetions().then((response) => {
-      this.setState({ competitions: response.data });
+      this.setState({competitions: response.data});
+      console.log(response.data)
     });
   }
 
   handleOpen = () => {
-    const bets = BetService.ParseBetList(this.props.bets);
+    const bets = this.props.bets;
     this.setState({ betsLength: bets.length });
     this.setState({ modalOpen: true });
   };
 
-  handleClose = () => this.setState({ modalOpen: false });
+  handleClose = () => this.setState({modalOpen: false});
 
   handleClick = (e, titleProps) => {
-    const { index } = titleProps;
-    const { activeIndex } = this.state;
+    const {index} = titleProps;
+    const {activeIndex} = this.state;
     const newIndex = activeIndex === index ? -1 : index;
 
-    this.setState({ activeIndex: newIndex });
+    this.setState({activeIndex: newIndex});
   };
 
   handleSubmit = () => {
@@ -60,10 +64,11 @@ class BetSubmitLayout extends React.Component {
       activeIndex, competitions, betsLength, modalOpen,
     } = this.state;
 
+    const isDisabled = (this.props.bets.length > 0);
     return (
       <div id="betCup">
         <Header as="h2" icon textAlign="center">
-          <Icon name="ticket" circular />
+          <Icon name="ticket" circular/>
           <Header.Content>Available bets</Header.Content>
         </Header>
         <Container fluid>
@@ -74,12 +79,16 @@ class BetSubmitLayout extends React.Component {
                   active={activeIndex === index}
                   index={index}
                   onClick={this.handleClick}
+                  className="competition-accordion"
                 >
-                  <Icon name="dropdown" />
+                  <Icon name="dropdown"/>
                   {competition.Name}
+                  <Label attached='top right'>
+                    <Icon name='ticket' /> 0
+                  </Label>
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === index}>
-                  <BetSubmitRowComponent competitionId={competition.Id} />
+                  <BetSubmitRowComponent competitionId={competition.Id}/>
                 </Accordion.Content>
               </div>
             ))}
@@ -87,18 +96,21 @@ class BetSubmitLayout extends React.Component {
         </Container>
         <Container fluid className="submit-bets-action">
           <Modal
-            trigger={<Button onClick={this.handleOpen} type="submit" color="green">Submit</Button>}
+            trigger={<Button onClick={this.handleOpen} type="submit"
+                             className="submit-bets-action-button" disabled={!isDisabled}
+                             color="green">Submit</Button>}
             open={modalOpen}
             onClose={this.handleClose}
             basic
             size="small"
           >
-            <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
+            <Header icon="exclamation triangle" content="Are you sure ?" as="h1"
+                    textAlign="center"/>
             <Modal.Content>
               <h3>
                 If you add or update
-                {betsLength > 1 ? ' those ' : ' this '}
-                bets, it will cost you
+                {betsLength > 1 ? ' those bets' : ' this bet'}
+                , it will cost you
                 {' '}
                 {betsLength * 10}
                 {' '}
@@ -107,11 +119,11 @@ class BetSubmitLayout extends React.Component {
             </Modal.Content>
             <Modal.Actions>
               <Button color="red" onClick={this.handleClose} inverted>
-                <Icon name="remove" />
+                <Icon name="remove"/>
                 No
               </Button>
               <Button color="green" onClick={this.handleSubmit} inverted>
-                <Icon name="checkmark" />
+                <Icon name="checkmark"/>
                 Yes
               </Button>
             </Modal.Actions>

@@ -14,11 +14,14 @@
 .submit-bets-action {
   margin-top: 25px;
   width: 100%;
-  button {
+  &-button {
     width: 200px;
     margin: 0 auto !important;
     display: block !important;
     border-radius: 25px !important;
     font-size: 20px !important;
+    position: fixed;
+    right: 110px;
+    bottom: 20px;
   }
 }

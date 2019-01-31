@@ -7,6 +7,7 @@ import User from '../../model/User';
 import UserService from '../../service/UserService';
 import VerifyService from '../../service/VerifyService';
 import AuthService from '../../service/AuthService';
+import withAuth from '../AuthGuard/AuthGuard';
 
 
 class UpdateProfile extends React.Component {
@@ -229,4 +230,4 @@ a number
   }
 }
 
-export default UpdateProfile;
+export default withAuth(UpdateProfile);

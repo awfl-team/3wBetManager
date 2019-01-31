@@ -1,7 +1,8 @@
 import React from 'react';
-import {Accordion, Container, Header, Icon} from 'semantic-ui-react';
+import {Accordion, Container, Header, Icon, Label} from 'semantic-ui-react';
 import CompetitionService from '../../service/CompetionService';
 import BetRowResult from './BetRowResult';
+import withAuth from '../AuthGuard/AuthGuard';
 
 class BetLayoutResult extends React.Component {
   state = {
@@ -40,9 +41,13 @@ class BetLayoutResult extends React.Component {
                   active={activeIndex === index}
                   index={index}
                   onClick={this.handleClick}
+                  className="competition-accordion"
                 >
                   <Icon name="dropdown" />
                   {competition.Name}
+                  <Label attached='top right'>
+                    <Icon name='ticket' /> 0
+                  </Label>
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === index}>
                   <BetRowResult competitionId={competition.Id} />
@@ -56,4 +61,4 @@ class BetLayoutResult extends React.Component {
   }
 }
 
-export default BetLayoutResult;
+export default withAuth(BetLayoutResult);

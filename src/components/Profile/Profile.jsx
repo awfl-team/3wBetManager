@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Button, Container, Divider, Header, Icon, Modal, Radio,
+  Button, Container, Divider, Header, Icon, Modal, Radio, Rating,
 } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
+import withAuth from '../AuthGuard/AuthGuard';
 
 class Profile extends React.Component {
   state = {
@@ -59,8 +60,12 @@ class Profile extends React.Component {
         </Header>
         <Container textAlign="center" className="container-centered">
           <div className="profile-accessibility">
-            <label>Private mode</label>
+            <h3>Private mode</h3>
             <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate} />
+          </div>
+          <div className="profile-lives">
+            <h3>Lifes</h3>
+            <Rating icon='heart' defaultRating={3} maxRating={3} disabled size="massive" />
           </div>
           <Button
             content="Email"
@@ -129,6 +134,9 @@ class Profile extends React.Component {
                   If you confirm this action,
                   your earned points, bets and statistics will be reset !
                   In exchange, your account will be credited by 500pts to reborn from ashes.
+                  <br/><br/>
+                  It'll cost you one
+                  <Rating icon='heart' defaultRating={1} maxRating={1} disabled size="huge" />
                 </h3>
               </Modal.Content>
               <Modal.Actions>
@@ -156,4 +164,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default withAuth(Profile);

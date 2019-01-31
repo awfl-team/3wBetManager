@@ -63,11 +63,11 @@ class BetSubmitRowComponent extends React.Component {
                   <div className="match-info">{moment(bet.Match.UtcDate).format('DD/MM/YYYY')}</div>
                   <div className="container-versus-details">
                     <div className="home-score ">
-                      <Input defaultValue={bet.HomeTeamScore} fluid type="number" max="9" min="0" />
+                      <Input defaultValue={bet.HomeTeamScore} fluid type="number" max="99" min="0" />
                     </div>
                     <div className="versus-text"> -</div>
                     <div className="away-score loose">
-                      <Input defaultValue={bet.AwayTeamScore} fluid type="number" max="9" min="0" />
+                      <Input defaultValue={bet.AwayTeamScore} fluid type="number" max="99" min="0" />
                     </div>
                   </div>
                 </div>
