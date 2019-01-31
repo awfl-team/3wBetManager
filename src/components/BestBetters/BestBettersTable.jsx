@@ -11,7 +11,6 @@ class BestBettersTable extends React.Component {
   componentDidMount(){
     UserService.getTop50Betters().then((response) => {
       this.setState({top50: response.data});
-      console.log(this.state.top50);
     });
   }
 
