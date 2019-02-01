@@ -19,7 +19,7 @@ class BestBettersTable extends React.Component {
     const { top50 } = this.state;
     return (
       <div id="bestBettersTable">
-        <Table celled structured compact inverted>
+        <Table celled structured compact inverted unstackable>
           <Table.Header>
             <Table.Row textAlign="center">
               <Table.HeaderCell rowSpan='2'>#</Table.HeaderCell>
