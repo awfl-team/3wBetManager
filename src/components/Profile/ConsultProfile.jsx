@@ -17,17 +17,18 @@ class ConsultProfile extends React.Component {
 
   render() {
     const {user} = this.state;
+    console.log(user)
     return (
         <div id="profile">
           <Header as="h2" icon textAlign="center">
             <Icon name="user" circular/>
             <Header.Content>
               { user.Username }
-              's profile</Header.Content>
+              's profile and stats</Header.Content>
           </Header>
           <Container textAlign="center" className="container-centered">
             <div className="profile-lives">
-              <Rating icon='heart' defaultRating={3} maxRating={3} disabled size="massive" />
+              <Rating icon='heart' rating={user.Life} maxRating={3} disabled size="massive" />
             </div>
             <div className="profile-coins">
               <Icon color='yellow' name='copyright' size="big" />

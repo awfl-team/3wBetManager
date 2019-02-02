@@ -24,6 +24,10 @@ export default class UserService {
     return API.get('users/token');
   }
 
+  static getAllUsers() {
+    return API.get('/users');
+  }
+
   static deleteUser(user) {
     return API.delete(`/users/${user.Id}`);
   }

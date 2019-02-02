@@ -12,6 +12,7 @@ import BestBettersLayout from '../BestBetters/BestBettersLayout';
 import ConsultProfile from '../Profile/ConsultProfile';
 import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
+import AdminLayout from '../AdminLayout/AdminLayout';
 
 class UserLayout extends React.Component {
   state = {
@@ -64,9 +65,11 @@ class UserLayout extends React.Component {
               <Icon name="star" />
               Best betters
             </Menu.Item>
-            <Menu.Item as="a">
-              <Icon name="camera" />
-              Channels
+            <Menu.Item as={NavLink} activeClassName="active"
+                       className={this.props.history.location.pathname === '/admin/tasks' ? 'active' : '' }
+                       to="/admin/users">
+              <Icon name="angular" />
+              Admin
             </Menu.Item>
           </Sidebar>
           <div />
@@ -76,10 +79,10 @@ class UserLayout extends React.Component {
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
-              <Route path="/mybets" component={BetLayout} />
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
               <Route path="/bet" component={BetLayout} />
+              <Route path="/admin" component={AdminLayout} />
               <PageScroller />
             </Segment>
           </Sidebar.Pusher>

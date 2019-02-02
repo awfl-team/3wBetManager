@@ -1,0 +1,10 @@
+#adminUserTable {
+  & > .container {
+    @media screen and (max-width: 801px) {
+      overflow-x: scroll;
+    }
+    table {
+      min-width: 800px;
+    }
+  }
+}
