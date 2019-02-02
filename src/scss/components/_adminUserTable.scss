@@ -6,5 +6,23 @@
     table {
       min-width: 800px;
     }
+
+    .userTableHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: $grey;
+      border-radius: 5px;
+      width: 100%;
+      min-width: 800px;
+
+      .button {
+        min-width: 140px;
+      }
+      .pagination {
+        margin: 0 20px;
+      }
+    }
   }
 }

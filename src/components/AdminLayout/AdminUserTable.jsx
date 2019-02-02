@@ -1,5 +1,15 @@
 import React from 'react';
-import {Container, Header, Icon, Pagination, Radio, Rating, Table} from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Header,
+  Icon,
+  Input,
+  Pagination,
+  Radio,
+  Rating,
+  Table
+} from 'semantic-ui-react';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
@@ -26,6 +36,10 @@ class AdminUserTable extends React.Component {
           <Header.Content>Users</Header.Content>
         </Header>
         <Container fluid>
+          <div className="userTableHeader">
+            <Input type="search" placeholder="Search a user"/>
+            <div className="button ui green"><Icon name="add"/> Add a user</div>
+          </div>
           <Table celled striped unstackable inverted>
             <Table.Header>
               <Table.Row>
@@ -64,7 +78,6 @@ class AdminUserTable extends React.Component {
               ))}
             </Table.Body>
           </Table>
-
           <Pagination
             defaultActivePage={5}
             ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
