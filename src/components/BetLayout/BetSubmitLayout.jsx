@@ -97,7 +97,10 @@ class BetSubmitLayout extends React.Component {
                       {competition.Name}
                       <Label attached="top right">
                         <Icon name="ticket" />
-                        {betsLength}
+                        0
+                        &nbsp;
+                        <Icon name="soccer" />
+                        0
                       </Label>
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === index}>
