@@ -73,13 +73,15 @@ class BetSubmitLayout extends React.Component {
     } = this.state;
 
     const isDisabled = (this.props.bets.length > 0);
+    const isCompetitionEmpty = (competitionsWithBets.length === 0 && loading === false);
+    const isCompetitionNotEmpty = (competitionsWithBets.length > 0 && loading === false);
     return (
       <div id="betCup">
         <Header as="h2" icon textAlign="center">
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>
-        {competitionsWithBets.length > 0 && loading === false
+        {isCompetitionNotEmpty
           ? (
             <Container fluid>
               <Accordion fluid styled>
@@ -105,7 +107,7 @@ class BetSubmitLayout extends React.Component {
                 ))}
               </Accordion>
             </Container>
-          ) : competitionsWithBets.length === 0 && loading === false
+          ) : isCompetitionEmpty
             ? (
               <div className="noBetFound">
                 <div className="ui middle aligned center aligned fullpage">

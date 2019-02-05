@@ -1,12 +1,12 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Homepage() {
   return (
     <div>
       <div className="pusher" id="homepage">
         <div className="ui inverted vertical masthead center aligned segment hp-Header">
-          <div className="mask"/>
+          <div className="mask" />
           <div className="ui container">
             <div className="ui large secondary  menu">
               <div className="right item">
@@ -35,9 +35,13 @@ function Homepage() {
               <div className="eight wide column">
                 <h3 className="ui header">What is it ?</h3>
                 <p>
-                    3wBet Manager invite you to manage your bets for free !<br/>
-                    Earn points and spend them to submit new bets.<br/>
-                    You can use our lovely app to store your real-life's football bet.<br/><br/>
+                    3wBet Manager invite you to manage your bets for free !
+                  <br />
+                    Earn points and spend them to submit new bets.
+                  <br />
+                    You can use our lovely app to store your real-life's football bet.
+                  <br />
+                  <br />
 
                     In addition, you can compare your skills against many other people with some fancy statistics.
 
@@ -60,8 +64,12 @@ function Homepage() {
               <div className="eight wide right column">
                 <h3 className="ui header">Why use it ?</h3>
                 <p>
-                  First of all, it's free. <br/>
-                  Second, you're able to store all your past, present and futur bets in one app, for every football cup !<br/><br/>
+                  First of all, it's free.
+                  {' '}
+                  <br />
+                  Second, you're able to store all your past, present and futur bets in one app, for every football cup !
+                  <br />
+                  <br />
                   In addition, you will be notified in your web browser about what happened for each followed plays.
 
                   Finally, you can improve your skills thanks to the statistics panel.

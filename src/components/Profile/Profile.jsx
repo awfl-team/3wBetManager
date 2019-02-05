@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import {
   Button, Container, Divider, Header, Icon, Modal, Popup, Radio, Rating,
 } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
-import { connect } from 'react-redux';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuth from '../AuthGuard/AuthGuard';
 
@@ -54,9 +54,9 @@ class Profile extends React.Component {
   handleReset = () => {
     UserService.resetUser()
       .then(() => {
-        this.setState({modalResetOpen: false});
-        this.setState({userPoints: 500});
-        this.setState({userLives: this.state.userLives - 1});
+        this.setState({ modalResetOpen: false });
+        this.setState({ userPoints: 500 });
+        this.setState({ userLives: this.state.userLives - 1 });
         this.props.addSnackbar({
           message: 'Reset successfull',
           type: 'success',
@@ -76,7 +76,9 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { user, isPrivate, canReset, userLives, userPoints} = this.state;
+    const {
+      user, isPrivate, canReset, userLives, userPoints,
+    } = this.state;
     return (
       <div id="profile">
         <Header as="h2" icon textAlign="center">
@@ -86,24 +88,24 @@ class Profile extends React.Component {
         <Container textAlign="center" className="container-centered">
           <div className="profile-accessibility">
             <Popup
-              trigger={<Icon name={ this.state.isPrivate ? 'eye slash': 'eye' } size="big" />}
-              content={this.state.isPrivate ? 'Your profile is private': 'Your profile is public' }
+              trigger={<Icon name={this.state.isPrivate ? 'eye slash' : 'eye'} size="big" />}
+              content={this.state.isPrivate ? 'Your profile is private' : 'Your profile is public'}
               inverted
               position="left center"
             />
-            <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate}/>
+            <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate} />
           </div>
           <div className="profile-lives">
             <Popup
-              trigger={<Rating icon='heart' rating={userLives} maxRating={3} disabled size="massive" />}
-              content={user.Life !== 0 ? `You can reset your account` : 'You can\'t reset your account anymore'}
+              trigger={<Rating icon="heart" rating={userLives} maxRating={3} disabled size="massive" />}
+              content={user.Life !== 0 ? 'You can reset your account' : 'You can\'t reset your account anymore'}
               inverted
               position="right center"
             />
 
-      </div>
+          </div>
           <div className="profile-coins">
-            <Icon color='yellow' name='copyright' size="big" />
+            <Icon color="yellow" name="copyright" size="big" />
             <label>{userPoints}</label>
           </div>
           <Button
@@ -152,7 +154,9 @@ class Profile extends React.Component {
               <Icon name="pencil" />
             </Link>
             { canReset === true
-            && <Modal trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
+            && (
+            <Modal
+              trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
               open={this.state.modalResetOpen}
               onClose={this.handleCloseReset}
               basic
@@ -163,10 +167,15 @@ class Profile extends React.Component {
                 <h3>
                   If you confirm this action,
                   your earned points, bets and statistics will be reset !
-                  In exchange, your account will be reset with 500 <Icon color='yellow' name='copyright' /> to reborn from ashes.
-                  <br/><br/>
+                  In exchange, your account will be reset with 500
+                  {' '}
+                  <Icon color="yellow" name="copyright" />
+                  {' '}
+to reborn from ashes.
+                  <br />
+                  <br />
                   You will loose one&nbsp;
-                  <Rating icon='heart' defaultRating={1} maxRating={1} disabled size="huge" />
+                  <Rating icon="heart" defaultRating={1} maxRating={1} disabled size="huge" />
                 </h3>
               </Modal.Content>
               <Modal.Actions>
@@ -180,6 +189,7 @@ class Profile extends React.Component {
                 </Button>
               </Modal.Actions>
             </Modal>
+            )
             }
 
           </Container>
