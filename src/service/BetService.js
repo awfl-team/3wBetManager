@@ -15,10 +15,28 @@ export default class BetService {
   }
 
   static createOrUpdateBet(state, action) {
-    const findIndexBet = state.findIndex(bet => bet.Match.Id === action.match.Id);
+    if (action.bet) {
+      const findIndexBet = state.findIndex(bet => bet.Id === action.bet.Id);
+      // update bet
+      if (action.inputName === 'home') action.bet.HomeTeamScore = action.value === '' ? 0 : action.value;
+      if (action.inputName === 'away') action.bet.AwayTeamScore = action.value === '' ? 0 : action.value;
+
+
+      if (findIndexBet === -1) {
+        return [...state, action.bet];
+      }
+
+      // update bet
+      if (action.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value === '' ? 0 : action.value;
+      if (action.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value === '' ? 0 : action.value;
+
+      console.log(state);
+      return state;
+    }
+    const findIndexBetByMatch = state.findIndex(bet => bet.Match.Id === action.match.Id);
 
     // new Bet
-    if (findIndexBet === -1) {
+    if (findIndexBetByMatch === -1) {
       const newBet = new Bet();
       if (action.inputName === 'home') newBet.HomeTeamScore = action.value;
       if (action.inputName === 'away') newBet.AwayTeamScore = action.value;
@@ -27,12 +45,12 @@ export default class BetService {
     }
 
     // update bet
-    if (action.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value === '' ? 0 : action.value;
-    if (action.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value === '' ? 0 : action.value;
+    if (action.inputName === 'home') state[findIndexBetByMatch].HomeTeamScore = action.value === '' ? 0 : action.value;
+    if (action.inputName === 'away') state[findIndexBetByMatch].AwayTeamScore = action.value === '' ? 0 : action.value;
 
     // remove bet
-    if (action.value === '' && state[findIndexBet].HomeTeamScore === 0 && state[findIndexBet].AwayTeamScore === 0) {
-      return [...state.slice(0, findIndexBet), ...state.slice(findIndexBet + 1)];
+    if (action.value === '' && state[findIndexBetByMatch].HomeTeamScore === 0 && state[findIndexBetByMatch].AwayTeamScore === 0) {
+      return [...state.slice(0, findIndexBetByMatch), ...state.slice(findIndexBetByMatch + 1)];
     }
 
 

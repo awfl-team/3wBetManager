@@ -5,8 +5,8 @@ import {
 import { Link, Route } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
-import BetLayoutResult from './BetLayoutResult';
-import BetSubmitLayout from './BetSubmitLayout';
+import BetLayoutResult from '../BetResult/BetLayoutResult';
+import BetSubmitLayout from '../BetSubmit/BetSubmitLayout';
 import withAuth from '../AuthGuard/AuthGuard';
 
 
