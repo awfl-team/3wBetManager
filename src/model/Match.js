@@ -3,8 +3,6 @@ export default class Match {
 
     CompetitionId;
 
-    Cote;
-
     LastUpdated = new Date();
 
     HomeTeam;

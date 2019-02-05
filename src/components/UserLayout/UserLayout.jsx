@@ -65,12 +65,15 @@ class UserLayout extends React.Component {
               <Icon name="star" />
               Best betters
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active"
-                       className={this.props.history.location.pathname === '/admin/tasks' ? 'active' : '' }
-                       to="/admin/users">
-              <Icon name="angular" />
-              Admin
-            </Menu.Item>
+            { this.props.user.role === 'ADMIN'
+              && <Menu.Item as={NavLink} activeClassName="active"
+                            className={this.props.history.location.pathname === '/admin/tasks' ? 'active' : '' }
+                            to="/admin/users">
+                    <Icon name="angular" />
+                    Admin
+                 </Menu.Item>
+            }
+
           </Sidebar>
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
