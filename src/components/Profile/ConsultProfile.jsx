@@ -12,8 +12,7 @@ class ConsultProfile extends React.Component {
 
   componentDidMount() {
     UserService.getUserById(this.props.match.params.userId)
-        .then((response) => this.setState({ user: response.data }));
-    console.log(this.state.user);
+      .then((response) => this.setState({ user: response.data }));
   }
 
   render() {
@@ -40,4 +39,4 @@ class ConsultProfile extends React.Component {
   }
 }
 
-export default withAuth(ConsultProfile);
+export default ConsultProfile;

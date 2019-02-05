@@ -11,7 +11,6 @@ class BestBettersTable extends React.Component {
   componentDidMount(){
     UserService.getTop50Betters().then((response) => {
       this.setState({top50: response.data});
-      console.log(this.state.top50);
     });
   }
 
@@ -20,7 +19,7 @@ class BestBettersTable extends React.Component {
     const { top50 } = this.state;
     return (
       <div id="bestBettersTable">
-        <Table celled structured compact inverted>
+        <Table celled structured compact inverted unstackable>
           <Table.Header>
             <Table.Row textAlign="center">
               <Table.HeaderCell rowSpan='2'>#</Table.HeaderCell>

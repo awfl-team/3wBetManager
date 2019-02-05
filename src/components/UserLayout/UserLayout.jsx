@@ -40,7 +40,7 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Menu.Item as={NavLink} to="/profile">
+            <Menu.Item as={NavLink} to="/profile" className={this.props.history.location.pathname === '/update-profile' ? 'active' : '' }>
               My profile
             </Menu.Item>
             <Menu.Item as="a" onClick={() => this.logout()}>
@@ -54,7 +54,9 @@ class UserLayout extends React.Component {
               <Icon name="home" />
               Home
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/bet/myBets">
+            <Menu.Item as={NavLink} activeClassName="active"
+                       className={this.props.history.location.pathname === '/bet/submitBets' ? 'active' : '' }
+                       to="/bet/myBets">
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
