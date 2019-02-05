@@ -28,6 +28,17 @@ class BetSubmitRowComponent extends React.Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    let { bet, match } = this.state;
+    if (bet) {
+      match = bet.Match;
+    }
+    if (nextProps.bets.find(bet => bet.Match.Id === match.Id)) {
+      return true;
+    }
+    return false;
+  }
+
   createBet(event, match, inputName) {
     const data = { match, inputName, value: event.target.value };
     if (this.state.bet) {

@@ -47,8 +47,13 @@ class BetSubmitLayout extends React.Component {
 
   handleOpen = () => {
     const bets = this.props.bets;
-    this.setState({ betsLength: bets.length });
-    this.setState({ modalOpen: true });
+    const newBets = bets.filter(bet => bet.Id === undefined);
+    this.setState({ betsLength: newBets.length });
+    if (newBets > 0) {
+      this.setState({ modalOpen: true });
+    } else {
+      this.handleSubmit();
+    }
   };
 
   handleClose = () => this.setState({ modalOpen: false });
@@ -77,7 +82,7 @@ class BetSubmitLayout extends React.Component {
     const {
       activeIndex, betsLength, modalOpen, competitionsWithBets, loading,
     } = this.state;
-console.log(this.props.bets);
+    console.log(this.props.bets);
     const isDisabled = (this.props.bets.length > 0);
     return (
       <div id="betCup">
