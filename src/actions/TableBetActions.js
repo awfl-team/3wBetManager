@@ -3,7 +3,7 @@ export const PURGE_TABLE_BET = 'PURGE_TABLE_BET';
 
 export function addTableBet(match, inputName, value) {
   return {
-    type: ADD_TABLE_BET, value: { value }, match: { match }, inputName: { inputName },
+    type: ADD_TABLE_BET, value, match, inputName,
   };
 }
 

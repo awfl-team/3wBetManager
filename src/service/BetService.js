@@ -10,32 +10,38 @@ export default class BetService {
     return API.get(`bets/${competitionId}/current`);
   }
 
+  static getNbBetsInCompetitionForResult(competitionId) {
+    return API.get(`bets/${competitionId}/result/number`);
+  }
+
+  static getNbBetsAndMatchesInCompetitionForSubmit(competitionId) {
+    return API.get(`bets/${competitionId}/current/number`);
+  }
+
   static AddOrUpdateBet(bets) {
     return API.post('bets', bets);
   }
 
-  static ParseBetList(bets) {
-    bets.forEach((bet, index) => {
-      if (bet.HomeTeamScore === '' || bet.AwayTeamScore === ''
-          || bet.HomeTeamScore === undefined || bet.AwayTeamScore === undefined) {
-        bets.splice(index, 1);
-      }
-    });
-    return bets;
-  }
-
-
   static createOrUpdateBet(state, action) {
-    const findIndexBet = state.findIndex(bet => bet.Match.Id === action.match.match.Id);
+    const findIndexBet = state.findIndex(bet => bet.Match.Id === action.match.Id);
+
+    // new Bet
     if (findIndexBet === -1) {
       const newBet = new Bet();
-      if (action.inputName.inputName === 'home') newBet.HomeTeamScore = action.value.value;
-      if (action.inputName.inputName === 'away') newBet.AwayTeamScore = action.value.value;
-      newBet.Match = action.match.match;
+      if (action.inputName === 'home') newBet.HomeTeamScore = action.value;
+      if (action.inputName === 'away') newBet.AwayTeamScore = action.value;
+      newBet.Match = action.match;
       return [...state, newBet];
     }
-    if (action.inputName.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value.value;
-    if (action.inputName.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value.value;
+    // remove bet
+    if (action.value === '' && state[findIndexBet].HomeTeamScore === 0 && state[findIndexBet].AwayTeamScore === 0) {
+      return [...state.slice(0, findIndexBet), ...state.slice(findIndexBet + 1)];
+    }
+
+    // update bet
+    if (action.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value === '' ? 0 : action.value;
+    if (action.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value === '' ? 0 : action.value;
+
 
     return state;
   }

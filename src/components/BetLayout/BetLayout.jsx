@@ -7,6 +7,7 @@ import UserService from '../../service/UserService';
 import User from '../../model/User';
 import BetLayoutResult from './BetLayoutResult';
 import BetSubmitLayout from './BetSubmitLayout';
+import withAuth from '../AuthGuard/AuthGuard';
 
 
 class BetLayout extends React.Component {
@@ -54,4 +55,4 @@ class BetLayout extends React.Component {
   }
 }
 
-export default BetLayout;
+export default withAuth(BetLayout);
