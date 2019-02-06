@@ -1,18 +1,21 @@
 import React from 'react';
 import {
-  Accordion, Button, Container, Header, Icon, Label, Modal,
+  Accordion, Button, Container, Header, Icon, Label, Loader, Modal,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
 import { purgeTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
+import { addSnackBar } from '../../actions/SnackBarActions';
+import BetSubmitBlockComponent from './BetSubmitBlockComponent';
 
 const mapStateToProps = state => ({ bets: state.bets });
 
 function mapDispatchToProps(dispatch) {
   return {
     purgeTableBet: () => dispatch(purgeTableBet()),
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
   };
 }
 
@@ -20,14 +23,25 @@ class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
     competitions: [],
+    competitionsWithBets: [],
     modalOpen: false,
     betsLength: 0,
+    isDisabled: false,
+    loading: true,
   };
 
 
   componentDidMount() {
     CompetitionService.getAllCompetions().then((response) => {
       this.setState({ competitions: response.data });
+      this.state.competitions.map((competition) => {
+        BetService.getCurrentBetAndMatches(competition.Id).then((rep) => {
+          if (rep.data.Matches.length > 0) {
+            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
+            this.setState({ loading: false });
+          }
+        });
+      });
     });
   }
 
@@ -48,8 +62,11 @@ class BetSubmitLayout extends React.Component {
   };
 
   handleSubmit = () => {
-    const bets = this.props.bets;
-    BetService.AddOrUpdateBet(bets).then(() => {
+    BetService.AddOrUpdateBet(this.props.bets).then(() => {
+      this.props.addSnackbar({
+        message: 'Successfully added bets !',
+        type: 'success',
+      });
       this.props.purgeTableBet();
       this.handleClose();
     });
@@ -58,9 +75,9 @@ class BetSubmitLayout extends React.Component {
 
   render() {
     const {
-      activeIndex, competitions, betsLength, modalOpen,
+      activeIndex, betsLength, modalOpen, competitionsWithBets, loading,
     } = this.state;
-
+    console.log(this.props.bets);
     const isDisabled = (this.props.bets.length > 0);
     return (
       <div id="betCup">
@@ -68,31 +85,50 @@ class BetSubmitLayout extends React.Component {
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>
-        <Container fluid>
-          <Accordion fluid styled>
-            {competitions.map((competition, index) => (
-              <div key={competition.Id}>
-                <Accordion.Title
-                  active={activeIndex === index}
-                  index={index}
-                  onClick={this.handleClick}
-                  className="competition-accordion"
-                >
-                  <Icon name="dropdown" />
-                  {competition.Name}
-                  <Label attached="top right">
-                    <Icon name="ticket" />
-                    {' '}
+        {competitionsWithBets.length > 0 && loading === false
+          ? (
+            <Container fluid>
+              <Accordion fluid styled>
+                {competitionsWithBets.map((competition, index) => (
+                  <div key={competition.Id}>
+                    <Accordion.Title
+                      active={activeIndex === index}
+                      index={index}
+                      onClick={this.handleClick}
+                      className="competition-accordion"
+                    >
+                      <Icon name="dropdown" />
+                      {competition.Name}
+                      <Label attached="top right">
+                        <Icon name="ticket" />
+                        {' '}
 0
-                  </Label>
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === index}>
-                  <BetSubmitRowComponent competitionId={competition.Id} />
-                </Accordion.Content>
+                      </Label>
+                    </Accordion.Title>
+                    <Accordion.Content active={activeIndex === index}>
+                      <BetSubmitBlockComponent competitionId={competition.Id} />
+                    </Accordion.Content>
+                  </div>
+                ))}
+              </Accordion>
+            </Container>
+          ) : competitionsWithBets.length === 0 && loading === false
+            ? (
+              <div className="noBetFound">
+                <div className="ui middle aligned center aligned fullpage">
+                  <div className="column">
+                    <h2 className="ui teal authentication-header">
+                      <div className="content">
+                        <p className="noBetFound-header">No bets found at the moment</p>
+                        <p className="back-button">Click here to reload the page</p>
+                      </div>
+                    </h2>
+                  </div>
+                </div>
               </div>
-            ))}
-          </Accordion>
-        </Container>
+            )
+            : <Loader id="betLoader" size="huge" active inline="centered" />
+          }
         <Container fluid className="submit-bets-action">
           <Modal
             trigger={(
@@ -119,15 +155,13 @@ Submit
             />
             <Modal.Content>
               <h3>
-                If you add or update
-                {betsLength > 1 ? ' those bets' : ' this bet'}
-                , it will cost you
+                  If you add or update
+                {betsLength > 1 ? ' those ' : ' this '}
+                  bets, it will cost you
                 {' '}
                 {betsLength * 10}
                 {' '}
                 <Icon color="yellow" name="copyright" />
-                {' '}
-!
               </h3>
             </Modal.Content>
             <Modal.Actions>
