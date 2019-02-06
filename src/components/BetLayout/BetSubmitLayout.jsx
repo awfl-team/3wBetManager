@@ -20,25 +20,16 @@ class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
     competitions: [],
-    competitionsWithBets: [],
     modalOpen: false,
     betsLength: 0,
     isDisabled: false,
-    loading: true,
+    alreadyUpdate: false
   };
 
 
   componentDidMount() {
     CompetitionService.getAllCompetions().then((response) => {
-      this.setState({ competitions: response.data });
-      this.state.competitions.map((competition) => {
-        BetService.getCurrentBetAndMatches(competition.Id).then((rep) => {
-          if (rep.data.Matches.length > 0) {
-            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
-            this.setState({ loading: false });
-          }
-        });
-      });
+      this.setState({competitions: response.data});
     });
   }
 
@@ -69,7 +60,7 @@ class BetSubmitLayout extends React.Component {
 
   render() {
     const {
-      activeIndex, betsLength, modalOpen, competitionsWithBets, loading,
+      activeIndex, competitions, betsLength, modalOpen,
     } = this.state;
 
     const isDisabled = (this.props.bets.length > 0);
@@ -79,82 +70,50 @@ class BetSubmitLayout extends React.Component {
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>
-        {competitionsWithBets.length > 0 && loading === false
-          ? (
-            <Container fluid>
-              <Accordion fluid styled>
-                {competitionsWithBets.map((competition, index) => (
-                  <div key={competition.Id}>
-                    <Accordion.Title
-                      active={activeIndex === index}
-                      index={index}
-                      onClick={this.handleClick}
-                      className="competition-accordion"
-                    >
-                      <Icon name="dropdown" />
-                      {competition.Name}
-                      <Label attached="top right">
-                        <Icon name="ticket" />
-                        {betsLength}
-                      </Label>
-                    </Accordion.Title>
-                    <Accordion.Content active={activeIndex === index}>
-                      <BetSubmitRowComponent competitionId={competition.Id} />
-                    </Accordion.Content>
-                  </div>
-                ))}
-              </Accordion>
-            </Container>
-          ) : competitionsWithBets.length === 0 && loading === false
-            ? (
-              <div className="noBetFound">
-                <div className="ui middle aligned center aligned fullpage">
-                  <div className="column">
-                    <h2 className="ui teal authentication-header">
-                      <div className="content">
-                        <p className="noBetFound-header">No bets found at the moment</p>
-                        <p className="back-button">Click here to reload the page</p>
-                      </div>
-                    </h2>
-                  </div>
-                </div>
+        <Container fluid>
+          <Accordion fluid styled>
+            {competitions.map((competition, index) => (
+              <div key={competition.Id}>
+                <Accordion.Title
+                  active={activeIndex === index}
+                  index={index}
+                  onClick={this.handleClick}
+                  className="competition-accordion"
+                >
+                  <Icon name="dropdown"/>
+                  {competition.Name}
+                  <Label attached='top right'>
+                    <Icon name='ticket' /> 0
+                  </Label>
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex === index}>
+                  <BetSubmitRowComponent competitionId={competition.Id}/>
+                </Accordion.Content>
               </div>
-            )
-            : <Loader id="betLoader" size="huge" active inline="centered" />
-          }
+            ))}
+          </Accordion>
+        </Container>
         <Container fluid className="submit-bets-action">
           <Modal
-            trigger={(
-              <Button
-                onClick={this.handleOpen}
-                type="submit"
-                className="submit-bets-action-button"
-                disabled={!isDisabled}
-                color="green"
-              >
-Submit
-              </Button>
-)}
+            trigger={<Button onClick={this.handleOpen} type="submit"
+                             className="submit-bets-action-button" disabled={!isDisabled}
+                             color="green">Submit</Button>}
             open={modalOpen}
             onClose={this.handleClose}
             basic
             size="small"
           >
-            <Header
-              icon="exclamation triangle"
-              content="Are you sure ?"
-              as="h1"
-              textAlign="center"
-            />
+            <Header icon="exclamation triangle" content="Are you sure ?" as="h1"
+                    textAlign="center"/>
             <Modal.Content>
               <h3>
-                  If you add or update
-                {betsLength > 0 ? ' those ' : ' this '}
-                  bets, it will cost you
+                If you add or update
+                {betsLength > 1 ? ' those bets' : ' this bet'}
+                , it will cost you
                 {' '}
                 {betsLength * 10}
                 {' '}
-                <Icon color="yellow" name="copyright" />
+                <Icon color='yellow' name='copyright' /> !
               </h3>
             </Modal.Content>
             <Modal.Actions>
