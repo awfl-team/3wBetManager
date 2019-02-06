@@ -47,13 +47,8 @@ class BetSubmitLayout extends React.Component {
 
   handleOpen = () => {
     const bets = this.props.bets;
-    const newBets = bets.filter(bet => bet.Id === undefined);
-    this.setState({ betsLength: newBets.length });
-    if (newBets > 0) {
-      this.setState({ modalOpen: true });
-    } else {
-      this.handleSubmit();
-    }
+    this.setState({ betsLength: bets.length });
+    this.setState({ modalOpen: true });
   };
 
   handleClose = () => this.setState({ modalOpen: false });
