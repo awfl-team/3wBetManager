@@ -14,10 +14,37 @@ import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import {Link} from 'react-router-dom';
+import connect from "react-redux/es/connect/connect";
+import {addSnackBar} from "../../actions/SnackBarActions";
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
 
 class AdminUserTable extends React.Component {
   state = {
     users: [],
+  };
+
+  handleClick(user) {
+    UserService.getUserById(user.Id).then((resp) => {
+      const userToUpdate = resp.data
+      const userAfterUpdate = new User();
+      userAfterUpdate.Id = user.Id;
+      if (userToUpdate.Role === 'ADMIN') {
+        userAfterUpdate.Role = 'USER';
+      } else {
+        userAfterUpdate.Role = 'ADMIN';
+      }
+      UserService.updateRoleUser(userAfterUpdate).then((resp) => {
+        this.props.addSnackbar({
+          message: `${userToUpdate.Username}'s role updated`,
+          type: 'success',
+        });
+      });
+    });
   };
 
   componentDidMount() {
@@ -37,8 +64,8 @@ class AdminUserTable extends React.Component {
         </Header>
         <Container fluid>
           <div className="userTableHeader">
-            <Input type="search" placeholder="Search a user"/>
-            <div className="button ui green"><Icon name="add"/> Add a user</div>
+            <Input type="search" placeholder="Search a user" />
+            <div className="button ui green"><Icon name="add" /> Add a user</div>
           </div>
           <Table celled striped unstackable inverted>
             <Table.Header>
@@ -63,7 +90,7 @@ class AdminUserTable extends React.Component {
                     <Rating icon='heart' rating={user.Life} maxRating={3} disabled size="huge" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Radio toggle checked={user.Role === "ADMIN"}/>
+                    <Radio toggle defaultChecked={user.Role === "ADMIN"} onClick={this.handleClick.bind(this, user)} />
                   </Table.Cell>
                   <Table.Cell>
                     <Link to={'/user/' + user.Id} className="button ui blue small icon">
@@ -95,4 +122,5 @@ class AdminUserTable extends React.Component {
 
 }
 
-export default withAuthAdmin(AdminUserTable);
+const AdminUsers = connect(null, mapDispatchToProps)(AdminUserTable);
+export default withAuthAdmin(AdminUsers);

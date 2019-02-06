@@ -38,6 +38,12 @@ export default class UserService {
     });
   }
 
+  static updateRoleUser(user) {
+    return API.put(`/users/${user.Id}/role`, {
+      Role: user.Role,
+    });
+  }
+
   static resetUser() {
     return API.put('/users/reset');
   }
