@@ -1,37 +1,22 @@
 import * as React from 'react';
 import classNames from 'classnames/bind';
 import {
-  Button, Container, Grid, Header, Icon,
+  Button, Container, Header, Icon, Radio,
 } from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import VerifyService from '../../service/VerifyService';
-import AuthService from '../../service/AuthService';
-import {Link} from 'react-router-dom';
-import withAuth from '../AuthGuard/AuthGuard';
+import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 
 
-class UpdateProfile extends React.Component {
+class UserForm extends React.Component {
   state = {
-    user: User,
     email: '',
     username: '',
     password: '',
+    checked: false,
     confirmPassword: '',
   };
-
-  componentDidMount() {
-    UserService.getFromToken()
-      .then((response) => {
-        this.setState({ user: response.data });
-        this.setState({ username: response.data.Username });
-        this.setState({ email: response.data.Email });
-      })
-      .catch((error) => {
-        this.setState({ message: error.response.data });
-      });
-  }
-
 
   handleEmailChange = (event) => {
     this.setState({ email: event.target.value });
@@ -39,6 +24,10 @@ class UpdateProfile extends React.Component {
 
   handleUsernameChange = (event) => {
     this.setState({ username: event.target.value });
+  };
+
+  handleRoleChange = () => {
+    this.setState({ checked: !this.state.checked });
   };
 
   handlePasswordChange = (event) => {
@@ -55,19 +44,21 @@ class UpdateProfile extends React.Component {
       event.target.email.value,
       event.target.username.value,
       event.target.password.value,
+      event.target.password.value,
     );
-    user.Id = this.state.user.Id;
+    if (this.state.checked === true) {
+      user.Role = 'ADMIN';
+    } else {
+      user.Role = 'USER';
+    }
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.updateUser(user).then((response) => {
-        AuthService.setTokenInLocalStorage(response);
-        this.props.history.push('/profile');
-      });
+      UserService.addUserAdmin(user);
     }
   }
 
   render() {
     const {
-      confirmPassword, password, user, email, username,
+      confirmPassword, password, email, username, checked,
     } = this.state;
     const isEmailOk = VerifyService.isEmailOk(email);
     const isUsernameOk = VerifyService.isUsernameOk(username);
@@ -77,7 +68,7 @@ class UpdateProfile extends React.Component {
     const isPasswordUppercase = VerifyService.isPasswordUppercase(password);
     const isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
     const isEnabled = (isEmailOk && isUsernameOk && isPasswordNumberCharOk && isPasswordWithNumber
-        && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
+      && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
 
     const formFieldUsernameOk = classNames({
       'validate-form-info': isUsernameOk,
@@ -109,31 +100,19 @@ class UpdateProfile extends React.Component {
     });
     const formMultipleInfos = classNames({
       'validate-form-info': isPasswordUppercase && isPasswordSpecialChar
-              && isPasswordWithNumber,
+        && isPasswordWithNumber,
       'error-form-info': !isPasswordUppercase
-              || !isPasswordSpecialChar || !isPasswordWithNumber,
+        || !isPasswordSpecialChar || !isPasswordWithNumber,
     });
 
     return (
-      <div id="profile">
-        <Container fluid>
-          <Grid>
-            <Grid.Column floated="right" width={5}>
-              <div align="right">
-                <Link to="/profile" className="ui green icon left labeled button">
-                  Go back
-                  <Icon name="left arrow" />
-                </Link>
-              </div>
-            </Grid.Column>
-          </Grid>
-        </Container>
+      <div id="userForm">
         <Header as="h2" icon textAlign="center">
-          <Icon name="cogs" circular />
-          <Header.Content>Update my profile</Header.Content>
+          <Icon name="user plus" circular />
+          <Header.Content>Create a user</Header.Content>
         </Header>
         <Container textAlign="center" className="container-centered">
-          <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
+          <form className="ui form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
             <div className="ui stacked">
               <div className="field">
                 <div className="ui left icon input">
@@ -142,7 +121,6 @@ class UpdateProfile extends React.Component {
                     type="text"
                     name="email"
                     placeholder="E-mail"
-                    defaultValue={user.Email}
                     value={email}
                     onChange={this.handleEmailChange.bind(this)}
                   />
@@ -155,7 +133,6 @@ class UpdateProfile extends React.Component {
                     type="text"
                     name="username"
                     placeholder="Username"
-                    defaultValue={user.Username}
                     value={username}
                     onChange={this.handleUsernameChange.bind(this)}
                   />
@@ -185,47 +162,57 @@ class UpdateProfile extends React.Component {
                   />
                 </div>
               </div>
+              <div className="field">
+                <div className="ui left input">
+                  <Radio
+                    toggle
+                    defaultChecked={checked}
+                    onChange={this.handleRoleChange.bind(this)}
+                  />
+                  <p>&nbsp;&nbsp;Admin Role</p>
+                </div>
+              </div>
             </div>
             <div className="form-info validation">
               <p className={formFieldEmailOk}>
                 <i className="info circle icon" />
                 {' '}
-The email must respect a valid email format
+                The email must respect a valid email format
               </p>
               <p className={formFieldUsernameOk}>
                 <i className="info circle icon" />
                 {' '}
-The username requires at least 3 characters
+                The username requires at least 3 characters
               </p>
               <p className={formFieldIdentical}>
                 <i className="info circle icon" />
                 {' '}
-The password must be identical with the
+                The password must be identical with the
                 password field
               </p>
               <p className={formFieldNumber}>
                 <i className="info circle icon" />
                 {' '}
-The password requires at least 12 characters
+                The password requires at least 12 characters
               </p>
               <p className={formMultipleInfos}>
                 <i className="info circle icon" />
                 {' '}
-The password requires a
+                The password requires a
                 <span
                   className={formdFieldUppercase}
                 >
                     uppercase
                 </span>
-, a
+                , a
                 <span
                   className={formFieldSpecial}
                 >
                   {' '}
-special character
+                  special character
                 </span>
                 {' '}
-and
+                and
                 <span
                   className={formFieldWithNumber}
                 >
@@ -243,4 +230,4 @@ a number
   }
 }
 
-export default withAuth(UpdateProfile);
+export default withAuthAdmin(UserForm);

@@ -47,6 +47,16 @@ class AdminUserTable extends React.Component {
     });
   };
 
+  handleDelete(user, index) {
+    UserService.deleteUser(user).then(() => {
+      this.props.addSnackbar({
+        message: `${user.Username}'s account deleted`,
+        type: 'success',
+      });
+      document.getElementById(index).remove();
+    });
+  }
+
   componentDidMount() {
     UserService.getAllUsers()
       .then((response) => {
@@ -62,10 +72,12 @@ class AdminUserTable extends React.Component {
           <Icon name="users" circular />
           <Header.Content>Users</Header.Content>
         </Header>
-        <Container fluid>
+        <Container fluid className="container-centered">
           <div className="userTableHeader">
-            <Input type="search" placeholder="Search a user" />
-            <div className="button ui green"><Icon name="add" /> Add a user</div>
+            <Input type="search" icon={<Icon name='search' inverted circular link />}  placeholder="Search a user" />
+            <Link to="/admin/addUser" className="button ui green">
+              <Icon name="add" /> Create a user
+            </Link>
           </div>
           <Table celled striped unstackable inverted>
             <Table.Header>
@@ -81,7 +93,7 @@ class AdminUserTable extends React.Component {
 
             <Table.Body>
               {users.map((user, index) => (
-                <Table.Row key={index}>
+                <Table.Row key={index} id={index}>
                   <Table.Cell>{user.Username}</Table.Cell>
                   <Table.Cell>{user.Email}</Table.Cell>
                   <Table.Cell><Icon color="yellow" name='copyright' size="big" />
@@ -97,9 +109,9 @@ class AdminUserTable extends React.Component {
                       <Icon name="eye"/>
                     </Link>
 
-                    <Link to={'/users/' + user.Id} className="button ui red small icon">
+                    <Button type="button" className="button ui red small icon" onClick={this.handleDelete.bind(this, user, index)}>
                       <Icon name="trash"/>
-                    </Link>
+                    </Button>
                   </Table.Cell>
                 </Table.Row>
               ))}

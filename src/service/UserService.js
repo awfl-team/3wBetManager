@@ -16,6 +16,15 @@ export default class UserService {
     });
   }
 
+  static addUserAdmin(user) {
+    return API.post('register', {
+      Email: user.Email,
+      Password: user.Password,
+      Username: user.Username,
+      Role: user.Role,
+    });
+  }
+
   static getUserById(id) {
     return API.get(`users/${id}`);
   }

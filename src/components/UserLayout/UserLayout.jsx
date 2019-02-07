@@ -62,12 +62,12 @@ class UserLayout extends React.Component {
               My Bets
             </Menu.Item>
             <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters">
-              <Icon name="star" />
-              Best betters
+              <Icon name="fire" />
+              Top 50
             </Menu.Item>
             { this.props.user.role === 'ADMIN'
               && <Menu.Item as={NavLink} activeClassName="active"
-                            className={this.props.history.location.pathname === '/admin/tasks' ? 'active' : '' }
+                            className={this.props.history.location.pathname === '/admin/tasks' || this.props.history.location.pathname === '/admin/addUser' ? 'active' : '' }
                             to="/admin/users">
                     <Icon name="angular" />
                     Admin

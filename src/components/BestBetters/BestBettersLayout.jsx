@@ -10,7 +10,7 @@ class BestBettersLayout extends React.Component {
     return (
       <div id="bestBettersLayout">
         <Header as="h2" icon textAlign="center">
-          <Icon name="star" circular />
+          <Icon name="fire" circular />
           <Header.Content>Top 50</Header.Content>
         </Header>
         <Container fluid>
