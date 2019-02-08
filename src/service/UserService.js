@@ -34,7 +34,13 @@ export default class UserService {
   }
 
   static getAllUsers() {
-    return API.get('/users');
+    return API.get('users');
+  }
+
+  static getAllUsersPaginated(page = 1, direction = 'current') {
+    return API.get(`users/paginated/${page}`, {
+      Direction: direction,
+    });
   }
 
   static deleteUser(user) {

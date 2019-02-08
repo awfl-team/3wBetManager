@@ -26,6 +26,9 @@ function mapDispatchToProps(dispatch) {
 class AdminUserTable extends React.Component {
   state = {
     users: [],
+    totalPages: 1,
+    page: 1,
+    totalUsers: 0,
   };
 
   handleClick(user) {
@@ -58,19 +61,31 @@ class AdminUserTable extends React.Component {
   }
 
   componentDidMount() {
-    UserService.getAllUsers()
+    UserService.getAllUsersPaginated()
       .then((response) => {
-        this.setState({ users: response.data });
+        this.setState({ users: response.data.items,
+          totalPages: response.data.totalPages,
+          totalUsers: response.data.totalUsers });
+      });
+  }
+
+  getNextUsers(event) {
+    UserService.getAllUsersPaginated(event.target.getAttribute('value'))
+      .then((response) => {
+        this.setState({ users: response.data.items,
+          page: response.data.page,
+          totalPages: response.data.totalPages,
+          totalUsers: response.data.totalUsers  });
       });
   }
 
   render() {
-    const { users } = this.state;
+    const { users, totalPages, page, totalUsers } = this.state;
     return (
       <div id="adminUserTable">
         <Header as="h2" icon textAlign="center">
           <Icon name="users" circular />
-          <Header.Content>Users</Header.Content>
+          <Header.Content>Users ({totalUsers})</Header.Content>
         </Header>
         <Container fluid className="container-centered">
           <div className="userTableHeader">
@@ -118,13 +133,14 @@ class AdminUserTable extends React.Component {
             </Table.Body>
           </Table>
           <Pagination
-            defaultActivePage={5}
             ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
-            firstItem={{ content: <Icon name='angle double left' />, icon: true }}
-            lastItem={{ content: <Icon name='angle double right' />, icon: true }}
+            firstItem={null}
+            lastItem={null}
+            defaultActivePage={1}
             prevItem={{ content: <Icon name='angle left' />, icon: true }}
             nextItem={{ content: <Icon name='angle right' />, icon: true }}
-            totalPages={10}
+            totalPages={totalPages}
+            onPageChange={this.getNextUsers.bind(this)}
           />
         </Container>
       </div>
