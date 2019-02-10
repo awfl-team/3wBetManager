@@ -69,6 +69,7 @@ class BetSubmitLayout extends React.Component {
       });
       this.props.purgeTableBet();
       this.handleClose();
+      window.location.reload();
     });
   };
 
@@ -77,7 +78,7 @@ class BetSubmitLayout extends React.Component {
     const {
       activeIndex, betsLength, modalOpen, competitionsWithBets, loading,
     } = this.state;
-    console.log(this.props.bets);
+
     const isDisabled = (this.props.bets.length > 0);
     return (
       <div id="betCup">

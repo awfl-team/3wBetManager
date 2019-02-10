@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink, Redirect, Route } from 'react-router-dom';
 import {
-  Container, Icon, Menu, Segment, Sidebar,
+  Button,
+  Container, Header, Icon, Menu, Modal, Segment, Sidebar,
 } from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
@@ -12,6 +13,7 @@ import BestBettersLayout from '../BestBetters/BestBettersLayout';
 import ConsultProfile from '../Profile/ConsultProfile';
 import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
+import Help from '../Help/Help';
 
 class UserLayout extends React.Component {
   state = {
@@ -40,6 +42,7 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
+            <Help />
             <Menu.Item as={NavLink} to="/profile" className={this.props.history.location.pathname === '/update-profile' ? 'active' : '' }>
               My profile
             </Menu.Item>
