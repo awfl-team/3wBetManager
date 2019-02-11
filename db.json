@@ -106,5 +106,11 @@
       "LastUpdated": "2019-01-12T19:23:23Z"
     }
   ],
-  "bets": []
+  "dashboard": [
+    {
+      "failedBets": [5,4,1],
+      "okBets": 4,
+      "perfectBets": 1
+    }
+  ]
 }
