@@ -1,0 +1,12 @@
+#dashboard {
+  .row {
+    margin: 30px 0;
+    .tablet {
+      &.column {
+        &:last-child {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
