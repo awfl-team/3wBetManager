@@ -106,11 +106,16 @@
       "LastUpdated": "2019-01-12T19:23:23Z"
     }
   ],
-  "dashboard": [
-    {
-      "failedBets": [5,4,1],
-      "okBets": 4,
-      "perfectBets": 1
-    }
-  ]
+  "dataPie": {
+    "failedBets": 5,
+    "okBets": 4,
+    "perfectBets":1
+  },
+  "dataLines": [{
+    "x": 10,
+    "y": 20
+  }, {
+    "x": 15,
+    "y": 10
+  }]
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Button, Container, Divider, Header, Icon, Modal, Popup, Radio, Rating,
+  Button, Container, Divider, Grid, Header, Icon, Modal, Popup, Radio, Rating,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
@@ -9,12 +9,16 @@ import AuthService from '../../service/AuthService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuth from '../AuthGuard/AuthGuard';
-
+import { Doughnut, Line } from "react-chartjs-2";
+import DashboardService from "../../service/DashboardService";
+import StatsBuilderService from "../../service/StatsBuilderService";
 function mapDispatchToProps(dispatch) {
   return {
     addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
   };
 }
+
+let dataBuild;
 
 class Profile extends React.Component {
   state = {
@@ -25,7 +29,14 @@ class Profile extends React.Component {
     canReset: true,
     userLives: '',
     userPoints: '',
+    dataPie: [],
+    dataDots: [],
   };
+
+  componentWillMount() {
+    dataBuild = StatsBuilderService.buildStatsBetsByType([15,12,14,16], ['topkek', 'erf', 'jpp', ':spied:'], ['#4caf50', '#2196f3', '#f2711c', '#2d2d2d']);
+    this.setState({dataPie: dataBuild});
+  }
 
   componentDidMount() {
     UserService.getFromToken()
@@ -77,7 +88,7 @@ class Profile extends React.Component {
 
   render() {
     const {
-      user, isPrivate, canReset, userLives, userPoints,
+      user, isPrivate, canReset, userLives, userPoints, dataDots, dataPie
     } = this.state;
     return (
       <div id="profile">
@@ -201,6 +212,23 @@ to reborn from ashes.
           <Icon name="pie graph" circular />
           <Header.Content>Stats</Header.Content>
         </Header>
+        <Container textAlign="center" fluid>
+          <Grid>
+            <Grid.Row columns={16} divided>
+              <Grid.Column textAlign="center" computer={8} tablet={16}>
+                <div className="doughnut-max-size">
+                  <Doughnut data={this.state.dataPie} legend={{position: 'left'}}/>
+
+                </div>
+              </Grid.Column>
+              <Grid.Column textAlign="center" computer={8} tablet={16}>
+                <div className="doughnut-max-size">
+                  <Line data={this.state.dataPie} legend={{position: 'left'}}/>
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
       </div>
     );
   }
