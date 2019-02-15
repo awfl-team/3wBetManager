@@ -12,6 +12,7 @@ import BestBettersLayout from '../BestBetters/BestBettersLayout';
 import ConsultProfile from '../Profile/ConsultProfile';
 import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
+import LootBox from "../LootBox/LootBox";
 
 class UserLayout extends React.Component {
   state = {
@@ -80,6 +81,7 @@ class UserLayout extends React.Component {
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
               <Route path="/bet" component={BetLayout} />
+              <Route path="/lootbox" component={LootBox} />
               <PageScroller />
             </Segment>
           </Sidebar.Pusher>
