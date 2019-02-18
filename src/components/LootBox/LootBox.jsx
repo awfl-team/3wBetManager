@@ -1,22 +1,11 @@
 import React from 'react';
 import {Container, Divider, Header, Icon} from "semantic-ui-react";
 
-let expanded = true
-
+let expanded = true;
 
 class LootBox extends React.Component {
   componentDidMount() {
     document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth;
-    setInterval(() => {
-      if (expanded) {
-        expanded = false;
-        // document.querySelector(".alert").classList.add("hide");
-        // document.querySelector(".alert").classList.add("hide");
-      } else {
-        expanded = true;
-        document.querySelector(".loot").classList.remove("hide");
-      }
-    }, 10000);
   }
 
   handleSlideClick = () => {
@@ -49,7 +38,7 @@ class LootBox extends React.Component {
               </div>
             </div>
             <div className="loot">
-              <div className="loot-image insane">
+              <div className="loot-image epic">
                 <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
               </div>
             </div>
@@ -71,7 +60,7 @@ class LootBox extends React.Component {
                 </div>
               </div>
               <div className="loot">
-                <div className="loot-image insane">
+                <div className="loot-image epic">
                   <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
                 </div>
               </div>
