@@ -19,7 +19,6 @@ class ConsultProfile extends React.Component {
 
   render() {
     const {user} = this.state;
-    console.log(user)
     return (
         <div id="profile">
           <Header as="h2" icon textAlign="center">

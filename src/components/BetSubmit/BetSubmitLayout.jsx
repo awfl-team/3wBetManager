@@ -101,9 +101,12 @@ class BetSubmitLayout extends React.Component {
                       <Icon name="dropdown" />
                       {competition.Name}
                       <Label attached="top right">
-                        <Icon name="ticket" />
-                        {' '}
-0
+                        <span>
+                          <Icon name='ticket' /> 0
+                        </span>
+                            <span>
+                          <Icon name='soccer' /> 0
+                        </span>
                       </Label>
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === index}>

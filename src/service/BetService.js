@@ -38,7 +38,6 @@ export default class BetService {
       if (action.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value === '' ? 0 : action.value;
       if (action.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value === '' ? 0 : action.value;
 
-      console.log(state);
       return state;
     }
     const findIndexBetByMatch = state.findIndex(bet => bet.Match.Id === action.match.Id);

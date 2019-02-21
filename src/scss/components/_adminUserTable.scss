@@ -17,6 +17,17 @@
       width: 100%;
       min-width: 800px;
 
+      .label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        i {
+          margin: 0 10px;
+        }
+      }
+
       .button {
         min-width: 140px;
       }

@@ -4,7 +4,7 @@ import {
   Container,
   Header,
   Icon,
-  Input,
+  Input, Label,
   Pagination,
   Radio,
   Rating,
@@ -29,6 +29,7 @@ class AdminUserTable extends React.Component {
     totalPages: 1,
     page: 1,
     totalUsers: 0,
+    showPagination: true,
   };
 
   handleClick(user) {
@@ -63,24 +64,47 @@ class AdminUserTable extends React.Component {
   componentDidMount() {
     UserService.getAllUsersPaginated()
       .then((response) => {
-        this.setState({ users: response.data.items,
-          totalPages: response.data.totalPages,
-          totalUsers: response.data.totalUsers });
+        this.setState({ users: response.data.Items,
+          totalPages: response.data.TotalPages,
+          totalUsers: response.data.TotalUsers });
       });
   }
 
   getNextUsers(event) {
     UserService.getAllUsersPaginated(event.target.getAttribute('value'))
       .then((response) => {
-        this.setState({ users: response.data.items,
-          page: response.data.page,
-          totalPages: response.data.totalPages,
-          totalUsers: response.data.totalUsers  });
+        this.setState({ users: response.data.Items,
+          page: response.data.Page,
+          totalPages: response.data.TotalPages,
+          totalUsers: response.data.TotalUsers  });
+      });
+  }
+
+  searchUsers(event) {
+    const searchTerm = event.target.closest('div.input').getElementsByTagName('input')[0].value;
+    if (searchTerm.length > 0) {
+      UserService.searchUsers(searchTerm)
+        .then((response) => {
+          this.setState({ users: response.data,
+            showPagination: false,
+          });
+        });
+    }
+  }
+
+  clearSearch(event) {
+    UserService.getAllUsersPaginated()
+      .then((response) => {
+        this.setState({ users: response.data.Items,
+          totalPages: response.data.TotalPages,
+          totalUsers: response.data.TotalUsers,
+          showPagination: true,
+        });
       });
   }
 
   render() {
-    const { users, totalPages, page, totalUsers } = this.state;
+    const { users, totalPages, page, totalUsers, showPagination } = this.state;
     return (
       <div id="adminUserTable">
         <Header as="h2" icon textAlign="center">
@@ -89,7 +113,11 @@ class AdminUserTable extends React.Component {
         </Header>
         <Container fluid className="container-centered">
           <div className="userTableHeader">
-            <Input type="search" icon={<Icon name='search' inverted circular link />}  placeholder="Search a user" />
+            <Input type="search" labelPosition='right' placeholder="Search a user" >
+              <Label icon="close" color="red" circular onClick={this.clearSearch.bind(this)} />
+              <input />
+              <Label icon="search" color="green" circular onClick={this.searchUsers.bind(this)} />
+            </Input>
             <Link to="/admin/addUser" className="button ui green">
               <Icon name="add" /> Create a user
             </Link>
@@ -132,16 +160,18 @@ class AdminUserTable extends React.Component {
               ))}
             </Table.Body>
           </Table>
-          <Pagination
-            ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
-            firstItem={null}
-            lastItem={null}
-            defaultActivePage={1}
-            prevItem={{ content: <Icon name='angle left' />, icon: true }}
-            nextItem={{ content: <Icon name='angle right' />, icon: true }}
-            totalPages={totalPages}
-            onPageChange={this.getNextUsers.bind(this)}
-          />
+          {showPagination === true &&
+            <Pagination
+              ellipsisItem={{content: <Icon name='ellipsis horizontal'/>, icon: true}}
+              firstItem={null}
+              lastItem={null}
+              defaultActivePage={1}
+              prevItem={{content: <Icon name='angle left'/>, icon: true}}
+              nextItem={{content: <Icon name='angle right'/>, icon: true}}
+              totalPages={totalPages}
+              onPageChange={this.getNextUsers.bind(this)}
+            />
+          }
         </Container>
       </div>
     );

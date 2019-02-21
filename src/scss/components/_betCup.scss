@@ -3,6 +3,14 @@
   margin-bottom: 50px;
   .competition-accordion {
     position: relative;
+
+    .label {
+      span {
+        &:first-child {
+          margin-right: 10px;
+        }
+      }
+    }
   }
 }
 

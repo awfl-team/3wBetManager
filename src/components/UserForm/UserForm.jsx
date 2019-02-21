@@ -7,7 +7,14 @@ import User from '../../model/User';
 import UserService from '../../service/UserService';
 import VerifyService from '../../service/VerifyService';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
+import {addSnackBar} from "../../actions/SnackBarActions";
+import connect from "react-redux/es/connect/connect";
 
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
 
 class UserForm extends React.Component {
   state = {
@@ -52,7 +59,12 @@ class UserForm extends React.Component {
       user.Role = 'USER';
     }
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.addUserAdmin(user);
+      UserService.addUserAdmin(user).then(() => {
+        this.props.addSnackbar({
+          message: `${user.Username}'s account created`,
+          type: 'success',
+        });
+      });
     }
   }
 
@@ -229,5 +241,5 @@ a number
     );
   }
 }
-
-export default withAuthAdmin(UserForm);
+const AdminUserForm = connect(null, mapDispatchToProps)(UserForm);
+export default withAuthAdmin(AdminUserForm);

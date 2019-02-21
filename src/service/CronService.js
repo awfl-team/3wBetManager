@@ -2,18 +2,18 @@ import API from '../api';
 
 export default class CronService {
   static updateCompetitions() {
-    return API.get('/cron/competitions');
+    return API.post('/cron/competitions');
   }
 
   static updateMatches() {
-    return API.get('/cron/matches');
+    return API.post('/cron/matches');
   }
 
   static updateTeams() {
-    return API.get('/cron/teams');
+    return API.post('/cron/teams');
   }
 
   static updateAll() {
-    return API.get('/cron/all');
+    return API.post('/cron/all');
   }
 }

@@ -87,6 +87,7 @@ class AdminTaskManager extends React.Component {
         this.setState({ isTaskRunning: false });
         this.setState({ isCompetitionsTaskCompleted: true });
         clearInterval(valueInterval);
+        this.setState({ taskFailed: false });
         this.setState({ competitionsTaskValue: 100 });
       },
     ).catch(
@@ -111,7 +112,7 @@ class AdminTaskManager extends React.Component {
         this.setState({ isTeamsTaskRunning: false });
         this.setState({ isTaskRunning: false });
         this.setState({ isTeamsTaskCompleted: true });
-        this.setState({ taskFailed: true });
+        this.setState({ taskFailed: false });
         clearInterval(valueInterval);
       },
     ).catch(
@@ -133,6 +134,7 @@ class AdminTaskManager extends React.Component {
         this.setState({ isMatchesTaskRunning: false });
         this.setState({ isTaskRunning: false });
         this.setState({ isMatchesTaskCompleted: true });
+        this.setState({ taskFailed: false });
         this.setState({ matchesTaskValue: 100 });
       },
     ).catch(

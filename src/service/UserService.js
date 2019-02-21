@@ -17,7 +17,7 @@ export default class UserService {
   }
 
   static addUserAdmin(user) {
-    return API.post('register', {
+    return API.post('users/new', {
       Email: user.Email,
       Password: user.Password,
       Username: user.Username,
@@ -37,10 +37,12 @@ export default class UserService {
     return API.get('users');
   }
 
-  static getAllUsersPaginated(page = 1, direction = 'current') {
-    return API.get(`users/paginated/${page}`, {
-      Direction: direction,
-    });
+  static searchUsers(searchedTerm) {
+    return API.get(`users/search/${searchedTerm}`);
+  }
+
+  static getAllUsersPaginated(page = 1) {
+    return API.get(`users/paginated/${page}`);
   }
 
   static deleteUser(user) {
