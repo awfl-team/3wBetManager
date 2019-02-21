@@ -106,5 +106,104 @@
       "LastUpdated": "2019-01-12T19:23:23Z"
     }
   ],
-  "bets": []
+  "dataPie": {
+    "failedBets": 5,
+    "okBets": 4,
+    "perfectBets":1
+  },
+  "dataLines": [{
+    "x": 10,
+    "y": 20
+  }, {
+    "x": 15,
+    "y": 10
+  }],
+
+  "dashboard": [{
+    "results": {
+      "match1": {
+        "hometeam": "",
+        "awayteam": "",
+        "competition": "",
+        "matchDate": "",
+        "finalScore": "4-1",
+        "userBet": "4-1",
+        "betType": "Perfect",
+        "pointsWon": "500"
+      },
+      "match2": {
+        "hometeam": "",
+        "awayteam": "",
+        "competition": "",
+        "matchDate": "",
+        "finalScore": "4-1",
+        "userBet": "4-1",
+        "betType": "Perfect",
+        "pointsWon": "500"
+      }
+    },
+    "submited": {
+      "match1": {
+        "hometeam": "",
+        "awayteam": "",
+        "matchDate": "",
+        "competition": "",
+        "userBet": "4-1"
+      },
+      "match2": {
+        "hometeam": "",
+        "awayteam": "",
+        "matchDate": "",
+        "competition": "",
+        "userBet": "4-1"
+      }
+    },
+    "userPosition": {
+      "otherUser-n-1": {
+        "id": "",
+        "position": "",
+        "Username": "",
+        "score": "",
+        "lives": "",
+        "nbBets": "",
+        "nbPerfect": "",
+        "nbOk": "",
+        "nbWrong": ""
+      },
+      "CurrentUser": {
+        "id": "",
+        "position": "",
+        "Username": "",
+        "score": "",
+        "lives": "",
+        "nbBets": "",
+        "nbPerfect": "",
+        "nbOk": "",
+        "nbWrong": ""
+      },
+      "otherUser-n+1": {
+        "id": "",
+        "position": "",
+        "Username": "",
+        "score": "",
+        "lives": "",
+        "nbBets": "",
+        "nbPerfect": "",
+        "nbOk": "",
+        "nbWrong": ""
+      }
+    },
+    "Top3": {
+      "id": "",
+      "Username": "",
+      "score": "",
+      "lives": "",
+      "nbBets": ""
+    },
+    "StatPie": {
+      "failedBets": 5,
+      "okBets": 4,
+      "perfectBets":1
+    }
+  }]
 }

@@ -55,8 +55,8 @@ class UserLayout extends React.Component {
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation="push" visible={visible} icon="labeled" inverted vertical width="thin">
             <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
-              <Icon name="home" />
-              Home
+              <Icon name="dashboard" />
+              Dashboard
             </Menu.Item>
             <Menu.Item as={NavLink} activeClassName="active"
                        className={this.props.history.location.pathname === '/bet/submitBets' ? 'active' : '' }

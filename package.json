@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "chart.js": "^2.7.3",
     "classnames": "^2.2.6",
     "jwt-decode": "^2.2.0",
     "moment": "^2.22.2",
@@ -11,6 +12,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-addons-update": "^15.6.2",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.0",
     "react-i18next": "^8.3.6",
     "react-redux": "^5.1.0",
