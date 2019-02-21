@@ -34,9 +34,14 @@
           flex: 0 1 15%;
           flex-wrap: wrap;
           align-items: center;
+          justify-content: center;
+
           .match-info {
             width: 100%;
             text-align: center;
+          }
+          .label {
+            align-self: flex-start;
           }
         }
 
@@ -47,6 +52,7 @@
 
           .team {
             &-image {
+              margin-bottom: 10px;
               img {
                 min-width: 75px;
                 max-width: 100px;
@@ -83,6 +89,7 @@
           justify-content: space-around;
         }
         &-versus-details  {
+          align-self: center;
           .bet-date {
             width: 100%;
             text-align: center;

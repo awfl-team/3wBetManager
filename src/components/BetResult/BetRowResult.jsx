@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Image, Label, Message,
+  Container, Icon, Image, Label, Message,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import classNames from 'classnames/bind';
@@ -80,7 +80,7 @@ class BetRowResult extends React.Component {
                 <Message.Header>
                   {bet.PointsWon}
                   {' '}
-                  pts
+                  <Icon color="yellow" name="copyright" />
                 </Message.Header>
                 <div className="container-versus-details">
                   <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>
