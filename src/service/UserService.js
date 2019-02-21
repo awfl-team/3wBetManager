@@ -16,12 +16,31 @@ export default class UserService {
     });
   }
 
+  static addUserAdmin(user) {
+    return API.post('register', {
+      Email: user.Email,
+      Password: user.Password,
+      Username: user.Username,
+      Role: user.Role,
+    });
+  }
+
   static getUserById(id) {
     return API.get(`users/${id}`);
   }
 
   static getFromToken() {
     return API.get('users/token');
+  }
+
+  static getAllUsers() {
+    return API.get('users');
+  }
+
+  static getAllUsersPaginated(page = 1, direction = 'current') {
+    return API.get(`users/paginated/${page}`, {
+      Direction: direction,
+    });
   }
 
   static deleteUser(user) {
@@ -31,6 +50,12 @@ export default class UserService {
   static handleVisibilityUser(isPrivate) {
     return API.put('/users/visibility', {
       IsPrivate: isPrivate,
+    });
+  }
+
+  static updateRoleUser(user) {
+    return API.put(`/users/${user.Id}/role`, {
+      Role: user.Role,
     });
   }
 

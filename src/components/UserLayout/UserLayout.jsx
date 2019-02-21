@@ -12,6 +12,7 @@ import BestBettersLayout from '../BestBetters/BestBettersLayout';
 import ConsultProfile from '../Profile/ConsultProfile';
 import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
+import AdminLayout from '../AdminLayout/AdminLayout';
 
 class UserLayout extends React.Component {
   state = {
@@ -61,13 +62,18 @@ class UserLayout extends React.Component {
               My Bets
             </Menu.Item>
             <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters">
-              <Icon name="star" />
-              Best betters
+              <Icon name="fire" />
+              Top 50
             </Menu.Item>
-            <Menu.Item as="a">
-              <Icon name="camera" />
-              Channels
-            </Menu.Item>
+            { this.props.user.role === 'ADMIN'
+              && <Menu.Item as={NavLink} activeClassName="active"
+                            className={this.props.history.location.pathname === '/admin/tasks' || this.props.history.location.pathname === '/admin/addUser' ? 'active' : '' }
+                            to="/admin/users">
+                    <Icon name="angular" />
+                    Admin
+                 </Menu.Item>
+            }
+
           </Sidebar>
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
@@ -76,10 +82,10 @@ class UserLayout extends React.Component {
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
-              <Route path="/mybets" component={BetLayout} />
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
               <Route path="/bet" component={BetLayout} />
+              <Route path="/admin" component={AdminLayout} />
               <PageScroller />
             </Segment>
           </Sidebar.Pusher>
