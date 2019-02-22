@@ -1,9 +1,13 @@
 import React from 'react';
-import {Accordion, Container, Header, Icon, Label} from 'semantic-ui-react';
+import {
+  Accordion, Container, Header, Icon, Label,
+} from 'semantic-ui-react';
 import CompetitionService from '../../service/CompetionService';
 import BetRowResult from './BetRowResult';
 import withAuth from '../AuthGuard/AuthGuard';
+import BetService from '../../service/BetService';
 
+// TODO Add Loader
 class BetLayoutResult extends React.Component {
   state = {
     activeIndex: 0,
@@ -11,8 +15,18 @@ class BetLayoutResult extends React.Component {
   };
 
   componentDidMount() {
+    const competitionsWithNbBet = [];
     CompetitionService.getAllCompetions().then((response) => {
-      this.setState({ competitions: response.data });
+      response.data.forEach((competition) => {
+        BetService.getNbBetsInCompetitionForResult(competition.Id).then((res) => {
+          if (res.data.NbBet !== undefined) {
+            competition.NbBet = res.data.NbBets;
+            competitionsWithNbBet.push(competition);
+            // TODO use await when the function will async
+            this.setState({ competitions: competitionsWithNbBet });
+          }
+        });
+      });
     });
   }
 
@@ -35,6 +49,9 @@ class BetLayoutResult extends React.Component {
         </Header>
         <Container fluid>
           <Accordion fluid styled>
+            { competitions.length === 0
+                && <div>No records</div>
+            }
             {competitions.map((competition, index) => (
               <div key={competition.Id}>
                 <Accordion.Title
@@ -45,8 +62,9 @@ class BetLayoutResult extends React.Component {
                 >
                   <Icon name="dropdown" />
                   {competition.Name}
-                  <Label attached='top right'>
-                    <Icon name='ticket' /> 0
+                  <Label attached="top right">
+                    <Icon name="ticket" />
+                    {competition.NbBet}
                   </Label>
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === index}>

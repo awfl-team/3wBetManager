@@ -17,12 +17,11 @@ function mapDispatchToProps(dispatch) {
     addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
   };
 }
-
+// TODO Add Loader
 class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
     competitions: [],
-    competitionsWithBets: [],
     modalOpen: false,
     betsLength: 0,
     isDisabled: false,
@@ -31,15 +30,16 @@ class BetSubmitLayout extends React.Component {
 
 
   componentDidMount() {
+    const competitionsWithNbBetAndNbMatch = [];
     CompetitionService.getAllCompetions().then((response) => {
-      this.setState({ competitions: response.data });
-      this.state.competitions.map((competition) => {
-        BetService.getCurrentBetAndMatches(competition.Id).then((rep) => {
-          if (rep.data.Matches.length > 0) {
-            this.setState(
-              { competitionWithBets: this.state.competitionsWithBets.push(competition) },
-            );
-            this.setState({ loading: false });
+      response.data.forEach((competition) => {
+        BetService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id).then((res) => {
+          if (res.data.NbBet !== undefined) {
+            competition.NbBet = res.data.NbBet;
+            competition.NbMatch = res.data.NbMatch;
+            competitionsWithNbBetAndNbMatch.push(competition);
+            // TODO use await when the function will async
+            this.setState({ competitions: competitionsWithNbBetAndNbMatch });
           }
         });
       });
@@ -77,7 +77,7 @@ class BetSubmitLayout extends React.Component {
 
   render() {
     const {
-      activeIndex, betsLength, modalOpen, competitionsWithBets, loading,
+      activeIndex, betsLength, modalOpen, competitions, loading,
     } = this.state;
 
     const isDisabled = (this.props.bets.length > 0);
@@ -87,57 +87,40 @@ class BetSubmitLayout extends React.Component {
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>
-        {competitionsWithBets.length > 0 && loading === false
-          ? (
-            <Container fluid>
-              <Accordion fluid styled>
-                {competitionsWithBets.map((competition, index) => (
-                  <div key={competition.Id}>
-                    <Accordion.Title
-                      active={activeIndex === index}
-                      index={index}
-                      onClick={this.handleClick}
-                      className="competition-accordion"
-                    >
-                      <Icon name="dropdown" />
-                      {competition.Name}
-                      <Label attached="top right">
-                        <span>
-                            <Icon name="ticket" />
-                            {' '}
-0
-                          </span>
-                        <span>
-                            <Icon name="soccer" />
-                            {' '}
-0
-                          </span>
-                      </Label>
-                    </Accordion.Title>
-                    <Accordion.Content active={activeIndex === index}>
-                      <BetSubmitBlockComponent competitionId={competition.Id} />
-                    </Accordion.Content>
-                  </div>
-                ))}
-              </Accordion>
-            </Container>
-          ) : competitionsWithBets.length === 0 && loading === false
-            ? (
-              <div className="noBetFound">
-                <div className="ui middle aligned center aligned fullpage">
-                  <div className="column">
-                    <h2 className="ui teal authentication-header">
-                      <div className="content">
-                        <p className="noBetFound-header">No bets found at the moment</p>
-                        <p className="back-button">Click here to reload the page</p>
-                      </div>
-                    </h2>
-                  </div>
-                </div>
+        <Container fluid>
+          <Accordion fluid styled>
+            { competitions.length === 0
+            && <div>No records</div>
+            }
+            {competitions.map((competition, index) => (
+              <div key={competition.Id}>
+                <Accordion.Title
+                  active={activeIndex === index}
+                  index={index}
+                  onClick={this.handleClick}
+                  className="competition-accordion"
+                >
+                  <Icon name="dropdown" />
+                  {competition.Name}
+                  <Label attached="top right">
+                    <span>
+                      <Icon name="ticket" />
+                      {competition.NbBet}
+                    </span>
+                    <span>
+                      <Icon name="soccer" />
+                      {competition.NbMatch}
+                    </span>
+                  </Label>
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex === index}>
+                  <BetSubmitBlockComponent competitionId={competition.Id} />
+                </Accordion.Content>
               </div>
-            )
-            : <Loader id="betLoader" size="huge" active inline="centered" />
-          }
+            ))}
+          </Accordion>
+        </Container>
+
         <Container fluid className="submit-bets-action">
           <Modal
             trigger={(

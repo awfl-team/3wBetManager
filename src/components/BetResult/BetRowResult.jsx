@@ -22,13 +22,6 @@ class BetRowResult extends React.Component {
     return (
       <div id="betRows">
         <Container fluid>
-          {bets.length === 0
-          && (
-          <div>
-            No bets
-          </div>
-          )
-          }
           {bets.map(bet => (
             <div key={bet.Id} className="betRow">
               <div className="betRow-info">

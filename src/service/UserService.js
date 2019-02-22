@@ -1,5 +1,5 @@
 import API from '../api';
-
+// TODO create async method
 export default class UserService {
   static login(email, password) {
     return API.post('login', {
