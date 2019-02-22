@@ -37,37 +37,49 @@ class Profile extends React.Component {
   componentWillMount() {
     GraphService.getBetsByTypeData().then((resp) => {
       const datas = resp.data;
-      let labels = Object.keys(datas);
-      let nbBets = Object.values(datas);
-      let colors = ['#DB2828', '#F2711C', '#21BA45'];
 
-      dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      if (resp.data.length > 0 ) {
+        let labels = ['Wrong', 'Ok', 'Perfect'];
+        let nbBets = Object.values(datas);
+        let colors = ['#DB2828', '#F2711C', '#21BA45'];
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      } else {
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+      }
       this.setState({dataSetBets: dataBuild});
     });
 
     GraphService.getCoinsStats().then((resp) => {
       const datas = resp.data;
-      let labels = ['Shop buys', 'Bets submitions', 'Bets earnings'];
-      let nbBets = Object.values(datas);
-      let colors = ['#3949ab', '#d81b60', '#ffa000'];
-      let labelPosition = 'right';
 
-      dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      if (resp.data.length > 0 ) {
+        let labels = ['Coins used to bet', 'Bets earnings'];
+        let nbBets = Object.values(datas);
+        let colors = ['#3949ab', '#d81b60', '#ffa000'];
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      } else {
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+      }
       this.setState({dataSetCoins: dataBuild});
     });
 
-    GraphService.getGraphData().then((resp) => {
-      const datas = resp.data;
-      let dates = [];
-      let pts = [];
-      datas.forEach((data, index) => {
-        dates.push(data.date);
-        pts.push(data.pts);
-      });
-
-      dataBuild = StatsBuilderService.buildStatsBetsGraph(pts, dates);
-      this.setState({dataDots: dataBuild});
-    });
+    // GraphService.getGraphData().then((resp) => {
+    //   const datas = resp.data;
+    //
+    //   if (resp.data.length > 0 ) {
+    //     let dates = [];
+    //     let pts = [];
+    //     datas.forEach((data, index) => {
+    //       dates.push(data.date);
+    //       pts.push(data.pts);
+    //     });
+    //     dataBuild = StatsBuilderService.buildStatsBetsGraph(pts, dates);
+    //   } else {
+    //     dataBuild = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
+    //   }
+    //
+    //   this.setState({dataDots: dataBuild});
+    // });
   }
 
   componentDidMount() {
@@ -99,6 +111,9 @@ class Profile extends React.Component {
       .then(() => {
         this.setState({ modalResetOpen: false });
         this.setState({ userPoints: 500 });
+        this.setState({dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']) });
+        this.setState({dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']) });
+        this.setState({dataDots: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']) });
         this.setState({ userLives: this.state.userLives - 1 });
         this.props.addSnackbar({
           message: 'Reset successfull',
@@ -264,7 +279,7 @@ to reborn from ashes.
               <Grid.Column textAlign="center" computer={16}>
                 <div className="graph-container-max-size">
                   <h3>Earned coins since last reset per day</h3>
-                  <Line data={this.state.dataDots} fill="false" legend={{position: 'bottom'}}/>
+                  {/*<Line data={this.state.dataDots} fill="false" legend={{position: 'bottom'}}/>*/}
                 </div>
               </Grid.Column>
             </Grid.Row>
