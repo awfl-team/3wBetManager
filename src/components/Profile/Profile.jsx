@@ -35,10 +35,10 @@ class Profile extends React.Component {
   };
 
   componentWillMount() {
-    GraphService.getBetsByTypeData().then((resp) => {
-      const datas = resp.data;
+    GraphService.getBetsByTypeData().then((response) => {
+      const datas = response.data;
 
-      if (resp.data.length > 0 ) {
+      if (Object.entries(response.data).length > 0) {
         let labels = ['Wrong', 'Ok', 'Perfect'];
         let nbBets = Object.values(datas);
         let colors = ['#DB2828', '#F2711C', '#21BA45'];
@@ -49,10 +49,10 @@ class Profile extends React.Component {
       this.setState({dataSetBets: dataBuild});
     });
 
-    GraphService.getCoinsStats().then((resp) => {
-      const datas = resp.data;
+    GraphService.getCoinsStats().then((response) => {
+      const datas = response.data;
 
-      if (resp.data.length > 0 ) {
+      if (Object.entries(response.data).length > 0) {
         let labels = ['Coins used to bet', 'Bets earnings'];
         let nbBets = Object.values(datas);
         let colors = ['#3949ab', '#d81b60', '#ffa000'];
