@@ -106,17 +106,25 @@
       "LastUpdated": "2019-01-12T19:23:23Z"
     }
   ],
-  "dataPie": {
-    "failedBets": 5,
-    "okBets": 4,
-    "perfectBets":1
+  "betsPerType": {
+    "Wrong": 5,
+    "Ok": 4,
+    "Perfect": 1
+  },
+  "coinsStats": {
+    "Shop": 400,
+    "Bets": 200,
+    "Earned": 2000
   },
   "dataLines": [{
-    "x": 10,
-    "y": 20
+    "date": "20/05/2019",
+    "pts": 150
   }, {
-    "x": 15,
-    "y": 10
+    "date": "21/05/2019",
+    "pts": 0
+  }, {
+    "date": "22/05/2019",
+    "pts": 25
   }],
 
   "dashboard": [{

@@ -10,7 +10,7 @@ import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuth from '../AuthGuard/AuthGuard';
 import { Doughnut, Line } from "react-chartjs-2";
-import DashboardService from "../../service/DashboardService";
+import GraphService from "../../service/GraphService";
 import StatsBuilderService from "../../service/StatsBuilderService";
 function mapDispatchToProps(dispatch) {
   return {
@@ -29,13 +29,45 @@ class Profile extends React.Component {
     canReset: true,
     userLives: '',
     userPoints: '',
-    dataPie: [],
+    dataSetBets: [],
+    dataSetCoins: [],
     dataDots: [],
   };
 
   componentWillMount() {
-    dataBuild = StatsBuilderService.buildStatsBetsByType([15,12,14,16], ['topkek', 'erf', 'jpp', ':spied:'], ['#4caf50', '#2196f3', '#f2711c', '#2d2d2d']);
-    this.setState({dataPie: dataBuild});
+    GraphService.getBetsByTypeData().then((resp) => {
+      const datas = resp.data;
+      let labels = Object.keys(datas);
+      let nbBets = Object.values(datas);
+      let colors = ['#DB2828', '#F2711C', '#21BA45'];
+
+      dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      this.setState({dataSetBets: dataBuild});
+    });
+
+    GraphService.getCoinsStats().then((resp) => {
+      const datas = resp.data;
+      let labels = ['Shop buys', 'Bets submitions', 'Bets earnings'];
+      let nbBets = Object.values(datas);
+      let colors = ['#3949ab', '#d81b60', '#ffa000'];
+      let labelPosition = 'right';
+
+      dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      this.setState({dataSetCoins: dataBuild});
+    });
+
+    GraphService.getGraphData().then((resp) => {
+      const datas = resp.data;
+      let dates = [];
+      let pts = [];
+      datas.forEach((data, index) => {
+        dates.push(data.date);
+        pts.push(data.pts);
+      });
+
+      dataBuild = StatsBuilderService.buildStatsBetsGraph(pts, dates);
+      this.setState({dataDots: dataBuild});
+    });
   }
 
   componentDidMount() {
@@ -92,7 +124,7 @@ class Profile extends React.Component {
     } = this.state;
     return (
       <div id="profile">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="user" circular />
           <Header.Content>My profile</Header.Content>
         </Header>
@@ -208,7 +240,7 @@ to reborn from ashes.
 
         <Divider section />
 
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="pie graph" circular />
           <Header.Content>Stats</Header.Content>
         </Header>
@@ -216,14 +248,23 @@ to reborn from ashes.
           <Grid>
             <Grid.Row columns={16} divided>
               <Grid.Column textAlign="center" computer={8} tablet={16}>
-                <div className="doughnut-max-size">
-                  <Doughnut data={this.state.dataPie} legend={{position: 'left'}}/>
-
+                <div className="doughnut-container-max-size">
+                  <h3>Finished bets per type</h3>
+                  <Doughnut data={this.state.dataSetBets} legend={{position: 'bottom'}}/>
                 </div>
               </Grid.Column>
               <Grid.Column textAlign="center" computer={8} tablet={16}>
-                <div className="doughnut-max-size">
-                  <Line data={this.state.dataPie} legend={{position: 'left'}}/>
+                <div className="doughnut-container-max-size">
+                  <h3>Coins total usages per purpose</h3>
+                  <Doughnut data={this.state.dataSetCoins} legend={{position: 'bottom'}}/>
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row columns={16}>
+              <Grid.Column textAlign="center" computer={16}>
+                <div className="graph-container-max-size">
+                  <h3>Earned coins since last reset per day</h3>
+                  <Line data={this.state.dataDots} fill="false" legend={{position: 'bottom'}}/>
                 </div>
               </Grid.Column>
             </Grid.Row>

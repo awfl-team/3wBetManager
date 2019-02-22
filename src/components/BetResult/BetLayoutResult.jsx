@@ -29,7 +29,7 @@ class BetLayoutResult extends React.Component {
 
     return (
       <div id="betCup">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="star" circular />
           <Header.Content>Results</Header.Content>
         </Header>

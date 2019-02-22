@@ -128,7 +128,7 @@ class UpdateProfile extends React.Component {
             </Grid.Column>
           </Grid>
         </Container>
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="cogs" circular />
           <Header.Content>Update my profile</Header.Content>
         </Header>

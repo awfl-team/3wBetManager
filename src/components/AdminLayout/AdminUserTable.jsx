@@ -107,7 +107,7 @@ class AdminUserTable extends React.Component {
     const { users, totalPages, page, totalUsers, showPagination } = this.state;
     return (
       <div id="adminUserTable">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>Users ({totalUsers})</Header.Content>
         </Header>

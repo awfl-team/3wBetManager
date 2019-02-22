@@ -167,7 +167,7 @@ class AdminTaskManager extends React.Component {
     } = this.state;
     return (
       <div id="tasks">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="cogs" circular />
           <Header.Content>Tasks</Header.Content>
         </Header>

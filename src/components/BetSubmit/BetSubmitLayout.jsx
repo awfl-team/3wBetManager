@@ -82,7 +82,7 @@ class BetSubmitLayout extends React.Component {
     const isDisabled = (this.props.bets.length > 0);
     return (
       <div id="betCup">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>

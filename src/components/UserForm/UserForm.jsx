@@ -119,7 +119,7 @@ class UserForm extends React.Component {
 
     return (
       <div id="userForm">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="user plus" circular />
           <Header.Content>Create a user</Header.Content>
         </Header>

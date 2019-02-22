@@ -21,7 +21,7 @@ class ConsultProfile extends React.Component {
     const {user} = this.state;
     return (
         <div id="profile">
-          <Header as="h2" icon textAlign="center">
+          <Header as="h1" icon textAlign="center">
             <Icon name="user" circular/>
             <Header.Content>
               { user.Username }

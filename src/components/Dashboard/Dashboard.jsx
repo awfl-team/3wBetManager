@@ -10,19 +10,17 @@ class Dashboard extends React.Component {
   state = {data: []};
 
   componentWillMount() {
-
-
     {/* @todo maybe not usefull because there is many differences between graphs type */}
     {/* @todo it requires datasArray, labels and colors */}
     {/* @todo Thought about only sending objects Array and using key as label, value as value and random color generator */}
-    dataBuild = StatsBuilderService.buildStatsBetsByType([30,50,20], ['Perfect', 'Ok', 'Wrong'], ['#27af29', '#f3ab1d', '#f31731']);
+    dataBuild = StatsBuilderService.buildStatsBetsDougnut([30,50,20], ['Perfect', 'Ok', 'Wrong'], ['#27af29', '#f3ab1d', '#f31731']);
     this.setState({data: dataBuild});
   }
 
   render() {
     return (
       <div id="dashboard">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="dashboard" circular />
           <Header.Content>Dashboard</Header.Content>
         </Header>
@@ -619,7 +617,7 @@ class Dashboard extends React.Component {
                     <Card.Header>Some stats</Card.Header>
                   </Card.Content>
                   <Card.Content extra>
-                    <div className="doughnut-max-size">
+                    <div className="doughnut-container-max-size">
                       <Doughnut data={this.state.data} legend={{position: 'bottom'}}/>
                     </div>
                     {/* @todo buttons to switch between 2 datasets ?? betsPerType and ??? */}
