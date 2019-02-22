@@ -144,7 +144,7 @@ class Dashboard extends React.Component {
             </Grid.Row>
             <Grid.Row columns={16}>
               <Grid.Column textAlign="center" computer={16} mobile={16}>
-                <Card fluid>
+                <Card fluid className="betters-table-card">
                   <Card.Content>
                     {/* @todo get currentUser position and -10 users and +10 users around currentUser */}
                     {/* @todo if more users than 21 -> max(+10) | currentUser | max(-10)   */}
