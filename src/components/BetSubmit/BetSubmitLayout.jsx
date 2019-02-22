@@ -3,7 +3,6 @@ import {
   Accordion, Button, Container, Header, Icon, Label, Loader, Modal,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
 import { purgeTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
@@ -37,7 +36,9 @@ class BetSubmitLayout extends React.Component {
       this.state.competitions.map((competition) => {
         BetService.getCurrentBetAndMatches(competition.Id).then((rep) => {
           if (rep.data.Matches.length > 0) {
-            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
+            this.setState(
+              { competitionWithBets: this.state.competitionsWithBets.push(competition) },
+            );
             this.setState({ loading: false });
           }
         });
@@ -102,11 +103,15 @@ class BetSubmitLayout extends React.Component {
                       {competition.Name}
                       <Label attached="top right">
                         <span>
-                          <Icon name='ticket' /> 0
-                        </span>
-                            <span>
-                          <Icon name='soccer' /> 0
-                        </span>
+                            <Icon name="ticket" />
+                            {' '}
+0
+                          </span>
+                        <span>
+                            <Icon name="soccer" />
+                            {' '}
+0
+                          </span>
                       </Label>
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === index}>
@@ -143,9 +148,9 @@ class BetSubmitLayout extends React.Component {
                 disabled={!isDisabled}
                 color="green"
               >
-Submit
+                      Submit
               </Button>
-)}
+                )}
             open={modalOpen}
             onClose={this.handleClose}
             basic
