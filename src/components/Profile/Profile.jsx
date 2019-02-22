@@ -34,11 +34,14 @@ class Profile extends React.Component {
     dataDots: [],
   };
 
+  // @todo Refactor stats of consultProfile and profile as a component
+  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
+
   componentWillMount() {
     GraphService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
-      if (Object.entries(response.data).length > 0) {
+      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 && response.data.okBets !== 0 && response.data.perfectBets !== 0)) {
         let labels = ['Wrong', 'Ok', 'Perfect'];
         let nbBets = Object.values(datas);
         let colors = ['#DB2828', '#F2711C', '#21BA45'];
@@ -63,6 +66,7 @@ class Profile extends React.Component {
       this.setState({dataSetCoins: dataBuild});
     });
 
+    // @todo finish graph stats backend
     // GraphService.getGraphData().then((resp) => {
     //   const datas = resp.data;
     //

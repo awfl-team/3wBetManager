@@ -3,21 +3,63 @@ import { Doughnut } from 'react-chartjs-2';
 import StatsBuilderService from '../../service/StatsBuilderService';
 import {Button, Card, Container, Feed, Grid, Header, Icon, Image, Label, List, Rating, Table} from "semantic-ui-react";
 import {Link} from "react-router-dom";
+import GraphService from '../../service/GraphService';
 
 let dataBuild;
 
 class Dashboard extends React.Component {
-  state = {data: []};
+  state = {
+    datasetPieGraph: [],
+    isDatasetBetsActive: true,
+    isDatasetCoinsActive: false,
+  };
 
   componentWillMount() {
-    {/* @todo maybe not usefull because there is many differences between graphs type */}
-    {/* @todo it requires datasArray, labels and colors */}
-    {/* @todo Thought about only sending objects Array and using key as label, value as value and random color generator */}
-    dataBuild = StatsBuilderService.buildStatsBetsDougnut([30,50,20], ['Perfect', 'Ok', 'Wrong'], ['#27af29', '#f3ab1d', '#f31731']);
-    this.setState({data: dataBuild});
+    this.loadBetsPerTypeDataset();
   }
 
+  loadBetsPerTypeDataset = () => {
+    GraphService.getBetsByTypeData().then((response) => {
+      const datas = response.data;
+
+      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 && response.data.okBets !== 0 && response.data.perfectBets !== 0)) {
+        let labels = ['Wrong', 'Ok', 'Perfect'];
+        let nbBets = Object.values(datas);
+        let colors = ['#DB2828', '#F2711C', '#21BA45'];
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      } else {
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+      }
+      this.setState({datasetPieGraph: dataBuild,
+        isDatasetBetsActive: true,
+        isDatasetCoinsActive: false,
+      });
+    });
+  };
+
+  loadCoinsUsageDataset = () => {
+    GraphService.getCoinsStats().then((response) => {
+      const datas = response.data;
+
+      if (Object.entries(response.data).length > 0) {
+        let labels = ['Coins used to bet', 'Bets earnings'];
+        let nbBets = Object.values(datas);
+        let colors = ['#3949ab', '#d81b60', '#ffa000'];
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+      } else {
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+      }
+      this.setState({datasetPieGraph: dataBuild,
+        isDatasetBetsActive: false,
+        isDatasetCoinsActive: true,
+      });
+    });
+  }
+
+
+
   render() {
+    const { datasetPieGraph, isDatasetBetsActive, isDatasetCoinsActive } = this.state;
     return (
       <div id="dashboard">
         <Header as="h1" icon textAlign="center">
@@ -614,20 +656,19 @@ class Dashboard extends React.Component {
                 <Card fluid>
                   <Card.Content>
                     {/* @todo get currentUser nbBets per bet type - see StatsPie in db.json */}
-                    <Card.Header>Some stats</Card.Header>
+                    <Card.Header>Stats</Card.Header>
                   </Card.Content>
                   <Card.Content extra>
                     <div className="doughnut-container-max-size">
-                      <Doughnut data={this.state.data} legend={{position: 'bottom'}}/>
+                      <Doughnut data={datasetPieGraph} legend={{position: 'bottom'}}/>
                     </div>
                     {/* @todo buttons to switch between 2 datasets ?? betsPerType and ??? */}
                     <div className='ui two buttons'>
-                      <Button basic color='green'>
-                        Approve
-                      </Button>
-                      <Button basic color='red'>
-                        Decline
-                      </Button>
+                      <Button.Group fluid>
+                        <Button onClick={this.loadBetsPerTypeDataset} active={isDatasetBetsActive} primary={isDatasetBetsActive}>Bets</Button>
+                        <Button.Or />
+                        <Button onClick={this.loadCoinsUsageDataset} active={isDatasetCoinsActive} primary={isDatasetCoinsActive}>Coins</Button>
+                      </Button.Group>
                     </div>
                   </Card.Content>
                 </Card>
