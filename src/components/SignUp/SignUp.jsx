@@ -180,10 +180,12 @@ The password requires at least 12 characters
                     <i className="info circle icon" />
                     {' '}
 The password requires a
+                    {' '}
                     <span
                       className={formdFieldUppercase}
                     >
                     uppercase
+                      {' '}
                     </span>
 , a
                     <span
@@ -191,9 +193,11 @@ The password requires a
                     >
                       {' '}
 special character
+                      {' '}
                     </span>
                     {' '}
 and
+                    {' '}
                     <span
                       className={formFieldWithNumber}
                     >
