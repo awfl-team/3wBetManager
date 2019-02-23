@@ -48,31 +48,33 @@ class BetLayoutResult extends React.Component {
           <Header.Content>Results</Header.Content>
         </Header>
         <Container fluid>
-          <Accordion fluid styled>
-            { competitions.length === 0
-                && <div>No records</div>
-            }
-            {competitions.map((competition, index) => (
-              <div key={competition.Id}>
-                <Accordion.Title
-                  active={activeIndex === index}
-                  index={index}
-                  onClick={this.handleClick}
-                  className="competition-accordion"
-                >
-                  <Icon name="dropdown" />
-                  {competition.Name}
-                  <Label attached="top right">
-                    <Icon name="ticket" />
-                    {competition.NbBet}
-                  </Label>
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === index}>
-                  <BetRowResult competitionId={competition.Id} />
-                </Accordion.Content>
-              </div>
-            ))}
-          </Accordion>
+          { competitions.length === 0
+          && <h2>No records</h2>
+          }
+          { competitions.length > 0
+            && <Accordion fluid styled>
+              {competitions.map((competition, index) => (
+                <div key={competition.Id}>
+                  <Accordion.Title
+                    active={activeIndex === index}
+                    index={index}
+                    onClick={this.handleClick}
+                    className="competition-accordion"
+                  >
+                    <Icon name="dropdown" />
+                    {competition.Name}
+                    <Label attached="top right">
+                      <Icon name="ticket" />
+                      {competition.NbBet}
+                    </Label>
+                  </Accordion.Title>
+                  <Accordion.Content active={activeIndex === index}>
+                    <BetRowResult competitionId={competition.Id} />
+                  </Accordion.Content>
+                </div>
+              ))}
+            </Accordion>
+          }
         </Container>
       </div>
     );

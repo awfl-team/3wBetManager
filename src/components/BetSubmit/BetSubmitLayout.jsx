@@ -88,37 +88,39 @@ class BetSubmitLayout extends React.Component {
           <Header.Content>Available bets</Header.Content>
         </Header>
         <Container fluid>
-          <Accordion fluid styled>
-            { competitions.length === 0
-            && <div>No records</div>
-            }
-            {competitions.map((competition, index) => (
-              <div key={competition.Id}>
-                <Accordion.Title
-                  active={activeIndex === index}
-                  index={index}
-                  onClick={this.handleClick}
-                  className="competition-accordion"
-                >
-                  <Icon name="dropdown" />
-                  {competition.Name}
-                  <Label attached="top right">
-                    <span>
-                      <Icon name="ticket" />
-                      {competition.NbBet}
-                    </span>
-                    <span>
-                      <Icon name="soccer" />
-                      {competition.NbMatch}
-                    </span>
-                  </Label>
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === index}>
-                  <BetSubmitBlockComponent competitionId={competition.Id} />
-                </Accordion.Content>
-              </div>
-            ))}
-          </Accordion>
+          { competitions.length === 0
+          && <h2>No records</h2>
+          }
+          {competitions.length > 0
+            && <Accordion fluid styled>
+              {competitions.map((competition, index) => (
+                <div key={competition.Id}>
+                  <Accordion.Title
+                    active={activeIndex === index}
+                    index={index}
+                    onClick={this.handleClick}
+                    className="competition-accordion"
+                  >
+                    <Icon name="dropdown"/>
+                    {competition.Name}
+                    <Label attached="top right">
+                      <span>
+                        <Icon name="ticket"/>
+                        {competition.NbBet}
+                      </span>
+                      <span>
+                        <Icon name="soccer"/>
+                        {competition.NbMatch}
+                      </span>
+                    </Label>
+                  </Accordion.Title>
+                  <Accordion.Content active={activeIndex === index}>
+                    <BetSubmitBlockComponent competitionId={competition.Id}/>
+                  </Accordion.Content>
+                </div>
+              ))}
+            </Accordion>
+          }
         </Container>
 
         <Container fluid className="submit-bets-action">
