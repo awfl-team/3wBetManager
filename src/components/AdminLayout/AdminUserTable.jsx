@@ -8,14 +8,14 @@ import {
   Pagination,
   Radio,
   Rating,
-  Table
+  Table,
 } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import connect from 'react-redux/es/connect/connect';
+import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
-import {Link} from 'react-router-dom';
-import connect from "react-redux/es/connect/connect";
-import {addSnackBar} from "../../actions/SnackBarActions";
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -92,7 +92,7 @@ class AdminUserTable extends React.Component {
     }
   }
 
-  clearSearch(event) {
+  clearSearch() {
     UserService.getAllUsersPaginated()
       .then((response) => {
         this.setState({ users: response.data.Items,
@@ -104,7 +104,8 @@ class AdminUserTable extends React.Component {
   }
 
   render() {
-    const { users, totalPages, page, totalUsers, showPagination } = this.state;
+    const { users, totalPages, totalUsers, showPagination } = this.state;
+
     return (
       <div id="adminUserTable">
         <Header as="h1" icon textAlign="center">
@@ -113,7 +114,7 @@ class AdminUserTable extends React.Component {
         </Header>
         <Container fluid className="container-centered">
           <div className="userTableHeader">
-            <Input type="search" labelPosition='right' placeholder="Search a user" >
+            <Input type="search" labelPosition="right" placeholder="Search a user" >
               <Label icon="close" color="red" circular onClick={this.clearSearch.bind(this)} />
               <input />
               <Label icon="search" color="green" circular onClick={this.searchUsers.bind(this)} />
@@ -139,21 +140,21 @@ class AdminUserTable extends React.Component {
                 <Table.Row key={index} id={index}>
                   <Table.Cell>{user.Username}</Table.Cell>
                   <Table.Cell>{user.Email}</Table.Cell>
-                  <Table.Cell><Icon color="yellow" name='copyright' size="big" />
+                  <Table.Cell><Icon color="yellow" name="copyright" size="big" />
                     <label color="yellow">{user.Point}</label></Table.Cell>
                   <Table.Cell>
-                    <Rating icon='heart' rating={user.Life} maxRating={3} disabled size="huge" />
+                    <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
                   </Table.Cell>
                   <Table.Cell>
                     <Radio toggle defaultChecked={user.Role === "ADMIN"} onClick={this.handleClick.bind(this, user)} />
                   </Table.Cell>
                   <Table.Cell>
                     <Link to={'/user/' + user.Id} className="button ui blue small icon">
-                      <Icon name="eye"/>
+                      <Icon name="eye" />
                     </Link>
 
                     <Button type="button" className="button ui red small icon" onClick={this.handleDelete.bind(this, user, index)}>
-                      <Icon name="trash"/>
+                      <Icon name="trash" />
                     </Button>
                   </Table.Cell>
                 </Table.Row>
@@ -162,12 +163,12 @@ class AdminUserTable extends React.Component {
           </Table>
           {showPagination === true &&
             <Pagination
-              ellipsisItem={{content: <Icon name='ellipsis horizontal'/>, icon: true}}
+              ellipsisItem={{content: <Icon name="ellipsis horizontal" />, icon: true}}
               firstItem={null}
               lastItem={null}
               defaultActivePage={1}
-              prevItem={{content: <Icon name='angle left'/>, icon: true}}
-              nextItem={{content: <Icon name='angle right'/>, icon: true}}
+              prevItem={{content: <Icon name="angle left" />, icon: true}}
+              nextItem={{content: <Icon name="angle right" />, icon: true}}
               totalPages={totalPages}
               onPageChange={this.getNextUsers.bind(this)}
             />

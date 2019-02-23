@@ -21,13 +21,13 @@ class BestBettersTable extends React.Component {
         <Table celled structured compact inverted unstackable>
           <Table.Header>
             <Table.Row textAlign="center">
-              <Table.HeaderCell rowSpan='2'>#</Table.HeaderCell>
-              <Table.HeaderCell rowSpan='2'>Username</Table.HeaderCell>
-              <Table.HeaderCell rowSpan='2'>Score</Table.HeaderCell>
-              <Table.HeaderCell rowSpan='2'>Lives</Table.HeaderCell>
-              <Table.HeaderCell rowSpan='2'>Nb bets</Table.HeaderCell>
-              <Table.HeaderCell colSpan='3'>Nb bets per type</Table.HeaderCell>
-              <Table.HeaderCell rowSpan='2'>Actions</Table.HeaderCell>
+              <Table.HeaderCell rowSpan="2">#</Table.HeaderCell>
+              <Table.HeaderCell rowSpan="2">Username</Table.HeaderCell>
+              <Table.HeaderCell rowSpan="2">Score</Table.HeaderCell>
+              <Table.HeaderCell rowSpan="2">Lives</Table.HeaderCell>
+              <Table.HeaderCell rowSpan="2">Nb bets</Table.HeaderCell>
+              <Table.HeaderCell colSpan="3">Nb bets per type</Table.HeaderCell>
+              <Table.HeaderCell rowSpan="2">Actions</Table.HeaderCell>
             </Table.Row>
             <Table.Row textAlign="center">
               <Table.HeaderCell>
@@ -60,17 +60,17 @@ class BestBettersTable extends React.Component {
                           && <Icon name="fire" color="yellow" size="big" />
                           }
                           {index + 1 === 3
-                          && <Icon name="fire" size="big"/>
+                          && <Icon name="fire" size="big" />
                           }
                           {index + 1 > 3
                           && index + 1
                           }
                         </Table.Cell>
                         <Table.Cell>{user.Username}</Table.Cell>
-                        <Table.Cell><Icon color="yellow" name='copyright' size="big" />
+                        <Table.Cell><Icon color="yellow" name="copyright" size="big" />
                           <label color="yellow">{user.Point}</label></Table.Cell>
                         <Table.Cell>
-                          <Rating icon='heart' rating={user.Life} maxRating={3} disabled size="huge" />
+                          <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
                         </Table.Cell>
                         <Table.Cell>{user.NbBets}</Table.Cell>
                         <Table.Cell>{user.NbWrongBets}</Table.Cell>

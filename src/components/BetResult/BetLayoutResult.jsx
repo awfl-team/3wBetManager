@@ -45,8 +45,8 @@ class BetLayoutResult extends React.Component {
                 >
                   <Icon name="dropdown" />
                   {competition.Name}
-                  <Label attached='top right'>
-                    <Icon name='ticket' /> 0
+                  <Label attached="top right">
+                    <Icon name="ticket" /> 0
                   </Label>
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === index}>

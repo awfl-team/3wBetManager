@@ -1,11 +1,10 @@
 import React from 'react';
 import {
-  Container, Icon, Image, Input, Label,
+  Image, Input, Label,
 } from 'semantic-ui-react';
-import moment from 'moment';
 import { connect } from 'react-redux';
-import BetService from '../../service/BetService';
 import { addTableBet } from '../../actions/TableBetActions';
+import moment from 'moment';
 
 const mapStateToProps = state => ({ bets: state.bets });
 

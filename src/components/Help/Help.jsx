@@ -13,10 +13,11 @@ class Help extends React.Component {
   handleCloseModal = () => this.setState({ modalOpen: false });
 
   render() {
+    const { modalOpen } = this.state;
     return (
       <Modal
         trigger={<Menu.Item as="a" onClick={this.handleOpenModal}><Icon name="help circle" /></Menu.Item> }
-        open={this.state.modalOpen}
+        open={modalOpen}
         onClose={this.handleCloseModal}
         basic
         size="small"

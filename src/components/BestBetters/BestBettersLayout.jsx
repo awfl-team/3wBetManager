@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Divider, Header, Icon,
+  Container, Header, Icon,
 } from 'semantic-ui-react';
 import BestBettersTable from './BestBettersTable';
 import withAuth from '../AuthGuard/AuthGuard';

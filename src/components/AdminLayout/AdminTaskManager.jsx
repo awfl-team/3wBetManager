@@ -172,7 +172,7 @@ class AdminTaskManager extends React.Component {
           <Header.Content>Tasks</Header.Content>
         </Header>
         <Container>
-          <List verticalAlign='middle'>
+          <List verticalAlign="middle">
             <List.Item>
               <List.Content className="task-list-content">
                 <h3><Icon name="cloud download" />Run all tasks</h3>
