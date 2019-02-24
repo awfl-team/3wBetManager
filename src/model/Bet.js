@@ -1,6 +1,8 @@
 export default class Bet {
     Id;
 
+    Guid;
+
     Match;
 
     User;
@@ -14,4 +16,6 @@ export default class Bet {
     PointsWon;
 
     Status;
+
+    alreadyUpdated = false;
 }

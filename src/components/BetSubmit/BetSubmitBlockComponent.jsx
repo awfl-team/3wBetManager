@@ -1,14 +1,9 @@
 import React from 'react';
 import {
-  Container, Image, Input,
+  Container
 } from 'semantic-ui-react';
-import moment from 'moment';
-import { connect } from 'react-redux';
 import BetService from '../../service/BetService';
-import { addTableBet } from '../../actions/TableBetActions';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
-
-const mapStateToProps = state => ({ bets: state.bets });
 
 class BetSubmitBlockComponent extends React.Component {
   constructor(props) {
@@ -51,5 +46,4 @@ class BetSubmitBlockComponent extends React.Component {
   }
 }
 
-const BetSubmitRow = connect(mapStateToProps)(BetSubmitBlockComponent);
-export default BetSubmitRow;
+export default BetSubmitBlockComponent;

@@ -19,9 +19,19 @@ export default class BetService {
   }
 
   static AddOrUpdateBet(bets) {
-    return API.post('bets', bets);
+    const promises = [];
+    if (bets.filter(bet => bet.Id === undefined).length > 0) {
+      promises.push(API.post('bets', bets.filter(bet => bet.Id === undefined)));
+    }
+
+    if (bets.filter(bet => bet.Id !== undefined).length > 0) {
+      promises.push(API.put('bets', bets.filter(bet => bet.Id !== undefined)));
+    }
+
+    return Promise.all(promises);
   }
 
+  // TODO this function might need a little refactor
   static createOrUpdateBet(state, action) {
     if (action.bet) {
       const findIndexBet = state.findIndex(bet => bet.Id === action.bet.Id);
@@ -38,8 +48,7 @@ export default class BetService {
       if (action.inputName === 'home') state[findIndexBet].HomeTeamScore = action.value === '' ? 0 : action.value;
       if (action.inputName === 'away') state[findIndexBet].AwayTeamScore = action.value === '' ? 0 : action.value;
 
-      console.log(state);
-      return state;
+      return [...state];
     }
     const findIndexBetByMatch = state.findIndex(bet => bet.Match.Id === action.match.Id);
 

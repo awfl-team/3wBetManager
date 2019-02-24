@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
-import { purgeTableBet } from '../../actions/TableBetActions';
+import { addTableBet, purgeTableBet, setTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import BetSubmitBlockComponent from './BetSubmitBlockComponent';
@@ -16,6 +16,7 @@ function mapDispatchToProps(dispatch) {
   return {
     purgeTableBet: () => dispatch(purgeTableBet()),
     addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+    setTableBet: bets => dispatch(setTableBet(bets)),
   };
 }
 
@@ -36,10 +37,8 @@ class BetSubmitLayout extends React.Component {
       this.setState({ competitions: response.data });
       this.state.competitions.map((competition) => {
         BetService.getCurrentBetAndMatches(competition.Id).then((rep) => {
-          if (rep.data.Matches.length > 0) {
-            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
-            this.setState({ loading: false });
-          }
+          this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
+          this.setState({ loading: false });
         });
       });
     });
@@ -62,12 +61,21 @@ class BetSubmitLayout extends React.Component {
   };
 
   handleSubmit = () => {
-    BetService.AddOrUpdateBet(this.props.bets).then(() => {
+    BetService.AddOrUpdateBet(this.props.bets).then((responses) => {
+      console.log(responses);
       this.props.addSnackbar({
         message: 'Successfully added bets !',
         type: 'success',
       });
       this.props.purgeTableBet();
+      const updatedBets = [];
+      responses.forEach((res) => {
+        res.data.forEach((bet) => {
+          bet.alreadyUpdated = true;
+          updatedBets.push(bet);
+        });
+      });
+      this.props.setTableBet(updatedBets);
       this.handleClose();
     });
   };
@@ -77,8 +85,7 @@ class BetSubmitLayout extends React.Component {
     const {
       activeIndex, betsLength, modalOpen, competitionsWithBets, loading,
     } = this.state;
-    console.log(this.props.bets);
-    const isDisabled = (this.props.bets.length > 0);
+    const isDisabled = (this.props.bets.filter(bet => bet.alreadyUpdated === false).length > 0);
     return (
       <div id="betCup">
         <Header as="h2" icon textAlign="center">
