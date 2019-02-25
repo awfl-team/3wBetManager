@@ -31,7 +31,7 @@ class Top3 extends React.Component {
             && <List.Icon name="fire" size="big" verticalAlign="middle" />
             }
             <List.Content>
-              <List.Header as={user.isPrivate === false ? 'a': ''}>{user.Username}</List.Header>
+              <List.Header as={user.IsPrivate === false ? 'a': ''}><h4>{user.Username}</h4></List.Header>
               <List.Description>
                 <div><Rating icon="heart" rating={user.Life} maxRating={3} disabled /> | {user.Point} <Icon color="yellow" name="copyright" size="large" /> | {user.NbBets} <Icon name="ticket" size="large" /> </div>
               </List.Description>

@@ -18,12 +18,16 @@ class AvailableBets extends React.Component {
   render() {
     const { availableBets } = this.state;
     return (
-      <List divided relaxed>
+      <List divided relaxed className="available-bets">
         {availableBets.length > 0 &&
           availableBets.map((availableBet, index) => (
             <List.Item key={index}>
               <List.Content>
-                <List.Header><h4>{availableBet.Match.HomeTeam.Name} VS {availableBet.Match.AwayTeam.Name}</h4></List.Header>
+                <List.Header>
+                  <div className="hometeam"><span>{availableBet.Match.HomeTeam.Name}</span></div>
+                  <div className="versus"><span> VS </span></div>
+                  <div className="awayteam"><span>{availableBet.Match.AwayTeam.Name}</span></div>
+                </List.Header>
                 <List.Description><p>{availableBet.Match.Competition.Name} | {moment(availableBet.Match.UtcDate).format('MM-DD-YYYY')}</p></List.Description>
                 <List.Description>
                   <Label>Bet : {availableBet.HomeTeamScore} - {availableBet.AwayTeamScore}</Label>
