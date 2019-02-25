@@ -26,7 +26,7 @@ api.interceptors.response.use(null, ((error) => {
     message = error.response.data.Message ? error.response.data.Message : error.response.data;
   }
 
-  if (error.response.status === 404) {
+  if (error.response && error.response.status === 404) {
     message = "No records"
   }
 

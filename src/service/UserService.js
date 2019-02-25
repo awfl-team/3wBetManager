@@ -80,4 +80,8 @@ export default class UserService {
   static getTop3() {
     return API.get('/users/top3');
   }
+
+  static getCurrentUserAmongSiblings() {
+    return API.get('/users/place');
+  }
 }
