@@ -70,7 +70,6 @@ class BetSubmitLayout extends React.Component {
       });
       this.props.purgeTableBet();
       this.handleClose();
-      window.location.reload();
     });
   };
 

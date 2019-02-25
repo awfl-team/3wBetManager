@@ -10,6 +10,14 @@ export default class BetService {
     return API.get(`bets/${competitionId}/current`);
   }
 
+  static getFinishBetLimited() {
+    return API.get('bets/result');
+  }
+
+  static getCurrentBetLimited() {
+    return API.get('bets/current');
+  }
+
   static getNbBetsInCompetitionForResult(competitionId) {
     return API.get(`bets/${competitionId}/result/number`);
   }
