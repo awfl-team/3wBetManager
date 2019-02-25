@@ -22,12 +22,12 @@ api.interceptors.request.use(
 api.interceptors.response.use(null, ((error) => {
   let message = 'Connection lost with the server :(';
 
-  if (error.response.status) {
+  if (error.response) {
     message = error.response.data.Message ? error.response.data.Message : error.response.data;
   }
 
-  if (error.response.status === 404) {
-    message = 'No records';
+  if (error.response && error.response.status === 404) {
+    message = "No records"
   }
 
   store.dispatch(addSnackBar(message, 'danger'));

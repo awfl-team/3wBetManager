@@ -76,4 +76,12 @@ export default class UserService {
   static getTop50Betters() {
     return API.get('/users/top50');
   }
+
+  static getTop3() {
+    return API.get('/users/top3');
+  }
+
+  static getCurrentUserAmongSiblings() {
+    return API.get('/users/place');
+  }
 }
