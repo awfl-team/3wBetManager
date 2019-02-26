@@ -4,10 +4,11 @@ import {
   Button, Container, Divider, Header, Icon, Modal, Popup, Radio, Rating,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { addSnackBar } from '../../actions/SnackBarActions';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
-import { addSnackBar } from '../../actions/SnackBarActions';
+import ProfileStats from '../Stats/ProfileStats';
 import withAuth from '../AuthGuard/AuthGuard';
 
 function mapDispatchToProps(dispatch) {
@@ -26,6 +27,9 @@ class Profile extends React.Component {
     userLives: '',
     userPoints: '',
   };
+
+  // @todo Refactor stats of consultProfile and profile as a component
+  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
 
   componentDidMount() {
     UserService.getFromToken()
@@ -55,8 +59,14 @@ class Profile extends React.Component {
     UserService.resetUser()
       .then(() => {
         this.setState({ modalResetOpen: false });
-        this.setState({ userPoints: 500 });
-        this.setState({ userLives: this.state.userLives - 1 });
+        UserService.getFromToken()
+          .then((response) => {
+            this.setState({ user: response.data });
+            this.setState({ isPrivate: response.data.IsPrivate });
+            this.setState({ canReset: response.data.Life !== 0 });
+            this.setState({ userLives: response.data.Life });
+            this.setState({ userPoints: response.data.Point });
+          });
         this.props.addSnackbar({
           message: 'Reset successfull',
           type: 'success',
@@ -77,23 +87,23 @@ class Profile extends React.Component {
 
   render() {
     const {
-      user, isPrivate, canReset, userLives, userPoints,
+      user, canReset, userLives, userPoints, isPrivate, modalDeleteOpen, modalResetOpen
     } = this.state;
     return (
       <div id="profile">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="user" circular />
           <Header.Content>My profile</Header.Content>
         </Header>
         <Container textAlign="center" className="container-centered">
           <div className="profile-accessibility">
             <Popup
-              trigger={<Icon name={this.state.isPrivate ? 'eye slash' : 'eye'} size="big" />}
-              content={this.state.isPrivate ? 'Your profile is private' : 'Your profile is public'}
+              trigger={<Icon name={isPrivate ? 'eye slash' : 'eye'} size="big" />}
+              content={isPrivate ? 'Your profile is private' : 'Your profile is public'}
               inverted
               position="left center"
             />
-            <Radio toggle onChange={this.handleVisibilityUser} checked={this.state.isPrivate} />
+            <Radio toggle onChange={this.handleVisibilityUser} checked={isPrivate} />
           </div>
           <div className="profile-lives">
             <Popup
@@ -127,7 +137,7 @@ class Profile extends React.Component {
           <Container className="container-actions">
             <Modal
               trigger={<Button onClick={this.handleOpenDelete} circular icon="trash" color="red" size="huge" />}
-              open={this.state.modalDeleteOpen}
+              open={modalDeleteOpen}
               onClose={this.handleCloseDelete}
               basic
               size="small"
@@ -157,7 +167,7 @@ class Profile extends React.Component {
             && (
             <Modal
               trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
-              open={this.state.modalResetOpen}
+              open={modalResetOpen}
               onClose={this.handleCloseReset}
               basic
               size="small"
@@ -197,10 +207,11 @@ to reborn from ashes.
 
         <Divider section />
 
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="pie graph" circular />
           <Header.Content>Stats</Header.Content>
         </Header>
+        <ProfileStats user={user}/>
       </div>
     );
   }

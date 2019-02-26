@@ -3,7 +3,6 @@ import {
   Accordion, Button, Container, Header, Icon, Label, Loader, Modal,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
 import { addTableBet, purgeTableBet, setTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
@@ -19,7 +18,7 @@ function mapDispatchToProps(dispatch) {
     setTableBet: bets => dispatch(setTableBet(bets)),
   };
 }
-
+// TODO Add Loader
 class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
@@ -62,7 +61,6 @@ class BetSubmitLayout extends React.Component {
 
   handleSubmit = () => {
     BetService.AddOrUpdateBet(this.props.bets).then((responses) => {
-      console.log(responses);
       this.props.addSnackbar({
         message: 'Successfully added bets !',
         type: 'success',
@@ -88,7 +86,7 @@ class BetSubmitLayout extends React.Component {
     const isDisabled = (this.props.bets.filter(bet => bet.alreadyUpdated === false).length > 0);
     return (
       <div id="betCup">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>
@@ -146,9 +144,9 @@ class BetSubmitLayout extends React.Component {
                 disabled={!isDisabled}
                 color="green"
               >
-Submit
+                Submit
               </Button>
-)}
+            )}
             open={modalOpen}
             onClose={this.handleClose}
             basic

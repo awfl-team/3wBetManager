@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-
 
 
 class NotFound extends React.Component {
@@ -16,7 +14,7 @@ class NotFound extends React.Component {
             <h2 className="ui teal authentication-header">
               <div className="content">
                   <p className="notFound-header">OUPS, 404</p>
-                  <p onClick={this.handleClick} className="back-button">Click here to go back in time !</p>
+                  <button onClick={this.handleClick} className="back-button">Go back</button>
               </div>
             </h2>
           </div>
