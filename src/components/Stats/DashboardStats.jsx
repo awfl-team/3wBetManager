@@ -18,7 +18,7 @@ class DashboardStats extends React.Component {
   // @todo Refactor stats of consultProfile and profile as a component
   // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadBetsPerTypeDataset();
   }
 

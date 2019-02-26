@@ -49,44 +49,42 @@ class BestBettersTable extends React.Component {
           </Table.Header>
           <Table.Body>
             {top50.map((user, index) => (
-              user.NbBets !== 0
-                      && (
-                      <Table.Row key={user.Id} textAlign="center">
-                        <Table.Cell>
-                          {index + 1 === 1
-                          && <Icon name="fire" color="red" size="big" />
-                          }
-                          {index + 1 === 2
-                          && <Icon name="fire" color="yellow" size="big" />
-                          }
-                          {index + 1 === 3
-                          && <Icon name="fire" size="big" />
-                          }
-                          {index + 1 > 3
-                          && index + 1
-                          }
-                        </Table.Cell>
-                        <Table.Cell>{user.Username}</Table.Cell>
-                        <Table.Cell><Icon color="yellow" name="copyright" size="big" />
-                          <label color="yellow">{user.Point}</label></Table.Cell>
-                        <Table.Cell>
-                          <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
-                        </Table.Cell>
-                        <Table.Cell>{user.NbBets}</Table.Cell>
-                        <Table.Cell>{user.NbWrongBets}</Table.Cell>
-                        <Table.Cell>{user.NbOkBets}</Table.Cell>
-                        <Table.Cell>{user.NbPerfectBets}</Table.Cell>
-                        <Table.Cell>
-                          {!user.IsPrivate
-                          && (
-                          <Link to={`/user/${user.Id}`} className="button ui blue small icon">
-                            <Icon name="eye" />
-                          </Link>
-                          )
-                          }
-                        </Table.Cell>
-                      </Table.Row>
-                      )
+              <Table.Row key={user.Id} textAlign="center">
+                <Table.Cell>
+                  {index + 1 === 1
+                  && <Icon name="fire" color="red" size="big" />
+                  }
+                  {index + 1 === 2
+                  && <Icon name="fire" color="yellow" size="big" />
+                  }
+                  {index + 1 === 3
+                  && <Icon name="fire" size="big" />
+                  }
+                  {index + 1 > 3
+                  && index + 1
+                  }
+                </Table.Cell>
+                <Table.Cell>{user.Username}</Table.Cell>
+                <Table.Cell><Icon color="yellow" name="copyright" size="big" />
+                  <label color="yellow">{user.Point}</label></Table.Cell>
+                <Table.Cell>
+                  <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
+                </Table.Cell>
+                <Table.Cell>{user.NbBets}</Table.Cell>
+                <Table.Cell>{user.NbWrongBets}</Table.Cell>
+                <Table.Cell>{user.NbOkBets}</Table.Cell>
+                <Table.Cell>{user.NbPerfectBets}</Table.Cell>
+                <Table.Cell>
+                  {!user.IsPrivate
+                  && (
+                  <Link to={`/user/${user.Id}`} className="button ui blue small icon">
+                    <Icon name="eye" />
+                  </Link>
+                  )
+                  }
+                </Table.Cell>
+              </Table.Row>
+
             ))}
           </Table.Body>
         </Table>

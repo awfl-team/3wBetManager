@@ -59,8 +59,14 @@ class Profile extends React.Component {
     UserService.resetUser()
       .then(() => {
         this.setState({ modalResetOpen: false });
-        this.setState({ userPoints: 500 });
-        this.setState({ userLives: this.state.userLives - 1 });
+        UserService.getFromToken()
+          .then((response) => {
+            this.setState({ user: response.data });
+            this.setState({ isPrivate: response.data.IsPrivate });
+            this.setState({ canReset: response.data.Life !== 0 });
+            this.setState({ userLives: response.data.Life });
+            this.setState({ userPoints: response.data.Point });
+          });
         this.props.addSnackbar({
           message: 'Reset successfull',
           type: 'success',
