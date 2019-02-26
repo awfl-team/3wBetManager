@@ -51,6 +51,7 @@ function Homepage() {
                 <img
                   src="assets/images/first-section.jpg"
                   className="ui large bordered rounded image"
+                  alt="football"
                 />
               </div>
             </div>
@@ -59,6 +60,7 @@ function Homepage() {
                 <img
                   src="assets/images/second-section.jpg"
                   className="ui large bordered rounded image"
+                  alt="football"
                 />
               </div>
               <div className="eight wide right column">

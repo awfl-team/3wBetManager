@@ -32,13 +32,14 @@ class UserLayout extends React.Component {
     const {user} = this.props;
 
     if (toHome) {
-      return <Redirect to="/"/>;
+      return <Redirect to="/" />;
     }
     return (
         <div className="layout">
           <Menu inverted>
-            <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon
-                name="sidebar"/></Menu.Item>
+            <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}>
+              <Icon name="sidebar" />
+            </Menu.Item>
             <Container className="navbar">
               <Menu.Item className="user-info">
                 {user.unique_name.toString()}
@@ -55,19 +56,19 @@ class UserLayout extends React.Component {
             <Sidebar as={Menu} animation="push" visible={visible} icon="labeled" inverted vertical
                      width="thin">
               <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
-                <Icon name="home"/>
+                <Icon name="home" />
                 Home
               </Menu.Item>
               <Menu.Item as={NavLink} activeClassName="active" to="/mybets">
-                <Icon name="ticket"/>
+                <Icon name="ticket" />
                 My Bets
               </Menu.Item>
               <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters">
-                <Icon name="star"/>
+                <Icon name="star" />
                 Best betters
               </Menu.Item>
               <Menu.Item as="a">
-                <Icon name="camera"/>
+                <Icon name="camera" />
                 Channels
               </Menu.Item>
             </Sidebar>

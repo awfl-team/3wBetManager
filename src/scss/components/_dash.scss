@@ -22,4 +22,38 @@
     max-height: 375px;
     overflow-y: scroll;
   }
+
+  .finished-bets, .available-bets {
+    .item {
+      .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .hometeam, .versus, .awayteam {
+          max-width: 150px;
+          margin: 0 10px;
+        }
+
+        .hometeam, .awayteam {
+          font-size: 16px;
+          width: 100%;
+        }
+
+        .hometeam {
+          text-align: right;
+        }
+
+        .awayteam {
+          text-align: left;
+        }
+
+        .versus {
+          color: grey;
+          width: 20px;
+        }
+      }
+    }
+  }
 }
