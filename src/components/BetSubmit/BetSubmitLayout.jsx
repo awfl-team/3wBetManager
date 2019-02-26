@@ -32,12 +32,19 @@ class BetSubmitLayout extends React.Component {
 
 
   componentDidMount() {
+    const competitionsWithNbBetAndNbMatch = [];
     CompetitionService.getAllCompetions().then((response) => {
       this.setState({ competitions: response.data });
       this.state.competitions.map((competition) => {
-        BetService.getCurrentBetAndMatches(competition.Id).then((rep) => {
-          this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
-          this.setState({ loading: false });
+        BetService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id).then((res) => {
+          if (res.data.NbBet !== undefined) {
+            competition.NbBet = res.data.NbBet;
+            competition.NbMatch = res.data.NbMatch;
+            competitionsWithNbBetAndNbMatch.push(competition);
+            // TODO use await when the function will async
+            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
+            this.setState({ loading: false });
+          }
         });
       });
     });
@@ -66,15 +73,16 @@ class BetSubmitLayout extends React.Component {
         type: 'success',
       });
       this.props.purgeTableBet();
-      const updatedBets = [];
+      /*const updatedBets = [];
       responses.forEach((res) => {
         res.data.forEach((bet) => {
           bet.alreadyUpdated = true;
           updatedBets.push(bet);
         });
       });
-      this.props.setTableBet(updatedBets);
+      this.props.setTableBet(updatedBets);*/
       this.handleClose();
+      this.props.history.push('/dashboard');
     });
   };
 
@@ -102,16 +110,21 @@ class BetSubmitLayout extends React.Component {
                       onClick={this.handleClick}
                       className="competition-accordion"
                     >
-                      <Icon name="dropdown" />
+                      <Icon name="dropdown"/>
                       {competition.Name}
                       <Label attached="top right">
-                        <Icon name="ticket" />
-                        {' '}
-0
+                      <span>
+                        <Icon name="ticket"/>
+                        {competition.NbBet}
+                      </span>
+                        <span>
+                        <Icon name="soccer"/>
+                          {competition.NbMatch}
+                      </span>
                       </Label>
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === index}>
-                      <BetSubmitBlockComponent competitionId={competition.Id} />
+                      <BetSubmitBlockComponent competitionId={competition.Id}/>
                     </Accordion.Content>
                   </div>
                 ))}
