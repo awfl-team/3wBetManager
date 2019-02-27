@@ -5,6 +5,7 @@ import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
+<<<<<<< Updated upstream
 import { addSnackBar } from '../../actions/SnackBarActions';
 import classNames from 'classnames/bind';
 
@@ -13,6 +14,9 @@ function mapDispatchToProps(dispatch) {
     addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
   };
 }
+=======
+import FormUserService from '../../service/FormUserService';
+>>>>>>> Stashed changes
 
 class SignUpComponent extends React.Component {
   state = {
@@ -22,7 +26,15 @@ class SignUpComponent extends React.Component {
     confirmPassword: '',
     message: '',
     toDashboard: false,
+    className: '',
   };
+
+  componentDidMount() {
+    FormUserService.getClassNames(this.state.email, this.state.username, this.state.password, this.state.confirmPassword).then((response) => {
+      this.setState({ className: response.data });
+      console.log(this.state.className);
+    });
+  }
 
   handleEmailChange = (event) => {
     this.setState({ email: event.target.value });
@@ -65,6 +77,13 @@ class SignUpComponent extends React.Component {
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
+<<<<<<< Updated upstream
+=======
+
+    // TODO - Services to pass this code to Update profile component to limit duplicate code
+    // NEED VERIFICATION OF THE METHOD APPLIED FOR IT ( TO SEE -> FormUserService )
+    // Set of variables used for the conditions of classes on the form.
+>>>>>>> Stashed changes
     const isEmailOk = VerifyService.isEmailOk(email);
     const isUsernameOk = VerifyService.isUsernameOk(username);
     const isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
