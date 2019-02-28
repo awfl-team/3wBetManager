@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Container
+  Container,
 } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import BetService from '../../service/BetService';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 
@@ -26,13 +27,6 @@ class BetSubmitBlockComponent extends React.Component {
     return (
       <div id="betRowsResults">
         <Container fluid>
-          {bets.length === 0 && matches.length === 0
-              && (
-              <div>
-            No bets and matches
-              </div>
-              )
-          }
           {bets.map((bet, key) => (
             <BetSubmitRowComponent key={key} bet={bet} />
           ))}

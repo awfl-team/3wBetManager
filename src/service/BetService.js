@@ -1,6 +1,6 @@
 import API from '../api';
 import Bet from '../model/Bet';
-
+// TODO create async method
 export default class BetService {
   static getFinishBet(competitionId) {
     return API.get(`bets/${competitionId}/result`);
@@ -8,6 +8,14 @@ export default class BetService {
 
   static getCurrentBetAndMatches(competitionId) {
     return API.get(`bets/${competitionId}/current`);
+  }
+
+  static getFinishBetLimited() {
+    return API.get('bets/result');
+  }
+
+  static getCurrentBetLimited() {
+    return API.get('bets/current');
   }
 
   static getNbBetsInCompetitionForResult(competitionId) {

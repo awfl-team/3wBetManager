@@ -1,0 +1,25 @@
+.task-list-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  justify-content: space-between;
+  .progress {
+    margin: 0 50px;
+    min-width: 100px;
+    flex: 1 1 100%;
+    max-width: 600px;
+  }
+  h3 {
+    margin: 0 !important;
+  }
+  h3, .button-container {
+    flex: 0 0 20%;
+    button {
+      width: 100px;
+    }
+  }
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

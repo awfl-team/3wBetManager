@@ -1,0 +1,59 @@
+#dashboard {
+  .row {
+    margin: 30px 0;
+    .tablet {
+      &.column {
+        &:last-child {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+  .list{
+    h4, p {
+      margin-bottom: 5px;
+    }
+  }
+
+  .betters-table-card {
+    padding-bottom: 10px;
+  }
+  .betters-table {
+    max-height: 375px;
+    overflow-y: scroll;
+  }
+
+  .finished-bets, .available-bets {
+    .item {
+      .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .hometeam, .versus, .awayteam {
+          max-width: 150px;
+          margin: 0 10px;
+        }
+
+        .hometeam, .awayteam {
+          font-size: 16px;
+          width: 100%;
+        }
+
+        .hometeam {
+          text-align: right;
+        }
+
+        .awayteam {
+          text-align: left;
+        }
+
+        .versus {
+          color: grey;
+          width: 20px;
+        }
+      }
+    }
+  }
+}

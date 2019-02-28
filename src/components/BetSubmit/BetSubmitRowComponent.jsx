@@ -1,11 +1,10 @@
 import React from 'react';
 import {
-  Container, Image, Input,
+  Image, Input, Label,
 } from 'semantic-ui-react';
-import moment from 'moment';
 import { connect } from 'react-redux';
-import BetService from '../../service/BetService';
 import { addTableBet } from '../../actions/TableBetActions';
+import moment from 'moment';
 
 const mapStateToProps = state => ({ bets: state.bets });
 
@@ -74,6 +73,10 @@ class BetSubmitRowComponent extends React.Component {
             <div className="team-image">
               <Image src={match.HomeTeam.CrestUrl} />
             </div>
+            <Label color="red">
+              Win :
+               10
+            </Label>
             <div className="team-info">
               <div className="team-name">
                 {match.HomeTeam.Name}
@@ -91,11 +94,19 @@ class BetSubmitRowComponent extends React.Component {
                 <Input defaultValue={bet ? bet.AwayTeamScore : ''} onChange={event => this.createBet(event, match, 'away')} fluid type="number" max="9" min="0" />
               </div>
             </div>
+            <Label>
+              Draw :
+              90
+            </Label>
           </div>
           <div className="container-awayteam">
             <div className="team-image">
               <Image src={match.AwayTeam.CrestUrl} />
             </div>
+            <Label color="green">
+              Win :
+              90
+            </Label>
             <div className="team-info">
               <div className="team-name">{match.AwayTeam.Name}</div>
             </div>

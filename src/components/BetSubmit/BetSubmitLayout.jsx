@@ -3,7 +3,6 @@ import {
   Accordion, Button, Container, Header, Icon, Label, Loader, Modal,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import BetSubmitRowComponent from './BetSubmitRowComponent';
 import CompetitionService from '../../service/CompetionService';
 import { addTableBet, purgeTableBet, setTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
@@ -19,7 +18,7 @@ function mapDispatchToProps(dispatch) {
     setTableBet: bets => dispatch(setTableBet(bets)),
   };
 }
-
+// TODO Add Loader
 class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
@@ -33,12 +32,19 @@ class BetSubmitLayout extends React.Component {
 
 
   componentDidMount() {
+    const competitionsWithNbBetAndNbMatch = [];
     CompetitionService.getAllCompetions().then((response) => {
       this.setState({ competitions: response.data });
       this.state.competitions.map((competition) => {
-        BetService.getCurrentBetAndMatches(competition.Id).then((rep) => {
-          this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
-          this.setState({ loading: false });
+        BetService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id).then((res) => {
+          if (res.data.NbBet !== undefined) {
+            competition.NbBet = res.data.NbBet;
+            competition.NbMatch = res.data.NbMatch;
+            competitionsWithNbBetAndNbMatch.push(competition);
+            // TODO use await when the function will async
+            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
+            this.setState({ loading: false });
+          }
         });
       });
     });
@@ -85,11 +91,10 @@ class BetSubmitLayout extends React.Component {
     const {
       activeIndex, modalOpen, competitionsWithBets, loading,
     } = this.state;
-    const { bets } = this.props;
-    const isDisabled = (bets.filter(bet => bet.alreadyUpdated === false).length > 0);
+    const isDisabled = (this.props.bets.filter(bet => bet.alreadyUpdated === false).length > 0);
     return (
       <div id="betCup">
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>
@@ -105,16 +110,21 @@ class BetSubmitLayout extends React.Component {
                       onClick={this.handleClick}
                       className="competition-accordion"
                     >
-                      <Icon name="dropdown" />
+                      <Icon name="dropdown"/>
                       {competition.Name}
                       <Label attached="top right">
-                        <Icon name="ticket" />
-                        {' '}
-                                0
+                      <span>
+                        <Icon name="ticket"/>
+                        {competition.NbBet}
+                      </span>
+                        <span>
+                        <Icon name="soccer"/>
+                          {competition.NbMatch}
+                      </span>
                       </Label>
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === index}>
-                      <BetSubmitBlockComponent competitionId={competition.Id} />
+                      <BetSubmitBlockComponent competitionId={competition.Id}/>
                     </Accordion.Content>
                   </div>
                 ))}
@@ -147,9 +157,9 @@ class BetSubmitLayout extends React.Component {
                 disabled={!isDisabled}
                 color="green"
               >
-                      Submit
+                Submit
               </Button>
-                )}
+            )}
             open={modalOpen}
             onClose={this.handleClose}
             basic

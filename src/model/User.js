@@ -7,6 +7,8 @@ export default class User {
 
     Email;
 
+    Point;
+
     Username;
 
     IsPrivate;
