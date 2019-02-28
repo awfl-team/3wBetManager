@@ -7,6 +7,7 @@ import User from '../../model/User';
 import UserService from '../../service/UserService';
 import VerifyService from '../../service/VerifyService';
 import AuthService from '../../service/AuthService';
+import FormUserService from '../../service/FormUserService';
 
 
 class UpdateProfile extends React.Component {
@@ -16,6 +17,7 @@ class UpdateProfile extends React.Component {
     username: '',
     password: '',
     confirmPassword: '',
+    className: {},
   };
 
   componentDidMount() {
@@ -24,28 +26,42 @@ class UpdateProfile extends React.Component {
         this.setState({ user: response.data });
         this.setState({ username: response.data.Username });
         this.setState({ email: response.data.Email });
+        this.initClassName();
       })
       .catch((error) => {
         this.setState({ message: error.response.data });
       });
   }
 
-
   handleEmailChange = (event) => {
     this.setState({ email: event.target.value });
+    this.initClassName();
   };
 
   handleUsernameChange = (event) => {
     this.setState({ username: event.target.value });
+    this.initClassName();
   };
 
   handlePasswordChange = (event) => {
     this.setState({ password: event.target.value });
+    this.initClassName();
   };
 
   handlePasswordConfirmationChange = (event) => {
     this.setState({ confirmPassword: event.target.value });
+    this.initClassName();
   };
+
+  initClassName() {
+    const classnames = FormUserService.getClassNames(
+      this.state.email,
+      this.state.username,
+      this.state.password,
+      this.state.confirmPassword,
+    );
+    this.setState({ className: classnames });
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -65,52 +81,8 @@ class UpdateProfile extends React.Component {
 
   render() {
     const {
-      confirmPassword, password, user, email, username,
+      confirmPassword, password, user, email, username, className
     } = this.state;
-    const isEmailOk = VerifyService.isEmailOk(email);
-    const isUsernameOk = VerifyService.isUsernameOk(username);
-    const isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
-    const isPasswordNumberCharOk = VerifyService.isPasswordNumberChars(password);
-    const isPasswordSpecialChar = VerifyService.isPasswordSpecialChar(password);
-    const isPasswordUppercase = VerifyService.isPasswordUppercase(password);
-    const isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
-    const isEnabled = (isEmailOk && isUsernameOk && isPasswordNumberCharOk && isPasswordWithNumber
-        && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
-
-    const formFieldUsernameOk = classNames({
-      'validate-form-info': isUsernameOk,
-      'error-form-info': !isUsernameOk,
-    });
-    const formFieldEmailOk = classNames({
-      'validate-form-info': isEmailOk,
-      'error-form-info': !isEmailOk,
-    });
-    const formFieldIdentical = classNames({
-      'validate-form-info': isPasswordIdentical,
-      'error-form-info': !isPasswordIdentical,
-    });
-    const formFieldNumber = classNames({
-      'validate-form-info': isPasswordNumberCharOk,
-      'error-form-info': !isPasswordNumberCharOk,
-    });
-    const formdFieldUppercase = classNames({
-      'validate-form-info': isPasswordUppercase,
-      'error-form-info': !isPasswordUppercase,
-    });
-    const formFieldSpecial = classNames({
-      'validate-form-info': isPasswordSpecialChar,
-      'error-form-info': !isPasswordSpecialChar,
-    });
-    const formFieldWithNumber = classNames({
-      'validate-form-info': isPasswordWithNumber,
-      'error-form-info': !isPasswordWithNumber,
-    });
-    const formMultipleInfos = classNames({
-      'validate-form-info': isPasswordUppercase && isPasswordSpecialChar
-              && isPasswordWithNumber,
-      'error-form-info': !isPasswordUppercase
-              || !isPasswordSpecialChar || !isPasswordWithNumber,
-    });
 
     return (
       <div id="profile">
@@ -173,39 +145,39 @@ class UpdateProfile extends React.Component {
               </div>
             </div>
             <div className="form-info validation">
-              <p className={formFieldEmailOk}>
+              <p className={className.formFieldEmailOk}>
                 <i className="info circle icon" />
                 {' '}
 The email must respect a valid email format
               </p>
-              <p className={formFieldUsernameOk}>
+              <p className={className.formFieldUsernameOk}>
                 <i className="info circle icon" />
                 {' '}
 The username requires at least 3 characters
               </p>
-              <p className={formFieldIdentical}>
+              <p className={className.formFieldIdentical}>
                 <i className="info circle icon" />
                 {' '}
 The password must be identical with the
                 password field
               </p>
-              <p className={formFieldNumber}>
+              <p className={className.formFieldNumber}>
                 <i className="info circle icon" />
                 {' '}
 The password requires at least 12 characters
               </p>
-              <p className={formMultipleInfos}>
+              <p className={className.formMultipleInfos}>
                 <i className="info circle icon" />
                 {' '}
 The password requires a
                 <span
-                  className={formdFieldUppercase}
+                  className={className.formdFieldUppercase}
                 >
                     uppercase
                 </span>
 , a
                 <span
-                  className={formFieldSpecial}
+                  className={className.formFieldSpecial}
                 >
                   {' '}
 special character
@@ -213,14 +185,14 @@ special character
                 {' '}
 and
                 <span
-                  className={formFieldWithNumber}
+                  className={className.formFieldWithNumber}
                 >
 a number
                 </span>
               </p>
             </div>
             <Container className="container-actions">
-              <Button type="submit" circular color="green" size="huge" disabled={!isEnabled}>Submit </Button>
+              <Button type="submit" circular color="green" size="huge" disabled={!className.isEnabled}>Submit </Button>
             </Container>
           </form>
         </Container>
