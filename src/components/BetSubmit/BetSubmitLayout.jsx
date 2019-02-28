@@ -45,8 +45,6 @@ class BetSubmitLayout extends React.Component {
   }
 
   handleOpen = () => {
-    const bets = this.props.bets;
-    this.setState({ betsLength: bets.length });
     this.setState({ modalOpen: true });
   };
 
@@ -61,31 +59,34 @@ class BetSubmitLayout extends React.Component {
   };
 
   handleSubmit = () => {
-    BetService.AddOrUpdateBet(this.props.bets).then((responses) => {
-      console.log(responses);
-      this.props.addSnackbar({
-        message: 'Successfully added bets !',
-        type: 'success',
-      });
-      this.props.purgeTableBet();
-      const updatedBets = [];
-      responses.forEach((res) => {
-        res.data.forEach((bet) => {
-          bet.alreadyUpdated = true;
-          updatedBets.push(bet);
+    const { bets } = this.props;
+    BetService.AddOrUpdateBet(bets.filter(bet => bet.alreadyUpdated === false))
+      .then((responses) => {
+        console.log(responses);
+        this.props.addSnackbar({
+          message: 'Successfully added bets !',
+          type: 'success',
         });
+        this.props.purgeTableBet();
+        const updatedBets = [];
+        responses.forEach((res) => {
+          res.data.forEach((bet) => {
+            bet.alreadyUpdated = true;
+            updatedBets.push(bet);
+          });
+        });
+        this.props.setTableBet(updatedBets);
+        this.handleClose();
       });
-      this.props.setTableBet(updatedBets);
-      this.handleClose();
-    });
   };
 
 
   render() {
     const {
-      activeIndex, betsLength, modalOpen, competitionsWithBets, loading,
+      activeIndex, modalOpen, competitionsWithBets, loading,
     } = this.state;
-    const isDisabled = (this.props.bets.filter(bet => bet.alreadyUpdated === false).length > 0);
+    const { bets } = this.props;
+    const isDisabled = (bets.filter(bet => bet.alreadyUpdated === false).length > 0);
     return (
       <div id="betCup">
         <Header as="h2" icon textAlign="center">
@@ -109,7 +110,7 @@ class BetSubmitLayout extends React.Component {
                       <Label attached="top right">
                         <Icon name="ticket" />
                         {' '}
-0
+                                0
                       </Label>
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === index}>
@@ -146,9 +147,9 @@ class BetSubmitLayout extends React.Component {
                 disabled={!isDisabled}
                 color="green"
               >
-Submit
+                      Submit
               </Button>
-)}
+                )}
             open={modalOpen}
             onClose={this.handleClose}
             basic
@@ -163,10 +164,10 @@ Submit
             <Modal.Content>
               <h3>
                   If you add or update
-                {betsLength > 1 ? ' those ' : ' this '}
+                {bets.filter(bet => bet.alreadyUpdated === false).length > 1 ? ' those ' : ' this '}
                   bets, it will cost you
                 {' '}
-                {betsLength * 10}
+                {bets.filter(bet => bet.alreadyUpdated === false).length * 10}
                 {' '}
                 <Icon color="yellow" name="copyright" />
               </h3>
