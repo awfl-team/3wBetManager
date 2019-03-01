@@ -1,0 +1,31 @@
+.form-info.validation {
+  transition: $main-transition;
+  opacity: 1;
+  color: $grey;
+  text-align: left;
+  margin: 25px 0;
+  transform-origin: center center;
+  font-size:11px;
+  height: 125px;
+  .form-info-title {
+    color:white;
+
+  }
+  .neutral-form-info {
+    color: $red;
+  }
+  .validate-form-info{
+    color:$green;
+  }
+  .error-form-info {
+    color: $red;
+  }
+  &.hidden {
+    opacity: 0;
+    height: 0;
+    transition: $main-transition;
+    .form-info-title {
+      color: transparent;
+    }
+  }
+}
