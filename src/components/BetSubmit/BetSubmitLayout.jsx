@@ -18,7 +18,6 @@ function mapDispatchToProps(dispatch) {
     setTableBet: bets => dispatch(setTableBet(bets)),
   };
 }
-// TODO Add Loader
 class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
