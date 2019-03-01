@@ -56,7 +56,7 @@ class ConsultProfile extends React.Component {
             </div>
             <div className="profile-coins">
               <Icon color="yellow" name="copyright" size="big" />
-              <label>{user.Point}</label>
+              <span>{user.Point}</span>
             </div>
           </div>
           )

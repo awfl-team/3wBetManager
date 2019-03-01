@@ -20,8 +20,8 @@ class AvailableBets extends React.Component {
     return (
       <List divided relaxed className="available-bets">
         {availableBets.length > 0
-          && availableBets.map((availableBet, index) => (
-            <List.Item key={index}>
+          && availableBets.map(availableBet => (
+            <List.Item key={availableBet.Id}>
               <List.Content>
                 <List.Header>
                   <div className="hometeam"><span>{availableBet.Match.HomeTeam.Name}</span></div>
@@ -31,18 +31,15 @@ class AvailableBets extends React.Component {
                 <List.Description>
                   <p>
                     {availableBet.Match.Competition.Name}
-                    {' '}
-|
-                    {' '}
+                    |
                     {moment(availableBet.Match.UtcDate).format('MM-DD-YYYY')}
                   </p>
                 </List.Description>
                 <List.Description>
                   <Label>
-Bet :
+                    Bet :
                     {availableBet.HomeTeamScore}
-                    {' '}
--
+                    -
                     {availableBet.AwayTeamScore}
                   </Label>
                 </List.Description>
@@ -55,8 +52,7 @@ Bet :
           <List.Content>
             <List.Header>
               <Link to="/bet/submitBets" className="button ui icon">
-                {' '}
-Submit bets
+                Submit bets
                 <Icon name="arrow right" />
               </Link>
             </List.Header>

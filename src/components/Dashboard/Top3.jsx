@@ -22,7 +22,7 @@ class Top3 extends React.Component {
       <List divided relaxed>
         {usersTop3.length > 0
         && usersTop3.map((user, index) => (
-          <List.Item key={index}>
+          <List.Item key={user.Id}>
             {index === 0
               && <List.Icon name="fire" color="red" size="big" verticalAlign="middle" />
             }

@@ -79,8 +79,9 @@ class Profile extends React.Component {
   };
 
   handleVisibilityUser = () => {
-    this.setState({ isPrivate: !this.state.isPrivate });
-    UserService.handleVisibilityUser(!this.state.isPrivate)
+    const { isPrivate } = this.state;
+    this.setState({ isPrivate: !isPrivate });
+    UserService.handleVisibilityUser(!isPrivate)
       .then(() => {
         this.props.addSnackbar({
           message: 'Profile\'s visibility updated',
@@ -120,7 +121,7 @@ class Profile extends React.Component {
           </div>
           <div className="profile-coins">
             <Icon color="yellow" name="copyright" size="big" />
-            <label>{userPoints}</label>
+            <span>{userPoints}</span>
           </div>
           <Button
             content="Email"
@@ -182,10 +183,8 @@ class Profile extends React.Component {
                   If you confirm this action,
                   your earned points, bets and statistics will be reset !
                   In exchange, your account will be reset with 500
-                  {' '}
                   <Icon color="yellow" name="copyright" />
-                  {' '}
-to reborn from ashes.
+                    to reborn from ashes.
                   <br />
                   <br />
                   You will loose one&nbsp;

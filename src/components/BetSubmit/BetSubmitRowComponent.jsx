@@ -33,9 +33,10 @@ class BetSubmitRowComponent extends React.Component {
     if (bet) {
       match = bet.Match;
     }
-    if (nextProps.bets.find(bet => bet.Match.Id === match.Id && bet.alreadyUpdated === true)) {
+    if (nextProps.bets.find(betParam => betParam.Match.Id
+        === match.Id && betParam.alreadyUpdated === true)) {
       this.setState({
-        bet: nextProps.bets.find(bet => bet.Match.Id === match.Id),
+        bet: nextProps.bets.find(betParam => betParam.Match.Id === match.Id),
       });
     }
   }
@@ -46,7 +47,7 @@ class BetSubmitRowComponent extends React.Component {
     if (bet) {
       match = bet.Match;
     }
-    return !!nextProps.bets.find(bet => bet.Match.Id === match.Id);
+    return !!nextProps.bets.find(betParam => betParam.Match.Id === match.Id);
   }
 
   createBet(event, match, inputName) {
@@ -59,7 +60,8 @@ class BetSubmitRowComponent extends React.Component {
   }
 
   render() {
-    let { bet, match } = this.state;
+    let { match } = this.state;
+    const { bet } = this.state;
     if (bet) {
       match = bet.Match;
     }

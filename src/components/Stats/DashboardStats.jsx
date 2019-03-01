@@ -26,7 +26,8 @@ class DashboardStats extends React.Component {
     GraphService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
-      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
+      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
+          || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
@@ -60,7 +61,7 @@ class DashboardStats extends React.Component {
         isDatasetCoinsActive: true,
       });
     });
-  }
+  };
 
   render() {
     const { datasetPieGraph, isDatasetBetsActive, isDatasetCoinsActive } = this.state;
@@ -73,9 +74,21 @@ class DashboardStats extends React.Component {
         {/* @todo buttons to switch between 2 datasets ?? betsPerType and ??? */}
         <div className="ui two buttons">
           <Button.Group fluid>
-            <Button onClick={this.loadBetsPerTypeDataset} active={isDatasetBetsActive} primary={isDatasetBetsActive}>Bets</Button>
+            <Button
+              onClick={this.loadBetsPerTypeDataset}
+              active={isDatasetBetsActive}
+              primary={isDatasetBetsActive}
+            >
+            Bets
+            </Button>
             <Button.Or />
-            <Button onClick={this.loadCoinsUsageDataset} active={isDatasetCoinsActive} primary={isDatasetCoinsActive}>Coins</Button>
+            <Button
+              onClick={this.loadCoinsUsageDataset}
+              active={isDatasetCoinsActive}
+              primary={isDatasetCoinsActive}
+            >
+            Coins
+            </Button>
           </Button.Group>
         </div>
       </div>

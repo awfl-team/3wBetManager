@@ -46,7 +46,7 @@ class AdminTaskManagerComponent extends React.Component {
               <List.Content className="task-list-content">
                 <h3>
                   <Icon name="trophy" />
-Update competitions
+                  Update competitions
                 </h3>
                 <Progress
                   percent={100}
@@ -81,7 +81,7 @@ Update competitions
               <List.Content className="task-list-content">
                 <h3>
                   <Icon name="users" />
-Uptate teams
+                  Uptate teams
                 </h3>
                 <Progress
                   percent={100}
@@ -111,7 +111,7 @@ Uptate teams
               <List.Content className="task-list-content">
                 <h3>
                   <Icon name="soccer" />
-Update matches
+                  Update matches
                 </h3>
                 <Progress
                   percent={100}

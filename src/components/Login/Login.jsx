@@ -75,7 +75,7 @@ class LoginComponent extends React.Component {
                   type="submit"
                   className="ui fluid large teal submit button main-button"
                 >
-Submit
+                Submit
                 </button>
               </div>
             </form>

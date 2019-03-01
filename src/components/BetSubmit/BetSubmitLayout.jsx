@@ -71,7 +71,7 @@ class BetSubmitLayout extends React.Component {
 
   init() {
     const competitionsWithNbBetAndNbMatch = [];
-    CompetitionService.getAllCompetions().then((response) => {
+    CompetitionService.getAllCompetitions().then((response) => {
       this.setState({ competitions: response.data });
       this.state.competitions.forEach((competition) => {
         BetService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id).then((res) => {
@@ -79,11 +79,10 @@ class BetSubmitLayout extends React.Component {
             competition.NbBet = res.data.NbBet;
             competition.NbMatch = res.data.NbMatch;
             competitionsWithNbBetAndNbMatch.push(competition);
-            // TODO use await when the function will async
-            this.setState({
+            /*    this.setState({
               competitionWithBets:
                   this.state.competitionsWithBets.push(competition),
-            });
+            }); */
             this.setState({ loading: false });
           }
         });

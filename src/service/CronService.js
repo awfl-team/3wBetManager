@@ -12,8 +12,4 @@ export default class CronService {
   static updateTeams() {
     return API.post('/cron/teams');
   }
-
-  static updateAll() {
-    return API.post('/cron/all');
-  }
 }
