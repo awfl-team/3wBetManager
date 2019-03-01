@@ -11,7 +11,6 @@ const mapStateToProps = state => ({ taskManager: state.taskManager });
 
 
 class AdminTaskManagerComponent extends React.Component {
-
   handleCronCompetitions = () => {
     CronHelperService.handleCompetitionTask();
   };
@@ -32,7 +31,8 @@ class AdminTaskManagerComponent extends React.Component {
     const competitionTask = taskManager.competitionTask;
     const matchTask = taskManager.matchTask;
     const teamTask = taskManager.teamTask;
-    const isAnyTaskRunning = (competitionTask.isRunning || matchTask.isRunning || teamTask.isRunning);
+    const isAnyTaskRunning = (competitionTask.isRunning || matchTask.isRunning
+        || teamTask.isRunning);
 
     return (
       <div id="tasks">

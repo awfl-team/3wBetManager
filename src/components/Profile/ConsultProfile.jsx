@@ -49,16 +49,17 @@ class ConsultProfile extends React.Component {
           )}
         <Container textAlign="center" className="container-centered">
           {user.IsPrivate === false
-          &&
+          && (
           <div>
             <div className="profile-lives">
-              <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="massive"/>
+              <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="massive" />
             </div>
             <div className="profile-coins">
-              <Icon color="yellow" name="copyright" size="big"/>
+              <Icon color="yellow" name="copyright" size="big" />
               <label>{user.Point}</label>
             </div>
           </div>
+          )
           }
           <ConsultProfileStats user={user} />
           { user.IsPrivate === true

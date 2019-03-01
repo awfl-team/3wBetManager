@@ -52,7 +52,8 @@ class BetLayoutResult extends React.Component {
           && <h2>No records</h2>
           }
           { competitions.length > 0
-            && <Accordion fluid styled>
+            && (
+            <Accordion fluid styled>
               {competitions.map((competition, index) => (
                 <div key={competition.Id}>
                   <Accordion.Title
@@ -74,6 +75,7 @@ class BetLayoutResult extends React.Component {
                 </div>
               ))}
             </Accordion>
+            )
           }
         </Container>
       </div>

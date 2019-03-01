@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import CompetitionService from '../../service/CompetionService';
-import { addTableBet, purgeTableBet, setTableBet } from '../../actions/TableBetActions';
+import { purgeTableBet, setTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import BetSubmitBlockComponent from './BetSubmitBlockComponent';
@@ -80,7 +80,10 @@ class BetSubmitLayout extends React.Component {
             competition.NbMatch = res.data.NbMatch;
             competitionsWithNbBetAndNbMatch.push(competition);
             // TODO use await when the function will async
-            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
+            this.setState({
+              competitionWithBets:
+                  this.state.competitionsWithBets.push(competition),
+            });
             this.setState({ loading: false });
           }
         });

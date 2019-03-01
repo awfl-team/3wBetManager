@@ -91,7 +91,7 @@ class Profile extends React.Component {
 
   render() {
     const {
-      user, canReset, userLives, userPoints, isPrivate, modalDeleteOpen, modalResetOpen
+      user, canReset, userLives, userPoints, isPrivate, modalDeleteOpen, modalResetOpen,
     } = this.state;
     return (
       <div id="profile">
@@ -215,7 +215,7 @@ to reborn from ashes.
           <Icon name="pie graph" circular />
           <Header.Content>Stats</Header.Content>
         </Header>
-        <ProfileStats user={user}/>
+        <ProfileStats user={user} />
       </div>
     );
   }

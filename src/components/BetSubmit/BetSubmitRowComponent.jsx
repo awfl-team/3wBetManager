@@ -3,8 +3,8 @@ import {
   Image, Input, Label,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addTableBet } from '../../actions/TableBetActions';
 import moment from 'moment';
+import { addTableBet } from '../../actions/TableBetActions';
 
 const mapStateToProps = state => ({ bets: state.bets });
 
@@ -27,20 +27,9 @@ class BetSubmitRowComponent extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
-    let { bet, match } = this.state;
-    if (bet) {
-      match = bet.Match;
-    }
-    if (nextProps.bets.find(bet => bet.Match.Id === match.Id)) {
-      return true;
-    }
-    return false;
-  }
-
-
-  componentWillReceiveProps(nextProps, nextContext) {
-    let { bet, match } = this.state;
+  componentWillReceiveProps(nextProps) {
+    let { match } = this.state;
+    const { bet } = this.state;
     if (bet) {
       match = bet.Match;
     }
@@ -49,6 +38,15 @@ class BetSubmitRowComponent extends React.Component {
         bet: nextProps.bets.find(bet => bet.Match.Id === match.Id),
       });
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    let { match } = this.state;
+    const { bet } = this.state;
+    if (bet) {
+      match = bet.Match;
+    }
+    return !!nextProps.bets.find(bet => bet.Match.Id === match.Id);
   }
 
   createBet(event, match, inputName) {

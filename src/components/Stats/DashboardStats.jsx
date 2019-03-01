@@ -1,7 +1,7 @@
 import React from 'react';
-import {Doughnut} from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import {
-  Button
+  Button,
 } from 'semantic-ui-react';
 import GraphService from '../../service/GraphService';
 import StatsBuilderService from '../../service/StatsBuilderService';
@@ -27,9 +27,9 @@ class DashboardStats extends React.Component {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
-        let labels = ['Wrong', 'Ok', 'Perfect'];
-        let nbBets = Object.values(datas);
-        let colors = ['#DB2828', '#F2711C', '#21BA45'];
+        const labels = ['Wrong', 'Ok', 'Perfect'];
+        const nbBets = Object.values(datas);
+        const colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
@@ -47,9 +47,9 @@ class DashboardStats extends React.Component {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {
-        let labels = ['Coins used to bet', 'Bets earnings'];
-        let nbBets = Object.values(datas);
-        let colors = ['#3949ab', '#d81b60', '#ffa000'];
+        const labels = ['Coins used to bet', 'Bets earnings'];
+        const nbBets = Object.values(datas);
+        const colors = ['#3949ab', '#d81b60', '#ffa000'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
@@ -68,7 +68,7 @@ class DashboardStats extends React.Component {
     return (
       <div>
         <div className="doughnut-container-max-size">
-          <Doughnut data={{labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets}} legend={{position: 'bottom'}}/>
+          <Doughnut data={{ labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets }} legend={{ position: 'bottom' }} />
         </div>
         {/* @todo buttons to switch between 2 datasets ?? betsPerType and ??? */}
         <div className="ui two buttons">

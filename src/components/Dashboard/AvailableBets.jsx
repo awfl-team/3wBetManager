@@ -1,8 +1,8 @@
 import React from 'react';
 import { Icon, Label, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import BetService from "../../service/BetService";
-import moment from "moment";
+import moment from 'moment';
+import BetService from '../../service/BetService';
 
 class AvailableBets extends React.Component {
   state = {
@@ -11,7 +11,7 @@ class AvailableBets extends React.Component {
 
   componentDidMount() {
     BetService.getCurrentBetLimited().then((response) => {
-      this.setState({availableBets: response.data});
+      this.setState({ availableBets: response.data });
     });
   }
 
@@ -19,8 +19,8 @@ class AvailableBets extends React.Component {
     const { availableBets } = this.state;
     return (
       <List divided relaxed className="available-bets">
-        {availableBets.length > 0 &&
-          availableBets.map((availableBet, index) => (
+        {availableBets.length > 0
+          && availableBets.map((availableBet, index) => (
             <List.Item key={index}>
               <List.Content>
                 <List.Header>
@@ -28,29 +28,50 @@ class AvailableBets extends React.Component {
                   <div className="versus"><span> VS </span></div>
                   <div className="awayteam"><span>{availableBet.Match.AwayTeam.Name}</span></div>
                 </List.Header>
-                <List.Description><p>{availableBet.Match.Competition.Name} | {moment(availableBet.Match.UtcDate).format('MM-DD-YYYY')}</p></List.Description>
                 <List.Description>
-                  <Label>Bet : {availableBet.HomeTeamScore} - {availableBet.AwayTeamScore}</Label>
+                  <p>
+                    {availableBet.Match.Competition.Name}
+                    {' '}
+|
+                    {' '}
+                    {moment(availableBet.Match.UtcDate).format('MM-DD-YYYY')}
+                  </p>
+                </List.Description>
+                <List.Description>
+                  <Label>
+Bet :
+                    {availableBet.HomeTeamScore}
+                    {' '}
+-
+                    {availableBet.AwayTeamScore}
+                  </Label>
                 </List.Description>
               </List.Content>
             </List.Item>
           ))}
         {availableBets.length > 0
-        && <List.Item>
+        && (
+        <List.Item>
           <List.Content>
             <List.Header>
-              <Link to={`/bet/submitBets`} className="button ui icon"> Submit bets <Icon name="arrow right" />
+              <Link to="/bet/submitBets" className="button ui icon">
+                {' '}
+Submit bets
+                <Icon name="arrow right" />
               </Link>
             </List.Header>
           </List.Content>
         </List.Item>
+        )
         }
         {availableBets.length === 0
-        && <List.Item>
+        && (
+        <List.Item>
           <List.Content>
             <List.Header><h4>You have no available bets</h4></List.Header>
           </List.Content>
         </List.Item>
+        )
         }
       </List>
     );

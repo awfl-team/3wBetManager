@@ -1,17 +1,19 @@
 import React from 'react';
-import { Icon, Label, Rating, Table } from 'semantic-ui-react';
+import {
+  Icon, Label, Rating, Table,
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import UserService from "../../service/UserService";
+import UserService from '../../service/UserService';
 
 class UserAmongSiblingsTable extends React.Component {
   state = {
-    userAmongSiblings: []
+    userAmongSiblings: [],
   };
 
   componentDidMount() {
-    UserService.getCurrentUserAmongSiblings().then((response => {
-      this.setState({userAmongSiblings: response.data})
-    }))
+    UserService.getCurrentUserAmongSiblings().then(((response) => {
+      this.setState({ userAmongSiblings: response.data });
+    }));
   }
 
   render() {
@@ -48,28 +50,30 @@ class UserAmongSiblingsTable extends React.Component {
         <Table.Body>
           {userAmongSiblings.length > 0
             && userAmongSiblings.map((user, index) => (
-            <Table.Row key={index} textAlign="center" active={user.IsCurrent}>
-              <Table.Cell>UserName</Table.Cell>
-              <Table.Cell><Icon color="yellow" name="copyright" size="big" />
-                <label color="yellow">{user.Point}</label></Table.Cell>
-              <Table.Cell>
-                <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
-              </Table.Cell>
-              <Table.Cell>{user.NbBets}</Table.Cell>
-              <Table.Cell>{user.NbWrongBets}</Table.Cell>
-              <Table.Cell>{user.NbOkBets}</Table.Cell>
-              <Table.Cell>{user.NbPerfectBets}</Table.Cell>
-              <Table.Cell>
-                {!user.IsPrivate && !user.IsCurrent
+              <Table.Row key={index} textAlign="center" active={user.IsCurrent}>
+                <Table.Cell>UserName</Table.Cell>
+                <Table.Cell>
+                  <Icon color="yellow" name="copyright" size="big" />
+                  <label color="yellow">{user.Point}</label>
+                </Table.Cell>
+                <Table.Cell>
+                  <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
+                </Table.Cell>
+                <Table.Cell>{user.NbBets}</Table.Cell>
+                <Table.Cell>{user.NbWrongBets}</Table.Cell>
+                <Table.Cell>{user.NbOkBets}</Table.Cell>
+                <Table.Cell>{user.NbPerfectBets}</Table.Cell>
+                <Table.Cell>
+                  {!user.IsPrivate && !user.IsCurrent
                 && (
                   <Link to={`/user/${user.Id}`} className="button ui blue small icon">
                     <Icon name="eye" />
                   </Link>
                 )
                 }
-              </Table.Cell>
-            </Table.Row>
-          ))}
+                </Table.Cell>
+              </Table.Row>
+            ))}
 
         </Table.Body>
       </Table>

@@ -1,19 +1,35 @@
 import store from '../../store';
 import CronService from '../CronService';
-import { setCompetitionTask, setMatchTask, setTeamTask, setAllTask } from '../../actions/TaskManagerActions';
+import {
+  setCompetitionTask, setMatchTask, setTeamTask,
+} from '../../actions/TaskManagerActions';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
 
 export default class CronHelperService {
   static handleCompetitionTask() {
-    store.dispatch(setCompetitionTask({ isRunning: true, isCompleted: false, isFailed: false }));
+    store.dispatch(setCompetitionTask({
+      isRunning: true,
+      isCompleted: false,
+      isFailed: false,
+    }));
     CronService.updateCompetitions().then(
       () => {
-          store.dispatch(setCompetitionTask({ isRunning: false, isCompleted: true, isFailed: false }));
-          store.dispatch(addSnackBar('Competition fetch finished', 'success'));
-        },
+        store.dispatch(setCompetitionTask({
+          isRunning: false,
+          isCompleted: true,
+          isFailed: false,
+        }));
+        store.dispatch(addSnackBar('Competition fetch finished', 'success'));
+      },
     ).catch(
-      () => { store.dispatch(setCompetitionTask({ isRunning: false, isCompleted: false, isFailed: true })); },
+      () => {
+        store.dispatch(setCompetitionTask({
+          isRunning: false,
+          isCompleted: false,
+          isFailed: true,
+        }));
+      },
     );
   }
 
@@ -26,7 +42,13 @@ export default class CronHelperService {
         store.dispatch(addSnackBar('Match fetch finished', 'success'));
       },
     ).catch(
-      () => { store.dispatch(setMatchTask({ isRunning: false, isCompleted: false, isFailed: true })); },
+      () => {
+        store.dispatch(setMatchTask({
+          isRunning: false,
+          isCompleted: false,
+          isFailed: true,
+        }));
+      },
     );
   }
 
@@ -39,7 +61,13 @@ export default class CronHelperService {
         store.dispatch(addSnackBar('Team fetch finished', 'success'));
       },
     ).catch(
-      () => { store.dispatch(setTeamTask({ isRunning: false, isCompleted: false, isFailed: true })); },
+      () => {
+        store.dispatch(setTeamTask({
+          isRunning: false,
+          isCompleted: false,
+          isFailed: true,
+        }));
+      },
     );
   }
 }

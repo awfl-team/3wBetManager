@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Container,
 } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import BetService from '../../service/BetService';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 
@@ -21,7 +20,7 @@ class BetSubmitBlockComponent extends React.Component {
         bets: response.data.Bets,
         matches: response.data.Matches,
       });
-      this.setState({  });
+      this.setState({ });
     });
   }
 
@@ -30,11 +29,11 @@ class BetSubmitBlockComponent extends React.Component {
     return (
       <div id="betRowsResults">
         <Container fluid>
-          {bets.map((bet, key) => (
-            <BetSubmitRowComponent key={key} bet={bet} />
+          {bets.map(bet => (
+            <BetSubmitRowComponent key={bet.Id} bet={bet} />
           ))}
-          {matches.map((match, key) => (
-            <BetSubmitRowComponent key={key} match={match} />
+          {matches.map(match => (
+            <BetSubmitRowComponent key={match.Id} match={match} />
           ))}
         </Container>
 
