@@ -1,5 +1,5 @@
 import * as jwtdecode from 'jwt-decode';
-// TODO create async method
+
 export default class AuthService {
   static getUserInfo(token) {
     return jwtdecode(token);

@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import CompetitionService from '../../service/CompetionService';
-import { addTableBet, purgeTableBet, setTableBet } from '../../actions/TableBetActions';
+import { purgeTableBet, setTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import BetSubmitBlockComponent from './BetSubmitBlockComponent';
@@ -18,7 +18,6 @@ function mapDispatchToProps(dispatch) {
     setTableBet: bets => dispatch(setTableBet(bets)),
   };
 }
-// TODO Add Loader
 class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
@@ -79,8 +78,10 @@ class BetSubmitLayout extends React.Component {
             competition.NbBet = res.data.NbBet;
             competition.NbMatch = res.data.NbMatch;
             competitionsWithNbBetAndNbMatch.push(competition);
-            // TODO use await when the function will async
-            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
+            this.setState({
+              competitionWithBets:
+                  this.state.competitionsWithBets.push(competition),
+            });
             this.setState({ loading: false });
           }
         });

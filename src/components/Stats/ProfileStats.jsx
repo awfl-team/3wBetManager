@@ -15,7 +15,6 @@ class ProfileStats extends React.Component {
   };
 
   // @todo Refactor stats of consultProfile and profile as a component
-  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
 
   componentDidMount() {
     GraphService.getBetsByTypeData().then((response) => {
@@ -46,7 +45,6 @@ class ProfileStats extends React.Component {
       this.setState({ dataSetCoins: { datasets: dataBuild.datasets, labels: dataBuild.labels } });
     });
 
-    // @todo finish graph stats backend
   }
 
   componentWillReceiveProps(props) {

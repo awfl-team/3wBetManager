@@ -8,7 +8,6 @@ export default function withAuth(Component) {
       componentDidMount() {
         const token = AuthService.getToken();
         if (!token) {
-        // @todo addSnackBar
           this.props.history.push('/404');
         } else {
           try {
@@ -19,7 +18,6 @@ export default function withAuth(Component) {
               this.props.history.push('/404');
             }
           } catch (err) {
-          // @todo addSnackBar
             this.props.history.push('/404');
           }
         }

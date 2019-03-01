@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-  Accordion, Container, Header, Icon, Label,
+  Accordion, Container, Header, Icon, Label, Loader,
 } from 'semantic-ui-react';
 import CompetitionService from '../../service/CompetionService';
 import BetRowResult from './BetRowResult';
 import withAuth from '../AuthGuard/AuthGuard';
 import BetService from '../../service/BetService';
 
-// TODO Add Loader
 class BetLayoutResult extends React.Component {
   state = {
     activeIndex: 0,
     competitions: [],
+    loading: true,
   };
 
   componentDidMount() {
@@ -22,11 +22,11 @@ class BetLayoutResult extends React.Component {
           if (res.data.NbBet !== undefined) {
             competition.NbBet = res.data.NbBets;
             competitionsWithNbBet.push(competition);
-            // TODO use await when the function will async
             this.setState({ competitions: competitionsWithNbBet });
           }
         });
       });
+      this.setState({ loading: false });
     });
   }
 
@@ -39,7 +39,7 @@ class BetLayoutResult extends React.Component {
   };
 
   render() {
-    const { activeIndex, competitions } = this.state;
+    const { activeIndex, competitions, loading } = this.state;
 
     return (
       <div id="betCup">
@@ -48,11 +48,12 @@ class BetLayoutResult extends React.Component {
           <Header.Content>Results</Header.Content>
         </Header>
         <Container fluid>
-          { competitions.length === 0
+          { competitions.length === 0 && loading === false
           && <h2>No records</h2>
           }
-          { competitions.length > 0
-            && <Accordion fluid styled>
+          { competitions.length > 0 && loading === false
+            && (
+            <Accordion fluid styled>
               {competitions.map((competition, index) => (
                 <div key={competition.Id}>
                   <Accordion.Title
@@ -74,6 +75,10 @@ class BetLayoutResult extends React.Component {
                 </div>
               ))}
             </Accordion>
+            )
+          }
+          {loading === true
+            && <Loader id="betLoader" size="huge" active inline="centered" />
           }
         </Container>
       </div>
