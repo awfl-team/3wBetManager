@@ -34,7 +34,8 @@ class DashboardStats extends React.Component {
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({datasetPieGraph: dataBuild,
+      this.setState({
+        datasetPieGraph: dataBuild,
         isDatasetBetsActive: true,
         isDatasetCoinsActive: false,
       });
@@ -53,7 +54,8 @@ class DashboardStats extends React.Component {
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({datasetPieGraph: dataBuild,
+      this.setState({
+        datasetPieGraph: dataBuild,
         isDatasetBetsActive: false,
         isDatasetCoinsActive: true,
       });
