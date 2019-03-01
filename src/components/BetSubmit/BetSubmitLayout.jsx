@@ -1,23 +1,15 @@
 import React from 'react';
 import {
-  Accordion, Button, Container, Header, Icon, Label, Loader, Modal,
+  Accordion, Container, Header, Icon, Label, Loader,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import CompetitionService from '../../service/CompetionService';
-import { addTableBet, purgeTableBet, setTableBet } from '../../actions/TableBetActions';
 import BetService from '../../service/BetService';
-import { addSnackBar } from '../../actions/SnackBarActions';
 import BetSubmitBlockComponent from './BetSubmitBlockComponent';
+import BetSubmitButton from './BetSubmitButton';
 
 const mapStateToProps = state => ({ bets: state.bets });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    purgeTableBet: () => dispatch(purgeTableBet()),
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-    setTableBet: bets => dispatch(setTableBet(bets)),
-  };
-}
 // TODO Add Loader
 class BetSubmitLayout extends React.Component {
   state = {
@@ -33,41 +25,12 @@ class BetSubmitLayout extends React.Component {
     this.init();
   }
 
-  handleOpen = () => {
-    this.setState({ modalOpen: true });
-  };
-
-  handleClose = () => this.setState({ modalOpen: false });
-
   handleClick = (e, titleProps) => {
     const { index } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
 
     this.setState({ activeIndex: newIndex });
-  };
-
-  handleSubmit = () => {
-    const { bets } = this.props;
-    BetService.AddOrUpdateBet(bets.filter(bet => bet.alreadyUpdated === false))
-      .then((responses) => {
-        console.log(responses);
-        this.props.addSnackbar({
-          message: 'Successfully added bets !',
-          type: 'success',
-        });
-        this.props.purgeTableBet();
-        const updatedBets = [];
-        responses.forEach((res) => {
-          res.data.forEach((bet) => {
-            bet.alreadyUpdated = true;
-            updatedBets.push(bet);
-          });
-        });
-        this.props.setTableBet(updatedBets);
-        this.init();
-        this.handleClose();
-      });
   };
 
   init() {
@@ -92,10 +55,9 @@ class BetSubmitLayout extends React.Component {
 
   render() {
     const {
-      activeIndex, modalOpen, competitionsWithBets, loading,
+      activeIndex, competitionsWithBets, loading,
     } = this.state;
     const { bets } = this.props;
-    const isDisabled = (this.props.bets.filter(bet => bet.alreadyUpdated === false).length > 0);
     return (
       <div id="betCup">
         <Header as="h1" icon textAlign="center">
@@ -119,11 +81,15 @@ class BetSubmitLayout extends React.Component {
                       <Label attached="top right">
                         <span>
                           <Icon name="ticket" />
-                          {competition.NbBet}
+                          { competition.NbBet
+                            + bets.filter(bet => bet.Match.Competition.Id === competition.Id
+                                && bet.alreadyUpdated === true).length}
                         </span>
                         <span>
                           <Icon name="soccer" />
-                          {competition.NbMatch}
+                          {competition.NbMatch
+                          - bets.filter(bet => bet.Match.Competition.Id === competition.Id
+                              && bet.alreadyUpdated === true).length}
                         </span>
                       </Label>
                     </Accordion.Title>
@@ -151,57 +117,11 @@ class BetSubmitLayout extends React.Component {
             )
             : <Loader id="betLoader" size="huge" active inline="centered" />
           }
-        <Container fluid className="submit-bets-action">
-          <Modal
-            trigger={(
-              <Button
-                onClick={this.handleOpen}
-                type="submit"
-                className="submit-bets-action-button"
-                disabled={!isDisabled}
-                color="green"
-              >
-                Submit
-              </Button>
-            )}
-            open={modalOpen}
-            onClose={this.handleClose}
-            basic
-            size="small"
-          >
-            <Header
-              icon="exclamation triangle"
-              content="Are you sure ?"
-              as="h1"
-              textAlign="center"
-            />
-            <Modal.Content>
-              <h3>
-                  If you add or update
-                {bets.filter(bet => bet.alreadyUpdated === false).length > 1 ? ' those ' : ' this '}
-                  bets, it will cost you
-                {' '}
-                {bets.filter(bet => bet.alreadyUpdated === false).length * 10}
-                {' '}
-                <Icon color="yellow" name="copyright" />
-              </h3>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button color="red" onClick={this.handleClose} inverted>
-                <Icon name="remove" />
-                  No
-              </Button>
-              <Button color="green" onClick={this.handleSubmit} inverted>
-                <Icon name="checkmark" />
-                  Yes
-              </Button>
-            </Modal.Actions>
-          </Modal>
-        </Container>
+        <BetSubmitButton />
       </div>
     );
   }
 }
 
-const BetSubmit = connect(mapStateToProps, mapDispatchToProps)(BetSubmitLayout);
+const BetSubmit = connect(mapStateToProps)(BetSubmitLayout);
 export default BetSubmit;
