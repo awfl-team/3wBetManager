@@ -34,11 +34,13 @@ class Profile extends React.Component {
   componentDidMount() {
     UserService.getFromToken()
       .then((response) => {
-        this.setState({ user: response.data });
-        this.setState({ isPrivate: response.data.IsPrivate });
-        this.setState({ canReset: response.data.Life !== 0 });
-        this.setState({ userLives: response.data.Life });
-        this.setState({ userPoints: response.data.Point });
+        this.setState({
+          user: response.data,
+          isPrivate: response.data.IsPrivate,
+          canReset: response.data.Life !== 0,
+          userLives: response.data.Life,
+          userPoints: response.data.Point,
+        });
       });
   }
 
@@ -61,11 +63,13 @@ class Profile extends React.Component {
         this.setState({ modalResetOpen: false });
         UserService.getUserById(this.state.user.Id)
           .then((response) => {
-            this.setState({ user: response.data });
-            this.setState({ isPrivate: response.data.IsPrivate });
-            this.setState({ canReset: response.data.Life !== 0 });
-            this.setState({ userLives: response.data.Life });
-            this.setState({ userPoints: response.data.Point });
+            this.setState({
+              user: response.data,
+              isPrivate: response.data.IsPrivate,
+              canReset: response.data.Life !== 0,
+              userLives: response.data.Life,
+              userPoints: response.data.Point,
+            });
           });
         this.props.addSnackbar({
           message: 'Reset successfull',

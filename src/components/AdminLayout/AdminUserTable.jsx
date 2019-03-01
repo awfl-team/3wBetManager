@@ -32,35 +32,6 @@ class AdminUserTable extends React.Component {
     showPagination: true,
   };
 
-  handleClick(user) {
-    UserService.getUserById(user.Id).then((resp) => {
-      const userToUpdate = resp.data
-      const userAfterUpdate = new User();
-      userAfterUpdate.Id = user.Id;
-      if (userToUpdate.Role === 'ADMIN') {
-        userAfterUpdate.Role = 'USER';
-      } else {
-        userAfterUpdate.Role = 'ADMIN';
-      }
-      UserService.updateRoleUser(userAfterUpdate).then((resp) => {
-        this.props.addSnackbar({
-          message: `${userToUpdate.Username}'s role updated`,
-          type: 'success',
-        });
-      });
-    });
-  };
-
-  handleDelete(user, index) {
-    UserService.deleteUser(user).then(() => {
-      this.props.addSnackbar({
-        message: `${user.Username}'s account deleted`,
-        type: 'success',
-      });
-      document.getElementById(index).remove();
-    });
-  }
-
   componentDidMount() {
     UserService.getAllUsersPaginated()
       .then((response) => {
@@ -90,6 +61,35 @@ class AdminUserTable extends React.Component {
           });
         });
     }
+  }
+
+  handleClick(user) {
+    UserService.getUserById(user.Id).then((resp) => {
+      const userToUpdate = resp.data
+      const userAfterUpdate = new User();
+      userAfterUpdate.Id = user.Id;
+      if (userToUpdate.Role === 'ADMIN') {
+        userAfterUpdate.Role = 'USER';
+      } else {
+        userAfterUpdate.Role = 'ADMIN';
+      }
+      UserService.updateRoleUser(userAfterUpdate).then((resp) => {
+        this.props.addSnackbar({
+          message: `${userToUpdate.Username}'s role updated`,
+          type: 'success',
+        });
+      });
+    });
+  };
+
+  handleDelete(user, index) {
+    UserService.deleteUser(user).then(() => {
+      this.props.addSnackbar({
+        message: `${user.Username}'s account deleted`,
+        type: 'success',
+      });
+      document.getElementById(index).remove();
+    });
   }
 
   clearSearch() {

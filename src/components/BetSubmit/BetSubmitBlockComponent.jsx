@@ -17,8 +17,11 @@ class BetSubmitBlockComponent extends React.Component {
 
   componentDidMount() {
     BetService.getCurrentBetAndMatches(this.props.competitionId).then((response) => {
-      this.setState({ bets: response.data.Bets });
-      this.setState({ matches: response.data.Matches });
+      this.setState({
+        bets: response.data.Bets,
+        matches: response.data.Matches,
+      });
+      this.setState({  });
     });
   }
 

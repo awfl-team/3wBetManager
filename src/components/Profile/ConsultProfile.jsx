@@ -46,22 +46,24 @@ class ConsultProfile extends React.Component {
               's profile is private
             </Header.Content>
           </Header>
-          )
-          }
+          )}
         <Container textAlign="center" className="container-centered">
-          <div className="profile-lives">
-            <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="massive" />
+          {user.IsPrivate === false
+          &&
+          <div>
+            <div className="profile-lives">
+              <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="massive"/>
+            </div>
+            <div className="profile-coins">
+              <Icon color="yellow" name="copyright" size="big"/>
+              <label>{user.Point}</label>
+            </div>
           </div>
-          <div className="profile-coins">
-            <Icon color="yellow" name="copyright" size="big" />
-            <label>{user.Point}</label>
-          </div>
-          { user.IsPrivate === false
-              && <ConsultProfileStats user={user} />
-            }
+          }
+          <ConsultProfileStats user={user} />
           { user.IsPrivate === true
             && <h2>You are only able to see his lives, coins and username</h2>
-            }
+          }
         </Container>
       </div>
     );
