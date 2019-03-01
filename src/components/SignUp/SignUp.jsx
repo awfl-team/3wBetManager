@@ -21,34 +21,40 @@ class SignUpComponent extends React.Component {
     username: '',
     password: '',
     confirmPassword: '',
-    message: '',
     toDashboard: false,
     className: {},
   };
 
-  componentDidMount() {
-    this.initClassName();
-  }
-
   handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
-    this.initClassName();
-    console.log(this.state.className);
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('mail', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, email: refreshedClassName.email });
   };
 
   handleUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
-    this.initClassName();
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('username', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, username: refreshedClassName.username });
   };
 
   handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
-    this.initClassName();
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('password', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, password: refreshedClassName.password });
   };
 
   handlePasswordConfirmationChange = (event) => {
-    this.setState({ confirmPassword: event.target.value });
-    this.initClassName();
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('confirmPassword', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, confirmPassword: refreshedClassName.confirmPassword });
   };
 
   handleSubmit(event) {
@@ -68,19 +74,9 @@ class SignUpComponent extends React.Component {
     }
   }
 
-  initClassName() {
-    const classnames = FormUserService.getClassNames(
-      this.state.email,
-      this.state.username,
-      this.state.password,
-      this.state.confirmPassword,
-    );
-    this.setState({ className: classnames });
-  }
-
   render() {
     const {
-      confirmPassword, password, toDashboard, email, username, className
+      confirmPassword, password, toDashboard, email, username, className,
     } = this.state;
 
     if (toDashboard) {

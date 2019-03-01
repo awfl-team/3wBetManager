@@ -1,11 +1,9 @@
 import * as React from 'react';
-import classNames from 'classnames/bind';
 import {
   Button, Container, Header, Icon,
 } from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
-import VerifyService from '../../service/VerifyService';
 import AuthService from '../../service/AuthService';
 import FormUserService from '../../service/FormUserService';
 
@@ -26,42 +24,43 @@ class UpdateProfile extends React.Component {
         this.setState({ user: response.data });
         this.setState({ username: response.data.Username });
         this.setState({ email: response.data.Email });
-        this.initClassName();
-      })
-      .catch((error) => {
-        this.setState({ message: error.response.data });
       });
   }
 
   handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
-    this.initClassName();
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('mail', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, email: refreshedClassName.email });
   };
 
   handleUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
-    this.initClassName();
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('username', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, username: refreshedClassName.username });
   };
 
   handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
-    this.initClassName();
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('password', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, password: refreshedClassName.password });
   };
 
   handlePasswordConfirmationChange = (event) => {
-    this.setState({ confirmPassword: event.target.value });
-    this.initClassName();
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('confirmPassword', event.target.value, email, username, password, confirmPassword);
+    this.setState({
+      className: refreshedClassName.className,
+      confirmPassword: refreshedClassName.confirmPassword,
+    });
   };
-
-  initClassName() {
-    const classnames = FormUserService.getClassNames(
-      this.state.email,
-      this.state.username,
-      this.state.password,
-      this.state.confirmPassword,
-    );
-    this.setState({ className: classnames });
-  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -81,7 +80,7 @@ class UpdateProfile extends React.Component {
 
   render() {
     const {
-      confirmPassword, password, user, email, username, className
+      confirmPassword, password, user, email, username, className,
     } = this.state;
 
     return (

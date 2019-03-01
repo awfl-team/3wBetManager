@@ -4,7 +4,7 @@ import VerifyService from './VerifyService';
 export default class FormUserService {
   static getClassNames(email, username, password, confirmPassword) {
     const className = {};
-    className.IsEmailOk = VerifyService.isEmailOk(email);
+    className.IsEmailGood = VerifyService.isEmailOk(email);
     className.isUsernameOk = VerifyService.isUsernameOk(username);
     className.isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
     className.isPasswordNumberCharOk = VerifyService.isPasswordNumberChars(password);
@@ -12,15 +12,16 @@ export default class FormUserService {
     className.isPasswordUppercase = VerifyService.isPasswordUppercase(password);
     className.isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
 
-    className.isEnabled = (className.isEmailOk && className.isUsernameOk && className.isPasswordNumberCharOk && className.isPasswordWithNumber
+    className.isEnabled = (className.IsEmailGood && className.isUsernameOk && className.isPasswordNumberCharOk && className.isPasswordWithNumber
         && className.isPasswordSpecialChar && className.isPasswordUppercase && className.isPasswordIdentical);
+
     className.formFieldUsernameOk = classNames({
       'validate-form-info': className.isUsernameOk,
       'error-form-info': !className.isUsernameOk,
     });
     className.formFieldEmailOk = classNames({
-      'validate-form-info': className.isEmailOk,
-      'error-form-info': !className.isEmailOk,
+      'validate-form-info': className.IsEmailGood,
+      'error-form-info': !className.IsEmailGood,
     });
     className.formFieldIdentical = classNames({
       'validate-form-info': className.isPasswordIdentical,
@@ -49,5 +50,28 @@ export default class FormUserService {
       || !className.isPasswordSpecialChar || !className.isPasswordWithNumber,
     });
     return className;
+  }
+
+  static refreshClassName(currentTypeHandle,
+    currentHandle, currentMail, currentUsername,
+    currentPassword, currentConfirmPassword) {
+    const classnames = FormUserService.getClassNames(
+      currentTypeHandle === 'mail' ? currentHandle : currentMail,
+      currentTypeHandle === 'username' ? currentHandle : currentUsername,
+      currentTypeHandle === 'password' ? currentHandle : currentPassword,
+      currentTypeHandle === 'confirmPassword' ? currentHandle : currentConfirmPassword,
+    );
+    if (currentTypeHandle === 'password') {
+      return { className: classnames, password: currentHandle };
+    }
+    if (currentTypeHandle === 'username') {
+      return { className: classnames, username: currentHandle };
+    }
+    if (currentTypeHandle === 'confirmPassword') {
+      return { className: classnames, confirmPassword: currentHandle };
+    }
+    if (currentTypeHandle === 'mail') {
+      return { className: classnames, email: currentHandle };
+    }
   }
 }
