@@ -43,7 +43,7 @@ class UserLayout extends React.Component {
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
             <Help />
-            <Menu.Item as={NavLink} to="/profile" className={this.props.history.location.pathname === '/update-profile' ? 'active' : '' }>
+            <Menu.Item as={NavLink} to="/profile" className={this.props.history.location.pathname === '/update-profile' ? 'active' : ''}>
               My profile
             </Menu.Item>
             <Menu.Item as="a" onClick={() => this.logout()}>
@@ -57,9 +57,12 @@ class UserLayout extends React.Component {
               <Icon name="dashboard" />
               Dashboard
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active"
-                       className={this.props.history.location.pathname === '/bet/submitBets' ? 'active' : '' }
-                       to="/bet/myBets">
+            <Menu.Item
+              as={NavLink}
+              activeClassName="active"
+              className={this.props.history.location.pathname === '/bet/submitBets' ? 'active' : ''}
+              to="/bet/myBets"
+            >
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
@@ -68,12 +71,18 @@ class UserLayout extends React.Component {
               Top 50
             </Menu.Item>
             { this.props.user.role === 'ADMIN'
-              && <Menu.Item as={NavLink} activeClassName="active"
-                            className={this.props.history.location.pathname === '/admin/tasks' || this.props.history.location.pathname === '/admin/addUser' ? 'active' : '' }
-                            to="/admin/users">
-                    <Icon name="angular" />
+              && (
+              <Menu.Item
+                as={NavLink}
+                activeClassName="active"
+                className={this.props.history.location.pathname === '/admin/tasks'
+                || this.props.history.location.pathname === '/admin/addUser' ? 'active' : ''}
+                to="/admin/users"
+              >
+                <Icon name="angular" />
                     Admin
-                 </Menu.Item>
+              </Menu.Item>
+              )
             }
 
           </Sidebar>
