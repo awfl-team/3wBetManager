@@ -22,7 +22,6 @@ class BetLayoutResult extends React.Component {
           if (res.data.NbBet !== undefined) {
             competition.NbBet = res.data.NbBets;
             competitionsWithNbBet.push(competition);
-            // TODO use await when the function will async
             this.setState({ competitions: competitionsWithNbBet });
           }
         });
