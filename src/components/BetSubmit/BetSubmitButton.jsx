@@ -21,7 +21,6 @@ function mapDispatchToProps(dispatch) {
 class BetSubmitButtonComponent extends React.Component {
   state = {
     modalOpen: false,
-    loading: true,
   };
 
   handleOpen = () => {
@@ -40,7 +39,7 @@ class BetSubmitButtonComponent extends React.Component {
           type: 'success',
         });
         const updatedBets = [];
-        // set POSTed bets into reducer
+        // retrieve new bets from POST response
         responses.forEach((res) => {
           if (Array.isArray(res.data)) {
             res.data.forEach((bet) => {

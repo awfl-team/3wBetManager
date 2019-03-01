@@ -14,15 +14,32 @@ const mapStateToProps = state => ({ bets: state.bets });
 class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
-    competitions: [],
     competitionsWithBets: [],
-    modalOpen: false,
     loading: true,
   };
 
 
   componentDidMount() {
-    this.init();
+    const competitionsWithBets = [];
+    CompetitionService.getAllCompetions().then((response) => {
+      const competitions = response.data;
+      const promises = competitions
+        .map(competition => BetService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id));
+      Promise.all(promises).then((responses) => {
+        responses.forEach((res, index) => {
+          if (res.data.NbBet !== undefined) {
+            competitions[index].NbBet = res.data.NbBet;
+            competitions[index].NbMatch = res.data.NbMatch;
+            // TODO use await when the function will async
+            competitionsWithBets.push(competitions[index]);
+          }
+        });
+        this.setState({
+          competitionsWithBets,
+          loading: false,
+        });
+      });
+    });
   }
 
   handleClick = (e, titleProps) => {
@@ -32,25 +49,6 @@ class BetSubmitLayout extends React.Component {
 
     this.setState({ activeIndex: newIndex });
   };
-
-  init() {
-    const competitionsWithNbBetAndNbMatch = [];
-    CompetitionService.getAllCompetions().then((response) => {
-      this.setState({ competitions: response.data });
-      this.state.competitions.forEach((competition) => {
-        BetService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id).then((res) => {
-          if (res.data.NbBet !== undefined) {
-            competition.NbBet = res.data.NbBet;
-            competition.NbMatch = res.data.NbMatch;
-            competitionsWithNbBetAndNbMatch.push(competition);
-            // TODO use await when the function will async
-            this.setState({ competitionWithBets: this.state.competitionsWithBets.push(competition) });
-            this.setState({ loading: false });
-          }
-        });
-      });
-    });
-  }
 
 
   render() {
