@@ -12,6 +12,8 @@ import BestBettersLayout from '../BestBetters/BestBettersLayout';
 import ConsultProfile from '../Profile/ConsultProfile';
 import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
+import AdminLayout from '../AdminLayout/AdminLayout';
+import Help from '../Help/Help';
 
 class UserLayout extends React.Component {
   state = {
@@ -40,7 +42,8 @@ class UserLayout extends React.Component {
         <Menu inverted>
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
-            <Menu.Item as={NavLink} to="/profile">
+            <Help />
+            <Menu.Item as={NavLink} to="/profile" className={this.props.history.location.pathname === '/update-profile' ? 'active' : '' }>
               My profile
             </Menu.Item>
             <Menu.Item as="a" onClick={() => this.logout()}>
@@ -51,21 +54,28 @@ class UserLayout extends React.Component {
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation="push" visible={visible} icon="labeled" inverted vertical width="thin">
             <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
-              <Icon name="home" />
-              Home
+              <Icon name="dashboard" />
+              Dashboard
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/bet/myBets">
+            <Menu.Item as={NavLink} activeClassName="active"
+                       className={this.props.history.location.pathname === '/bet/submitBets' ? 'active' : '' }
+                       to="/bet/myBets">
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
             <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters">
-              <Icon name="star" />
-              Best betters
+              <Icon name="fire" />
+              Top 50
             </Menu.Item>
-            <Menu.Item as="a">
-              <Icon name="camera" />
-              Channels
-            </Menu.Item>
+            { this.props.user.role === 'ADMIN'
+              && <Menu.Item as={NavLink} activeClassName="active"
+                            className={this.props.history.location.pathname === '/admin/tasks' || this.props.history.location.pathname === '/admin/addUser' ? 'active' : '' }
+                            to="/admin/users">
+                    <Icon name="angular" />
+                    Admin
+                 </Menu.Item>
+            }
+
           </Sidebar>
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
@@ -74,10 +84,10 @@ class UserLayout extends React.Component {
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/update-profile" component={UpdateProfile} />
-              <Route path="/mybets" component={BetLayout} />
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
               <Route path="/bet" component={BetLayout} />
+              <Route path="/admin" component={AdminLayout} />
               <PageScroller />
             </Segment>
           </Sidebar.Pusher>

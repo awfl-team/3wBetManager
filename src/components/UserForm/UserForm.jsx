@@ -1,10 +1,13 @@
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import UserService from '../../service/UserService';
+import * as React from 'react';
+import classNames from 'classnames/bind';
+import {
+  Button, Container, Header, Icon, Radio,
+} from 'semantic-ui-react';
+import connect from 'react-redux/es/connect/connect';
 import User from '../../model/User';
-import AuthService from '../../service/AuthService';
-import VerifyService from '../../service/VerifyService';
+import UserService from '../../service/UserService';
+import FormUserService from '../../service/FormUserService';
+import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
 function mapDispatchToProps(dispatch) {
@@ -13,166 +16,206 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class UserFormComponent extends React.Component {
+class UserForm extends React.Component {
   state = {
     email: '',
     username: '',
     password: '',
+    checked: false,
     confirmPassword: '',
-    message: '',
-    toDashboard: false,
+    className: {},
   };
 
   handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('mail', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, email: refreshedClassName.email });
   };
 
   handleUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('username', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, username: refreshedClassName.username });
   };
 
   handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('password', event.target.value, email, username, password, confirmPassword);
+    this.setState({ className: refreshedClassName.className, password: refreshedClassName.password });
   };
 
   handlePasswordConfirmationChange = (event) => {
-    this.setState({ confirmPassword: event.target.value });
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
+    const refreshedClassName = FormUserService.refreshClassName('confirmPassword', event.target.value, email, username, password, confirmPassword);
+    this.setState({
+      className: refreshedClassName.className,
+      confirmPassword: refreshedClassName.confirmPassword,
+    });
+  };
+
+  handleRoleChange = () => {
+    this.setState({ checked: !this.state.checked });
   };
 
   handleSubmit(event) {
     event.preventDefault();
-    const user = new User(event.target.email.value,
+    const user = new User(
+      event.target.email.value,
       event.target.username.value,
-      event.target.password.value);
+      event.target.password.value,
+      event.target.password.value,
+    );
+    if (this.state.checked === true) {
+      user.Role = 'ADMIN';
+    } else {
+      user.Role = 'USER';
+    }
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.signUp(user)
-        .then(() => {
-          UserService.login(user.Email, user.Password)
-            .then((response) => {
-              AuthService.setTokenInLocalStorage(response);
-              this.setState({ toDashboard: true });
-            });
+      UserService.addUserAdmin(user).then(() => {
+        this.props.addSnackbar({
+          message: `${user.Username}'s account created`,
+          type: 'success',
         });
+      });
     }
   }
 
   render() {
     const {
-      confirmPassword, password, message, toDashboard, email, username,
+      confirmPassword, password, email, username, checked, className,
     } = this.state;
 
-    if (toDashboard) {
-      return <Redirect to="/dashboard" />;
-    }
-
-    const isPasswordOk = VerifyService.isPasswordOk(password, confirmPassword);
-    const isEmailOk = VerifyService.isEmailOk(email);
-    const isUsernameOk = VerifyService.isUsernameOk(username);
-    const isEnabled = (isPasswordOk && isEmailOk && isUsernameOk);
-
     return (
-      <div className="register-page">
-        <div className="ui middle aligned center aligned fullpage">
-          <div className="column">
-            <h2 className="ui teal authentication-header">
-              <div className="content">
-                  Create a new account
+      <div id="userForm">
+        <Header as="h1" icon textAlign="center">
+          <Icon name="user plus" circular />
+          <Header.Content>Create a user</Header.Content>
+        </Header>
+        <Container textAlign="center" className="container-centered">
+          <form className="ui form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
+            <div className="ui stacked">
+              <div className="field">
+                <div className="ui left icon input">
+                  <Icon name="mail" />
+                  <input
+                    type="text"
+                    name="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={this.handleEmailChange.bind(this)}
+                  />
+                </div>
               </div>
-            </h2>
-            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)}>
-              <div className="ui stacked">
-                <div className="field">
-                  <div className="ui left icon input">
-                    <i className="user icon" />
-                    <input
-                      type="text"
-                      name="email"
-                      placeholder="E-mail"
-                      value={email}
-                      onChange={this.handleEmailChange.bind(this)}
-                      className={isEmailOk ? 'okInput' : `${email}` !== ''
-                          && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
-                    />
-                  </div>
-                  { !isEmailOk && email
-                  && <p className="field-info">This field require a valid email</p>
-                  }
+              <div className="field">
+                <div className="ui left icon input">
+                  <Icon name="user" />
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={username}
+                    onChange={this.handleUsernameChange.bind(this)}
+                  />
                 </div>
-                <div className="field">
-                  <div className="ui left icon input">
-                    <i className="user icon" />
-                    <input
-                      type="text"
-                      name="username"
-                      placeholder="Nom d'utilisateur"
-                      value={username}
-                      onChange={this.handleUsernameChange.bind(this)}
-                      className={isUsernameOk ? 'okInput' : `${username}` !== ''
-                          && !isUsernameOk ? 'errorInput' : ''}
-                    />
-                  </div>
-                  { !isUsernameOk && username
-                  && <p className="field-info">This field require a least 6 characters</p>
-                  }
-                </div>
-                <div className="field">
-                  <div className="ui left icon input">
-                    <i className="lock icon" />
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={this.handlePasswordChange.bind(this)}
-                      className={password.length !== 0 && password.length < 6
-                          || password !== confirmPassword ? 'errorInput' : `${password.length}` > 6
-                          && password === confirmPassword ? 'okInput' : ''}
-                    />
-                  </div>
-                  { !isPasswordOk && password
-                    && <p className="field-info">This field require a least 6 characters and must be identical with the confirmation field</p>
-                  }
-                </div>
-                <div className="field">
-                  <div className="ui left icon input">
-                    <i className="lock icon" />
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="Confirm Password"
-                      value={confirmPassword}
-                      onChange={this.handlePasswordConfirmationChange.bind(this)}
-                      className={confirmPassword.length !== 0 && confirmPassword.length < 6
-                          || password !== confirmPassword ? 'errorInput' : `${confirmPassword.length}` > 6
-                          && password === confirmPassword ? 'okInput' : ''}
-                    />
-                  </div>
-                  { !isPasswordOk && confirmPassword
-                    && <p className="field-info">This field require a least 6 characters and must be identical with the password field</p>
-                  }
-                </div>
-                <button
-                  type="submit"
-                  className="ui fluid large teal submit button main-button"
-                  disabled={!isEnabled}
-                >
-                        Sign Up
-                </button>
-
               </div>
-              <div className="ui error message" />
-            </form>
-            <div className="ui message">
-                Already have an account ? &nbsp;
-              <Link to="/login">Log In</Link>
+              <div className="field">
+                <div className="ui left icon input">
+                  <Icon name="lock" />
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={this.handlePasswordChange.bind(this)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="ui left icon input">
+                  <Icon name="lock" />
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={this.handlePasswordConfirmationChange.bind(this)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="ui left input">
+                  <Radio
+                    toggle
+                    defaultChecked={checked}
+                    onChange={this.handleRoleChange.bind(this)}
+                  />
+                  <p>&nbsp;&nbsp;Admin Role</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+            <div className="form-info validation">
+              <p className={className.formFieldEmailOk}>
+                <i className="info circle icon" />
+                {' '}
+                The email must respect a valid email format
+              </p>
+              <p className={className.formFieldUsernameOk}>
+                <i className="info circle icon" />
+                {' '}
+                The username requires at least 3 characters
+              </p>
+              <p className={className.formFieldIdentical}>
+                <i className="info circle icon" />
+                {' '}
+                The password must be identical with the
+                password field
+              </p>
+              <p className={className.formFieldNumber}>
+                <i className="info circle icon" />
+                {' '}
+                The password requires at least 12 characters
+              </p>
+              <p className={className.formMultipleInfos}>
+                <i className="info circle icon" />
+                {' '}
+                The password requires a
+                <span
+                  className={className.formdFieldUppercase}
+                >
+                    uppercase
+                </span>
+                , a
+                <span
+                  className={className.formFieldSpecial}
+                >
+                  {' '}
+                  special character
+                </span>
+                {' '}
+                and
+                <span
+                  className={className.formFieldWithNumber}
+                >
+a number
+                </span>
+              </p>
+            </div>
+            <Container className="container-actions">
+              <Button type="submit" circular color="green" size="huge" disabled={!className.isEnabled}>Submit </Button>
+            </Container>
+          </form>
+        </Container>
       </div>
     );
   }
 }
-
-const UserForm = connect(null, mapDispatchToProps)(UserFormComponent);
-
-export default UserForm;
+const AdminUserForm = connect(null, mapDispatchToProps)(UserForm);
+export default withAuthAdmin(AdminUserForm);

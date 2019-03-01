@@ -11,5 +11,9 @@ export default class Competition {
 
     Plan;
 
+    NbBets;
+
+    NbMatches;
+
     LastUpdated = new Date();
 }

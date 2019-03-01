@@ -21,9 +21,9 @@ export default class VerifyService {
 
   static isPasswordIdentical(password, confirmPassword) {
     return password === confirmPassword && password !== '' && confirmPassword !== '';
-}
+  }
+
   static isPasswordWithNumber(password) {
     return (/(?=.*\d)/.test(password));
   }
-
 }

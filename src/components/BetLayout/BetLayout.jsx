@@ -1,28 +1,16 @@
 import React from 'react';
 import {
-  Button, Container, Grid, Icon,
+  Container, Grid, Icon,
 } from 'semantic-ui-react';
 import { Link, Route } from 'react-router-dom';
-import UserService from '../../service/UserService';
-import User from '../../model/User';
-import BetLayoutResult from './BetLayoutResult';
-import BetSubmitLayout from './BetSubmitLayout';
+import BetLayoutResult from '../BetResult/BetLayoutResult';
+import BetSubmitLayout from '../BetSubmit/BetSubmitLayout';
+import withAuth from '../AuthGuard/AuthGuard';
 
 
 class BetLayout extends React.Component {
-  state = {
-    user: User,
-  };
-
-  componentDidMount() {
-    UserService.getFromToken()
-      .then((response) => {
-        this.setState({ user: response.data });
-      });
-  }
 
   render() {
-    const { user } = this.state;
     return (
       <div id="betLayout">
         <Container fluid>
@@ -54,4 +42,4 @@ class BetLayout extends React.Component {
   }
 }
 
-export default BetLayout;
+export default withAuth(BetLayout);

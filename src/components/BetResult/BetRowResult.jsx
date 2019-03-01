@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Image, Label, Message,
+  Container, Icon, Image, Label, Message,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import BetService from '../../service/BetService';
@@ -21,13 +21,6 @@ class BetRowResult extends React.Component {
     return (
       <div id="betRows">
         <Container fluid>
-          {bets.length === 0
-          && (
-          <div>
-            No bets
-          </div>
-          )
-          }
           {bets.map(bet => (
             <div key={bet.Id} className="betRow">
               <div className="betRow-info">
@@ -79,7 +72,7 @@ class BetRowResult extends React.Component {
                 <Message.Header>
                   {bet.PointsWon}
                   {' '}
-                  pts
+                  <Icon color="yellow" name="copyright" />
                 </Message.Header>
                 <div className="container-versus-details">
                   <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>

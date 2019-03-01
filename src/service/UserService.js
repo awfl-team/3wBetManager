@@ -1,5 +1,5 @@
 import API from '../api';
-
+// TODO create async method
 export default class UserService {
   static login(email, password) {
     return API.post('login', {
@@ -16,6 +16,15 @@ export default class UserService {
     });
   }
 
+  static addUserAdmin(user) {
+    return API.post('users/new', {
+      Email: user.Email,
+      Password: user.Password,
+      Username: user.Username,
+      Role: user.Role,
+    });
+  }
+
   static getUserById(id) {
     return API.get(`users/${id}`);
   }
@@ -24,14 +33,31 @@ export default class UserService {
     return API.get('users/token');
   }
 
+  static getAllUsers() {
+    return API.get('users');
+  }
+
+  static searchUsers(searchedTerm) {
+    return API.get(`users/search/${searchedTerm}`);
+  }
+
+  static getAllUsersPaginated(page = 1) {
+    return API.get(`users/paginated/${page}`);
+  }
+
   static deleteUser(user) {
     return API.delete(`/users/${user.Id}`);
   }
 
   static handleVisibilityUser(isPrivate) {
-    console.log(isPrivate)
     return API.put('/users/visibility', {
       IsPrivate: isPrivate,
+    });
+  }
+
+  static updateRoleUser(user) {
+    return API.put(`/users/${user.Id}/role`, {
+      Role: user.Role,
     });
   }
 
@@ -49,5 +75,13 @@ export default class UserService {
 
   static getTop50Betters() {
     return API.get('/users/top50');
+  }
+
+  static getTop3() {
+    return API.get('/users/top3');
+  }
+
+  static getCurrentUserAmongSiblings() {
+    return API.get('/users/place');
   }
 }

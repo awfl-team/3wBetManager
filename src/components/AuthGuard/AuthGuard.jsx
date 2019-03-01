@@ -5,7 +5,7 @@ export default function withAuth(Component) {
   return class AuthGuard extends React.Component {
       state = { user: null };
 
-      componentWillMount() {
+      componentDidMount() {
         const token = AuthService.getToken();
         if (!token) {
         // @todo addSnackBar
@@ -26,9 +26,10 @@ export default function withAuth(Component) {
       }
 
       render() {
-        if (this.state.user) {
+        const { user } = this.state;
+        if (user) {
           return (
-            <Component history={this.props.history} user={this.state.user} />
+            <Component history={this.props.history} user={user} />
           );
         }
         return null;

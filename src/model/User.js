@@ -7,9 +7,13 @@ export default class User {
 
     Email;
 
+    Point;
+
     Username;
 
     IsPrivate;
+
+    Life;
 
     constructor(email, username = null, password = null, role = null, isPrivate = null) {
       this.Email = email;

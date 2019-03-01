@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  Container, Divider, Header,
+  Container, Header, Icon,
 } from 'semantic-ui-react';
 import BestBettersTable from './BestBettersTable';
+import withAuth from '../AuthGuard/AuthGuard';
 
 class BestBettersLayout extends React.Component {
   render() {
     return (
       <div id="bestBettersLayout">
-        <Divider section />
-        <Header as="h2" icon textAlign="center">
+        <Header as="h1" icon textAlign="center">
+          <Icon name="fire" circular />
           <Header.Content>Top 50</Header.Content>
         </Header>
         <Container fluid>
@@ -20,4 +21,4 @@ class BestBettersLayout extends React.Component {
   }
 }
 
-export default BestBettersLayout;
+export default withAuth(BestBettersLayout);
