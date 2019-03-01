@@ -26,8 +26,11 @@ class App extends React.Component {
             <Route path="/" exact component={Homepage} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
-            <Route path="/404" exact component={NotFound} />
-            <Route component={UserLayout} />
+            <Route
+              path="/(dashboard|profile|update-profile|bestBetters|user/*|bet/myBets|bet/submitBets|admin)"
+              component={UserLayout}
+            />
+            <Route component={NotFound} />
           </Switch>
         </Router>
         <SnackBar />
