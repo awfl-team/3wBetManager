@@ -56,7 +56,7 @@ export default class FormUserService {
     currentHandle, currentMail, currentUsername,
     currentPassword, currentConfirmPassword) {
     const classnames = FormUserService.getClassNames(
-      currentTypeHandle === 'mail' ? currentHandle : currentMail,
+      currentTypeHandle === 'email' ? currentHandle : currentMail,
       currentTypeHandle === 'username' ? currentHandle : currentUsername,
       currentTypeHandle === 'password' ? currentHandle : currentPassword,
       currentTypeHandle === 'confirmPassword' ? currentHandle : currentConfirmPassword,
@@ -70,7 +70,7 @@ export default class FormUserService {
     if (currentTypeHandle === 'confirmPassword') {
       return { className: classnames, confirmPassword: currentHandle };
     }
-    if (currentTypeHandle === 'mail') {
+    if (currentTypeHandle === 'email') {
       return { className: classnames, email: currentHandle };
     }
   }

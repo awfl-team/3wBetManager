@@ -27,39 +27,17 @@ class UpdateProfile extends React.Component {
       });
   }
 
-  handleEmailChange = (event) => {
+  handleChange = (property, event) => {
     const {
       email, username, password, confirmPassword,
     } = this.state;
-    const refreshedClassName = FormUserService.refreshClassName('mail', event.target.value, email, username, password, confirmPassword);
-    this.setState({ className: refreshedClassName.className, email: refreshedClassName.email });
-  };
 
-  handleUsernameChange = (event) => {
-    const {
-      email, username, password, confirmPassword,
-    } = this.state;
-    const refreshedClassName = FormUserService.refreshClassName('username', event.target.value, email, username, password, confirmPassword);
-    this.setState({ className: refreshedClassName.className, username: refreshedClassName.username });
-  };
-
-  handlePasswordChange = (event) => {
-    const {
-      email, username, password, confirmPassword,
-    } = this.state;
-    const refreshedClassName = FormUserService.refreshClassName('password', event.target.value, email, username, password, confirmPassword);
-    this.setState({ className: refreshedClassName.className, password: refreshedClassName.password });
-  };
-
-  handlePasswordConfirmationChange = (event) => {
-    const {
-      email, username, password, confirmPassword,
-    } = this.state;
-    const refreshedClassName = FormUserService.refreshClassName('confirmPassword', event.target.value, email, username, password, confirmPassword);
-    this.setState({
+    const refreshedClassName = FormUserService.refreshClassName(property, event.target.value, email, username, password, confirmPassword);
+    const data = {
       className: refreshedClassName.className,
-      confirmPassword: refreshedClassName.confirmPassword,
-    });
+    };
+    data[property] = refreshedClassName[property];
+    this.setState(data);
   };
 
   handleSubmit(event) {
@@ -101,7 +79,7 @@ class UpdateProfile extends React.Component {
                     placeholder="E-mail"
                     defaultValue={user.Email}
                     value={email}
-                    onChange={this.handleEmailChange.bind(this)}
+                    onChange={e => this.handleChange('email', e)}
                   />
                 </div>
               </div>
@@ -114,7 +92,7 @@ class UpdateProfile extends React.Component {
                     placeholder="Username"
                     defaultValue={user.Username}
                     value={username}
-                    onChange={this.handleUsernameChange.bind(this)}
+                    onChange={e => this.handleChange('username', e)}
                   />
                 </div>
               </div>
@@ -126,7 +104,7 @@ class UpdateProfile extends React.Component {
                     name="password"
                     placeholder="Password"
                     value={password}
-                    onChange={this.handlePasswordChange.bind(this)}
+                    onChange={e => this.handleChange('password', e)}
                   />
                 </div>
               </div>
@@ -138,7 +116,7 @@ class UpdateProfile extends React.Component {
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     value={confirmPassword}
-                    onChange={this.handlePasswordConfirmationChange.bind(this)}
+                    onChange={e => this.handleChange('confirmPassword', e)}
                   />
                 </div>
               </div>
