@@ -27,7 +27,7 @@ api.interceptors.response.use(null, ((error) => {
   }
 
   if (error.response && error.response.status === 404) {
-    message = "No records"
+    message = 'No records';
   }
 
   store.dispatch(addSnackBar(message, 'danger'));

@@ -27,7 +27,7 @@ class App extends React.Component {
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
             <Route
-              path="/(dashboard|profile|update-profile|bestBetters|user/:userId|bet/myBets|bet/submitBets|admin)"
+              path="/(dashboard|profile|update-profile|bestBetters|user/*|bet/myBets|bet/submitBets|admin)"
               component={UserLayout}
             />
             <Route component={NotFound} />
