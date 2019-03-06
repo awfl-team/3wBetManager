@@ -32,6 +32,37 @@ class AdminUserTable extends React.Component {
     showPagination: true,
   };
 
+  componentDidMount() {
+    UserService.getAllUsersPaginated()
+      .then((response) => {
+        this.setState({ users: response.data.Items,
+          totalPages: response.data.TotalPages,
+          totalUsers: response.data.TotalUsers });
+      });
+  }
+
+  getNextUsers(event) {
+    UserService.getAllUsersPaginated(event.target.getAttribute('value'))
+      .then((response) => {
+        this.setState({ users: response.data.Items,
+          page: response.data.Page,
+          totalPages: response.data.TotalPages,
+          totalUsers: response.data.TotalUsers  });
+      });
+  }
+
+  searchUsers(event) {
+    const searchTerm = event.target.closest('div.input').getElementsByTagName('input')[0].value;
+    if (searchTerm.length >= 3 || (searchTerm.length > 0 && event.key === 'Enter')) {
+      UserService.searchUsers(searchTerm)
+        .then((response) => {
+          this.setState({ users: response.data,
+            showPagination: false,
+          });
+        });
+    }
+  }
+
   handleClick(user) {
     UserService.getUserById(user.Id).then((resp) => {
       const userToUpdate = resp.data
@@ -61,37 +92,6 @@ class AdminUserTable extends React.Component {
     });
   }
 
-  componentDidMount() {
-    UserService.getAllUsersPaginated()
-      .then((response) => {
-        this.setState({ users: response.data.Items,
-          totalPages: response.data.TotalPages,
-          totalUsers: response.data.TotalUsers });
-      });
-  }
-
-  getNextUsers(event) {
-    UserService.getAllUsersPaginated(event.target.getAttribute('value'))
-      .then((response) => {
-        this.setState({ users: response.data.Items,
-          page: response.data.Page,
-          totalPages: response.data.TotalPages,
-          totalUsers: response.data.TotalUsers  });
-      });
-  }
-
-  searchUsers(event) {
-    const searchTerm = event.target.closest('div.input').getElementsByTagName('input')[0].value;
-    if (searchTerm.length > 0) {
-      UserService.searchUsers(searchTerm)
-        .then((response) => {
-          this.setState({ users: response.data,
-            showPagination: false,
-          });
-        });
-    }
-  }
-
   clearSearch() {
     UserService.getAllUsersPaginated()
       .then((response) => {
@@ -116,7 +116,10 @@ class AdminUserTable extends React.Component {
           <div className="userTableHeader">
             <Input type="search" labelPosition="right" placeholder="Search a user" >
               <Label icon="close" color="red" circular onClick={this.clearSearch.bind(this)} />
-              <input />
+              <input
+                onKeyPress={this.searchUsers.bind(this)}
+                onChange={this.searchUsers.bind(this)}
+              />
               <Label icon="search" color="green" circular onClick={this.searchUsers.bind(this)} />
             </Input>
             <Link to="/admin/addUser" className="button ui green">
@@ -152,10 +155,13 @@ class AdminUserTable extends React.Component {
                     <Link to={'/user/' + user.Id} className="button ui blue small icon">
                       <Icon name="eye" />
                     </Link>
+                    { user.Email !== this.props.user.email
+                    && user.Unique_name !== this.props.user.Unique_name
+                    && <Button type="button" className="button ui red small icon" onClick={this.handleDelete.bind(this, user, index)}>
+                        <Icon name="trash" />
+                      </Button>
+                    }
 
-                    <Button type="button" className="button ui red small icon" onClick={this.handleDelete.bind(this, user, index)}>
-                      <Icon name="trash" />
-                    </Button>
                   </Table.Cell>
                 </Table.Row>
               ))}

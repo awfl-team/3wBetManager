@@ -1,7 +1,7 @@
 import React from 'react';
-import {Doughnut} from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import {
-  Container, Grid
+  Container, Grid,
 } from 'semantic-ui-react';
 import GraphService from '../../service/GraphService';
 import StatsBuilderService from '../../service/StatsBuilderService';
@@ -12,11 +12,9 @@ class ConsultProfileStats extends React.Component {
   state = {
     dataSetBets: [],
     dataSetCoins: [],
-    dataDots: [],
   };
 
   // @todo Refactor stats of consultProfile and profile as a component
-  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
 
   componentDidMount() {
     GraphService.getBetsByTypeData().then((response) => {
@@ -46,38 +44,20 @@ class ConsultProfileStats extends React.Component {
       }
       this.setState({ dataSetCoins: { datasets: dataBuild.datasets, labels: dataBuild.labels } });
     });
-
-    // @todo finish graph stats backend
-    // GraphService.getGraphData().then((resp) => {
-    //   const datas = resp.data;
-    //
-    //   if (resp.data.length > 0 ) {
-    //     let dates = [];
-    //     let pts = [];
-    //     datas.forEach((data, index) => {
-    //       dates.push(data.date);
-    //       pts.push(data.pts);
-    //     });
-    //     dataBuild = StatsBuilderService.buildStatsBetsGraph(pts, dates);
-    //   } else {
-    //     dataBuild = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
-    //   }
-    //
-    //   this.setState({dataDots: dataBuild});
-    // });
   }
 
   componentWillReceiveProps(props) {
     const { user } = this.props;
     if (props.user !== user) {
-      this.setState({dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']) });
-      this.setState({dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']) });
-      this.setState({dataDots: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']) });
+      this.setState({
+        dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
+        dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
+      });
     }
   }
 
   render() {
-    const { dataDots, dataSetBets, dataSetCoins } = this.state;
+    const { dataSetBets, dataSetCoins } = this.state;
 
     return (
       <div>
@@ -101,8 +81,6 @@ class ConsultProfileStats extends React.Component {
               <Grid.Column textAlign="center" computer={16}>
                 <div className="graph-container-max-size">
                   <h3>Earned coins since last reset per day</h3>
-                  { /*<Line data={dataDots} fill="false" legend={{position:
-                     'bottom'}}/>*/ }
                 </div>
               </Grid.Column>
             </Grid.Row>

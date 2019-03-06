@@ -1,14 +1,13 @@
 import * as React from 'react';
-import classNames from 'classnames/bind';
 import {
   Button, Container, Header, Icon, Radio,
 } from 'semantic-ui-react';
+import connect from 'react-redux/es/connect/connect';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
-import VerifyService from '../../service/VerifyService';
+import FormUserService from '../../service/FormUserService';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
-import {addSnackBar} from "../../actions/SnackBarActions";
-import connect from "react-redux/es/connect/connect";
+import { addSnackBar } from '../../actions/SnackBarActions';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -23,26 +22,24 @@ class UserForm extends React.Component {
     password: '',
     checked: false,
     confirmPassword: '',
+    className: {},
   };
 
-  handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
-  };
+  handleChange = (property, event) => {
+    const {
+      email, username, password, confirmPassword,
+    } = this.state;
 
-  handleUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
+    const refreshedClassName = FormUserService.refreshClassName(property, event.target.value, email, username, password, confirmPassword);
+    const data = {
+      className: refreshedClassName.className,
+    };
+    data[property] = refreshedClassName[property];
+    this.setState(data);
   };
 
   handleRoleChange = () => {
     this.setState({ checked: !this.state.checked });
-  };
-
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
-  };
-
-  handlePasswordConfirmationChange = (event) => {
-    this.setState({ confirmPassword: event.target.value });
   };
 
   handleSubmit(event) {
@@ -70,52 +67,8 @@ class UserForm extends React.Component {
 
   render() {
     const {
-      confirmPassword, password, email, username, checked,
+      confirmPassword, password, email, username, checked, className,
     } = this.state;
-    const isEmailOk = VerifyService.isEmailOk(email);
-    const isUsernameOk = VerifyService.isUsernameOk(username);
-    const isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
-    const isPasswordNumberCharOk = VerifyService.isPasswordNumberChars(password);
-    const isPasswordSpecialChar = VerifyService.isPasswordSpecialChar(password);
-    const isPasswordUppercase = VerifyService.isPasswordUppercase(password);
-    const isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
-    const isEnabled = (isEmailOk && isUsernameOk && isPasswordNumberCharOk && isPasswordWithNumber
-      && isPasswordSpecialChar && isPasswordUppercase && isPasswordIdentical);
-
-    const formFieldUsernameOk = classNames({
-      'validate-form-info': isUsernameOk,
-      'error-form-info': !isUsernameOk,
-    });
-    const formFieldEmailOk = classNames({
-      'validate-form-info': isEmailOk,
-      'error-form-info': !isEmailOk,
-    });
-    const formFieldIdentical = classNames({
-      'validate-form-info': isPasswordIdentical,
-      'error-form-info': !isPasswordIdentical,
-    });
-    const formFieldNumber = classNames({
-      'validate-form-info': isPasswordNumberCharOk,
-      'error-form-info': !isPasswordNumberCharOk,
-    });
-    const formdFieldUppercase = classNames({
-      'validate-form-info': isPasswordUppercase,
-      'error-form-info': !isPasswordUppercase,
-    });
-    const formFieldSpecial = classNames({
-      'validate-form-info': isPasswordSpecialChar,
-      'error-form-info': !isPasswordSpecialChar,
-    });
-    const formFieldWithNumber = classNames({
-      'validate-form-info': isPasswordWithNumber,
-      'error-form-info': !isPasswordWithNumber,
-    });
-    const formMultipleInfos = classNames({
-      'validate-form-info': isPasswordUppercase && isPasswordSpecialChar
-        && isPasswordWithNumber,
-      'error-form-info': !isPasswordUppercase
-        || !isPasswordSpecialChar || !isPasswordWithNumber,
-    });
 
     return (
       <div id="userForm">
@@ -134,7 +87,7 @@ class UserForm extends React.Component {
                     name="email"
                     placeholder="E-mail"
                     value={email}
-                    onChange={this.handleEmailChange.bind(this)}
+                    onChange={e => this.handleChange('email', e)}
                   />
                 </div>
               </div>
@@ -146,7 +99,7 @@ class UserForm extends React.Component {
                     name="username"
                     placeholder="Username"
                     value={username}
-                    onChange={this.handleUsernameChange.bind(this)}
+                    onChange={e => this.handleChange('username', e)}
                   />
                 </div>
               </div>
@@ -158,7 +111,7 @@ class UserForm extends React.Component {
                     name="password"
                     placeholder="Password"
                     value={password}
-                    onChange={this.handlePasswordChange.bind(this)}
+                    onChange={e => this.handleChange('password', e)}
                   />
                 </div>
               </div>
@@ -170,7 +123,7 @@ class UserForm extends React.Component {
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     value={confirmPassword}
-                    onChange={this.handlePasswordConfirmationChange.bind(this)}
+                    onChange={e => this.handleChange('confirmPassword', e)}
                   />
                 </div>
               </div>
@@ -186,39 +139,39 @@ class UserForm extends React.Component {
               </div>
             </div>
             <div className="form-info validation">
-              <p className={formFieldEmailOk}>
+              <p className={className.formFieldEmailOk}>
                 <i className="info circle icon" />
                 {' '}
                 The email must respect a valid email format
               </p>
-              <p className={formFieldUsernameOk}>
+              <p className={className.formFieldUsernameOk}>
                 <i className="info circle icon" />
                 {' '}
                 The username requires at least 3 characters
               </p>
-              <p className={formFieldIdentical}>
+              <p className={className.formFieldIdentical}>
                 <i className="info circle icon" />
                 {' '}
                 The password must be identical with the
                 password field
               </p>
-              <p className={formFieldNumber}>
+              <p className={className.formFieldNumber}>
                 <i className="info circle icon" />
                 {' '}
                 The password requires at least 12 characters
               </p>
-              <p className={formMultipleInfos}>
+              <p className={className.formMultipleInfos}>
                 <i className="info circle icon" />
                 {' '}
                 The password requires a
                 <span
-                  className={formdFieldUppercase}
+                  className={className.formdFieldUppercase}
                 >
                     uppercase
                 </span>
                 , a
                 <span
-                  className={formFieldSpecial}
+                  className={className.formFieldSpecial}
                 >
                   {' '}
                   special character
@@ -226,14 +179,14 @@ class UserForm extends React.Component {
                 {' '}
                 and
                 <span
-                  className={formFieldWithNumber}
+                  className={className.formFieldWithNumber}
                 >
 a number
                 </span>
               </p>
             </div>
             <Container className="container-actions">
-              <Button type="submit" circular color="green" size="huge" disabled={!isEnabled}>Submit </Button>
+              <Button type="submit" circular color="green" size="huge" disabled={!className.isEnabled}>Submit </Button>
             </Container>
           </form>
         </Container>

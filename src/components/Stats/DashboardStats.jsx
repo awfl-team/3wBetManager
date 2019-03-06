@@ -16,7 +16,6 @@ class DashboardStats extends React.Component {
   };
 
   // @todo Refactor stats of consultProfile and profile as a component
-  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
 
   componentDidMount() {
     this.loadBetsPerTypeDataset();
@@ -34,7 +33,8 @@ class DashboardStats extends React.Component {
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({datasetPieGraph: dataBuild,
+      this.setState({
+        datasetPieGraph: dataBuild,
         isDatasetBetsActive: true,
         isDatasetCoinsActive: false,
       });
@@ -53,7 +53,8 @@ class DashboardStats extends React.Component {
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({datasetPieGraph: dataBuild,
+      this.setState({
+        datasetPieGraph: dataBuild,
         isDatasetBetsActive: false,
         isDatasetCoinsActive: true,
       });

@@ -29,16 +29,17 @@ class Profile extends React.Component {
   };
 
   // @todo Refactor stats of consultProfile and profile as a component
-  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
 
   componentDidMount() {
     UserService.getFromToken()
       .then((response) => {
-        this.setState({ user: response.data });
-        this.setState({ isPrivate: response.data.IsPrivate });
-        this.setState({ canReset: response.data.Life !== 0 });
-        this.setState({ userLives: response.data.Life });
-        this.setState({ userPoints: response.data.Point });
+        this.setState({
+          user: response.data,
+          isPrivate: response.data.IsPrivate,
+          canReset: response.data.Life !== 0,
+          userLives: response.data.Life,
+          userPoints: response.data.Point,
+        });
       });
   }
 
@@ -61,11 +62,13 @@ class Profile extends React.Component {
         this.setState({ modalResetOpen: false });
         UserService.getUserById(this.state.user.Id)
           .then((response) => {
-            this.setState({ user: response.data });
-            this.setState({ isPrivate: response.data.IsPrivate });
-            this.setState({ canReset: response.data.Life !== 0 });
-            this.setState({ userLives: response.data.Life });
-            this.setState({ userPoints: response.data.Point });
+            this.setState({
+              user: response.data,
+              isPrivate: response.data.IsPrivate,
+              canReset: response.data.Life !== 0,
+              userLives: response.data.Life,
+              userPoints: response.data.Point,
+            });
           });
         this.props.addSnackbar({
           message: 'Reset successfull',
