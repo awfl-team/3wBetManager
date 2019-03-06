@@ -78,16 +78,8 @@ class BetSubmitLayout extends React.Component {
                       {competition.Name}
                       <Label attached="top right">
                         <span>
-                          <Icon name="ticket" />
-                          { competition.NbBet
-                            + bets.filter(bet => bet.Match.Competition.Id === competition.Id
-                                && bet.alreadyUpdated === true).length}
-                        </span>
-                        <span>
                           <Icon name="soccer" />
-                          {competition.NbMatch
-                          - bets.filter(bet => bet.Match.Competition.Id === competition.Id
-                              && bet.alreadyUpdated === true).length}
+                          {competition.NbMatch + competition.NbBet}
                         </span>
                       </Label>
                     </Accordion.Title>
