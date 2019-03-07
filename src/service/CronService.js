@@ -1,5 +1,4 @@
 import API from '../api';
-// TODO create async method
 export default class CronService {
   static updateCompetitions() {
     return API.post('/cron/competitions');

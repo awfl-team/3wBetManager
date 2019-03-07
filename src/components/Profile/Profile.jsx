@@ -29,7 +29,6 @@ class Profile extends React.Component {
   };
 
   // @todo Refactor stats of consultProfile and profile as a component
-  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
 
   componentDidMount() {
     UserService.getFromToken()
