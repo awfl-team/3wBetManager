@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Icon, List, Rating } from 'semantic-ui-react';
 import UserService from "../../service/UserService";
+import {Link} from 'react-router-dom';
 
 class Top3 extends React.Component {
   state = {
@@ -41,11 +42,8 @@ class Top3 extends React.Component {
         <List.Item>
           <List.Content>
             <List.Header>
-              <Button>
-                Top 50
-                {' '}
-                <Icon name="arrow right" />
-              </Button>
+              <Link to={`/bestBetters`} className="button ui icon"> See more <Icon name="arrow right" />
+              </Link>
             </List.Header>
           </List.Content>
         </List.Item>

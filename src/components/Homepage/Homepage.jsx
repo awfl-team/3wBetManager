@@ -29,7 +29,7 @@ function Homepage() {
 
         </div>
 
-        <div className="ui vertical stripe segment">
+        <div className="ui vertical stripe segment bg-vue">
           <div className="ui middle aligned stackable grid container">
             <div className="row">
               <div className="eight wide column">

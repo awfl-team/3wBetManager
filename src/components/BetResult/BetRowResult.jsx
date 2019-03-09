@@ -77,9 +77,8 @@ class BetRowResult extends React.Component {
                 <div className="container-versus-details">
                   <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>
                   <div className="container-versus-details-results-bet">
-                    <Label color={bet.Status === 'Perfect' ? 'green' : ''
-                    || bet.Status === 'Wrong' ? 'red' : '' || bet.Status === 'OK' ? 'info' : ''}
-                    >
+                    <Label className={bet.Status === 'Perfect' ? 'greenLabel' : ''
+                    || bet.Status === 'Wrong' ? 'redLabel' : '' || bet.Status === 'OK' ? 'infoLabel' : ''}>
                       {bet.Status}
                     </Label>
                   </div>

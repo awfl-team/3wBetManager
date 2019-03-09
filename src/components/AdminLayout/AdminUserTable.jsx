@@ -115,18 +115,18 @@ class AdminUserTable extends React.Component {
         <Container fluid className="container-centered">
           <div className="userTableHeader">
             <Input type="search" labelPosition="right" placeholder="Search a user" >
-              <Label icon="close" color="red" circular onClick={this.clearSearch.bind(this)} />
+              <Label icon="close" className="redColor" circular onClick={this.clearSearch.bind(this)} />
               <input
                 onKeyPress={this.searchUsers.bind(this)}
                 onChange={this.searchUsers.bind(this)}
               />
-              <Label icon="search" color="green" circular onClick={this.searchUsers.bind(this)} />
+              <Label icon="search" className="greenColor" circular onClick={this.searchUsers.bind(this)} />
             </Input>
             <Link to="/admin/addUser" className="button ui green">
               <Icon name="add" /> Create a user
             </Link>
           </div>
-          <Table celled striped unstackable inverted>
+          <Table celled striped unstackable inverted className="primary-bg">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Username</Table.HeaderCell>
@@ -149,14 +149,19 @@ class AdminUserTable extends React.Component {
                     <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Radio toggle defaultChecked={user.Role === "ADMIN"} onClick={this.handleClick.bind(this, user)} />
+                    {user.Email !== this.props.user.email &&
+                    <Radio toggle defaultChecked={user.Role === "ADMIN"}
+                           onClick={this.handleClick.bind(this, user)} />
+                    }
+                    {user.Email === this.props.user.email &&
+                    <Radio toggle checked={user.Role === "ADMIN"} />
+                    }
                   </Table.Cell>
                   <Table.Cell>
                     <Link to={'/user/' + user.Id} className="button ui blue small icon">
-                      <Icon name="eye" />
+                      <Icon name="eye" className="whiteColor" />
                     </Link>
                     { user.Email !== this.props.user.email
-                    && user.Unique_name !== this.props.user.Unique_name
                     && <Button type="button" className="button ui red small icon" onClick={this.handleDelete.bind(this, user, index)}>
                         <Icon name="trash" />
                       </Button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Label, List } from 'semantic-ui-react';
+import {Icon, Image, Label, List} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import BetService from "../../service/BetService";
 import moment from "moment";
@@ -24,9 +24,19 @@ class AvailableBets extends React.Component {
             <List.Item key={index}>
               <List.Content>
                 <List.Header>
-                  <div className="hometeam"><span>{availableBet.Match.HomeTeam.Name}</span></div>
+                  <div className="hometeam">
+                    <div className="team-image">
+                      <Image src={availableBet.Match.HomeTeam.CrestUrl} />
+                    </div>
+                    <span>{availableBet.Match.HomeTeam.Name}</span>
+                  </div>
                   <div className="versus"><span> VS </span></div>
-                  <div className="awayteam"><span>{availableBet.Match.AwayTeam.Name}</span></div>
+                  <div className="awayteam">
+                    <div className="team-image">
+                      <Image src={availableBet.Match.AwayTeam.CrestUrl} />
+                    </div>
+                    <span>{availableBet.Match.AwayTeam.Name}</span>
+                  </div>
                 </List.Header>
                 <List.Description><p>{availableBet.Match.Competition.Name} | {moment(availableBet.Match.UtcDate).format('MM-DD-YYYY')}</p></List.Description>
                 <List.Description>
