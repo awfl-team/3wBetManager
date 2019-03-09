@@ -2,7 +2,7 @@
   .betRow {
     position: relative;
     padding: 15px;
-    border: 1px $lightgrey dashed;
+    border: 1px $vue-contrast dashed;
     display: flex;
 
     &:not(:first-child) {
@@ -12,7 +12,7 @@
         content: '';
         width: 320px;
         height: 2px;
-        background-color: $lightgrey;
+        background-color: $vue-contrast;
         position: absolute;
         top: -25px;
         left: calc(50% - 160px);

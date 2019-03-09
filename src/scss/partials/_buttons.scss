@@ -1,13 +1,13 @@
 .main-button {
-  background-color: $red !important;
-  color: white;
+  background-color: $vue-green !important;
+  color: $white;
   transition: $main-transition;
   border-radius: 25px !important;
-  border: $red 2px solid !important;
+  border: $vue-green 2px solid !important;
   &:hover {
-    border: $red 2px solid;
-    background-color: white !important;
-    color: $red !important;
+    border: $vue-green 2px solid;
+    background-color: $white !important;
+    color: $vue-green !important;
   }
 }
 
@@ -31,5 +31,10 @@
 }
 
 .ui.toggle.checkbox input:checked ~ label:before, .ui.toggle.checkbox input:focus:checked ~ label:before {
-  background-color: $red !important;
+  background-color: $vue-green !important;
+}
+
+.ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before {
+  background-color: $vue;
+  border: 2px solid $vue-green !important;
 }

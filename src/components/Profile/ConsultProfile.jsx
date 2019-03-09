@@ -39,7 +39,7 @@ class ConsultProfile extends React.Component {
         { user.IsPrivate === true
           && (
           <Header as="h1" icon textAlign="center">
-            <Icon name="eye slash" circular />
+            <Icon name="eye slash" circular className="whiteColor" />
             <Header.Content>
               { user.Username }
               's profile is private
