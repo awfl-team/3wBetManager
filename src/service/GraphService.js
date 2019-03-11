@@ -9,6 +9,10 @@ export default class GraphService {
     return API.get('bets/stats/type');
   }
 
+  static getEarningsStatsPerType() {
+    return API.get('bets/stats/earnings/type');
+  }
+
   static getCoinsStats() {
     return API.get('users/stats/coins');
   }

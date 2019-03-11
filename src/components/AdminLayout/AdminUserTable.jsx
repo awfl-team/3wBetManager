@@ -158,11 +158,15 @@ class AdminUserTable extends React.Component {
                     }
                   </Table.Cell>
                   <Table.Cell>
+                    {user.Email !== this.props.user.email
+                    &&
                     <Link to={'/user/' + user.Id} className="button ui blue small icon">
-                      <Icon name="eye" className="whiteColor" />
+                      <Icon name="eye" className="whiteColor"/>
                     </Link>
+                    }
                     { user.Email !== this.props.user.email
-                    && <Button type="button" className="button ui red small icon" onClick={this.handleDelete.bind(this, user, index)}>
+                    &&
+                    <Button type="button" className="button ui red small icon" onClick={this.handleDelete.bind(this, user, index)}>
                         <Icon name="trash" />
                       </Button>
                     }

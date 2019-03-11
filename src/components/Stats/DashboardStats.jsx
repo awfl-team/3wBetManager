@@ -26,7 +26,7 @@ class DashboardStats extends React.Component {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
-        let labels = ['Wrong', 'Ok', 'Perfect'];
+        let labels = ['Wrong', 'Ok', 'Perfect', 'Total'];
         let nbBets = Object.values(datas);
         let colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
@@ -69,12 +69,21 @@ class DashboardStats extends React.Component {
         <div className="doughnut-container-max-size">
           <Doughnut data={{labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets}} legend={{position: 'bottom'}}/>
         </div>
-        {/* @todo buttons to switch between 2 datasets ?? betsPerType and ??? */}
         <div className="ui two buttons">
           <Button.Group fluid>
-            <Button onClick={this.loadBetsPerTypeDataset} active={isDatasetBetsActive} primary={isDatasetBetsActive}>Bets</Button>
+            <Button
+              onClick={this.loadBetsPerTypeDataset}
+              active={isDatasetBetsActive}
+              primary={isDatasetBetsActive}>
+              Bets ber type
+            </Button>
             <Button.Or />
-            <Button onClick={this.loadCoinsUsageDataset} active={isDatasetCoinsActive} primary={isDatasetCoinsActive}>Coins</Button>
+            <Button
+              onClick={this.loadCoinsUsageDataset}
+              active={isDatasetCoinsActive}
+              primary={isDatasetCoinsActive}>
+              Coins usage
+            </Button>
           </Button.Group>
         </div>
       </div>
