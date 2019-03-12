@@ -102,7 +102,13 @@ class Profile extends React.Component {
         <Container textAlign="center" className="container-centered">
           <div className="profile-accessibility">
             <Popup
-              trigger={<Icon name={isPrivate ? 'eye slash' : 'eye'} size="big" className="whiteColor"/>}
+              trigger={(
+                <Icon
+                  name={isPrivate ? 'eye slash' : 'eye'}
+                  size="big"
+                  className="whiteColor"
+                />
+)}
               content={isPrivate ? 'Your profile is private' : 'Your profile is public'}
               inverted
               position="left center"
@@ -111,7 +117,15 @@ class Profile extends React.Component {
           </div>
           <div className="profile-lives">
             <Popup
-              trigger={<Rating icon="heart" rating={userLives} maxRating={3} disabled size="massive" />}
+              trigger={(
+                <Rating
+                  icon="heart"
+                  rating={userLives}
+                  maxRating={3}
+                  disabled
+                  size="massive"
+                />
+)}
               content={user.Life !== 0 ? 'You can reset your account' : 'You can\'t reset your account anymore'}
               inverted
               position="right center"
@@ -140,69 +154,95 @@ class Profile extends React.Component {
           />
           <Container className="container-actions">
             <Modal
-              trigger={<Button onClick={this.handleOpenDelete} circular icon="trash" color="red" size="huge" />}
+              trigger={(
+                <Button
+                  onClick={this.handleOpenDelete}
+                  circular
+                  icon="trash"
+                  color="red"
+                  size="huge"
+                />
+)}
               open={modalDeleteOpen}
               onClose={this.handleCloseDelete}
               basic
               size="small"
             >
-              <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
+              <Header
+                icon="exclamation triangle"
+                content="Are you sure ?"
+                as="h1"
+                textAlign="center"
+              />
               <Modal.Content>
                 <h3>
-                  If you confirm this action, your profile
-                  and all your datas will be wiped from our website !
+                    If you confirm this action, your profile
+                    and all your datas will be wiped from our website !
                 </h3>
               </Modal.Content>
               <Modal.Actions>
                 <Button color="red" onClick={this.handleCloseDelete} inverted>
                   <Icon name="remove" />
-                  Cancel
+                    Cancel
                 </Button>
                 <Button color="green" onClick={this.handleDelete} inverted>
                   <Icon name="checkmark" />
-              Yes, delete me !
+                    Yes, delete me !
                 </Button>
               </Modal.Actions>
             </Modal>
             <Link to="/update-profile" className="button ui circular orange huge icon">
               <Icon name="pencil" />
             </Link>
-            { canReset === true
-            && (
-            <Modal
-              trigger={<Button onClick={this.handleOpenReset} circular icon="eraser" color="black" size="huge" />}
-              open={modalResetOpen}
-              onClose={this.handleCloseReset}
-              basic
-              size="small"
-            >
-              <Header icon="exclamation triangle" content="Are you sure ?" as="h1" textAlign="center" />
-              <Modal.Content>
-                <h3>
-                  If you confirm this action,
-                  your earned points, bets and statistics will be reset !
-                  In exchange, your account will be reset with 500
-                  <Icon color="yellow" name="copyright" />
-                    to reborn from ashes.
-                  <br />
-                  <br />
-                  You will loose one&nbsp;
-                  <Rating icon="heart" defaultRating={1} maxRating={1} disabled size="huge" />
-                </h3>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button color="red" onClick={this.handleCloseReset} inverted>
-                  <Icon name="remove" />
-                  Cancel
-                </Button>
-                <Button color="green" onClick={this.handleReset} inverted>
-                  <Icon name="checkmark" />
-                  Yes, do it !
-                </Button>
-              </Modal.Actions>
-            </Modal>
-            )
-            }
+            {canReset === true
+              && (
+              <Modal
+                trigger={(
+                  <Button
+                    onClick={this.handleOpenReset}
+                    circular
+                    icon="eraser"
+                    color="black"
+                    size="huge"
+                  />
+)}
+                open={modalResetOpen}
+                onClose={this.handleCloseReset}
+                basic
+                size="small"
+              >
+                <Header
+                  icon="exclamation triangle"
+                  content="Are you sure ?"
+                  as="h1"
+                  textAlign="center"
+                />
+                <Modal.Content>
+                  <h3>
+                        If you confirm this action,
+                        your earned points, bets and statistics will be reset !
+                        In exchange, your account will be reset with 500
+                    <Icon color="yellow" name="copyright" />
+                        to reborn from ashes.
+                    <br />
+                    <br />
+                        You will loose one&nbsp;
+                    <Rating icon="heart" defaultRating={1} maxRating={1} disabled size="huge" />
+                  </h3>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button color="red" onClick={this.handleCloseReset} inverted>
+                    <Icon name="remove" />
+                        Cancel
+                  </Button>
+                  <Button color="green" onClick={this.handleReset} inverted>
+                    <Icon name="checkmark" />
+                        Yes, do it !
+                  </Button>
+                </Modal.Actions>
+              </Modal>
+              )
+              }
 
           </Container>
         </Container>

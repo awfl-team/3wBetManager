@@ -1,5 +1,7 @@
 import React from 'react';
-import {Icon, Image, Label, List} from 'semantic-ui-react';
+import {
+  Icon, Image, Label, List,
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import BetService from '../../service/BetService';
