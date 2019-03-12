@@ -20,7 +20,8 @@ class ProfileStats extends React.Component {
     GraphService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
-      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
+      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
+          || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
@@ -44,7 +45,6 @@ class ProfileStats extends React.Component {
       }
       this.setState({ dataSetCoins: { datasets: dataBuild.datasets, labels: dataBuild.labels } });
     });
-
   }
 
   componentWillReceiveProps(props) {

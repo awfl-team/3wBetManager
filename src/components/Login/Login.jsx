@@ -21,7 +21,7 @@ class LoginComponent extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-     UserService.login(event.target.email.value, event.target.password.value)
+    UserService.login(event.target.email.value, event.target.password.value)
       .then((response) => {
         AuthService.setTokenInLocalStorage(response);
         this.setState({ toDashboard: true });
@@ -75,7 +75,7 @@ class LoginComponent extends React.Component {
                   type="submit"
                   className="ui fluid large teal submit button main-button"
                 >
-Submit
+                Submit
                 </button>
               </div>
             </form>

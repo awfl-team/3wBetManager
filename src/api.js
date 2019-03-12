@@ -5,7 +5,6 @@ import store from './store';
 
 
 const api = axios.create({
-  // api c# url   baseURL: 'http://151.80.136.92:9000/',
   baseURL: process.env.REACT_APP_API_URL,
 });
 

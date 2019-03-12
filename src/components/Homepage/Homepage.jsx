@@ -42,9 +42,8 @@ function Homepage() {
                     You can use our lovely app to store your real-life's football bet.
                   <br />
                   <br />
-
-                    In addition, you can compare your skills against many other people with some fancy statistics.
-
+                    In addition, you can compare your skills against many other people with some
+                    fancy statistics.
                 </p>
               </div>
               <div className="six wide right floated column">
@@ -67,13 +66,13 @@ function Homepage() {
                 <h3 className="ui header">Why use it ?</h3>
                 <p>
                   First of all, it's free.
-                  {' '}
                   <br />
-                  Second, you're able to store all your past, present and futur bets in one app, for every football cup !
+                  Second, you're able to store all your past, present and futur bets in
+                  one app, for every football cup !
                   <br />
                   <br />
-                  In addition, you will be notified in your web browser about what happened for each followed plays.
-
+                  In addition, you will be notified in your web browser about what happened
+                  for each followed plays.
                   Finally, you can improve your skills thanks to the statistics panel.
                 </p>
               </div>

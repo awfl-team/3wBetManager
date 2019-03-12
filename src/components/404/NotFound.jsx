@@ -31,14 +31,22 @@ class NotFound extends React.Component {
                 <p className="notFound-header">OUPS, 404</p>
                 {token === null
                 && (
-                <button type="button" onClick={() => this.handleClick('home')} className="back-button">
+                <button
+                  type="button"
+                  onClick={() => this.handleClick('home')}
+                  className="back-button"
+                >
                   Go to homepage
                 </button>
                 )
                 }
                 {token !== null
                 && (
-                <button type="button" onClick={() => this.handleClick('dashboard')} className="back-button">
+                <button
+                  type="button"
+                  onClick={() => this.handleClick('dashboard')}
+                  className="back-button"
+                >
                       Go to dashboard
                 </button>
                 )

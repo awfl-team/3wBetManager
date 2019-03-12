@@ -6,7 +6,7 @@ export default class StatsBuilderService {
         backgroundColor: aColors,
       }],
       labels: aLabels,
-    }
+    };
   }
 
   static buildStatsBetsGraph(aDatas, aLabels) {
@@ -19,6 +19,6 @@ export default class StatsBuilderService {
         label: 'Earned coins',
       }],
       labels: aLabels,
-    }
+    };
   }
 }

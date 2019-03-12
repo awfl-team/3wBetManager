@@ -1,19 +1,19 @@
 import React from 'react';
-import {Icon, Image, Label, List} from 'semantic-ui-react';
+import {
+  Icon, Image, Label, List,
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import BetService from "../../service/BetService";
-import {Table} from "semantic-ui-react/dist/commonjs/collections/Table/Table";
-import moment from "moment";
+import moment from 'moment';
+import BetService from '../../service/BetService';
 
 class FinishedBets extends React.Component {
-
   state = {
     finishedBets: [],
   };
 
   componentDidMount() {
     BetService.getFinishBetLimited().then((response) => {
-       this.setState({finishedBets: response.data});
+      this.setState({ finishedBets: response.data });
     });
   }
 
@@ -22,8 +22,8 @@ class FinishedBets extends React.Component {
     return (
       <List divided relaxed className="finished-bets">
         {finishedBets.length > 0
-          && finishedBets.map((finishedBet, index) => (
-            <List.Item key={index}>
+          && finishedBets.map(finishedBet => (
+            <List.Item key={finishedBet.Id}>
               <List.Content>
                 <List.Header>
                   <div className="hometeam">
@@ -40,29 +40,66 @@ class FinishedBets extends React.Component {
                     <span>{finishedBet.Match.AwayTeam.Name}</span>
                   </div>
                 </List.Header>
-                <List.Description><p>{finishedBet.Match.Competition.Name} | {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}</p></List.Description>
                 <List.Description>
-                  <Label className="infoLabel">Result : {finishedBet.Match.Score.FullTime.HomeTeam} - {finishedBet.Match.Score.FullTime.AwayTeam}</Label> | <Label>Bet : {finishedBet.HomeTeamScore} - {finishedBet.AwayTeamScore}</Label> | <Label color="green">{finishedBet.Status}</Label> | <Icon name="copyright" color="yellow" size="large" /> {finishedBet.PointsWon}
+                  <p>
+                    {finishedBet.Match.Competition.Name}
+                    |
+                    {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}
+                  </p>
+                </List.Description>
+                <List.Description>
+                  <div className="whiteColor">
+                    <Label className="infoLabel">
+                      Result :
+                      {finishedBet.Match.Score.FullTime.HomeTeam}
+                      -
+                      {finishedBet.Match.Score.FullTime.AwayTeam}
+                    </Label>
+                    {' '}
+                    |
+                    {' '}
+                    <Label>
+                      Bet :
+                      {finishedBet.HomeTeamScore}
+                      -
+                      {finishedBet.AwayTeamScore}
+                    </Label>
+                    {' '}
+                    |
+                    {' '}
+                    <Label color="green">{finishedBet.Status}</Label>
+                    {' '}
+                    |
+                    {' '}
+                    {finishedBet.PointsWon}
+                    <Icon name="copyright" color="yellow" size="large" />
+                  </div>
                 </List.Description>
               </List.Content>
             </List.Item>
-        ))}
+          ))}
         {finishedBets.length > 0
-          && <List.Item>
+          && (
+          <List.Item>
             <List.Content>
               <List.Header>
-                <Link to={`/bet/mybets`} className="button ui icon"> My results <Icon name="arrow right" />
+                <Link to="/bet/mybets" className="button ui icon">
+                  My results
+                  <Icon name="arrow right" />
                 </Link>
               </List.Header>
             </List.Content>
           </List.Item>
+          )
         }
         {finishedBets.length === 0
-        && <List.Item>
+        && (
+        <List.Item>
           <List.Content>
             <List.Header><h4>You have no finished bets</h4></List.Header>
           </List.Content>
         </List.Item>
+        )
         }
       </List>
     );

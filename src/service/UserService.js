@@ -1,4 +1,5 @@
 import API from '../api';
+
 export default class UserService {
   static login(email, password) {
     return API.post('login', {

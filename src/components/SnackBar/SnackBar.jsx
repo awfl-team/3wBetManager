@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { removeSnackBar } from '../../actions/SnackBarActions';
 
 const mapStateToProps = state => ({ snackbar: state.snackbar });
@@ -17,7 +16,7 @@ class SnackbarsComponent extends React.Component {
   };
 
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     const { snackbar } = this.props;
     const { classes } = this.state;
     if (snackbar && !prevProps.snackbar) {
@@ -44,16 +43,6 @@ class SnackbarsComponent extends React.Component {
     );
   }
 }
-
-SnackbarsComponent.propTypes = {
-  classes: PropTypes.arrayOf(PropTypes.string),
-  snackbar: PropTypes.shape({ message: PropTypes.string, type: PropTypes.string }),
-};
-
-SnackbarsComponent.defaultProps = {
-  classes: ['snackbar'],
-  snackbar: undefined,
-};
 
 const SnackBar = connect(mapStateToProps, mapDispatchToProps)(SnackbarsComponent);
 export default SnackBar;

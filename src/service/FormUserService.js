@@ -12,8 +12,10 @@ export default class FormUserService {
     className.isPasswordUppercase = VerifyService.isPasswordUppercase(password);
     className.isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
 
-    className.isEnabled = (className.IsEmailGood && className.isUsernameOk && className.isPasswordNumberCharOk && className.isPasswordWithNumber
-        && className.isPasswordSpecialChar && className.isPasswordUppercase && className.isPasswordIdentical);
+    className.isEnabled = (className.IsEmailGood && className.isUsernameOk
+        && className.isPasswordNumberCharOk && className.isPasswordWithNumber
+        && className.isPasswordSpecialChar && className.isPasswordUppercase
+        && className.isPasswordIdentical);
 
     className.formFieldUsernameOk = classNames({
       'validate-form-info': className.isUsernameOk,
@@ -73,5 +75,6 @@ export default class FormUserService {
     if (currentTypeHandle === 'email') {
       return { className: classnames, email: currentHandle };
     }
+    return null;
   }
 }

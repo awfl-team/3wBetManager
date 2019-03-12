@@ -16,7 +16,7 @@ class BetLayoutResult extends React.Component {
 
   componentDidMount() {
     const competitionsWithNbBet = [];
-    CompetitionService.getAllCompetions().then((response) => {
+    CompetitionService.getAllCompetitions().then((response) => {
       response.data.forEach((competition) => {
         BetService.getNbBetsInCompetitionForResult(competition.Id).then((res) => {
           if (res.data.NbBet !== undefined) {
