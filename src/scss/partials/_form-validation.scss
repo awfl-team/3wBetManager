@@ -8,17 +8,17 @@
   font-size:11px;
   height: 125px;
   .form-info-title {
-    color:white;
+    color:$white;
 
   }
   .neutral-form-info {
-    color: $red;
+    color: $red !important;
   }
   .validate-form-info{
-    color:$green;
+    color: $green !important;
   }
   .error-form-info {
-    color: $red;
+    color: $red !important;
   }
   &.hidden {
     opacity: 0;

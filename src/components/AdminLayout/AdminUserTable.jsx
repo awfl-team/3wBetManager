@@ -129,19 +129,19 @@ class AdminUserTable extends React.Component {
         <Container fluid className="container-centered">
           <div className="userTableHeader">
             <Input type="search" labelPosition="right" placeholder="Search a user">
-              <Label icon="close" color="red" circular onClick={() => this.clearSearch()} />
+              <Label icon="close" className="redColor" circular onClick={() => this.clearSearch()} />
               <input
                 onKeyPress={event => this.searchUsers(event)}
                 onChange={event => this.searchUsers(event)}
               />
-              <Label icon="search" color="green" circular onClick={() => this.searchUsers()} />
+              <Label icon="search" className="greenColor" circular onClick={() => this.searchUsers()} />
             </Input>
             <Link to="/admin/addUser" className="button ui green">
               <Icon name="add" />
                 Create a user
             </Link>
           </div>
-          <Table celled striped unstackable inverted>
+          <Table celled striped unstackable inverted className="primary-bg">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Username</Table.HeaderCell>
@@ -175,7 +175,7 @@ class AdminUserTable extends React.Component {
                   </Table.Cell>
                   <Table.Cell>
                     <Link to={`/user/${user.Id}`} className="button ui blue small icon">
-                      <Icon name="eye" />
+                      <Icon name="eye" className="whiteColor" />
                     </Link>
                     { user.Email !== this.props.user.email
                     && (

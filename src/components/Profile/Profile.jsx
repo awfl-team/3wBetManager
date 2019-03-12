@@ -102,7 +102,7 @@ class Profile extends React.Component {
         <Container textAlign="center" className="container-centered">
           <div className="profile-accessibility">
             <Popup
-              trigger={<Icon name={isPrivate ? 'eye slash' : 'eye'} size="big" />}
+              trigger={<Icon name={isPrivate ? 'eye slash' : 'eye'} size="big" className="whiteColor"/>}
               content={isPrivate ? 'Your profile is private' : 'Your profile is public'}
               inverted
               position="left center"

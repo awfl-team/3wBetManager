@@ -73,7 +73,7 @@ class BetSubmitRowComponent extends React.Component {
             <div className="team-image">
               <Image src={match.HomeTeam.CrestUrl} />
             </div>
-            <Label color="red">
+            <Label className="redLabel">
               Win :
                10
             </Label>
@@ -103,7 +103,7 @@ class BetSubmitRowComponent extends React.Component {
             <div className="team-image">
               <Image src={match.AwayTeam.CrestUrl} />
             </div>
-            <Label color="green">
+            <Label className="greenLabel">
               Win :
               90
             </Label>

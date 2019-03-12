@@ -39,7 +39,7 @@ class UserLayout extends React.Component {
     }
     return (
       <div className="layout">
-        <Menu inverted>
+        <Menu inverted className="primary-bg">
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}><Icon name="sidebar" /></Menu.Item>
           <Container className="navbar">
             <Help />
@@ -52,7 +52,7 @@ class UserLayout extends React.Component {
           </Container>
         </Menu>
         <Sidebar.Pushable as={Segment}>
-          <Sidebar as={Menu} animation="push" visible={visible} icon="labeled" inverted vertical width="thin">
+          <Sidebar as={Menu} animation="push" visible={visible} icon="labeled" inverted vertical width="thin" className="primary-bg">
             <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
               <Icon name="dashboard" />
               Dashboard

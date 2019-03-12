@@ -20,7 +20,7 @@ class BestBettersTable extends React.Component {
     const { top50 } = this.state;
     return (
       <div id="bestBettersTable">
-        <Table celled structured compact inverted unstackable>
+        <Table celled structured compact inverted unstackable className="primary-bg">
           <Table.Header>
             <Table.Row textAlign="center">
               <Table.HeaderCell rowSpan="2">#</Table.HeaderCell>
@@ -33,17 +33,17 @@ class BestBettersTable extends React.Component {
             </Table.Row>
             <Table.Row textAlign="center">
               <Table.HeaderCell>
-                <Label color="red">
+                <Label className="redLabel">
                   Wrong
                 </Label>
               </Table.HeaderCell>
               <Table.HeaderCell>
-                <Label color="orange">
+                <Label className="orangeLabel">
                   Ok
                 </Label>
               </Table.HeaderCell>
               <Table.HeaderCell>
-                <Label color="green">
+                <Label className="greenLabel">
                   Perfect
                 </Label>
               </Table.HeaderCell>
@@ -82,7 +82,7 @@ class BestBettersTable extends React.Component {
                   {!user.IsPrivate
                   && (
                   <Link to={`/user/${user.Id}`} className="button ui blue small icon">
-                    <Icon name="eye" />
+                    <Icon name="eye" className="whiteColor" />
                   </Link>
                   )
                   }

@@ -14,7 +14,7 @@
   &.snackbar {
     &-danger, &-warning, &-success, &-default {
       opacity: 1;
-      color: white;
+      color: $white;
     }
 
     &-danger {

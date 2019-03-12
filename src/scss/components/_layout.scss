@@ -8,6 +8,7 @@
 
   .pushable {
     height: calc(100% - 40px);
+    background: $vue-contrast;
   }
 
   .menu {
@@ -15,7 +16,19 @@
       &.active{
         transition: all 0.2s ease;
         &.item {
-          background-color: $red !important;
+          background-color: $vue-contrast !important;
+          position: relative;
+          &:not([type="pageItem"]) {
+            &:after {
+              content: '';
+              width: 4px;
+              height: 100%;
+              background: $vue-green;
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+          }
         }
       }
     }
@@ -50,16 +63,25 @@
       &:not(.active) {
         &:not(.menu-hamburger) {
           &:hover {
-            color: $red !important;
+            color: $vue-contrast !important;
             font-weight: bold;
-            background-color: white !important;
+            background-color: $white !important;
 
             i {
-              color: $red;
+              color: $vue-contrast;
             }
           }
         }
       }
     }
   }
+
+  .primary-bg {
+    background: $vue !important;
+  }
+
+  .pushable {
+    background-color: $vue-contrast !important;
+  }
+
 }
