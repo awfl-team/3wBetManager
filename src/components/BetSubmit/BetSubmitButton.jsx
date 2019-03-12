@@ -33,7 +33,6 @@ class BetSubmitButtonComponent extends React.Component {
     const { bets } = this.props;
     BetService.AddOrUpdateBet(bets.filter(bet => bet.alreadyUpdated === false))
       .then((responses) => {
-        console.log(responses);
         this.props.addSnackbar({
           message: 'Successfully added bets !',
           type: 'success',

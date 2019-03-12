@@ -45,7 +45,6 @@ class ProfileStats extends React.Component {
       }
       this.setState({ dataSetCoins: { datasets: dataBuild.datasets, labels: dataBuild.labels } });
     });
-
   }
 
   componentWillReceiveProps(props) {

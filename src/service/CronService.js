@@ -1,4 +1,5 @@
 import API from '../api';
+
 export default class CronService {
   static updateCompetitions() {
     return API.post('/cron/competitions');
