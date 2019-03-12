@@ -15,8 +15,6 @@ class DashboardStats extends React.Component {
     isDatasetCoinsActive: false,
   };
 
-  // @todo Refactor stats of consultProfile and profile as a component
-
   componentDidMount() {
     this.loadBetsPerTypeDataset();
   }
@@ -26,7 +24,7 @@ class DashboardStats extends React.Component {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
-        let labels = ['Wrong', 'Ok', 'Perfect', 'Total'];
+        let labels = ['Wrong', 'Ok', 'Perfect'];
         let nbBets = Object.values(datas);
         let colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);

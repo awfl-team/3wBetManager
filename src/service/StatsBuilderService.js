@@ -13,8 +13,8 @@ export default class StatsBuilderService {
     return {
       datasets: [{
         data: aDatas,
-        backgroundColor: '#124567',
-        borderColor: '#124567',
+        backgroundColor: '#ffbe14',
+        borderColor: '#ffbe14',
         fill: false,
         label: 'Earned coins',
       }],

@@ -6,7 +6,11 @@ import {
 import GraphService from '../../service/GraphService';
 import StatsBuilderService from '../../service/StatsBuilderService';
 
-let dataBuild;
+let dataBuildBetsPerType;
+let dataBuildCoinsPerType;
+let dataBuildIncomesAndLoss;
+let dataBuildCoinsPerMonth;
+let dataBuildCoinsPerYear;
 
 class ProfileStats extends React.Component {
   state = {
@@ -26,11 +30,11 @@ class ProfileStats extends React.Component {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({ dataSetBets: dataBuild });
+      this.setState({ dataSetBets: dataBuildBetsPerType });
     });
 
     GraphService.getEarningsStatsPerType().then((response) => {
@@ -40,11 +44,11 @@ class ProfileStats extends React.Component {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({ dataSetEarnings: { datasets: dataBuild.datasets, labels: dataBuild.labels } });
+      this.setState({ dataSetEarnings: { datasets: dataBuildCoinsPerType.datasets, labels: dataBuildCoinsPerType.labels } });
     });
 
     GraphService.getCoinsStats().then((response) => {
@@ -54,30 +58,29 @@ class ProfileStats extends React.Component {
         const labels = ['Coins used to bet', 'Bets earnings'];
         const nbBets = Object.values(datas);
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({ dataSetCoins: { datasets: dataBuild.datasets, labels: dataBuild.labels } });
+      this.setState({ dataSetCoins: { datasets: dataBuildIncomesAndLoss.datasets, labels: dataBuildIncomesAndLoss.labels } });
     });
 
     // @todo finish graph stats backend
-    GraphService.getGraphData().then((resp) => {
+    GraphService.getMonthStats().then((resp) => {
       const datas = resp.data;
+      const dates = [];
+      const pts = [];
 
       if (resp.data.length > 0 ) {
-        let dates = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-        let pts = [65, 59, 80, 81, 56, 55, 40];
         datas.forEach((data, index) => {
-          dates.push(data.date);
-          pts.push(data.pts);
+          dates.push(data.Date);
+          pts.push(data.Points);
         });
-        dataBuild = StatsBuilderService.buildStatsBetsGraph(pts, dates);
+        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsGraph(pts, dates);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
+        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
       }
-
-      this.setState({dataDots: dataBuild});
+      this.setState({dataDots: dataBuildCoinsPerMonth});
     });
   }
 
@@ -125,9 +128,9 @@ class ProfileStats extends React.Component {
             <Grid.Row columns={16}>
               <Grid.Column textAlign="center" computer={16}>
                 <div className="graph-container-max-size">
-                  <h3>Earned coins since last reset per day</h3>
-                  { /*<Line data={dataDots} fill="false" legend={{position:
-                     'bottom'}}/>*/ }
+                  <h3>Earned coins since last reset per months</h3>
+                  <Line data={{ labels: dataDots.labels, datasets: dataDots.datasets }} fill="false" legend={{position:
+                     'bottom'}}/>
                 </div>
               </Grid.Column>
             </Grid.Row>

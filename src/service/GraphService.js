@@ -16,4 +16,8 @@ export default class GraphService {
   static getCoinsStats() {
     return API.get('users/stats/coins');
   }
+
+  static getMonthStats() {
+    return API.get('users/stats/month');
+  }
 }
