@@ -25,10 +25,10 @@ class AvailableBets extends React.Component {
               <List.Content>
                 <List.Header>
                   <div className="hometeam">
+                    <span>{availableBet.Match.HomeTeam.Name}</span>
                     <div className="team-image">
                       <Image src={availableBet.Match.HomeTeam.CrestUrl} />
                     </div>
-                    <span>{availableBet.Match.HomeTeam.Name}</span>
                   </div>
                   <div className="versus"><span> VS </span></div>
                   <div className="awayteam">

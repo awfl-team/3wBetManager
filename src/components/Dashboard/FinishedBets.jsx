@@ -27,10 +27,10 @@ class FinishedBets extends React.Component {
               <List.Content>
                 <List.Header>
                   <div className="hometeam">
+                    <span>{finishedBet.Match.HomeTeam.Name}</span>
                     <div className="team-image">
                       <Image src={finishedBet.Match.HomeTeam.CrestUrl} />
                     </div>
-                    <span>{finishedBet.Match.HomeTeam.Name}</span>
                   </div>
                   <div className="versus"><span> VS </span></div>
                   <div className="awayteam">
@@ -42,7 +42,7 @@ class FinishedBets extends React.Component {
                 </List.Header>
                 <List.Description><p>{finishedBet.Match.Competition.Name} | {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}</p></List.Description>
                 <List.Description>
-                  <Label className="infoLabel">Result : {finishedBet.Match.Score.FullTime.HomeTeam} - {finishedBet.Match.Score.FullTime.AwayTeam}</Label> | <Label>Bet : {finishedBet.HomeTeamScore} - {finishedBet.AwayTeamScore}</Label> | <Label color="green">{finishedBet.Status}</Label> | <Icon name="copyright" color="yellow" size="large" /> {finishedBet.PointsWon}
+                  <Label className="infoLabel">Result : {finishedBet.Match.Score.FullTime.HomeTeam} - {finishedBet.Match.Score.FullTime.AwayTeam}</Label> | <Label>Bet : {finishedBet.HomeTeamScore} - {finishedBet.AwayTeamScore}</Label> | <Label color="green">{finishedBet.Status}</Label> | <Icon name="copyright" color="yellow" size="large" /> <span>{finishedBet.PointsWon}</span>
                 </List.Description>
               </List.Content>
             </List.Item>

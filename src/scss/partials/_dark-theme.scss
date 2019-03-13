@@ -68,6 +68,14 @@ i.circular.icon{
   border-color: $vue-green;
 }
 
+.ui.inverted.green.button {
+  border-color: $vue-green !important;
+  color: $white !important;
+  &:hover {
+    background: $vue-green !important;
+  }
+}
+
 
 .ui.cards > .card, .ui.card, .ui.styled.accordion  {
   background: $vue !important;

@@ -66,6 +66,7 @@ class BetLayoutResult extends React.Component {
                     {competition.Name}
                     <Label attached="top right">
                       <Icon name="ticket" />
+                      {console.log(competition)}
                       {competition.NbBet}
                     </Label>
                   </Accordion.Title>
