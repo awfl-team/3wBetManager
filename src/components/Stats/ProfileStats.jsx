@@ -50,7 +50,12 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
-      this.setState({ dataSetEarnings: { datasets: dataBuildCoinsPerType.datasets, labels: dataBuildCoinsPerType.labels } });
+      this.setState({
+        dataSetEarnings: {
+          datasets: dataBuildCoinsPerType.datasets,
+          labels: dataBuildCoinsPerType.labels,
+        },
+      });
     });
 
     GraphService.getCoinsStats().then((response) => {
@@ -64,7 +69,12 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
-      this.setState({ dataSetCoins: { datasets: dataBuildIncomesAndLoss.datasets, labels: dataBuildIncomesAndLoss.labels } });
+      this.setState({
+        dataSetCoins: {
+          datasets: dataBuildIncomesAndLoss.datasets,
+          labels: dataBuildIncomesAndLoss.labels,
+        },
+      });
     });
 
     // @todo finish graph stats backend
@@ -80,7 +90,8 @@ class ProfileStats extends React.Component {
         });
         dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsGraph(pts, dates);
       } else {
-        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
+        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'],
+          ['NaN']);
       }
       this.setState({ dataSetMonth: dataBuildCoinsPerMonth });
     });
@@ -97,7 +108,8 @@ class ProfileStats extends React.Component {
         });
         dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsGraph(pts, dates);
       } else {
-        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
+        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsDougnut(['0'],
+          ['NaN']);
       }
       this.setState({ dataSetYear: dataBuildCoinsPerYear });
     });
@@ -108,9 +120,12 @@ class ProfileStats extends React.Component {
     if (props.user !== user) {
       this.setState(
         {
-          dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']),
-          dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']),
-          dataSetEarnings: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']),
+          dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'],
+            ['NaN'], ['#000000']),
+          dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'],
+            ['NaN'], ['#000000']),
+          dataSetEarnings: StatsBuilderService.buildStatsBetsDougnut(['100'],
+            ['NaN'], ['#000000']),
           dataSetMonth: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
           dataSetYear: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
         },
