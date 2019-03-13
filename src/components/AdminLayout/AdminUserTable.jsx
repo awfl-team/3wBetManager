@@ -121,20 +121,30 @@ class AdminUserTable extends React.Component {
         <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>
-          Users (
+              Users (
             {totalUsers}
-            )
+              )
           </Header.Content>
         </Header>
         <Container fluid className="container-centered">
           <div className="userTableHeader">
             <Input type="search" labelPosition="right" placeholder="Search a user">
-              <Label icon="close" className="redColor" circular onClick={() => this.clearSearch()} />
+              <Label
+                icon="close"
+                className="redColor"
+                circular
+                onClick={() => this.clearSearch()}
+              />
               <input
                 onKeyPress={event => this.searchUsers(event)}
                 onChange={event => this.searchUsers(event)}
               />
-              <Label icon="search" className="greenColor" circular onClick={() => this.searchUsers()} />
+              <Label
+                icon="search"
+                className="greenColor"
+                circular
+                onClick={event => this.searchUsers(event)}
+              />
             </Input>
             <Link to="/admin/addUser" className="button ui green">
               <Icon name="add" />
@@ -175,19 +185,23 @@ class AdminUserTable extends React.Component {
                   </Table.Cell>
                   <Table.Cell>
                     {user.Email !== this.props.user.email
-                    && (
-                    <Link to={`/user/${user.Id}`} className="button ui blue small icon">
-                      <Icon name="eye" className="whiteColor" />
-                    </Link>
-                    )
-                    }
-                    { user.Email !== this.props.user.email
-                    && (
-                    <Button type="button" className="button ui red small icon" onClick={() => this.handleDelete(user)}>
-                      <Icon name="trash" />
-                    </Button>
-                    )
-                    }
+                        && (
+                        <Link to={`/user/${user.Id}`} className="button ui blue small icon">
+                          <Icon name="eye" className="whiteColor" />
+                        </Link>
+                        )
+                        }
+                    {user.Email !== this.props.user.email
+                        && (
+                        <Button
+                          type="button"
+                          className="button ui red small icon"
+                          onClick={() => this.handleDelete(user)}
+                        >
+                          <Icon name="trash" />
+                        </Button>
+                        )
+                        }
 
                   </Table.Cell>
                 </Table.Row>
@@ -207,7 +221,7 @@ class AdminUserTable extends React.Component {
               onPageChange={event => this.getNextUsers(event)}
             />
             )
-          }
+            }
         </Container>
       </div>
     );
