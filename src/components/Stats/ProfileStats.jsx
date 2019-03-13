@@ -50,7 +50,12 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
-      this.setState({ dataSetEarnings: { datasets: dataBuildCoinsPerType.datasets, labels: dataBuildCoinsPerType.labels } });
+      this.setState({
+        dataSetEarnings: {
+          datasets: dataBuildCoinsPerType.datasets,
+          labels: dataBuildCoinsPerType.labels,
+        },
+      });
     });
 
     GraphService.getCoinsStats().then((response) => {
@@ -64,7 +69,12 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
-      this.setState({ dataSetCoins: { datasets: dataBuildIncomesAndLoss.datasets, labels: dataBuildIncomesAndLoss.labels } });
+      this.setState({
+        dataSetCoins: {
+          datasets: dataBuildIncomesAndLoss.datasets,
+          labels: dataBuildIncomesAndLoss.labels,
+        },
+      });
     });
 
     // @todo finish graph stats backend
