@@ -42,7 +42,8 @@ class FinishedBets extends React.Component {
                 </List.Header>
                 <List.Description><p>{finishedBet.Match.Competition.Name} | {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}</p></List.Description>
                 <List.Description>
-                  <Label className="infoLabel">Result : {finishedBet.Match.Score.FullTime.HomeTeam} - {finishedBet.Match.Score.FullTime.AwayTeam}</Label> | <Label>Bet : {finishedBet.HomeTeamScore} - {finishedBet.AwayTeamScore}</Label> | <Label color="green">{finishedBet.Status}</Label> | <Icon name="copyright" color="yellow" size="large" /> <span>{finishedBet.PointsWon}</span>
+                  <Label className="infoLabel">Result : {finishedBet.Match.Score.FullTime.HomeTeam} - {finishedBet.Match.Score.FullTime.AwayTeam}</Label> | <Label>Bet : {finishedBet.HomeTeamScore} - {finishedBet.AwayTeamScore}</Label> | <Label className={finishedBet.Status === 'Perfect' ? 'greenLabel' : ''
+                  || finishedBet.Status === 'Wrong' ? 'redLabel' : '' || finishedBet.Status === 'Ok' ? 'orangeLabel' : ''}>{finishedBet.Status}</Label> | <span>{finishedBet.PointsWon}</span> <Icon name="copyright" color="yellow" size="large" />
                 </List.Description>
               </List.Content>
             </List.Item>
