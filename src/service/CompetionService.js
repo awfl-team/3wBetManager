@@ -1,6 +1,7 @@
 import API from '../api';
+
 export default class CompetitionService {
-  static getAllCompetions() {
+  static getAllCompetitions() {
     return API.get('competitions');
   }
 }

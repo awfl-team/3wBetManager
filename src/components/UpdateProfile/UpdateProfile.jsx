@@ -32,7 +32,8 @@ class UpdateProfile extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property, event.target.value, email, username, password, confirmPassword);
+    const refreshedClassName = FormUserService.refreshClassName(property,
+      event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,
     };

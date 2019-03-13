@@ -30,7 +30,8 @@ class SignUpComponent extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property, event.target.value, email, username, password, confirmPassword);
+    const refreshedClassName = FormUserService.refreshClassName(property,
+      event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,
     };
@@ -142,48 +143,39 @@ class SignUpComponent extends React.Component {
                 <div className="form-info validation">
                   <p className={className.formFieldEmailOk}>
                     <i className="info circle icon" />
-                    {' '}
-The email must respect the valid email
+                      The email must respect the valid email
                       format
                   </p>
                   <p className={className.formFieldUsernameOk}>
                     <i className="info circle icon" />
-                    {' '}
-The username requires at least 3 characters
+                      The username requires at least 3 characters
                   </p>
                   <p className={className.formFieldIdentical}>
                     <i className="info circle icon" />
-                    {' '}
-The password must be identical with the
+                      The password must be identical with the
                       password field
                   </p>
                   <p className={className.formFieldNumber}>
                     <i className="info circle icon" />
-                    {' '}
-The password requires at least 12 characters
+                      The password requires at least 12 characters
                   </p>
                   <p className={className.formMultipleInfos}>
                     <i className="info circle icon" />
-                    {' '}
-The password requires a
+                      The password requires a
                     <span
                       className={className.formdFieldUppercase}
                     >
                     uppercase
                     </span>
-, a
-                    <span
-                      className={className.formFieldSpecial}
-                    >
-                      {' '}
-special character
+                      , a
+                    <span className={className.formFieldSpecial}>
+                        special character
                     </span>
-                    {' '}
-and
+                      and
                     <span
                       className={className.formFieldWithNumber}
                     >
-a number
+                      a number
                     </span>
                   </p>
                 </div>

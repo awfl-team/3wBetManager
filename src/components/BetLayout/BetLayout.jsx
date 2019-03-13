@@ -9,7 +9,6 @@ import withAuth from '../AuthGuard/AuthGuard';
 
 
 class BetLayout extends React.Component {
-
   render() {
     return (
       <div id="betLayout">

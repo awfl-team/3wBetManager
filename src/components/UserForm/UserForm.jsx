@@ -30,7 +30,8 @@ class UserForm extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property, event.target.value, email, username, password, confirmPassword);
+    const refreshedClassName = FormUserService.refreshClassName(property,
+      event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,
     };
@@ -39,7 +40,8 @@ class UserForm extends React.Component {
   };
 
   handleRoleChange = () => {
-    this.setState({ checked: !this.state.checked });
+    const { checked } = this.state;
+    this.setState({ checked });
   };
 
   handleSubmit(event) {
@@ -132,7 +134,7 @@ class UserForm extends React.Component {
                   <Radio
                     toggle
                     defaultChecked={checked}
-                    onChange={this.handleRoleChange.bind(this)}
+                    onChange={() => this.handleRoleChange}
                   />
                   <p>&nbsp;&nbsp;Admin Role</p>
                 </div>

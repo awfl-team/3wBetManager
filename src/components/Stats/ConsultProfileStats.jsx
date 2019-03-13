@@ -20,24 +20,25 @@ class ConsultProfileStats extends React.Component {
     GraphService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
-      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
-        let labels = ['Wrong', 'Ok', 'Perfect'];
-        let nbBets = Object.values(datas);
-        let colors = ['#DB2828', '#F2711C', '#21BA45'];
+      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
+          || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
+        const labels = ['Wrong', 'Ok', 'Perfect'];
+        const nbBets = Object.values(datas);
+        const colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
       }
-      this.setState({ dataSetBets: dataBuild});
+      this.setState({ dataSetBets: dataBuild });
     });
 
     GraphService.getCoinsStats().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {
-        let labels = ['Coins used to bet', 'Bets earnings'];
-        let nbBets = Object.values(datas);
-        let colors = ['#3949ab', '#d81b60', '#ffa000'];
+        const labels = ['Coins used to bet', 'Bets earnings'];
+        const nbBets = Object.values(datas);
+        const colors = ['#3949ab', '#d81b60', '#ffa000'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
@@ -67,13 +68,13 @@ class ConsultProfileStats extends React.Component {
               <Grid.Column textAlign="center" computer={8} tablet={16}>
                 <div className="doughnut-container-max-size">
                   <h3>Finished bets per type</h3>
-                  <Doughnut data={{labels: dataSetBets.labels, datasets: dataSetBets.datasets}} legend={{position: 'bottom'}}/>
+                  <Doughnut data={{ labels: dataSetBets.labels, datasets: dataSetBets.datasets }} legend={{ position: 'bottom' }} />
                 </div>
               </Grid.Column>
               <Grid.Column textAlign="center" computer={8} tablet={16}>
                 <div className="doughnut-container-max-size">
                   <h3>Coins total usages per purpose</h3>
-                  <Doughnut data={{labels: dataSetCoins.labels, datasets: dataSetCoins.datasets}} legend={{position: 'bottom'}}/>
+                  <Doughnut data={{ labels: dataSetCoins.labels, datasets: dataSetCoins.datasets }} legend={{ position: 'bottom' }} />
                 </div>
               </Grid.Column>
             </Grid.Row>

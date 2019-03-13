@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Container, Grid, Header, Icon } from 'semantic-ui-react';
+import {
+  Card, Container, Grid, Header, Icon,
+} from 'semantic-ui-react';
 import DashboardStats from '../Stats/DashboardStats';
 import Top3 from './Top3';
 import UserAmongSiblingsTable from './UserAmongSiblingsTable';
@@ -33,7 +35,7 @@ class Dashboard extends React.Component {
                     <Card.Header>Incomming bets submitted</Card.Header>
                   </Card.Content>
                   <Card.Content extra>
-                   <AvailableBets />
+                    <AvailableBets />
                   </Card.Content>
                 </Card>
               </Grid.Column>
