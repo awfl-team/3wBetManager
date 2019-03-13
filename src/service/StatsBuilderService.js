@@ -6,6 +6,13 @@ export default class StatsBuilderService {
         backgroundColor: aColors,
       }],
       labels: aLabels,
+      options: {
+        legend: {
+          labels: {
+            fontColor: 'white',
+          }
+        }
+      }
     }
   }
 
@@ -19,6 +26,25 @@ export default class StatsBuilderService {
         label: 'Earned coins',
       }],
       labels: aLabels,
+      options: {
+        legend: {
+          labels: {
+            fontColor: 'white',
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              fontColor: 'white',
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: 'white',
+            }
+          }]
+        }
+      }
     }
   }
 }

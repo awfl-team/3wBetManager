@@ -33,7 +33,7 @@ class ProfileStats extends React.Component {
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
       this.setState({ dataSetBets: dataBuildBetsPerType });
     });
@@ -47,7 +47,7 @@ class ProfileStats extends React.Component {
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
       this.setState({ dataSetEarnings: { datasets: dataBuildCoinsPerType.datasets, labels: dataBuildCoinsPerType.labels } });
     });
@@ -61,7 +61,7 @@ class ProfileStats extends React.Component {
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
         dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
       this.setState({ dataSetCoins: { datasets: dataBuildIncomesAndLoss.datasets, labels: dataBuildIncomesAndLoss.labels } });
     });
@@ -107,9 +107,9 @@ class ProfileStats extends React.Component {
     if (props.user !== user) {
       this.setState(
         {
-          dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
-          dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
-          dataSetEarnings: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
+          dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']),
+          dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']),
+          dataSetEarnings: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']),
           dataSetMonth: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
           dataSetYear: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
         },
@@ -128,19 +128,31 @@ class ProfileStats extends React.Component {
               <Grid.Column textAlign="center" computer={5} tablet={15}>
                 <div className="doughnut-container-max-size">
                   <h3>Finished bets per type</h3>
-                  <Doughnut data={{ labels: dataSetBets.labels, datasets: dataSetBets.datasets }} legend={{ position: 'bottom' }} />
+                  <Doughnut
+                    data={{ labels: dataSetBets.labels, datasets: dataSetBets.datasets }}
+                    legend={{ position: 'bottom' }}
+                    options={dataSetBets.options}
+                  />
                 </div>
               </Grid.Column>
               <Grid.Column textAlign="center" computer={5} tablet={15}>
                 <div className="doughnut-container-max-size">
                   <h3>Bets incomes and losses per types</h3>
-                  <Doughnut data={{ labels: dataSetEarnings.labels, datasets: dataSetEarnings.datasets }} legend={{ position: 'bottom' }} />
+                  <Doughnut
+                    data={{ labels: dataSetEarnings.labels, datasets: dataSetEarnings.datasets }}
+                    legend={{ position: 'bottom' }}
+                    options={dataSetEarnings.options}
+                  />
                 </div>
               </Grid.Column>
               <Grid.Column textAlign="center" computer={5} tablet={15}>
                 <div className="doughnut-container-max-size">
                   <h3>Coins total usages per purpose</h3>
-                  <Doughnut data={{ labels: dataSetCoins.labels, datasets: dataSetCoins.datasets }} legend={{ position: 'bottom' }} />
+                  <Doughnut
+                    data={{ labels: dataSetCoins.labels, datasets: dataSetCoins.datasets }}
+                    legend={{ position: 'bottom' }}
+                    options={dataSetCoins.options}
+                  />
                 </div>
               </Grid.Column>
             </Grid.Row>
@@ -148,15 +160,22 @@ class ProfileStats extends React.Component {
               <Grid.Column textAlign="center" computer={8} tablet={16}>
                 <div className="graph-container-max-size">
                   <h3>Earned coins since last reset per months</h3>
-                  <Line data={{ labels: dataSetMonth.labels, datasets: dataSetMonth.datasets }} fill="false" legend={{position:
-                     'bottom'}}/>
+                  <Line
+                    data={{ labels: dataSetMonth.labels, datasets: dataSetMonth.datasets }}
+                    fill="false"
+                    legend={{ position: 'bottom' }}
+                    options={dataSetMonth.options} />
                 </div>
               </Grid.Column>
               <Grid.Column textAlign="center" computer={8} tablet={16}>
                 <div className="graph-container-max-size">
                   <h3>Earned coins since last reset per years</h3>
-                  <Line data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }} fill="false" legend={{position:
-                      'bottom'}}/>
+                  <Line
+                    data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }}
+                    fill="false"
+                    legend={{position: 'bottom' }}
+                    options={dataSetYear.options}
+                  />
                 </div>
               </Grid.Column>
             </Grid.Row>

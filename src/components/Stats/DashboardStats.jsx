@@ -29,7 +29,7 @@ class DashboardStats extends React.Component {
         let colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
       this.setState({
         datasetPieGraph: dataBuild,
@@ -49,7 +49,7 @@ class DashboardStats extends React.Component {
         let colors = ['#3949ab', '#d81b60', '#ffa000'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
       this.setState({
         datasetPieGraph: dataBuild,
@@ -65,7 +65,11 @@ class DashboardStats extends React.Component {
     return (
       <div>
         <div className="doughnut-container-max-size">
-          <Doughnut data={{labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets}} legend={{position: 'bottom'}}/>
+          <Doughnut
+            data={{labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets}}
+            legend={{position: 'bottom'}}
+            options={datasetPieGraph.options}
+          />
         </div>
         <div className="ui two buttons">
           <Button.Group fluid>
