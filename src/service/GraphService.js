@@ -20,4 +20,8 @@ export default class GraphService {
   static getMonthStats() {
     return API.get('users/stats/month');
   }
+
+  static getYearStats() {
+    return API.get('users/stats/year');
+  }
 }

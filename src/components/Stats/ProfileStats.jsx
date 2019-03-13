@@ -17,7 +17,8 @@ class ProfileStats extends React.Component {
     dataSetBets: [],
     dataSetCoins: [],
     dataSetEarnings: [],
-    dataDots: [],
+    dataSetMonth: [],
+    dataSetYear: [],
   };
 
   // @todo Refactor stats of consultProfile and profile as a component
@@ -72,7 +73,7 @@ class ProfileStats extends React.Component {
       const pts = [];
 
       if (resp.data.length > 0 ) {
-        datas.forEach((data, index) => {
+        datas.forEach((data) => {
           dates.push(data.Date);
           pts.push(data.Points);
         });
@@ -80,7 +81,24 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
       }
-      this.setState({dataDots: dataBuildCoinsPerMonth});
+      this.setState({dataSetMonth: dataBuildCoinsPerMonth});
+    });
+
+    GraphService.getYearStats().then((resp) => {
+      const datas = resp.data;
+      const dates = [];
+      const pts = [];
+
+      if (resp.data.length > 0 ) {
+        datas.forEach((data) => {
+          dates.push(data.Date);
+          pts.push(data.Points);
+        });
+        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsGraph(pts, dates);
+      } else {
+        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
+      }
+      this.setState({dataSetYear: dataBuildCoinsPerYear});
     });
   }
 
@@ -92,20 +110,21 @@ class ProfileStats extends React.Component {
           dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
           dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
           dataSetEarnings: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
-          dataDots: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
+          dataSetMonth: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
+          dataSetYear: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
         },
       );
     }
   }
 
   render() {
-    const { dataSetBets, dataSetCoins, dataSetEarnings, dataDots } = this.state;
+    const { dataSetBets, dataSetCoins, dataSetEarnings, dataSetMonth, dataSetYear } = this.state;
 
     return (
       <div>
         <Container textAlign="center" fluid>
           <Grid>
-            <Grid.Row columns={15} divided>
+            <Grid.Row columns={15} divided centered>
               <Grid.Column textAlign="center" computer={5} tablet={15}>
                 <div className="doughnut-container-max-size">
                   <h3>Finished bets per type</h3>
@@ -126,11 +145,18 @@ class ProfileStats extends React.Component {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row columns={16}>
-              <Grid.Column textAlign="center" computer={16}>
+              <Grid.Column textAlign="center" computer={8} tablet={16}>
                 <div className="graph-container-max-size">
                   <h3>Earned coins since last reset per months</h3>
-                  <Line data={{ labels: dataDots.labels, datasets: dataDots.datasets }} fill="false" legend={{position:
+                  <Line data={{ labels: dataSetMonth.labels, datasets: dataSetMonth.datasets }} fill="false" legend={{position:
                      'bottom'}}/>
+                </div>
+              </Grid.Column>
+              <Grid.Column textAlign="center" computer={8} tablet={16}>
+                <div className="graph-container-max-size">
+                  <h3>Earned coins since last reset per years</h3>
+                  <Line data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }} fill="false" legend={{position:
+                      'bottom'}}/>
                 </div>
               </Grid.Column>
             </Grid.Row>
