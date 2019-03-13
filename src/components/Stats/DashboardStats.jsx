@@ -67,8 +67,8 @@ class DashboardStats extends React.Component {
       <div>
         <div className="doughnut-container-max-size">
           <Doughnut
-            data={{labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets}}
-            legend={{position: 'bottom'}}
+            data={{ labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets }}
+            legend={{ position: 'bottom' }}
             options={datasetPieGraph.options}
           />
         </div>
@@ -77,14 +77,16 @@ class DashboardStats extends React.Component {
             <Button
               onClick={this.loadBetsPerTypeDataset}
               active={isDatasetBetsActive}
-              primary={isDatasetBetsActive}>
+              primary={isDatasetBetsActive}
+            >
               Bets ber type
             </Button>
             <Button.Or />
             <Button
               onClick={this.loadCoinsUsageDataset}
               active={isDatasetCoinsActive}
-              primary={isDatasetCoinsActive}>
+              primary={isDatasetCoinsActive}
+            >
               Coins usage
             </Button>
           </Button.Group>

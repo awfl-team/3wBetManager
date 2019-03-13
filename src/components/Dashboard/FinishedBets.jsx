@@ -42,7 +42,9 @@ class FinishedBets extends React.Component {
                 </List.Header>
                 <List.Description>
                   <p>
-                    {finishedBet.Match.Competition.Name} | {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}
+                    {finishedBet.Match.Competition.Name}
+                    <span> | </span>
+                    {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}
                   </p>
                 </List.Description>
                 <List.Description>

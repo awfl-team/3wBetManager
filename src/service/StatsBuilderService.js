@@ -10,10 +10,10 @@ export default class StatsBuilderService {
         legend: {
           labels: {
             fontColor: 'white',
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    };
   }
 
   static buildStatsBetsGraph(aDatas, aLabels) {
@@ -30,21 +30,21 @@ export default class StatsBuilderService {
         legend: {
           labels: {
             fontColor: 'white',
-          }
+          },
         },
         scales: {
           yAxes: [{
             ticks: {
               fontColor: 'white',
-            }
+            },
           }],
           xAxes: [{
             ticks: {
               fontColor: 'white',
-            }
-          }]
-        }
-      }
-    }
+            },
+          }],
+        },
+      },
+    };
   }
 }

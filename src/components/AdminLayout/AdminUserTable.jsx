@@ -175,10 +175,11 @@ class AdminUserTable extends React.Component {
                   </Table.Cell>
                   <Table.Cell>
                     {user.Email !== this.props.user.email
-                    &&
-                    <Link to={'/user/' + user.Id} className="button ui blue small icon">
-                      <Icon name="eye" className="whiteColor"/>
+                    && (
+                    <Link to={`/user/${user.Id}`} className="button ui blue small icon">
+                      <Icon name="eye" className="whiteColor" />
                     </Link>
+                    )
                     }
                     { user.Email !== this.props.user.email
                     && (

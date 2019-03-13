@@ -73,7 +73,7 @@ class ProfileStats extends React.Component {
       const dates = [];
       const pts = [];
 
-      if (resp.data.length > 0 ) {
+      if (resp.data.length > 0) {
         datas.forEach((data) => {
           dates.push(data.Date);
           pts.push(data.Points);
@@ -82,7 +82,7 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
       }
-      this.setState({dataSetMonth: dataBuildCoinsPerMonth});
+      this.setState({ dataSetMonth: dataBuildCoinsPerMonth });
     });
 
     GraphService.getYearStats().then((resp) => {
@@ -90,7 +90,7 @@ class ProfileStats extends React.Component {
       const dates = [];
       const pts = [];
 
-      if (resp.data.length > 0 ) {
+      if (resp.data.length > 0) {
         datas.forEach((data) => {
           dates.push(data.Date);
           pts.push(data.Points);
@@ -99,7 +99,7 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsDougnut(['0'], ['NaN']);
       }
-      this.setState({dataSetYear: dataBuildCoinsPerYear});
+      this.setState({ dataSetYear: dataBuildCoinsPerYear });
     });
   }
 
@@ -119,7 +119,9 @@ class ProfileStats extends React.Component {
   }
 
   render() {
-    const { dataSetBets, dataSetCoins, dataSetEarnings, dataSetMonth, dataSetYear } = this.state;
+    const {
+      dataSetBets, dataSetCoins, dataSetEarnings, dataSetMonth, dataSetYear,
+    } = this.state;
 
     return (
       <div>
@@ -165,7 +167,8 @@ class ProfileStats extends React.Component {
                     data={{ labels: dataSetMonth.labels, datasets: dataSetMonth.datasets }}
                     fill="false"
                     legend={{ position: 'bottom' }}
-                    options={dataSetMonth.options} />
+                    options={dataSetMonth.options}
+                  />
                 </div>
               </Grid.Column>
               <Grid.Column textAlign="center" computer={8} tablet={16}>
@@ -174,7 +177,7 @@ class ProfileStats extends React.Component {
                   <Line
                     data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }}
                     fill="false"
-                    legend={{position: 'bottom' }}
+                    legend={{ position: 'bottom' }}
                     options={dataSetYear.options}
                   />
                 </div>
