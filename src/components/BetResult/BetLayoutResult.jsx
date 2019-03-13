@@ -20,7 +20,7 @@ class BetLayoutResult extends React.Component {
       response.data.forEach((competition) => {
         BetService.getNbBetsInCompetitionForResult(competition.Id).then((res) => {
           if (res.data.NbBet !== undefined) {
-            competition.NbBet = res.data.NbBets;
+            competition.NbBet = res.data.NbBet;
             competitionsWithNbBet.push(competition);
             this.setState({ competitions: competitionsWithNbBet });
           }
@@ -66,7 +66,6 @@ class BetLayoutResult extends React.Component {
                     {competition.Name}
                     <Label attached="top right">
                       <Icon name="ticket" />
-                      {console.log(competition)}
                       {competition.NbBet}
                     </Label>
                   </Accordion.Title>
