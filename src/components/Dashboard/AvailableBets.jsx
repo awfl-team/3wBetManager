@@ -43,7 +43,7 @@ class AvailableBets extends React.Component {
                 <List.Description>
                   <p>
                     {availableBet.Match.Competition.Name}
-                    |
+                    <span> | </span>
                     {moment(availableBet.Match.UtcDate).format('MM-DD-YYYY')}
                   </p>
                 </List.Description>
