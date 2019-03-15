@@ -1,5 +1,5 @@
 import React from 'react';
-import { Doughnut, Line } from 'react-chartjs-2';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import {
   Container, Grid,
 } from 'semantic-ui-react';
@@ -42,7 +42,8 @@ class ProfileStats extends React.Component {
     GraphService.getEarningsStatsPerType().then((response) => {
       const datas = response.data;
 
-      if (Object.entries(response.data).length > 0) {
+      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
+        || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
@@ -50,12 +51,7 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
-      this.setState({
-        dataSetEarnings: {
-          datasets: dataBuildCoinsPerType.datasets,
-          labels: dataBuildCoinsPerType.labels,
-        },
-      });
+      this.setState({ dataSetEarnings: dataBuildCoinsPerType });
     });
 
     GraphService.getCoinsStats().then((response) => {
@@ -69,12 +65,7 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
-      this.setState({
-        dataSetCoins: {
-          datasets: dataBuildIncomesAndLoss.datasets,
-          labels: dataBuildIncomesAndLoss.labels,
-        },
-      });
+      this.setState({ dataSetCoins: dataBuildIncomesAndLoss });
     });
 
     // @todo finish graph stats backend
@@ -113,24 +104,6 @@ class ProfileStats extends React.Component {
       }
       this.setState({ dataSetYear: dataBuildCoinsPerYear });
     });
-  }
-
-  componentWillReceiveProps(props) {
-    const { user } = this.props;
-    if (props.user !== user) {
-      this.setState(
-        {
-          dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'],
-            ['NaN'], ['#000000']),
-          dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'],
-            ['NaN'], ['#000000']),
-          dataSetEarnings: StatsBuilderService.buildStatsBetsDougnut(['100'],
-            ['NaN'], ['#000000']),
-          dataSetMonth: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
-          dataSetYear: StatsBuilderService.buildStatsBetsGraph(['100'], ['NaN']),
-        },
-      );
-    }
   }
 
   render() {
@@ -189,7 +162,7 @@ class ProfileStats extends React.Component {
               <Grid.Column textAlign="center" computer={8} tablet={16}>
                 <div className="graph-container-max-size">
                   <h3>Earned coins since last reset per years</h3>
-                  <Line
+                  <Bar
                     data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }}
                     fill="false"
                     legend={{ position: 'bottom' }}

@@ -253,7 +253,7 @@ class Profile extends React.Component {
           <Icon name="pie graph" circular />
           <Header.Content>Stats</Header.Content>
         </Header>
-        <ProfileStats user={user} />
+        <ProfileStats />
       </div>
     );
   }
