@@ -44,12 +44,14 @@ class SignUpComponent extends React.Component {
     const user = new User(event.target.email.value,
       event.target.username.value,
       event.target.password.value);
+    // TODO change this
+    user.Role = 'USER';
     if (event.target.password.value === event.target.confirmPassword.value) {
       UserService.signUp(user)
         .then(() => {
           UserService.login(user.Email, user.Password)
             .then((response) => {
-              AuthService.setTokenInLocalStorage(response);
+              AuthService.setTokenInLocalStorage(response.data);
               this.setState({ toDashboard: true });
             });
         });

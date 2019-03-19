@@ -1,8 +1,27 @@
 import React from 'react';
+import connect from 'react-redux/es/connect/connect';
+import UserService from '../../service/UserService';
+import User from '../../model/User';
+import { addSnackBar } from '../../actions/SnackBarActions';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
 
 class ForgotPasswordComponent extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
+    const user = new User();
+    user.Email = event.target.email.value;
+    UserService.forgotPassword(user)
+      .then(() => {
+        this.props.addSnackbar({
+          message: `Email sent to ${user.Email}'`,
+          type: 'success',
+        });
+      });
   }
 
   render() {
@@ -12,7 +31,7 @@ class ForgotPasswordComponent extends React.Component {
           <div className="column">
             <h2 className="ui teal authentication-header">
               <div className="content">
-                  Forgot Password
+                  Reset your Password
               </div>
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
@@ -41,5 +60,5 @@ class ForgotPasswordComponent extends React.Component {
     );
   }
 }
-
-export default ForgotPasswordComponent;
+const forgotPasswordComponent = connect(null, mapDispatchToProps)(ForgotPasswordComponent);
+export default forgotPasswordComponent;

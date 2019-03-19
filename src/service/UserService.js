@@ -17,7 +17,7 @@ export default class UserService {
   }
 
   static addUserAdmin(user) {
-    return API.post('users/new', {
+    return API.post('users', {
       Email: user.Email,
       Password: user.Password,
       Username: user.Username,
@@ -26,15 +26,11 @@ export default class UserService {
   }
 
   static forgotPassword(user) {
-    return API.post('forgot_password', {
-      user,
-    });
+    return API.post('forgot_password', user);
   }
 
   static resetPassword(user) {
-    return API.put('reset_password', {
-      user,
-    });
+    return API.put('reset_password', user);
   }
 
   static getUserById(id) {

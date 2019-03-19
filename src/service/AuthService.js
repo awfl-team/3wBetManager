@@ -9,8 +9,8 @@ export default class AuthService {
     localStorage.removeItem('3wtoken');
   }
 
-  static setTokenInLocalStorage(loginResponse) {
-    const token = JSON.stringify(loginResponse.data);
+  static setTokenInLocalStorage(jwt) {
+    const token = JSON.stringify(jwt);
     localStorage.setItem('3wtoken', token.replace(/['"]+/g, ''));
   }
 
