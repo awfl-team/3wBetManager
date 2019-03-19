@@ -31,7 +31,6 @@ class ResetPasswordComponent extends React.Component {
     });
     AuthService.setTokenInLocalStorage(this.props.match.params.token);
     UserService.getFromToken().then(() => {
-      console.log('test');
       this.setState({ tokenIsValid: true });
     });
   }
