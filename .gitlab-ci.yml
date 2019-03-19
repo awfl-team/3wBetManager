@@ -1,5 +1,8 @@
 image: node:alpine
 
+variables:
+  REACT_APP_API_URL: http://151.80.136.92:9000/
+
 stages:
 - deploy
 
