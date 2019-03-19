@@ -1,12 +1,5 @@
 image: node:alpine
 
-variables:
-  PUBLIC_URL: /react-master-group-1
-
-cache:
-  paths:
-  - node_modules
-
 stages:
 - deploy
 
