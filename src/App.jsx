@@ -21,7 +21,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/login" exact component={Login} />
