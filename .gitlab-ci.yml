@@ -1,16 +1,18 @@
 image: node:alpine
 
 variables:
+  PUBLIC_URL: /react-master-group-1
+  # TODO Add https when ssl will enable
   REACT_APP_API_URL: http://151.80.136.92:9000/
 
-stages:
-- deploy
-
 pages:
+  cache:
+    paths:
+      - node_modules/
   stage: deploy
   script:
     - npm install
-    - npm run build 
+    - npm run build
     - rm -rf public
     - mv build public
   artifacts:
@@ -18,4 +20,5 @@ pages:
     - public
   only:
     - develop
+    - master
  
