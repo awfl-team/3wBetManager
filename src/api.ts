@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import AuthService from './service/AuthService';
 import { addSnackBar } from './actions/SnackBarActions';
 import store from './store';
@@ -18,8 +18,9 @@ api.interceptors.request.use(
   error => Promise.reject(error),
 );
 
-api.interceptors.response.use(null, ((error) => {
-  let message = 'Connection lost with the server :(';
+api.interceptors.response.use(((response: AxiosResponse<any>) => {
+  return Promise.reject(response);}), ((error: any) => {
+  let message: string = 'Connection lost with the server :(';
 
   if (error.response) {
     message = error.response.data.Message ? error.response.data.Message : error.response.data;
