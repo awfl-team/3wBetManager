@@ -4,7 +4,7 @@
       "pre-push": "npm run lint"
     }
   },
-  "name": "3wbetmanager",
+  "name": "react-master-group-1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build REACT_APP_API_URL=http://151.80.136.92:9000/ ",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js src/**/*.jsx",

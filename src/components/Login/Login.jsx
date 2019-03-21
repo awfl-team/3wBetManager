@@ -23,7 +23,7 @@ class LoginComponent extends React.Component {
 
     UserService.login(event.target.email.value, event.target.password.value)
       .then((response) => {
-        AuthService.setTokenInLocalStorage(response);
+        AuthService.setTokenInLocalStorage(response.data);
         this.setState({ toDashboard: true });
       });
   }

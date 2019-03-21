@@ -8,6 +8,8 @@ import SignUp from './components/SignUp/SignUp';
 import UserLayout from './components/UserLayout/UserLayout';
 import SnackBar from './components/SnackBar/SnackBar';
 import NotFound from './components/404/NotFound';
+import ForgotPasswordComponent from './components/ForgotPassword/ForgotPasswordComponent';
+import ResetPasswordComponent from './components/ForgotPassword/ResetPasswordComponent';
 
 class App extends React.Component {
   state = {
@@ -21,11 +23,13 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/login" exact component={Login} />
+            <Route path="/forgot_password" exact component={ForgotPasswordComponent} />
             <Route path="/signup" exact component={SignUp} />
+            <Route path="/reset_password/:token" exact component={ResetPasswordComponent} />
             <Route
               path="/(dashboard|profile|update-profile|bestBetters|user/*|bet/myBets|bet/submitBets|admin)"
               component={UserLayout}
