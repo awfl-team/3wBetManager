@@ -51,7 +51,7 @@ class UserAmongSiblingsTable extends React.Component {
           {userAmongSiblings.length > 0
             && userAmongSiblings.map(user => (
               <Table.Row key={user.Id} textAlign="center" active={user.IsCurrent}>
-                <Table.Cell>UserName</Table.Cell>
+                <Table.Cell>{user.Username}</Table.Cell>
                 <Table.Cell>
                   <Icon color="yellow" name="copyright" size="big" />
                   <span color="yellow">{user.Point}</span>
