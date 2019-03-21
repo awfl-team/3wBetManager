@@ -1,25 +1,21 @@
 export default class User {
-    Id;
+	Id!: string;
+	Role!: string;
+	Password!: string;
+	Email!: string;
+	Point!: number;
+	Username!: string;
+	IsPrivate!: boolean;
+	Life!: number;
 
-    Role;
-
-    Password;
-
-    Email;
-
-    Point;
-
-    Username;
-
-    IsPrivate;
-
-    Life;
-
-    constructor(email, username = null, password = null, role = null, isPrivate = null) {
-      this.Email = email;
-      this.Username = username;
-      this.Password = password;
-      this.Role = role;
-      this.IsPrivate = isPrivate;
-    }
+	constructor(data: any) {
+		if (data.Id) this.Id = data.Id;
+		if (data.Role) this.Role = data.Role;
+		if (data.Password) this.Password = data.Password;
+		if (data.Email) this.Email = data.Email;
+		if (data.Point) this.Point = data.Point;
+		if (data.Username) this.Username = data.Username;
+		if (data.IsPrivate) this.IsPrivate = data.IsPrivate;
+		if (data.Life) this.Life = data.Life;
+	}
 }

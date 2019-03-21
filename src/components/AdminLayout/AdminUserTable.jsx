@@ -111,7 +111,7 @@ class AdminUserTable extends React.Component {
       });
   }
 
-  render():void {
+  render() {
     const {
       users, totalPages, totalUsers, showPagination,
     } = this.state;
