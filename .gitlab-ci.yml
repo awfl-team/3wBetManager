@@ -20,5 +20,5 @@ pages:
     - public
   only:
     - develop
-    - ci
+    - master
  
