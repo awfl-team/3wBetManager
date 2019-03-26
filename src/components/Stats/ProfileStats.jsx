@@ -21,24 +21,32 @@ class ProfileStats extends React.Component {
     dataSetYear: [],
   };
 
-  // @todo Refactor stats of consultProfile and profile as a component
+  componentWillReceiveProps() {
+    this.getBetsByTypeData();
+    this.getEarningsStatsPerType();
+    this.getCoinsStats();
+    this.getMonthStats();
+    this.getYearStats();
+  }
 
-  componentDidMount() {
+  getBetsByTypeData() {
     GraphService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
-          || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
+        || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
+        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
       this.setState({ dataSetBets: dataBuildBetsPerType });
     });
+  }
 
+  getEarningsStatsPerType() {
     GraphService.getEarningsStatsPerType().then((response) => {
       const datas = response.data;
 
@@ -49,11 +57,13 @@ class ProfileStats extends React.Component {
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
         dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
+        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
       this.setState({ dataSetEarnings: dataBuildCoinsPerType });
     });
+  }
 
+  getCoinsStats() {
     GraphService.getCoinsStats().then((response) => {
       const datas = response.data;
 
@@ -63,12 +73,13 @@ class ProfileStats extends React.Component {
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
         dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
+        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
       this.setState({ dataSetCoins: dataBuildIncomesAndLoss });
     });
+  }
 
-    // @todo finish graph stats backend
+  getMonthStats() {
     GraphService.getMonthStats().then((resp) => {
       const datas = resp.data;
       const dates = [];
@@ -81,12 +92,13 @@ class ProfileStats extends React.Component {
         });
         dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsGraph(pts, dates);
       } else {
-        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'],
-          ['NaN']);
+        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'], ['undefined']);
       }
       this.setState({ dataSetMonth: dataBuildCoinsPerMonth });
     });
+  }
 
+  getYearStats() {
     GraphService.getYearStats().then((resp) => {
       const datas = resp.data;
       const dates = [];
@@ -99,8 +111,7 @@ class ProfileStats extends React.Component {
         });
         dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsGraph(pts, dates);
       } else {
-        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsDougnut(['0'],
-          ['NaN']);
+        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsDougnut(['0'], ['undefined']);
       }
       this.setState({ dataSetYear: dataBuildCoinsPerYear });
     });
