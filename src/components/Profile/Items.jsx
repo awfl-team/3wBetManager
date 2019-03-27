@@ -1,6 +1,8 @@
 import React from 'react';
-import {Button, Container, Grid, Header, Icon, Image, Label, List} from "semantic-ui-react";
-import {Link} from "react-router-dom";
+import {
+  Button, Container, Grid, Header, Icon, Label,
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 
 class Items extends React.Component {
@@ -47,14 +49,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image legendary">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
@@ -70,14 +76,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image epic">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
@@ -93,14 +103,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image uncommon">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
@@ -116,14 +130,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image common">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
@@ -139,14 +157,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
@@ -162,14 +184,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
@@ -185,14 +211,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image legendary">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
@@ -208,14 +238,18 @@ class Items extends React.Component {
                   <h3 className="item-name">Name</h3>
                 </div>
                 <div className="loot-image">
-                  <img src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/" />
+                  <img
+                    alt=""
+                    src="https://steamuserimages-a.akamaihd.net/ugc/
+                       939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                  />
                 </div>
                 <div className="loot-description">
                   Description
                 </div>
               </div>
               <div className="item-card-bottom">
-                <Button.Group size='large'>
+                <Button.Group size="large">
                   <Button inverted color="green">
                     <Icon name="bolt" />
                   </Button>
