@@ -14,6 +14,9 @@ import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Help from '../Help/Help';
+import LootBox from "../LootBox/LootBox";
+import Shop from "../Shop/Shop";
+import Items from "../Profile/Items";
 
 class UserLayout extends React.Component {
   state = {
@@ -92,10 +95,13 @@ class UserLayout extends React.Component {
               <div id="scroll-anchor" />
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
+              <Route path="/items" component={Items} />
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
               <Route path="/bet" component={BetLayout} />
+              <Route path="/lootbox" component={LootBox} />
+              <Route path="/shop" component={Shop} />
               <Route path="/admin" component={AdminLayout} />
               <PageScroller />
             </Segment>

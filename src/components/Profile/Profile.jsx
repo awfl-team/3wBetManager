@@ -136,6 +136,16 @@ class Profile extends React.Component {
             <Icon color="yellow" name="copyright" size="big" />
             <span>{userPoints}</span>
           </div>
+          <Popup
+            trigger={<Link to="/items" className="profile-items">
+              <Icon color="brown" name="bolt" size="big" />
+              <label>2</label>
+            </Link>}
+            content={'Your items'}
+            inverted
+            position="right center"
+          />
+
           <Button
             content="Email"
             icon="mail"
