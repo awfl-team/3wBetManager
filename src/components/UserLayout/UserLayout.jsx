@@ -14,9 +14,9 @@ import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Help from '../Help/Help';
-import LootBox from "../LootBox/LootBox";
-import Shop from "../Shop/Shop";
-import Items from "../Profile/Items";
+import LootBox from '../LootBox/LootBox';
+import Shop from '../Shop/Shop';
+import Items from '../Profile/Items';
 
 class UserLayout extends React.Component {
   state = {
@@ -87,7 +87,10 @@ class UserLayout extends React.Component {
               </Menu.Item>
               )
             }
-
+            <Menu.Item as={NavLink} activeClassName="active" to="/shop">
+              <Icon name="shop" />
+              3wShop
+            </Menu.Item>
           </Sidebar>
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
