@@ -79,6 +79,7 @@ class UserLayout extends React.Component {
                 as={NavLink}
                 activeClassName="active"
                 className={this.props.history.location.pathname === '/admin/tasks'
+                || this.props.history.location.pathname === '/admin/items'
                 || this.props.history.location.pathname === '/admin/addUser' ? 'active' : ''}
                 to="/admin/users"
               >

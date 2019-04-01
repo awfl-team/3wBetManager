@@ -20,6 +20,7 @@ function mapDispatchToProps(dispatch) {
 class Profile extends React.Component {
   state = {
     user: User,
+    items: [],
     modalDeleteOpen: false,
     modalResetOpen: false,
     isPrivate: false,
@@ -33,11 +34,13 @@ class Profile extends React.Component {
   componentDidMount() {
     UserService.getFromToken()
       .then((response) => {
+        const canReset = response.data.Items.filter(i => i.Type === 'LIFE').length !== 0;
         this.setState({
           user: response.data,
+          items: response.data.Items,
           isPrivate: response.data.IsPrivate,
-          canReset: response.data.Life !== 0,
-          userLives: response.data.Life,
+          canReset,
+          userLives: response.data.Items.filter(i => i.Type === 'LIFE').length,
           userPoints: response.data.Point,
         });
       });
@@ -91,7 +94,7 @@ class Profile extends React.Component {
 
   render() {
     const {
-      user, canReset, userLives, userPoints, isPrivate, modalDeleteOpen, modalResetOpen,
+      user, canReset, userLives, userPoints, isPrivate, modalDeleteOpen, modalResetOpen, items,
     } = this.state;
     return (
       <div id="profile">
@@ -137,15 +140,16 @@ class Profile extends React.Component {
             <span>{userPoints}</span>
           </div>
           <Popup
-            trigger={<Link to="/items" className="profile-items">
-              <Icon color="brown" name="bolt" size="big" />
-              <label>2</label>
-            </Link>}
-            content={'Your items'}
+            trigger={(
+              <Link to="/items" className="profile-items">
+                <Icon color="brown" name="bolt" size="big" />
+                <span>{items.filter(i => i.Type !== 'LIFE').length}</span>
+              </Link>
+              )}
+            content="Your items"
             inverted
             position="right center"
           />
-
           <Button
             content="Email"
             icon="mail"
