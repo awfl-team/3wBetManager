@@ -8,4 +8,8 @@ export default class ItemService {
   static addItemsToUser(items) {
     return API.post('items', items);
   }
+
+  static updateCost(item) {
+    return API.put(`items/${item.Id}`, item);
+  }
 }
