@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Container, Menu,
 } from 'semantic-ui-react';
-import { Link, NavLink, Route } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import AdminUserTable from './AdminUserTable';
 import AdminTaskManager from './AdminTaskManager';
 import AdminItemsManager from './AdminItemsManager';
