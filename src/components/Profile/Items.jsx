@@ -15,7 +15,8 @@ class Items extends React.Component {
 
   componentDidMount() {
     ItemService.getAllItems().then((res) => {
-      this.setState({ items: res.data });
+      const itemsWithoutLife = res.data.filter(item => item.Type !== 'LIFE');
+      this.setState({ items: itemsWithoutLife });
     });
     UserService.getFromToken().then((res) => {
       this.setState({
