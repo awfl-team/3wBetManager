@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Container, Menu,
 } from 'semantic-ui-react';
-import { Link, Route } from 'react-router-dom';
+import { Link, NavLink, Route } from 'react-router-dom';
 import AdminUserTable from './AdminUserTable';
 import AdminTaskManager from './AdminTaskManager';
 import AdminItemsManager from './AdminItemsManager';
@@ -22,31 +22,31 @@ class AdminLayout extends React.Component {
           <div id="adminMenu">
             <Menu>
               <Menu.Item
+                as={NavLink}
                 name="manageUsers"
                 onClick={this.handleItemClick}
                 active={activeItem === 'manageUsers'}
+                to="/admin/users"
               >
-                <Link to="/admin/users" className="ui green icon right labeled button">
                   Manage users
-                </Link>
               </Menu.Item>
               <Menu.Item
+                as={NavLink}
                 name="manageItems"
                 onClick={this.handleItemClick}
                 active={activeItem === 'manageItems'}
+                to="/admin/items"
               >
-                <Link to="/admin/items" className="ui green icon right labeled button">
-                  Manage items
-                </Link>
+                Manage items
               </Menu.Item>
               <Menu.Item
+                as={NavLink}
                 name="managerTasks"
                 onClick={this.handleItemClick}
                 active={activeItem === 'managerTasks'}
+                to="/admin/tasks"
               >
-                <Link to="/admin/tasks" className="ui green icon right labeled button">
-                  Manage tasks
-                </Link>
+                Manage tasks
               </Menu.Item>
             </Menu>
           </div>
