@@ -7,7 +7,13 @@ export default class Match {
 
     HomeTeam;
 
+    HomeTeamRating;
+
     AwayTeam;
+
+    AwayTeamRating;
+
+    DrawRating;
 
     Goals;
 

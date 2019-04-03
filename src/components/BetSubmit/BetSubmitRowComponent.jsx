@@ -73,9 +73,10 @@ class BetSubmitRowComponent extends React.Component {
             <div className="team-image">
               <Image src={match.HomeTeam.CrestUrl} />
             </div>
-            <Label className="redLabel">
+            <Label className="greenLabel">
               Win :
-               10
+              {' '}
+              {match.HomeTeamRating === 0 ? 'N/A' : parseFloat(match.HomeTeamRating).toFixed(2)}
             </Label>
             <div className="team-info">
               <div className="team-name">
@@ -96,7 +97,8 @@ class BetSubmitRowComponent extends React.Component {
             </div>
             <Label>
               Draw :
-              90
+              {' '}
+              {match.DrawRating === 0 ? 'N/A' : parseFloat(match.DrawRating).toFixed(2)}
             </Label>
           </div>
           <div className="container-awayteam">
@@ -105,7 +107,8 @@ class BetSubmitRowComponent extends React.Component {
             </div>
             <Label className="greenLabel">
               Win :
-              90
+              {' '}
+              {match.AwayTeamRating === 0 ? 'N/A' : parseFloat(match.AwayTeamRating).toFixed(2)}
             </Label>
             <div className="team-info">
               <div className="team-name">{match.AwayTeam.Name}</div>

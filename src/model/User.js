@@ -15,6 +15,8 @@ export default class User {
 
     Life;
 
+    Items;
+
     constructor(email, username = null, password = null, role = null, isPrivate = null) {
       this.Email = email;
       this.Username = username;

@@ -51,7 +51,7 @@ class UpdateProfile extends React.Component {
     user.Id = this.state.user.Id;
     if (event.target.password.value === event.target.confirmPassword.value) {
       UserService.updateUser(user).then((response) => {
-        AuthService.setTokenInLocalStorage(response);
+        AuthService.setTokenInLocalStorage(response.data);
         this.props.history.push('/profile');
       });
     }

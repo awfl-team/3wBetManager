@@ -1,0 +1,21 @@
+#adminMenu {
+  margin-bottom: 15px;
+  .ui {
+    background: $vue;
+    border-radius: 5px;
+    .item {
+      width: 33.333%;
+      color: white;
+      a {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+  .active {
+    background-color: $vue-green !important;
+    a {
+      background-color: $vue-green;
+    }
+  }
+}

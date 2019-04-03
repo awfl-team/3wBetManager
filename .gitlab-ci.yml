@@ -1,0 +1,23 @@
+image: node:alpine
+
+variables:
+  PUBLIC_URL: /react-master-group-1
+  REACT_APP_API_URL: https://3w-bet-mangeur-api.lycee-stvincent.net:9000/
+
+pages:
+  cache:
+    paths:
+      - node_modules/
+  stage: deploy
+  script:
+    - npm install
+    - npm run build
+    - rm -rf public
+    - mv build public
+  artifacts:
+    paths:
+    - public
+  only:
+    - develop
+    - master
+ 

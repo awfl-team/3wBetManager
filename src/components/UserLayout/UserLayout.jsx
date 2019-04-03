@@ -14,6 +14,9 @@ import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Help from '../Help/Help';
+import LootBox from '../LootBox/LootBox';
+import Shop from '../Shop/Shop';
+import Items from '../Profile/Items';
 
 class UserLayout extends React.Component {
   state = {
@@ -76,6 +79,7 @@ class UserLayout extends React.Component {
                 as={NavLink}
                 activeClassName="active"
                 className={this.props.history.location.pathname === '/admin/tasks'
+                || this.props.history.location.pathname === '/admin/items'
                 || this.props.history.location.pathname === '/admin/addUser' ? 'active' : ''}
                 to="/admin/users"
               >
@@ -84,7 +88,10 @@ class UserLayout extends React.Component {
               </Menu.Item>
               )
             }
-
+            <Menu.Item as={NavLink} activeClassName="active" to="/shop">
+              <Icon name="shop" />
+              3wShop
+            </Menu.Item>
           </Sidebar>
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>
@@ -92,10 +99,13 @@ class UserLayout extends React.Component {
               <div id="scroll-anchor" />
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
+              <Route path="/items" component={Items} />
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
               <Route path="/bet" component={BetLayout} />
+              <Route path="/lootbox" component={LootBox} />
+              <Route path="/shop" component={Shop} />
               <Route path="/admin" component={AdminLayout} />
               <PageScroller />
             </Segment>

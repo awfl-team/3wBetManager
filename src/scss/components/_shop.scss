@@ -1,0 +1,24 @@
+.shop {
+  .item-card {
+    box-shadow: 0px 5px 16px -6px black;
+    margin: 20px;
+    position: relative;
+
+    .loot {
+      margin: 0;
+    }
+
+    .item-card-bottom {
+      padding: 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .button {
+        i {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+}

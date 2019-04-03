@@ -4,7 +4,7 @@
       "pre-push": "npm run lint"
     }
   },
-  "name": "3wbetmanager",
+  "name": "react-master-group-1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,7 +22,7 @@
     "react-i18next": "^8.4.0",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5",
+    "react-scripts": "^2.1.8",
     "recharts": "^1.5.0",
     "redux": "^4.0.1",
     "semantic-ui-css": "^2.4.1",
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build REACT_APP_API_URL=http://151.80.136.92:9000/ ",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js src/**/*.jsx",
