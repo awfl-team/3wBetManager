@@ -64,11 +64,7 @@ class BetRowResult extends React.Component {
                   </div>
                 </div>
               </div>
-              <Message
-                color={bet.Status === 'Perfect' ? 'green' : ''
-              || bet.Status === 'Wrong' ? 'red' : '' || bet.Status === 'OK' ? 'info' : ''}
-                className="betRow-results"
-              >
+              <div className="betRow-results">
                 <Message.Header>
                   {bet.PointsWon}
                   {' '}
@@ -77,14 +73,14 @@ class BetRowResult extends React.Component {
                 <div className="container-versus-details">
                   <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>
                   <div className="container-versus-details-results-bet">
-                    <Label color={bet.Status === 'Perfect' ? 'green' : ''
-                    || bet.Status === 'Wrong' ? 'red' : '' || bet.Status === 'OK' ? 'info' : ''}
+                    <Label className={bet.Status === 'Perfect' ? 'greenLabel' : ''
+                    || bet.Status === 'Wrong' ? 'redLabel' : '' || bet.Status === 'Ok' ? 'orangeLabel' : ''}
                     >
                       {bet.Status}
                     </Label>
                   </div>
                 </div>
-              </Message>
+              </div>
             </div>
           ))}
         </Container>

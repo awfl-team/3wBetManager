@@ -27,10 +27,10 @@ class FinishedBets extends React.Component {
               <List.Content>
                 <List.Header>
                   <div className="hometeam">
+                    <span>{finishedBet.Match.HomeTeam.Name}</span>
                     <div className="team-image">
                       <Image src={finishedBet.Match.HomeTeam.CrestUrl} />
                     </div>
-                    <span>{finishedBet.Match.HomeTeam.Name}</span>
                   </div>
                   <div className="versus"><span> VS </span></div>
                   <div className="awayteam">
@@ -43,7 +43,7 @@ class FinishedBets extends React.Component {
                 <List.Description>
                   <p>
                     {finishedBet.Match.Competition.Name}
-                    |
+                    <span> | </span>
                     {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}
                   </p>
                 </List.Description>
@@ -55,22 +55,22 @@ class FinishedBets extends React.Component {
                       -
                       {finishedBet.Match.Score.FullTime.AwayTeam}
                     </Label>
-                    {' '}
-                    |
-                    {' '}
+                    <span> | </span>
                     <Label>
                       Bet :
                       {finishedBet.HomeTeamScore}
                       -
                       {finishedBet.AwayTeamScore}
                     </Label>
-                    {' '}
-                    |
-                    {' '}
-                    <Label color="green">{finishedBet.Status}</Label>
-                    {' '}
-                    |
-                    {' '}
+                    <span> | </span>
+                    <Label
+                      className={finishedBet.Status === 'Perfect' ? 'greenLabel' : ''
+                      || finishedBet.Status === 'Wrong' ? 'redLabel' : ''
+                      || finishedBet.Status === 'Ok' ? 'orangeLabel' : ''}
+                    >
+                      {finishedBet.Status}
+                    </Label>
+                    <span> | </span>
                     {finishedBet.PointsWon}
                     <Icon name="copyright" color="yellow" size="large" />
                   </div>

@@ -13,6 +13,9 @@
     h4, p {
       margin-bottom: 5px;
     }
+    .item {
+      margin-bottom: 20px;
+    }
   }
 
   .betters-table-card {
@@ -32,7 +35,6 @@
         margin-bottom: 10px;
 
         .hometeam, .versus, .awayteam {
-          max-width: 150px;
           margin: 0 10px;
         }
 
@@ -43,7 +45,6 @@
           justify-content: center;
           align-items: center;
           .team-image {
-            flex: 1 0 75px;
             img {
               height: 75px;
               width: 75px;
@@ -54,16 +55,22 @@
         }
 
         .hometeam {
-          text-align: right;
+          justify-content: flex-end;
+          span {
+            justify-self: flex-end;
+          }
           .team-image {
-            margin-right: 5px;
+            margin-left: 10px;
           }
         }
 
         .awayteam {
-          text-align: left;
+          justify-content: flex-start;
+          span {
+            justify-self: flex-start;
+          }
           .team-image {
-            margin-left: 5px;
+            margin-right: 10px;
           }
         }
 

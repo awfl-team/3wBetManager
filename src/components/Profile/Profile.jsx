@@ -63,7 +63,7 @@ class Profile extends React.Component {
     UserService.resetUser()
       .then(() => {
         this.setState({ modalResetOpen: false });
-        UserService.getUserById(this.state.user.Id)
+        UserService.getFromToken()
           .then((response) => {
             this.setState({
               user: response.data,

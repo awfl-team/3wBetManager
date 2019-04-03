@@ -21,12 +21,7 @@ function Homepage() {
                   3wBet-Manager
             </h1>
             <h2>Manage your bets</h2>
-            <Link to="/login" className="ui huge red button">
-              Let's go !
-              <i className="right arrow icon" />
-            </Link>
           </div>
-
         </div>
 
         <div className="ui vertical stripe segment bg-vue">

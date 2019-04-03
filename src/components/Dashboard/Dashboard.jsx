@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
               <Grid.Column textAlign="center" computer={8} mobile={16}>
                 <Card fluid>
                   <Card.Content>
-                    <Card.Header>Available bets</Card.Header>
+                    <Card.Header>Incomming bets submitted</Card.Header>
                   </Card.Content>
                   <Card.Content extra>
                     <AvailableBets />
