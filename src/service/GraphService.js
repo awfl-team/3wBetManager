@@ -6,22 +6,22 @@ export default class GraphService {
   }
 
   static getBetsByTypeData() {
-    return API.get('bets/stats/type');
+    return API.get('stats/type');
   }
 
   static getEarningsStatsPerType() {
-    return API.get('bets/stats/earnings/type');
+    return API.get('stats/earnings/type');
   }
 
   static getCoinsStats() {
-    return API.get('users/stats/coins');
+    return API.get('stats/coins');
   }
 
   static getMonthStats() {
-    return API.get('users/stats/month');
+    return API.get('stats/month');
   }
 
   static getYearStats() {
-    return API.get('users/stats/year');
+    return API.get('stats/year');
   }
 }
