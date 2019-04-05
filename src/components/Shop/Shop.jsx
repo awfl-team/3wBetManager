@@ -54,6 +54,7 @@ class Shop extends React.Component {
     const { user, itemsBought, totalCost } = this.state;
     if (totalCost <= user.Point) {
       ItemService.addItemsToUser(itemsBought).then(() => {
+        this.setState({ itemsBought: [] });
         this.props.addSnackbar({
           message: 'Items buy',
           type: 'success',
@@ -69,7 +70,7 @@ class Shop extends React.Component {
 
   render() {
     const {
-      items, itemsBought, totalCost, user,
+      items, itemsBought, totalCost,
     } = this.state;
     return (
       <div id="lootbox">
@@ -88,9 +89,6 @@ class Shop extends React.Component {
         <Header as="h2" icon textAlign="center">
           <Icon name="shop" circular />
           <Header.Content>3wShop</Header.Content>
-          <Header.Content>
-            {user.Point}
-          </Header.Content>
         </Header>
         <Container textAlign="center" fluid>
           <div id="loot-container" className="shop">

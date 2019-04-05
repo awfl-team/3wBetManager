@@ -121,15 +121,12 @@ class Profile extends React.Component {
           <div className="profile-lives">
             <Popup
               trigger={(
-                <Rating
-                  icon="heart"
-                  rating={userLives}
-                  maxRating={3}
-                  disabled
-                  size="massive"
-                />
-)}
-              content={user.Life !== 0 ? 'You can reset your account' : 'You can\'t reset your account anymore'}
+                <div>
+                  <Icon color="red" name="heart" size="big" />
+                  <span>{userLives}</span>
+                </div>
+                )}
+              content={userLives !== 0 ? 'You can reset your account' : 'You can\'t reset your account anymore'}
               inverted
               position="right center"
             />
