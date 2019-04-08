@@ -187,6 +187,10 @@ class SignUpComponent extends React.Component {
             <div className="ui message">
                 Already have an account ? &nbsp;
               <Link to="/login">Log In</Link>
+              {' '}
+              |
+              {' '}
+              <Link to="/forgot_password">Forgot password</Link>
             </div>
           </div>
         </div>

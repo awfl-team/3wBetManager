@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Header, Icon, Rating,
+  Container, Header, Icon,
 } from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
@@ -9,20 +9,23 @@ import ConsultProfileStats from '../Stats/ConsultProfileStats';
 class ConsultProfile extends React.Component {
   state = {
     user: User,
+    userLives: '',
   };
 
   // @todo Refactor stats of consultProfile and profile as a component
 
   componentDidMount() {
     UserService.getUserById(this.props.match.params.userId)
-      .then(response => this.setState({ user: response.data }))
+      .then((response) => {
+        this.setState({ user: response.data, userLives: response.data.Items.filter(i => i.Type === 'LIFE').length });
+      })
       .catch(() => {
         this.props.history.push('/404');
       });
   }
 
   render() {
-    const { user } = this.state;
+    const { user, userLives } = this.state;
     return (
       <div id="profile">
         {user.IsPrivate === false
@@ -51,7 +54,10 @@ class ConsultProfile extends React.Component {
           && (
           <div>
             <div className="profile-lives">
-              <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="massive" />
+              <div>
+                <Icon color="red" name="heart" size="big" />
+                <span>{userLives}</span>
+              </div>
             </div>
             <div className="profile-coins">
               <Icon color="yellow" name="copyright" size="big" />

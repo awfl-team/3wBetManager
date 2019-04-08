@@ -69,7 +69,7 @@ class Profile extends React.Component {
               user: response.data,
               isPrivate: response.data.IsPrivate,
               canReset: response.data.Life !== 0,
-              userLives: response.data.Life,
+              userLives: response.data.Items.filter(i => i.Type === 'LIFE').length,
               userPoints: response.data.Point,
             });
           });

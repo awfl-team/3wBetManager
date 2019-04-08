@@ -38,7 +38,9 @@ class Top3 extends React.Component {
               <List.Header as={user.IsPrivate === false ? 'a' : ''}><h4>{user.Username}</h4></List.Header>
               <List.Description>
                 <div className="whiteColor">
-                  <Rating icon="heart" rating={user.Life} maxRating={3} disabled />
+                  <span>{user.Life}</span>
+                  {' '}
+                  <Icon color="red" name="heart" size="large" />
                   {' '}
                     |
                   {' '}

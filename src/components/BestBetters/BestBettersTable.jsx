@@ -72,7 +72,11 @@ class BestBettersTable extends React.Component {
                   <span color="yellow">{user.Point}</span>
                 </Table.Cell>
                 <Table.Cell>
-                  <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
+                  <div>
+                    <span>{user.Life}</span>
+                    {' '}
+                    <Icon color="red" name="heart" size="big" />
+                  </div>
                 </Table.Cell>
                 <Table.Cell>{user.NbBets}</Table.Cell>
                 <Table.Cell>{user.NbWrongBets}</Table.Cell>
