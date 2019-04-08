@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Table,
+  Button, Header, Icon, Table,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import ItemService from '../../service/ItemService';
@@ -52,7 +52,7 @@ class AdminItemsManager extends React.Component {
             )
           </Header.Content>
         </Header>
-        <Container fluid className="container-centered">
+        <div className="items-table">
           <Table celled structured compact inverted unstackable className="primary-bg">
             <Table.Header>
               <Table.Row>
@@ -61,7 +61,6 @@ class AdminItemsManager extends React.Component {
                 <Table.HeaderCell>Actions</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
-
             <Table.Body>
               {items.map(item => (
                 <Table.Row key={item.Id}>
@@ -87,7 +86,7 @@ class AdminItemsManager extends React.Component {
               ))}
             </Table.Body>
           </Table>
-        </Container>
+        </div>
       </div>
     );
   }

@@ -18,7 +18,7 @@
     margin: 0 auto !important;
     display: block !important;
     border-radius: 25px !important;
-    font-size: 20px !important;
+    font-size: 1.25rem !important;
     position: fixed;
     right: 110px;
     bottom: 20px;
@@ -36,4 +36,10 @@
 .ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before {
   background-color: $vue;
   border: 2px solid $vue-green !important;
+}
+
+.button {
+  @media screen and (max-width: 450px) {
+    font-size: 0.9rem !important;
+  }
 }
