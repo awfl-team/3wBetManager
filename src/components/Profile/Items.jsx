@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Button, Container, Grid, Header, Icon, Label,
+  Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import UserService from '../../service/UserService';
 
@@ -11,6 +11,7 @@ class Items extends React.Component {
   state = {
     items: [],
     userItems: [],
+    activeItem: 'items',
   };
 
   componentDidMount() {
@@ -25,30 +26,35 @@ class Items extends React.Component {
     });
   }
 
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
-    const { items, userItems } = this.state;
+    const { items, userItems, activeItem } = this.state;
     return (
       <div id="lootbox">
         <Container fluid>
-          <Grid>
-            <Grid.Column floated="left" width={5}>
-              <div align="left">
-                <Link to="/profile" className="ui green icon left labeled button">
-                  My profile
-                  <Icon name="left arrow" />
-                </Link>
-              </div>
-            </Grid.Column>
-            <Grid.Column floated="right" width={5}>
-              <div align="right">
-                <Link to="/shop" className="ui green icon right labeled button">
-                  Shop
-                  <Icon name="right arrow" />
-                </Link>
-              </div>
-            </Grid.Column>
-
-          </Grid>
+          <div id="inlineMenu">
+            <Menu>
+              <Menu.Item
+                as={NavLink}
+                name="shop"
+                onClick={this.handleItemClick}
+                active={activeItem === 'shop'}
+                to="/shop"
+              >
+                Shop
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                name="items"
+                onClick={this.handleItemClick}
+                active={activeItem === 'items'}
+                to="/items"
+              >
+                My items
+              </Menu.Item>
+            </Menu>
+          </div>
         </Container>
         <Header as="h2" icon textAlign="center">
           <Icon name="shop" circular />
