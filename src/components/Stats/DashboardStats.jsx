@@ -45,7 +45,7 @@ class DashboardStats extends React.Component {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {
-        const labels = ['Coins used to bet', 'Bets earnings'];
+        const labels = ['Coins used to buy items', 'Coins used to bet', 'Bets earnings'];
         const nbBets = Object.values(datas);
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
         dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
