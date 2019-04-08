@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, HashRouter, Redirect, Route, Switch,
+  HashRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
 import Homepage from './components/Homepage/Homepage';
 import Login from './components/Login/Login';
