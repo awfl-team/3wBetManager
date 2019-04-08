@@ -19,7 +19,7 @@ class AdminLayout extends React.Component {
     return (
       <div id="AdminLayout">
         <Container fluid>
-          <div id="adminMenu">
+          <div id="inlineMenu">
             <Menu>
               <Menu.Item
                 as={NavLink}

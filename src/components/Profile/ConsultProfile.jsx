@@ -60,7 +60,7 @@ class ConsultProfile extends React.Component {
           </div>
           )
           }
-          <ConsultProfileStats user={user} />
+          <ConsultProfileStats userId={this.props.match.params.userId} />
           { user.IsPrivate === true
             && <h2>You are only able to see his lives, coins and username</h2>
           }
