@@ -23,7 +23,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <HashRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/login" exact component={Login} />
