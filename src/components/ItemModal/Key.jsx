@@ -132,7 +132,7 @@ class Key extends React.Component {
                 </Table.Body>
               </Table>
             </div>
-            {showPagination === true
+            {showPagination === true && users.length >= 10
             && (
               <Pagination
                 ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}

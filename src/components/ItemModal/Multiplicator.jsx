@@ -1,0 +1,114 @@
+import React from 'react';
+import {
+  Button, Header, Icon, Modal, Pagination, Table,
+} from 'semantic-ui-react';
+import moment from 'moment';
+import BetService from '../../service/BetService';
+
+class Multiplicator extends React.Component {
+  state = {
+    bets: [],
+    totalPages: 1,
+  };
+
+  componentDidMount() {
+    BetService.getUserFinishedBetsPaginated()
+      .then((response) => {
+        this.setState({
+          bets: response.data.Items,
+          totalPages: response.data.TotalPages,
+        });
+      });
+  }
+
+  getNextBets(event) {
+    BetService.getUserFinishedBetsPaginated(event.target.getAttribute('value'))
+      .then((response) => {
+        this.setState({
+          bets: response.data.Items,
+          totalPages: response.data.TotalPages,
+        });
+      });
+  }
+
+  render() {
+    const {
+      bets, totalPages,
+    } = this.state;
+
+    return (
+      <div id="multiplicator">
+        <Modal.Content scrolling>
+          <Modal.Description>
+            <Header as="h1" icon textAlign="center">
+              <Icon name="flask" circular />
+              <Header.Content>
+                Multiplicator
+              </Header.Content>
+            </Header>
+            <div className="scrollable-table-container">
+              <Table celled striped unstackable inverted className="primary-bg">
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Competition</Table.HeaderCell>
+                    <Table.HeaderCell>Match date</Table.HeaderCell>
+                    <Table.HeaderCell>Home team</Table.HeaderCell>
+                    <Table.HeaderCell>Away team</Table.HeaderCell>
+                    <Table.HeaderCell>Bet</Table.HeaderCell>
+                    <Table.HeaderCell>Home team odds</Table.HeaderCell>
+                    <Table.HeaderCell>Draw odds</Table.HeaderCell>
+                    <Table.HeaderCell>Away team odds</Table.HeaderCell>
+                    <Table.HeaderCell>Actions</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                  {bets.map(bet => (
+                    <Table.Row key={bet.Id}>
+                      <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
+                      <Table.Cell>{moment(bet.Match.UtcDate).format('MM/DD/YYYY')}</Table.Cell>
+                      <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
+                      <Table.Cell>{bet.Match.AwayTeam.Name}</Table.Cell>
+                      <Table.Cell>
+                        {bet.HomeTeamScore}
+                        -
+                        {bet.AwayTeamScore}
+                      </Table.Cell>
+                      <Table.Cell>{bet.Match.HomeTeamRating}</Table.Cell>
+                      <Table.Cell>{bet.Match.DrawRating}</Table.Cell>
+                      <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
+                      <Table.Cell>
+                        <Button
+                          icon="flask"
+                          inverted
+                          className="green"
+                          fluid
+                        />
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
+            </div>
+            {bets.length >= 10
+            && (
+              <Pagination
+                ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
+                firstItem={null}
+                lastItem={null}
+                defaultActivePage={1}
+                prevItem={{ content: <Icon name="angle left" />, icon: true }}
+                nextItem={{ content: <Icon name="angle right" />, icon: true }}
+                totalPages={totalPages}
+                onPageChange={event => this.getNextBets(event)}
+              />
+            )
+            }
+          </Modal.Description>
+        </Modal.Content>
+      </div>
+    );
+  }
+}
+
+export default Multiplicator;

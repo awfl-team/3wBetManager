@@ -26,6 +26,10 @@ export default class BetService {
     return API.get(`bets/${competitionId}/current/number`);
   }
 
+  static getUserFinishedBetsPaginated(page = 1) {
+    return API.get(`bets/${page}/result/paginated`);
+  }
+
   static AddOrUpdateBet(bets) {
     const promises = [];
     if (bets.filter(bet => bet.Id === undefined).length > 0) {

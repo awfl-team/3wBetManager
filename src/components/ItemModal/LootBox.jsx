@@ -60,7 +60,14 @@ class LootBox extends React.Component {
                       <div className="loot-title">
                         <h3 className="item-name">{item.Name}</h3>
                       </div>
-                      <div className="loot-image legendary">
+                      <div className={
+                        `loot-image ${
+                          item.Rarity === 'Legendary' ? 'legendary' : ''
+                          || item.Rarity === 'Rare' ? 'rare' : ''
+                          || item.Rarity === 'Epic' ? 'epic' : ''
+                          || item.Rarity === 'Common' ? 'common' : ''}`
+                      }
+                      >
                         <img
                           alt=""
                           src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
@@ -78,7 +85,14 @@ class LootBox extends React.Component {
                       <div className="loot-title">
                         <h3 className="item-name">{item.Name}</h3>
                       </div>
-                      <div className="loot-image legendary">
+                      <div className={
+                        `loot-image ${
+                          item.Rarity === 'Legendary' ? 'legendary' : ''
+                          || item.Rarity === 'Rare' ? 'rare' : ''
+                          || item.Rarity === 'Epic' ? 'epic' : ''
+                          || item.Rarity === 'Common' ? 'common' : ''}`
+                        }
+                      >
                         <img
                           alt=""
                           src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
@@ -103,7 +117,14 @@ class LootBox extends React.Component {
                     <div className="loot-title">
                       <h3 className="item-name">{item.Name}</h3>
                     </div>
-                    <div className="loot-image legendary">
+                    <div className={
+                      `loot-image ${
+                        item.Rarity === 'Legendary' ? 'legendary' : ''
+                      || item.Rarity === 'Rare' ? 'rare' : ''
+                      || item.Rarity === 'Epic' ? 'epic' : ''
+                      || item.Rarity === 'Common' ? 'common' : ''}`
+                    }
+                    >
                       <img
                         alt=""
                         src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
