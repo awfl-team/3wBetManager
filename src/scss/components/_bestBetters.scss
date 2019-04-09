@@ -1,5 +1,8 @@
-#bestBettersTable, .betters-table, .items-table, .adminUser-table {
+#bestBettersTable, .betters-table, .items-table, .adminUser-table, .scrollable-table-container {
+  margin: 5px 0;
+
   @media screen and (max-width: 801px) {
+    max-width: 100%;
     overflow-x: scroll;
   }
   table {

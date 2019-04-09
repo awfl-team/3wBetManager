@@ -1,10 +1,13 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Label, Menu,
+  Button, Container, Header, Icon, Label, Menu, Modal,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import UserService from '../../service/UserService';
+import LootBox from '../ItemModal/LootBox';
+import Bomb from '../ItemModal/Bomb';
+import Key from '../ItemModal/Key';
 
 
 class Items extends React.Component {
@@ -57,14 +60,14 @@ class Items extends React.Component {
           </div>
         </Container>
         <Header as="h2" icon textAlign="center">
-          <Icon name="shop" circular />
+          <Icon name="bolt" circular />
           <Header.Content>3wItems</Header.Content>
         </Header>
         <Container textAlign="center" fluid>
-          <div id="loot-container" className="shop">
+          <div id="items-container" className="shop">
             {items.map(item => (
               <div key={item.Id} className="item-card">
-                <Label color="black" floating>
+                <Label floating className="greenLabel">
                   {userItems.filter(i => i.Type === item.Type).length}
                 </Label>
                 <div className="loot">
@@ -83,13 +86,28 @@ class Items extends React.Component {
                 </div>
                 <div className="item-card-bottom">
                   <Button.Group size="large">
-                    <Button
-                      inverted
-                      color="green"
-                      disabled={userItems.filter(i => i.Type === item.Type).length === 0}
+                    <Modal
+                      trigger={(
+                        <Button
+                          inverted
+                          color="green"
+                          disabled={userItems.filter(i => i.Type === item.Type).length === 0}
+                        >
+                          <Icon name="bolt" />
+                        </Button>
+                      )}
+                      className="item-modal"
                     >
-                      <Icon name="bolt" />
-                    </Button>
+                      {item.Type === 'LOOT_BOXE'
+                      && <LootBox />
+                      }
+                      {item.Type === 'BOMB'
+                      && <Bomb />
+                      }
+                      {item.Type === 'KEY'
+                      && <Key />
+                      }
+                    </Modal>
                   </Button.Group>
                 </div>
               </div>

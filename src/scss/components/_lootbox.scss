@@ -1,4 +1,4 @@
-#loot-container {
+#loot-container, #items-container {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
@@ -9,6 +9,22 @@
     padding: 0;
     overflow-y: scroll;
   }
+}
+
+#loot-container {
+  & > .header {
+    flex: 1 1 100%
+  }
+  & > div {
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .loot {
+      box-shadow: 0px 5px 16px -6px black;
+    }
+  }
+
 }
 
 .hide {
@@ -82,29 +98,32 @@
   overflow: hidden;
   white-space: nowrap;
   width: 500px;
+  min-height: 260px;
   display: flex;
-  height: 330px;
   margin: 0 auto;
-  transition: height 0.2s ease;
-  &.hide {
-    height: 0;
+  &-container {
+    height: 450px;
+    transition: height 0.3s ease;
+    &.hide {
+      height: 0;
+    }
   }
 
   .loot {
-    min-height: 200px;
-    height: 200px;
+    min-height: 260px;
+    height: 260px;
   }
 }
 
 #slide-comp-1 {
   display: flex;
-  animation: slide-comp-1 4s linear infinite;
+  animation: slide-comp-1 1s linear infinite;
 }
 
 #slide-comp-2 {
   display: flex;
-  animation: slide-comp-2  4s linear infinite;
-  animation-delay: 2s;
+  animation: slide-comp-2  1s linear infinite;
+  animation-delay: 0.5s;
 }
 
 @keyframes slide-comp-1 {

@@ -113,7 +113,7 @@ class Shop extends React.Component {
             {' '}
             <Icon color="yellow" name="copyright" size="big" />
           </div>
-          <div id="loot-container" className="shop">
+          <div id="items-container" className="shop">
             {items.map(item => (
               <div key={item.Id} className="item-card">
                 <div className="loot">

@@ -14,7 +14,7 @@ import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Help from '../Help/Help';
-import LootBox from '../LootBox/LootBox';
+import LootBox from '../ItemModal/LootBox';
 import Shop from '../Shop/Shop';
 import Items from '../Profile/Items';
 
