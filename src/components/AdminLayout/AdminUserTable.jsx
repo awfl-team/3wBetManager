@@ -7,7 +7,6 @@ import {
   Input, Label,
   Pagination,
   Radio,
-  Rating,
   Table,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -169,11 +168,16 @@ class AdminUserTable extends React.Component {
                   <Table.Cell>{user.Username}</Table.Cell>
                   <Table.Cell>{user.Email}</Table.Cell>
                   <Table.Cell>
-                    <Icon color="yellow" name="copyright" size="big" />
-                    <span color="yellow">{user.Point}</span>
+                    <span>{user.Point}</span>
+                    {' '}
+                    <Icon color="yellow" name="copyright" size="large" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
+                    <div>
+                      <span>{user.Items.filter(i => i.Type === 'LIFE').length}</span>
+                      {' '}
+                      <Icon color="red" name="heart" size="large" />
+                    </div>
                   </Table.Cell>
                   <Table.Cell>
                     <Radio
@@ -185,23 +189,23 @@ class AdminUserTable extends React.Component {
                   </Table.Cell>
                   <Table.Cell>
                     {user.Email !== this.props.user.email
-                        && (
-                        <Link to={`/user/${user.Id}`} className="button ui blue small icon">
-                          <Icon name="eye" className="whiteColor" />
-                        </Link>
-                        )
-                        }
+                    && (
+                      <Link to={`/user/${user.Id}`} className="button ui blue small icon">
+                        <Icon name="eye" className="whiteColor" />
+                      </Link>
+                    )
+                    }
                     {user.Email !== this.props.user.email
-                        && (
-                        <Button
-                          type="button"
-                          className="button ui red small icon"
-                          onClick={() => this.handleDelete(user)}
-                        >
-                          <Icon name="trash" />
-                        </Button>
-                        )
-                        }
+                    && (
+                      <Button
+                        type="button"
+                        className="button ui red small icon"
+                        onClick={() => this.handleDelete(user)}
+                      >
+                        <Icon name="trash" />
+                      </Button>
+                    )
+                    }
 
                   </Table.Cell>
                 </Table.Row>

@@ -1,11 +1,15 @@
-#adminMenu {
+#inlineMenu {
   margin-bottom: 15px;
   .ui {
     background: $vue;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     .item {
-      width: 33.333%;
+      justify-content: center;
       color: white;
+      flex: 1 1 auto;
       a {
         margin-right: auto;
         margin-left: auto;

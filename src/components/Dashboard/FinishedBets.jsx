@@ -48,7 +48,7 @@ class FinishedBets extends React.Component {
                   </p>
                 </List.Description>
                 <List.Description>
-                  <div className="whiteColor">
+                  <div className="whiteColor tags">
                     <Label className="infoLabel">
                       Result :
                       {finishedBet.Match.Score.FullTime.HomeTeam}
@@ -71,8 +71,11 @@ class FinishedBets extends React.Component {
                       {finishedBet.Status}
                     </Label>
                     <span> | </span>
-                    {finishedBet.PointsWon}
-                    <Icon name="copyright" color="yellow" size="large" />
+                    <div>
+                      {finishedBet.PointsWon}
+                      {' '}
+                      <Icon name="copyright" color="yellow" size="large" />
+                    </div>
                   </div>
                 </List.Description>
               </List.Content>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Icon, Label, Rating, Table,
+  Icon, Label, Table,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import UserService from '../../service/UserService';
@@ -68,11 +68,16 @@ class BestBettersTable extends React.Component {
                 </Table.Cell>
                 <Table.Cell>{user.Username}</Table.Cell>
                 <Table.Cell>
-                  <Icon color="yellow" name="copyright" size="big" />
-                  <span color="yellow">{user.Point}</span>
+                  <span>{user.Point}</span>
+                  {' '}
+                  <Icon color="yellow" name="copyright" size="large" />
                 </Table.Cell>
                 <Table.Cell>
-                  <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
+                  <div>
+                    <span>{user.Life}</span>
+                    {' '}
+                    <Icon color="red" name="heart" size="large" />
+                  </div>
                 </Table.Cell>
                 <Table.Cell>{user.NbBets}</Table.Cell>
                 <Table.Cell>{user.NbWrongBets}</Table.Cell>

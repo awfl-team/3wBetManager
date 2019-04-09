@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Redirect, Route, Switch,
+  HashRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
 import Homepage from './components/Homepage/Homepage';
 import Login from './components/Login/Login';
@@ -23,7 +23,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Router basename={process.env.PUBLIC_URL}>
+        <HashRouter>
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/login" exact component={Login} />
@@ -36,7 +36,7 @@ class App extends React.Component {
             />
             <Route component={NotFound} />
           </Switch>
-        </Router>
+        </HashRouter>
         <SnackBar />
       </div>
     );

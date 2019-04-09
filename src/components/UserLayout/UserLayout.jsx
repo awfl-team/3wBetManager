@@ -88,7 +88,12 @@ class UserLayout extends React.Component {
               </Menu.Item>
               )
             }
-            <Menu.Item as={NavLink} activeClassName="active" to="/shop">
+            <Menu.Item
+              as={NavLink}
+              activeClassName="active"
+              to="/shop"
+              className={this.props.history.location.pathname === '/items' ? 'active' : ''}
+            >
               <Icon name="shop" />
               3wShop
             </Menu.Item>

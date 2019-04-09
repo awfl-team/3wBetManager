@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Button, Container, Grid, Header, Icon,
+  Button, Container, Header, Icon, Menu,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import ItemService from '../../service/ItemService';
 import User from '../../model/User';
@@ -22,6 +22,7 @@ class Shop extends React.Component {
     items: [],
     itemsBought: [],
     totalCost: 0,
+    activeItem: 'shop',
   };
 
   componentDidMount() {
@@ -68,29 +69,50 @@ class Shop extends React.Component {
     }
   };
 
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
     const {
-      items, itemsBought, totalCost,
+      items, itemsBought, totalCost, activeItem, user,
     } = this.state;
     return (
-      <div id="lootbox">
+      <div id="3wShop">
         <Container fluid>
-          <Grid>
-            <Grid.Column floated="right" width={5}>
-              <div align="right">
-                <Link to="/items" className="ui green icon right labeled button">
-                  My items
-                  <Icon name="right arrow" />
-                </Link>
-              </div>
-            </Grid.Column>
-          </Grid>
+          <div id="inlineMenu">
+            <Menu>
+              <Menu.Item
+                as={NavLink}
+                name="shop"
+                onClick={this.handleItemClick}
+                active={activeItem === 'shop'}
+                to="/shop"
+              >
+                Shop
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                name="items"
+                onClick={this.handleItemClick}
+                active={activeItem === 'items'}
+                to="/items"
+              >
+                My items
+              </Menu.Item>
+            </Menu>
+          </div>
         </Container>
         <Header as="h2" icon textAlign="center">
           <Icon name="shop" circular />
-          <Header.Content>3wShop</Header.Content>
+          <Header.Content>
+            3wShop
+          </Header.Content>
         </Header>
         <Container textAlign="center" fluid>
+          <div className="profile-coins">
+            <span>{user.Point}</span>
+            {' '}
+            <Icon color="yellow" name="copyright" size="big" />
+          </div>
           <div id="loot-container" className="shop">
             {items.map(item => (
               <div key={item.Id} className="item-card">
@@ -98,6 +120,7 @@ class Shop extends React.Component {
                   <div className="loot-title">
                     <h3 className="item-name">{item.Name}</h3>
                     <span>{item.Cost}</span>
+                    {' '}
                     <Icon color="yellow" name="copyright" size="big" />
                   </div>
                   <div className="loot-image legendary">
@@ -138,6 +161,7 @@ class Shop extends React.Component {
             <span>
               (
               {totalCost}
+              {' '}
               <Icon color="yellow" name="copyright" size="large" />
               )
             </span>

@@ -1,7 +1,6 @@
 image: node:alpine
 
 variables:
-  PUBLIC_URL: /react-master-group-1
   REACT_APP_API_URL: https://3w-bet-mangeur-api.lycee-stvincent.net:9000/
 
 pages:

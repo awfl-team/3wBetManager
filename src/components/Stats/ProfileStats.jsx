@@ -50,11 +50,11 @@ class ProfileStats extends React.Component {
     GraphService.getEarningsStatsPerType().then((response) => {
       const datas = response.data;
 
-      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
-        || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
-        const labels = ['Wrong', 'Ok', 'Perfect'];
+      if (Object.entries(response.data).length > 0
+        && (response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
+        const labels = ['Ok', 'Perfect'];
         const nbBets = Object.values(datas);
-        const colors = ['#DB2828', '#F2711C', '#21BA45'];
+        const colors = ['#F2711C', '#21BA45'];
         dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
         dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
@@ -68,7 +68,7 @@ class ProfileStats extends React.Component {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {
-        const labels = ['Coins used to bet', 'Bets earnings'];
+        const labels = ['Coins used to buy items', 'Coins used to bet', 'Bets earnings'];
         const nbBets = Object.values(datas);
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
         dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);

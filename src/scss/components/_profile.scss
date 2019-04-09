@@ -1,5 +1,20 @@
 #profile {
   .container-centered{
+    @media screen and (max-width: 768px){
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .userInfo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1 1 100%;
+
+      & >.button {
+        margin: 3px;
+      }
+    }
     .form {
       max-width: 450px;
     }
@@ -12,11 +27,14 @@
         justify-content: center;
         position: absolute;
         top: 10px;
+        @media screen and (max-width: 768px){
+          position: initial;
+        }
         span {
           width: 100%;
           margin-right: 5px;
           font-weight: bold;
-          font-size: 20px;
+          font-size: 1.25rem;
           cursor: pointer;
           color: white;
         }
@@ -34,14 +52,14 @@
 
       &-coins {
         top: 50px;
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: bold;
         color: $yellow;
       }
 
       &-items {
         top: 100px;
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: bold;
         color: $brown;
         label {
