@@ -31,7 +31,7 @@ class Items extends React.Component {
   render() {
     const { items, userItems, activeItem } = this.state;
     return (
-      <div id="lootbox">
+      <div id="items">
         <Container fluid>
           <div id="inlineMenu">
             <Menu>

@@ -136,7 +136,10 @@ class UserForm extends React.Component {
                     defaultChecked={checked}
                     onChange={() => this.handleRoleChange}
                   />
-                  <p>&nbsp;&nbsp;Admin Role</p>
+                  <p>
+                    {' '}
+                    Admin Role
+                  </p>
                 </div>
               </div>
             </div>
@@ -166,24 +169,18 @@ class UserForm extends React.Component {
                 <i className="info circle icon" />
                 {' '}
                 The password requires a
-                <span
-                  className={className.formdFieldUppercase}
-                >
-                    uppercase
+                <span className={className.formdFieldUppercase}>
+                  uppercase
                 </span>
                 , a
-                <span
-                  className={className.formFieldSpecial}
-                >
+                <span className={className.formFieldSpecial}>
                   {' '}
                   special character
                 </span>
                 {' '}
                 and
-                <span
-                  className={className.formFieldWithNumber}
-                >
-a number
+                <span className={className.formFieldWithNumber}>
+                  a number
                 </span>
               </p>
             </div>

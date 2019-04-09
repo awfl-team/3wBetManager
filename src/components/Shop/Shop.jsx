@@ -109,8 +109,9 @@ class Shop extends React.Component {
         </Header>
         <Container textAlign="center" fluid>
           <div className="profile-coins">
-            <Icon color="yellow" name="copyright" size="big" />
             <span>{user.Point}</span>
+            {' '}
+            <Icon color="yellow" name="copyright" size="big" />
           </div>
           <div id="loot-container" className="shop">
             {items.map(item => (
@@ -119,6 +120,7 @@ class Shop extends React.Component {
                   <div className="loot-title">
                     <h3 className="item-name">{item.Name}</h3>
                     <span>{item.Cost}</span>
+                    {' '}
                     <Icon color="yellow" name="copyright" size="big" />
                   </div>
                   <div className="loot-image legendary">
@@ -159,6 +161,7 @@ class Shop extends React.Component {
             <span>
               (
               {totalCost}
+              {' '}
               <Icon color="yellow" name="copyright" size="large" />
               )
             </span>

@@ -74,9 +74,9 @@
             &-image {
               margin-bottom: 10px;
               img {
-                min-width: 75px;
+                min-width: 100px;
                 max-width: 100px;
-                min-height: 75px;
+                min-height: 100px;
                 max-height: 100px;
                 height: 100%;
                 width: 100%;
@@ -89,7 +89,7 @@
                   border: 2px $red solid;
                 }
 
-                @media screen and (max-width: 800px) {
+                @media screen and (max-width: 768px) {
                   display: none;
                 }
               }

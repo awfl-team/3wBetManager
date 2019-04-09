@@ -185,7 +185,8 @@ class SignUpComponent extends React.Component {
               <div className="ui error message" />
             </form>
             <div className="ui message">
-                Already have an account ? &nbsp;
+                Already have an account ?
+              {' '}
               <Link to="/login">Log In</Link>
               {' '}
               |

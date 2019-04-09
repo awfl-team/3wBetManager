@@ -111,7 +111,7 @@ class Profile extends React.Component {
                   size="big"
                   className="whiteColor"
                 />
-)}
+              )}
               content={isPrivate ? 'Your profile is private' : 'Your profile is public'}
               inverted
               position="left center"
@@ -130,7 +130,6 @@ class Profile extends React.Component {
               inverted
               position="right center"
             />
-
           </div>
           <div className="profile-coins">
             <Icon color="yellow" name="copyright" size="big" />
@@ -174,7 +173,7 @@ class Profile extends React.Component {
                     color="red"
                     size="huge"
                   />
-  )}
+                )}
                 open={modalDeleteOpen}
                 onClose={this.handleCloseDelete}
                 basic
@@ -217,7 +216,7 @@ class Profile extends React.Component {
                       color="black"
                       size="huge"
                     />
-  )}
+                    )}
                   open={modalResetOpen}
                   onClose={this.handleCloseReset}
                   basic
@@ -231,31 +230,30 @@ class Profile extends React.Component {
                   />
                   <Modal.Content>
                     <h3>
-                          If you confirm this action,
-                          your earned points, bets and statistics will be reset !
-                          In exchange, your account will be reset with 500
+                      If you confirm this action,
+                      your earned points, bets and statistics will be reset !
+                      In exchange, your account will be reset with 500
                       <Icon color="yellow" name="copyright" />
-                          to reborn from ashes.
+                      to reborn from ashes.
                       <br />
                       <br />
-                          You will loose one&nbsp;
+                      You will loose one
+                      {' '}
                       <Rating icon="heart" defaultRating={1} maxRating={1} disabled size="huge" />
                     </h3>
                   </Modal.Content>
                   <Modal.Actions>
                     <Button color="red" onClick={this.handleCloseReset} inverted>
                       <Icon name="remove" />
-                          Cancel
+                        Cancel
                     </Button>
                     <Button color="green" onClick={this.handleReset} inverted>
                       <Icon name="checkmark" />
-                          Yes, do it !
+                        Yes, do it !
                     </Button>
                   </Modal.Actions>
                 </Modal>
-                )
-                }
-
+                )}
             </Container>
           </div>
         </Container>

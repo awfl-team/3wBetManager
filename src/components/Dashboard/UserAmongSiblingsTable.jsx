@@ -53,14 +53,15 @@ class UserAmongSiblingsTable extends React.Component {
               <Table.Row key={user.Id} textAlign="center" active={user.IsCurrent}>
                 <Table.Cell>{user.Username}</Table.Cell>
                 <Table.Cell>
-                  <Icon color="yellow" name="copyright" size="big" />
-                  <span color="yellow">{user.Point}</span>
+                  <span>{user.Point}</span>
+                  {' '}
+                  <Icon color="yellow" name="copyright" size="large" />
                 </Table.Cell>
                 <Table.Cell>
                   <div>
                     <span>{user.Life}</span>
                     {' '}
-                    <Icon color="red" name="heart" size="big" />
+                    <Icon color="red" name="heart" size="large" />
                   </div>
                 </Table.Cell>
                 <Table.Cell>{user.NbBets}</Table.Cell>

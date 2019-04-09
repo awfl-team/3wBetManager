@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Icon, List, Rating,
+  Icon, List,
 } from 'semantic-ui-react';
 
 import { Link } from 'react-router-dom';
@@ -41,10 +41,10 @@ class Top3 extends React.Component {
                   <span>{user.Life}</span>
                   {' '}
                   <Icon color="red" name="heart" size="large" />
-                  {' '}
                     |
                   {' '}
                   <span>{user.Point}</span>
+                  {' '}
                   <Icon color="yellow" name="copyright" size="large" />
                     |
                   {' '}

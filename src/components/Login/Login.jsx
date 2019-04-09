@@ -82,7 +82,8 @@ class LoginComponent extends React.Component {
 
 
             <div className="ui message">
-                New ? &nbsp;
+              New ?
+              {' '}
               <Link to="/signup">Sign Up</Link>
               {' '}
               |

@@ -7,7 +7,6 @@ import {
   Input, Label,
   Pagination,
   Radio,
-  Rating,
   Table,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -169,14 +168,15 @@ class AdminUserTable extends React.Component {
                   <Table.Cell>{user.Username}</Table.Cell>
                   <Table.Cell>{user.Email}</Table.Cell>
                   <Table.Cell>
-                    <Icon color="yellow" name="copyright" size="big" />
-                    <span color="yellow">{user.Point}</span>
+                    <span>{user.Point}</span>
+                    {' '}
+                    <Icon color="yellow" name="copyright" size="large" />
                   </Table.Cell>
                   <Table.Cell>
                     <div>
                       <span>{user.Items.filter(i => i.Type === 'LIFE').length}</span>
                       {' '}
-                      <Icon color="red" name="heart" size="big" />
+                      <Icon color="red" name="heart" size="large" />
                     </div>
                   </Table.Cell>
                   <Table.Cell>
