@@ -73,6 +73,7 @@ class FinishedBets extends React.Component {
                     <span> | </span>
                     <div>
                       {finishedBet.PointsWon}
+                      {' '}
                       <Icon name="copyright" color="yellow" size="large" />
                     </div>
                   </div>
