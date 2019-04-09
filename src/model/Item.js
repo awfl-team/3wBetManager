@@ -6,4 +6,6 @@ export default class Item {
   Description;
 
   Cost;
+
+  Rarety;
 }
