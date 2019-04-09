@@ -30,10 +30,10 @@ class AdminItemsManager extends React.Component {
     this.setState({ items });
   };
 
-  handleRaretyChange = (event, itemId) => {
+  handleRarityChange = (event, itemId) => {
     const { items } = this.state;
     const index = items.findIndex(item => item.Id === itemId);
-    items[index].Rarety = event.target.value;
+    items[index].Rarity = event.target.value;
     this.setState({ items });
   };
 
@@ -65,7 +65,7 @@ class AdminItemsManager extends React.Component {
               <Table.Row>
                 <Table.HeaderCell>Name</Table.HeaderCell>
                 <Table.HeaderCell>Cost</Table.HeaderCell>
-                <Table.HeaderCell>Rarety</Table.HeaderCell>
+                <Table.HeaderCell>Rarity</Table.HeaderCell>
                 <Table.HeaderCell>Actions</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -92,9 +92,9 @@ class AdminItemsManager extends React.Component {
                       <div className="field">
                         <select
                           className="ui fluid search dropdown"
-                          defaultValue={item.Rarety}
-                          name="rarety"
-                          onChange={event => this.handleRaretyChange(event, item.Id)}
+                          defaultValue={item.Rarity}
+                          name="rarity"
+                          onChange={event => this.handleRarityChange(event, item.Id)}
                         >
                           <option>Common</option>
                           <option>Rare</option>

@@ -1,10 +1,14 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Label, Menu,
+  Button, Container, Header, Icon, Label, Menu, Modal,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import UserService from '../../service/UserService';
+import LootBox from '../ItemModal/LootBox';
+import Bomb from '../ItemModal/Bomb';
+import Key from '../ItemModal/Key';
+import Multiplicator from '../ItemModal/Multiplicator';
 
 
 class Items extends React.Component {
@@ -57,21 +61,28 @@ class Items extends React.Component {
           </div>
         </Container>
         <Header as="h2" icon textAlign="center">
-          <Icon name="shop" circular />
+          <Icon name="bolt" circular />
           <Header.Content>3wItems</Header.Content>
         </Header>
         <Container textAlign="center" fluid>
-          <div id="loot-container" className="shop">
+          <div id="items-container" className="shop">
             {items.map(item => (
               <div key={item.Id} className="item-card">
-                <Label color="black" floating>
+                <Label floating className="greenLabel">
                   {userItems.filter(i => i.Type === item.Type).length}
                 </Label>
                 <div className="loot">
                   <div className="loot-title">
                     <h3 className="item-name">{item.Name}</h3>
                   </div>
-                  <div className="loot-image legendary">
+                  <div className={
+                    `loot-image ${
+                      item.Rarity === 'Legendary' ? 'legendary' : ''
+                    || item.Rarity === 'Rare' ? 'rare' : ''
+                    || item.Rarity === 'Epic' ? 'epic' : ''
+                    || item.Rarity === 'Common' ? 'common' : ''}`
+                  }
+                  >
                     <img
                       alt=""
                       src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
@@ -83,13 +94,31 @@ class Items extends React.Component {
                 </div>
                 <div className="item-card-bottom">
                   <Button.Group size="large">
-                    <Button
-                      inverted
-                      color="green"
-                      disabled={userItems.filter(i => i.Type === item.Type).length === 0}
+                    <Modal
+                      trigger={(
+                        <Button
+                          inverted
+                          color="green"
+                          disabled={userItems.filter(i => i.Type === item.Type).length === 0}
+                        >
+                          <Icon name="bolt" />
+                        </Button>
+                      )}
+                      className="item-modal"
                     >
-                      <Icon name="bolt" />
-                    </Button>
+                      {item.Type === 'LOOT_BOXE'
+                      && <LootBox />
+                      }
+                      {item.Type === 'BOMB'
+                      && <Bomb />
+                      }
+                      {item.Type === 'KEY'
+                      && <Key />
+                      }
+                      {item.Type === 'MULTIPLY_BY_TEN'
+                      && <Multiplicator />
+                      }
+                    </Modal>
                   </Button.Group>
                 </div>
               </div>

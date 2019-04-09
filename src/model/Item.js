@@ -7,5 +7,5 @@ export default class Item {
 
   Cost;
 
-  Rarety;
+  Rarity;
 }

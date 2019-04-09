@@ -113,7 +113,7 @@ class Shop extends React.Component {
             {' '}
             <Icon color="yellow" name="copyright" size="big" />
           </div>
-          <div id="loot-container" className="shop">
+          <div id="items-container" className="shop">
             {items.map(item => (
               <div key={item.Id} className="item-card">
                 <div className="loot">
@@ -123,7 +123,14 @@ class Shop extends React.Component {
                     {' '}
                     <Icon color="yellow" name="copyright" size="big" />
                   </div>
-                  <div className="loot-image legendary">
+                  <div className={
+                    `loot-image ${
+                      item.Rarity === 'Legendary' ? 'legendary' : ''
+                      || item.Rarity === 'Rare' ? 'rare' : ''
+                      || item.Rarity === 'Epic' ? 'epic' : ''
+                      || item.Rarity === 'Common' ? 'common' : ''}`
+                  }
+                  >
                     <img
                       alt=""
                       src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
