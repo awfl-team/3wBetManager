@@ -69,8 +69,15 @@ class LootBox extends React.Component {
                       }
                       >
                         <img
-                          alt=""
-                          src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                          alt="item"
+                          src={
+                            `assets/images/${
+                              item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
+                              || item.Type === 'KEY' ? 'key-x1.svg' : ''
+                              || item.Type === 'LIFE' ? 'life-x1.svg' : ''
+                              || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
+                              || item.Type === 'LOOT_BOXE' ? 'lootbox.svg' : ''}`
+                          }
                         />
                       </div>
                       <div className="loot-description">
@@ -94,8 +101,15 @@ class LootBox extends React.Component {
                         }
                       >
                         <img
-                          alt=""
-                          src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                          alt="item"
+                          src={
+                            `assets/images/${
+                              item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
+                              || item.Type === 'KEY' ? 'key-x1.svg' : ''
+                              || item.Type === 'LIFE' ? 'life-x1.svg' : ''
+                              || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
+                              || item.Type === 'LOOT_BOXE' ? 'lootbox.svg' : ''}`
+                          }
                         />
                       </div>
                       <div className="loot-description">
@@ -126,8 +140,15 @@ class LootBox extends React.Component {
                     }
                     >
                       <img
-                        alt=""
-                        src="https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/"
+                        alt="item"
+                        src={
+                          `assets/images/${
+                            item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
+                            || item.Type === 'KEY' ? 'key-x1.svg' : ''
+                            || item.Type === 'LIFE' ? 'life-x1.svg' : ''
+                            || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
+                            || item.Type === 'LOOT_BOXE' ? 'lootbox.svg' : ''}`
+                        }
                       />
                     </div>
                     <div className="loot-description">
