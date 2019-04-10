@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Button,
-  Container,
   Header,
   Icon,
   Input, Label,
@@ -125,31 +124,31 @@ class AdminUserTable extends React.Component {
               )
           </Header.Content>
         </Header>
-        <Container fluid className="container-centered">
-          <div className="userTableHeader">
-            <Input type="search" labelPosition="right" placeholder="Search a user">
-              <Label
-                icon="close"
-                className="redColor"
-                circular
-                onClick={() => this.clearSearch()}
-              />
-              <input
-                onKeyPress={event => this.searchUsers(event)}
-                onChange={event => this.searchUsers(event)}
-              />
-              <Label
-                icon="search"
-                className="greenColor"
-                circular
-                onClick={event => this.searchUsers(event)}
-              />
-            </Input>
-            <Link to="/admin/addUser" className="button ui green">
-              <Icon name="add" />
-                Create a user
-            </Link>
-          </div>
+        <div className="userTableHeader">
+          <Input type="search" labelPosition="right" placeholder="Search a user">
+            <Label
+              icon="close"
+              className="redColor"
+              circular
+              onClick={() => this.clearSearch()}
+            />
+            <input
+              onKeyPress={event => this.searchUsers(event)}
+              onChange={event => this.searchUsers(event)}
+            />
+            <Label
+              icon="search"
+              className="greenColor"
+              circular
+              onClick={event => this.searchUsers(event)}
+            />
+          </Input>
+          <Link to="/admin/addUser" className="button ui green">
+            <Icon name="add" />
+            Create a user
+          </Link>
+        </div>
+        <div className="scrollable-table-container">
           <Table celled striped unstackable inverted className="primary-bg">
             <Table.Header>
               <Table.Row>
@@ -161,7 +160,6 @@ class AdminUserTable extends React.Component {
                 <Table.HeaderCell>Actions</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
-
             <Table.Body>
               {users.map(user => (
                 <Table.Row key={user.Id}>
@@ -206,27 +204,26 @@ class AdminUserTable extends React.Component {
                       </Button>
                     )
                     }
-
                   </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
           </Table>
-          {showPagination === true
-            && (
-            <Pagination
-              ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
-              firstItem={null}
-              lastItem={null}
-              defaultActivePage={1}
-              prevItem={{ content: <Icon name="angle left" />, icon: true }}
-              nextItem={{ content: <Icon name="angle right" />, icon: true }}
-              totalPages={totalPages}
-              onPageChange={event => this.getNextUsers(event)}
-            />
-            )
-            }
-        </Container>
+        </div>
+        {showPagination === true
+        && (
+          <Pagination
+            ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
+            firstItem={null}
+            lastItem={null}
+            defaultActivePage={1}
+            prevItem={{ content: <Icon name="angle left" />, icon: true }}
+            nextItem={{ content: <Icon name="angle right" />, icon: true }}
+            totalPages={totalPages}
+            onPageChange={event => this.getNextUsers(event)}
+          />
+        )
+        }
       </div>
     );
   }

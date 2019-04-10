@@ -51,6 +51,9 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          @media screen and (max-width: 450px) {
+            font-size: 0.8rem;
+          }
           .team-image {
             img {
               height: 75px;
