@@ -5,6 +5,7 @@ import {
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import BetService from '../../service/BetService';
+import Bet from '../../model/Bet';
 
 class FinishedBets extends React.Component {
   state = {
@@ -64,9 +65,10 @@ class FinishedBets extends React.Component {
                     </Label>
                     <span> | </span>
                     <Label
-                      className={finishedBet.Status === 'Perfect' ? 'greenLabel' : ''
-                      || finishedBet.Status === 'Wrong' ? 'redLabel' : ''
-                      || finishedBet.Status === 'Ok' ? 'orangeLabel' : ''}
+                      className={
+                        finishedBet.Status === Bet.STATUS_PERFECT ? 'greenLabel' : ''
+                        || finishedBet.Status === Bet.STATUS_WRONG ? 'redLabel' : ''
+                        || finishedBet.Status === Bet.STATUS_OK ? 'orangeLabel' : ''}
                     >
                       {finishedBet.Status}
                     </Label>

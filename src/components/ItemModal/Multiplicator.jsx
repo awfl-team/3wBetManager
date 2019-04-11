@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Header, Icon, Modal, Pagination, Table,
+  Button, Header, Icon, Image, Modal, Pagination, Table,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import BetService from '../../service/BetService';
@@ -41,7 +41,9 @@ class Multiplicator extends React.Component {
         <Modal.Content scrolling>
           <Modal.Description>
             <Header as="h1" icon textAlign="center">
-              <Icon name="flask" circular />
+              <div className="header-custom-image-container">
+                <Image src="assets/images/multiplier-x10.svg" className="image-icon-header" />
+              </div>
               <Header.Content>
                 Multiplicator
               </Header.Content>
@@ -79,11 +81,14 @@ class Multiplicator extends React.Component {
                       <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
                       <Table.Cell>
                         <Button
-                          icon="flask"
                           inverted
                           className="green"
                           fluid
-                        />
+                        >
+                          <div className="custom-button-image-container">
+                            <Image src="assets/images/multiplier-x10.svg" className="image-icon-button" />
+                          </div>
+                        </Button>
                       </Table.Cell>
                     </Table.Row>
                   ))}

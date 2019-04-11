@@ -9,6 +9,7 @@ import LootBox from '../ItemModal/LootBox';
 import Bomb from '../ItemModal/Bomb';
 import Key from '../ItemModal/Key';
 import Multiplicator from '../ItemModal/Multiplicator';
+import Item from '../../model/Item';
 
 
 class Items extends React.Component {
@@ -77,20 +78,20 @@ class Items extends React.Component {
                   </div>
                   <div className={
                     `loot-image ${
-                      item.Rarity === 'Legendary' ? 'legendary' : ''
-                    || item.Rarity === 'Rare' ? 'rare' : ''
-                    || item.Rarity === 'Epic' ? 'epic' : ''
-                    || item.Rarity === 'Common' ? 'common' : ''}`
+                      item.Rarity === Item.RARITY_LEGENDARY ? 'legendary' : ''
+                    || item.Rarity === Item.RARITY_RARE ? 'rare' : ''
+                    || item.Rarity === Item.RARITY_EPIC ? 'epic' : ''
+                    || item.Rarity === Item.RARITY_COMMON ? 'common' : ''}`
                   }
                   >
                     <img
                       alt="item"
                       src={
                         `assets/images/${
-                          item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
-                          || item.Type === 'KEY' ? 'key-x1.svg' : ''
-                          || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
-                          || item.Type === 'LOOT_BOX' ? 'lootbox.svg' : ''}`
+                          item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                          || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                          || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                          || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                       }
                     />
                   </div>
@@ -111,19 +112,22 @@ class Items extends React.Component {
                         </Button>
                       )}
                       className="item-modal"
+                      id="itemModal"
                     >
-                      {item.Type === 'LOOT_BOXE'
-                      && <LootBox />
-                      }
-                      {item.Type === 'BOMB'
-                      && <Bomb />
-                      }
-                      {item.Type === 'KEY'
-                      && <Key />
-                      }
-                      {item.Type === 'MULTIPLY_BY_TEN'
-                      && <Multiplicator />
-                      }
+                      {(() => {
+                        switch (item.Type) {
+                          case Item.TYPE_LOOT_BOX:
+                            return <LootBox />;
+                          case Item.TYPE_BOMB:
+                            return <Bomb />;
+                          case Item.TYPE_KEY:
+                            return <Key />;
+                          case Item.TYPE_MULTIPLY_BY_TEN:
+                            return <Multiplicator />;
+                          default:
+                            return null;
+                        }
+                      })()}
                     </Modal>
                   </Button.Group>
                 </div>

@@ -1,6 +1,9 @@
 import React from 'react';
-import { Header, Icon, Modal } from 'semantic-ui-react';
+import {
+  Header, Icon, Image, Modal,
+} from 'semantic-ui-react';
 import ItemService from '../../service/ItemService';
+import Item from '../../model/Item';
 
 let randomizer;
 let lootResult;
@@ -50,7 +53,7 @@ class LootBox extends React.Component {
           <Modal.Description>
             <div id="loot-slide-container" className="hide">
               <Header as="h1" icon textAlign="center">
-                <Icon name="bolt" circular />
+                <Icon name="box" circular />
                 <Header.Content>Wait for it </Header.Content>
               </Header>
               <div id="loot-slide">
@@ -72,11 +75,11 @@ class LootBox extends React.Component {
                           alt="item"
                           src={
                             `assets/images/${
-                              item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
-                              || item.Type === 'KEY' ? 'key-x1.svg' : ''
-                              || item.Type === 'LIFE' ? 'life-x1.svg' : ''
-                              || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
-                              || item.Type === 'LOOT_BOX' ? 'lootbox.svg' : ''}`
+                              item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                              || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                              || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                              || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                              || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                           }
                         />
                       </div>
@@ -104,11 +107,11 @@ class LootBox extends React.Component {
                           alt="item"
                           src={
                             `assets/images/${
-                              item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
-                              || item.Type === 'KEY' ? 'key-x1.svg' : ''
-                              || item.Type === 'LIFE' ? 'life-x1.svg' : ''
-                              || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
-                              || item.Type === 'LOOT_BOX' ? 'lootbox.svg' : ''}`
+                              item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                              || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                              || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                              || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                              || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                           }
                         />
                       </div>
@@ -122,7 +125,9 @@ class LootBox extends React.Component {
             </div>
             <div id="loot-container" className="hide">
               <Header as="h1" icon textAlign="center">
-                <Icon name="dropbox" circular />
+                <div className="header-custom-image-container">
+                  <Image src="assets/images/lootbox.svg" className="image-icon-header" />
+                </div>
                 <Header.Content>There it is ! *mangasme*</Header.Content>
               </Header>
               <div>
@@ -143,11 +148,11 @@ class LootBox extends React.Component {
                         alt="item"
                         src={
                           `assets/images/${
-                            item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
-                            || item.Type === 'KEY' ? 'key-x1.svg' : ''
-                            || item.Type === 'LIFE' ? 'life-x1.svg' : ''
-                            || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
-                            || item.Type === 'LOOT_BOX' ? 'lootbox.svg' : ''}`
+                            item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                            || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                            || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                            || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                         }
                       />
                     </div>
@@ -160,7 +165,6 @@ class LootBox extends React.Component {
             </div>
           </Modal.Description>
         </Modal.Content>
-
       </div>
     );
   }

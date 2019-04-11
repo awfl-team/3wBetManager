@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Header, Icon, Label, Modal, Table,
+  Button, Header, Icon, Image, Label, Modal, Table,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
@@ -30,6 +30,10 @@ class Bomb extends React.Component {
         message: 'Bomb used',
         type: 'success',
       });
+      document.querySelectorAll('.modals,.modal').forEach((elem) => {
+        elem.classList.remove('visible');
+        elem.classList.remove('active');
+      });
     });
   };
 
@@ -40,7 +44,9 @@ class Bomb extends React.Component {
         <Modal.Content scrolling>
           <Modal.Description>
             <Header as="h1" icon textAlign="center">
-              <Icon name="bomb" circular />
+              <div className="header-custom-image-container">
+                <Image src="assets/images/bomb-x1.svg" className="image-icon-header" />
+              </div>
               <Header.Content>
                 Bomb
               </Header.Content>
@@ -89,12 +95,15 @@ class Bomb extends React.Component {
                       <Table.Cell>{user.NbPerfectBets}</Table.Cell>
                       <Table.Cell>
                         <Button
-                          icon="bomb"
                           onClick={() => this.handleClick(user.Id)}
                           inverted
                           className="green"
                           fluid
-                        />
+                        >
+                          <div className="custom-button-image-container">
+                            <Image src="assets/images/bomb-x1.svg" className="image-icon-button" />
+                          </div>
+                        </Button>
                       </Table.Cell>
                     </Table.Row>
                   ))}
