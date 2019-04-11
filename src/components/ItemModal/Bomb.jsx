@@ -2,7 +2,16 @@ import React from 'react';
 import {
   Button, Header, Icon, Label, Modal, Table,
 } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
+import ItemService from '../../service/ItemService';
+import { addSnackBar } from '../../actions/SnackBarActions';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
 
 class Bomb extends React.Component {
   state = {
@@ -14,6 +23,15 @@ class Bomb extends React.Component {
       this.setState({ userAmongSiblings: response.data });
     }));
   }
+
+  handleClick = (userId) => {
+    ItemService.useBomb(userId).then(() => {
+      this.props.addSnackbar({
+        message: 'Bomb used',
+        type: 'success',
+      });
+    });
+  };
 
   render() {
     const { userAmongSiblings } = this.state;
@@ -72,6 +90,7 @@ class Bomb extends React.Component {
                       <Table.Cell>
                         <Button
                           icon="bomb"
+                          onClick={() => this.handleClick(user.Id)}
                           inverted
                           className="green"
                           fluid
@@ -90,4 +109,5 @@ class Bomb extends React.Component {
   }
 }
 
-export default Bomb;
+const bomb = connect(null, mapDispatchToProps)(Bomb);
+export default bomb;

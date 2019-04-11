@@ -12,4 +12,8 @@ export default class ItemService {
   static updateCost(item) {
     return API.put(`items/${item.Id}`, item);
   }
+
+  static useBomb(userId) {
+    return API.put(`items/bomb/${userId}`);
+  }
 }

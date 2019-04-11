@@ -139,7 +139,7 @@ class Shop extends React.Component {
                           || item.Type === 'KEY' ? 'key-x1.svg' : ''
                           || item.Type === 'LIFE' ? 'life-x1.svg' : ''
                           || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
-                          || item.Type === 'LOOT_BOXE' ? 'lootbox.svg' : ''}`
+                          || item.Type === 'LOOT_BOX' ? 'lootbox.svg' : ''}`
                       }
                     />
                   </div>
