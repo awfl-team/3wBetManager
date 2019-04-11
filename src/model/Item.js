@@ -17,6 +17,8 @@ export default class Item {
 
   static RARITY_COMMON = 'Common';
 
+  static MULTIPLIER_BY_10 = 10;
+
   Id;
 
   Type;

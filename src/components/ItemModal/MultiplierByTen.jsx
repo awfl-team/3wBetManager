@@ -3,9 +3,19 @@ import {
   Button, Header, Icon, Image, Modal, Pagination, Table,
 } from 'semantic-ui-react';
 import moment from 'moment';
+import connect from 'react-redux/es/connect/connect';
 import BetService from '../../service/BetService';
+import ItemService from '../../service/ItemService';
+import Item from '../../model/Item';
+import { addSnackBar } from '../../actions/SnackBarActions';
 
-class Multiplicator extends React.Component {
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
+
+class MultiplierByTen extends React.Component {
   state = {
     bets: [],
     totalPages: 1,
@@ -31,6 +41,15 @@ class Multiplicator extends React.Component {
       });
   }
 
+  handleClick = (betId, multiplierValue) => {
+    ItemService.useMultiplier(betId, multiplierValue).then(() => {
+      this.props.addSnackbar({
+        message: 'Multiplier used',
+        type: 'success',
+      });
+    });
+  };
+
   render() {
     const {
       bets, totalPages,
@@ -45,7 +64,7 @@ class Multiplicator extends React.Component {
                 <Image src="assets/images/multiplier-x10.svg" className="image-icon-header" />
               </div>
               <Header.Content>
-                Multiplicator
+                Multiplier
               </Header.Content>
             </Header>
             <div className="scrollable-table-container">
@@ -84,6 +103,7 @@ class Multiplicator extends React.Component {
                           inverted
                           className="green"
                           fluid
+                          onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_10)}
                         >
                           <div className="custom-button-image-container">
                             <Image src="assets/images/multiplier-x10.svg" className="image-icon-button" />
@@ -116,4 +136,5 @@ class Multiplicator extends React.Component {
   }
 }
 
-export default Multiplicator;
+const multiplierByTen = connect(null, mapDispatchToProps)(MultiplierByTen);
+export default multiplierByTen;

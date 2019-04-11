@@ -8,7 +8,7 @@ import UserService from '../../service/UserService';
 import LootBox from '../ItemModal/LootBox';
 import Bomb from '../ItemModal/Bomb';
 import Key from '../ItemModal/Key';
-import Multiplicator from '../ItemModal/Multiplicator';
+import MultiplierByTen from '../ItemModal/MultiplierByTen';
 import Item from '../../model/Item';
 
 
@@ -106,13 +106,14 @@ class Items extends React.Component {
                         <Button
                           inverted
                           color="green"
+                          onClick={this.handleOpen}
                           disabled={userItems.filter(i => i.Type === item.Type).length === 0}
                         >
                           <Icon name="bolt" />
                         </Button>
                       )}
                       className="item-modal"
-                      id="itemModal"
+                      closeIcon
                     >
                       {(() => {
                         switch (item.Type) {
@@ -123,7 +124,7 @@ class Items extends React.Component {
                           case Item.TYPE_KEY:
                             return <Key />;
                           case Item.TYPE_MULTIPLY_BY_TEN:
-                            return <Multiplicator />;
+                            return <MultiplierByTen />;
                           default:
                             return null;
                         }

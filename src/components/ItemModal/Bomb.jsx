@@ -30,10 +30,6 @@ class Bomb extends React.Component {
         message: 'Bomb used',
         type: 'success',
       });
-      document.querySelectorAll('.modals,.modal').forEach((elem) => {
-        elem.classList.remove('visible');
-        elem.classList.remove('active');
-      });
     });
   };
 
