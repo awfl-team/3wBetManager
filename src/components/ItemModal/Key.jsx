@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Header, Icon, Input, Label, Modal, Pagination, Table,
+  Button, Container, Header, Icon, Input, Label, Pagination, Table,
 } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 
@@ -59,80 +59,86 @@ class Key extends React.Component {
     const {
       users, totalPages, showPagination,
     } = this.state;
+    const { currentUser } = this.props;
 
     return (
       <div id="bomb">
-        <Modal.Content scrolling>
-          <Modal.Description>
-            <Header as="h1" icon textAlign="center">
-              <Icon name="key" circular />
-              <Header.Content>
+        <Header as="h1" icon textAlign="center">
+          <Icon name="key" circular />
+          <Header.Content>
                 Key
-              </Header.Content>
-            </Header>
-            <div className="userTableHeader">
-              <Input type="search" labelPosition="right" placeholder="Search a user">
-                <Label
-                  icon="close"
-                  className="redColor"
-                  circular
-                  onClick={() => this.clearSearch()}
-                />
-                <input
-                  onKeyPress={event => this.searchUsers(event)}
-                  onChange={event => this.searchUsers(event)}
-                />
-                <Label
-                  icon="search"
-                  className="greenColor"
-                  circular
-                  onClick={event => this.searchUsers(event)}
-                />
-              </Input>
-            </div>
-            <div className="scrollable-table-container">
-              <Table celled striped unstackable inverted className="primary-bg">
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Username</Table.HeaderCell>
-                    <Table.HeaderCell>Email</Table.HeaderCell>
-                    <Table.HeaderCell>Score</Table.HeaderCell>
-                    <Table.HeaderCell>Lives</Table.HeaderCell>
-                    <Table.HeaderCell>Actions</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
+          </Header.Content>
+        </Header>
+        <Container textAlign="center" fluid>
+          <div className="userTableHeader">
+            <Input type="search" labelPosition="right" placeholder="Search a user">
+              <Label
+                icon="close"
+                className="redColor"
+                circular
+                onClick={() => this.clearSearch()}
+              />
+              <input
+                onKeyPress={event => this.searchUsers(event)}
+                onChange={event => this.searchUsers(event)}
+              />
+              <Label
+                icon="search"
+                className="greenColor"
+                circular
+                onClick={event => this.searchUsers(event)}
+              />
+            </Input>
+          </div>
+          <div className="scrollable-table-container">
+            <Table celled striped unstackable inverted className="primary-bg">
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Username</Table.HeaderCell>
+                  <Table.HeaderCell>Email</Table.HeaderCell>
+                  <Table.HeaderCell>Score</Table.HeaderCell>
+                  <Table.HeaderCell>Lives</Table.HeaderCell>
+                  <Table.HeaderCell>Actions</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
 
-                <Table.Body>
-                  {users.map(user => (
-                    <Table.Row key={user.Id}>
-                      <Table.Cell>{user.Username}</Table.Cell>
-                      <Table.Cell>{user.Email}</Table.Cell>
-                      <Table.Cell>
-                        <span>{user.Point}</span>
+              <Table.Body>
+                {users.map(user => (
+                  <Table.Row key={user.Id}>
+                    <Table.Cell>{user.Username}</Table.Cell>
+                    <Table.Cell>{user.Email}</Table.Cell>
+                    <Table.Cell>
+                      <span>{user.Point}</span>
+                      {' '}
+                      <Icon color="yellow" name="copyright" size="large" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <div>
+                        <span>{user.Items.filter(i => i.Type === 'LIFE').length}</span>
                         {' '}
-                        <Icon color="yellow" name="copyright" size="large" />
-                      </Table.Cell>
-                      <Table.Cell>
-                        <div>
-                          <span>{user.Items.filter(i => i.Type === 'LIFE').length}</span>
-                          {' '}
-                          <Icon color="red" name="heart" size="large" />
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Button
-                          icon="key"
-                          inverted
-                          className="green"
-                          fluid
-                        />
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-            </div>
-            {showPagination === true && users.length >= 10
+                        <Icon color="red" name="heart" size="large" />
+                      </div>
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {user.Username !== currentUser.unique_name
+                        && (
+                        <Button.Group>
+                          <Button
+                            icon="key"
+                            inverted
+                            className="green"
+                            fluid
+                          />
+                        </Button.Group>
+                        )
+                        }
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          </div>
+          {showPagination === true && users.length >= 10
             && (
               <Pagination
                 ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
@@ -146,8 +152,7 @@ class Key extends React.Component {
               />
             )
             }
-          </Modal.Description>
-        </Modal.Content>
+        </Container>
       </div>
     );
   }

@@ -1,16 +1,11 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Label, Menu, Modal,
+  Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import UserService from '../../service/UserService';
-import LootBox from '../ItemModal/LootBox';
-import Bomb from '../ItemModal/Bomb';
-import Key from '../ItemModal/Key';
-import MultiplierByTen from '../ItemModal/MultiplierByTen';
 import Item from '../../model/Item';
-
 
 class Items extends React.Component {
   state = {
@@ -34,7 +29,9 @@ class Items extends React.Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { items, userItems, activeItem } = this.state;
+    const {
+      items, userItems, activeItem,
+    } = this.state;
     return (
       <div id="items">
         <Container fluid>
@@ -100,37 +97,40 @@ class Items extends React.Component {
                   </div>
                 </div>
                 <div className="item-card-bottom">
+                  {userItems.filter(i => i.Type === item.Type).length > 0
+                  && (
                   <Button.Group size="large">
-                    <Modal
-                      trigger={(
-                        <Button
-                          inverted
-                          color="green"
-                          onClick={this.handleOpen}
-                          disabled={userItems.filter(i => i.Type === item.Type).length === 0}
-                        >
-                          <Icon name="bolt" />
-                        </Button>
-                      )}
-                      className="item-modal"
-                      closeIcon
-                    >
-                      {(() => {
-                        switch (item.Type) {
-                          case Item.TYPE_LOOT_BOX:
-                            return <LootBox />;
-                          case Item.TYPE_BOMB:
-                            return <Bomb />;
-                          case Item.TYPE_KEY:
-                            return <Key />;
-                          case Item.TYPE_MULTIPLY_BY_TEN:
-                            return <MultiplierByTen />;
-                          default:
-                            return null;
-                        }
-                      })()}
-                    </Modal>
+                    {item.Type === Item.TYPE_BOMB
+                    && (
+                    <Link to="/bomb" className="button ui green inverted small icon">
+                      <Icon name="bolt" />
+                    </Link>
+                    )
+                    }
+                    {item.Type === Item.TYPE_KEY
+                    && (
+                      <Link to="/key" className="button ui green inverted small icon">
+                        <Icon name="bolt" />
+                      </Link>
+                    )
+                    }
+                    {item.Type === Item.TYPE_MULTIPLY_BY_TEN
+                    && (
+                      <Link to="/multiplierbyten" className="button ui green inverted small icon">
+                        <Icon name="bolt" />
+                      </Link>
+                    )
+                    }
+                    {item.Type === Item.TYPE_LOOT_BOX
+                    && (
+                      <Link to="/lootbox" className="button ui green inverted small icon">
+                        <Icon name="bolt" />
+                      </Link>
+                    )
+                    }
                   </Button.Group>
+                  )
+                  }
                 </div>
               </div>
             ))}

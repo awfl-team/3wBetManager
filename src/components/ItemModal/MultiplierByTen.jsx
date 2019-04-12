@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Header, Icon, Image, Modal, Pagination, Table,
+  Button, Container, Header, Icon, Image, Pagination, Table,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import connect from 'react-redux/es/connect/connect';
@@ -57,48 +57,48 @@ class MultiplierByTen extends React.Component {
 
     return (
       <div id="multiplicator">
-        <Modal.Content scrolling>
-          <Modal.Description>
-            <Header as="h1" icon textAlign="center">
-              <div className="header-custom-image-container">
-                <Image src="assets/images/multiplier-x10.svg" className="image-icon-header" />
-              </div>
-              <Header.Content>
+        <Header as="h1" icon textAlign="center">
+          <div className="header-custom-image-container">
+            <Image src="assets/images/multiplier-x10.svg" className="image-icon-header" />
+          </div>
+          <Header.Content>
                 Multiplier
-              </Header.Content>
-            </Header>
-            <div className="scrollable-table-container">
-              <Table celled striped unstackable inverted className="primary-bg">
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Competition</Table.HeaderCell>
-                    <Table.HeaderCell>Match date</Table.HeaderCell>
-                    <Table.HeaderCell>Home team</Table.HeaderCell>
-                    <Table.HeaderCell>Away team</Table.HeaderCell>
-                    <Table.HeaderCell>Bet</Table.HeaderCell>
-                    <Table.HeaderCell>Home team odds</Table.HeaderCell>
-                    <Table.HeaderCell>Draw odds</Table.HeaderCell>
-                    <Table.HeaderCell>Away team odds</Table.HeaderCell>
-                    <Table.HeaderCell>Actions</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
+          </Header.Content>
+        </Header>
+        <Container textAlign="center" fluid>
+          <div className="scrollable-table-container">
+            <Table celled striped unstackable inverted className="primary-bg">
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Competition</Table.HeaderCell>
+                  <Table.HeaderCell>Match date</Table.HeaderCell>
+                  <Table.HeaderCell>Home team</Table.HeaderCell>
+                  <Table.HeaderCell>Away team</Table.HeaderCell>
+                  <Table.HeaderCell>Bet</Table.HeaderCell>
+                  <Table.HeaderCell>Home team odds</Table.HeaderCell>
+                  <Table.HeaderCell>Draw odds</Table.HeaderCell>
+                  <Table.HeaderCell>Away team odds</Table.HeaderCell>
+                  <Table.HeaderCell>Actions</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
 
-                <Table.Body>
-                  {bets.map(bet => (
-                    <Table.Row key={bet.Id}>
-                      <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
-                      <Table.Cell>{moment(bet.Match.UtcDate).format('MM/DD/YYYY')}</Table.Cell>
-                      <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
-                      <Table.Cell>{bet.Match.AwayTeam.Name}</Table.Cell>
-                      <Table.Cell>
-                        {bet.HomeTeamScore}
+              <Table.Body>
+                {bets.map(bet => (
+                  <Table.Row key={bet.Id}>
+                    <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
+                    <Table.Cell>{moment(bet.Match.UtcDate).format('MM/DD/YYYY')}</Table.Cell>
+                    <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
+                    <Table.Cell>{bet.Match.AwayTeam.Name}</Table.Cell>
+                    <Table.Cell>
+                      {bet.HomeTeamScore}
                         -
-                        {bet.AwayTeamScore}
-                      </Table.Cell>
-                      <Table.Cell>{bet.Match.HomeTeamRating}</Table.Cell>
-                      <Table.Cell>{bet.Match.DrawRating}</Table.Cell>
-                      <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
-                      <Table.Cell>
+                      {bet.AwayTeamScore}
+                    </Table.Cell>
+                    <Table.Cell>{bet.Match.HomeTeamRating}</Table.Cell>
+                    <Table.Cell>{bet.Match.DrawRating}</Table.Cell>
+                    <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <Button.Group>
                         <Button
                           inverted
                           className="green"
@@ -109,13 +109,14 @@ class MultiplierByTen extends React.Component {
                             <Image src="assets/images/multiplier-x10.svg" className="image-icon-button" />
                           </div>
                         </Button>
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-            </div>
-            {bets.length >= 10
+                      </Button.Group>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          </div>
+          {bets.length >= 10
             && (
               <Pagination
                 ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
@@ -129,8 +130,7 @@ class MultiplierByTen extends React.Component {
               />
             )
             }
-          </Modal.Description>
-        </Modal.Content>
+        </Container>
       </div>
     );
   }
