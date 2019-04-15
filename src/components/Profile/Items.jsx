@@ -97,40 +97,56 @@ class Items extends React.Component {
                   </div>
                 </div>
                 <div className="item-card-bottom">
-                  {userItems.filter(i => i.Type === item.Type).length > 0
-                  && (
                   <Button.Group size="large">
                     {item.Type === Item.TYPE_BOMB
                     && (
-                    <Link to="/bomb" className="button ui green inverted small icon">
+                    <Link
+                      to="/bomb"
+                      className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                          }
+                    >
                       <Icon name="bolt" />
                     </Link>
                     )
                     }
                     {item.Type === Item.TYPE_KEY
                     && (
-                      <Link to="/key" className="button ui green inverted small icon">
+                      <Link
+                        to="/key"
+                        className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                            }
+                      >
                         <Icon name="bolt" />
                       </Link>
                     )
                     }
                     {item.Type === Item.TYPE_MULTIPLY_BY_TEN
                     && (
-                      <Link to="/multiplierbyten" className="button ui green inverted small icon">
+                      <Link
+                        to="/multiplierbyten"
+                        className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                            }
+                      >
                         <Icon name="bolt" />
                       </Link>
                     )
                     }
                     {item.Type === Item.TYPE_LOOT_BOX
                     && (
-                      <Link to="/lootbox" className="button ui green inverted small icon">
+                      <Link
+                        to="/lootbox"
+                        className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                        }
+                      >
                         <Icon name="bolt" />
                       </Link>
                     )
                     }
                   </Button.Group>
-                  )
-                  }
                 </div>
               </div>
             ))}

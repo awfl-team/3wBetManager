@@ -1,11 +1,13 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Image, Label, Table,
+  Button, Container, Header, Icon, Image, Label, Menu, Table,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import ItemService from '../../service/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
+import Item from '../../model/Item';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -16,12 +18,22 @@ function mapDispatchToProps(dispatch) {
 class Bomb extends React.Component {
   state = {
     userAmongSiblings: [],
+    nbBombs: 0,
+    activeItem: 'items',
   };
 
   componentDidMount() {
     UserService.getCurrentUserAmongSiblings().then(((response) => {
-      this.setState({ userAmongSiblings: response.data });
+      this.setState({
+        userAmongSiblings: response.data,
+      });
     }));
+
+    UserService.getFromToken().then((res) => {
+      this.setState({
+        nbBombs: res.data.Items.filter(item => item.Type === Item.TYPE_BOMB).length,
+      });
+    });
   }
 
   handleClick = (userId) => {
@@ -30,21 +42,50 @@ class Bomb extends React.Component {
         message: 'Bomb used',
         type: 'success',
       });
+      this.setState(prevState => ({ nbBombs: prevState.nbBombs + 1 }));
     });
   };
 
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
-    const { userAmongSiblings } = this.state;
+    const { userAmongSiblings, nbBombs, activeItem } = this.state;
     const { currentUser } = this.props;
 
     return (
       <div id="bomb">
+        <Container fluid>
+          <div id="inlineMenu">
+            <Menu>
+              <Menu.Item
+                as={NavLink}
+                name="shop"
+                onClick={this.handleItemClick}
+                active={activeItem === 'shop'}
+                to="/shop"
+              >
+                Shop
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                name="items"
+                onClick={this.handleItemClick}
+                active={activeItem === 'items'}
+                to="/items"
+              >
+                My items
+              </Menu.Item>
+            </Menu>
+          </div>
+        </Container>
         <Header as="h1" icon textAlign="center">
           <div className="header-custom-image-container">
             <Image src="assets/images/bomb-x1.svg" className="image-icon-header" />
           </div>
           <Header.Content>
-                Bomb
+            Bomb (
+            { nbBombs }
+            )
           </Header.Content>
         </Header>
         <Container textAlign="center" fluid>
@@ -91,7 +132,7 @@ class Bomb extends React.Component {
                       <Table.Cell>{user.NbOkBets}</Table.Cell>
                       <Table.Cell>{user.NbPerfectBets}</Table.Cell>
                       <Table.Cell textAlign="center">
-                        {user.Username !== currentUser.unique_name
+                        {nbBombs !== 0 && user.Username !== currentUser.unique_name
                         && (
                           <Button.Group>
                             <Button

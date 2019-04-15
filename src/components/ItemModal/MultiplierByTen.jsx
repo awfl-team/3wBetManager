@@ -1,13 +1,15 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Image, Pagination, Table,
+  Button, Container, Header, Icon, Image, Menu, Pagination, Table,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import connect from 'react-redux/es/connect/connect';
+import { NavLink } from 'react-router-dom';
 import BetService from '../../service/BetService';
 import ItemService from '../../service/ItemService';
 import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
+import UserService from '../../service/UserService';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -19,6 +21,8 @@ class MultiplierByTen extends React.Component {
   state = {
     bets: [],
     totalPages: 1,
+    nbMultiplierByTen: 0,
+    activeItem: 'items',
   };
 
   componentDidMount() {
@@ -29,6 +33,13 @@ class MultiplierByTen extends React.Component {
           totalPages: response.data.TotalPages,
         });
       });
+    UserService.getFromToken().then((res) => {
+      this.setState({
+        nbMultiplierByTen: res.data.Items.filter(
+          item => item.Type === Item.TYPE_MULTIPLY_BY_TEN,
+        ).length,
+      });
+    });
   }
 
   getNextBets(event) {
@@ -47,22 +58,51 @@ class MultiplierByTen extends React.Component {
         message: 'Multiplier used',
         type: 'success',
       });
+      this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen + 1 }));
     });
   };
 
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
     const {
-      bets, totalPages,
+      bets, totalPages, nbMultiplierByTen, activeItem,
     } = this.state;
 
     return (
       <div id="multiplicator">
+        <Container fluid>
+          <div id="inlineMenu">
+            <Menu>
+              <Menu.Item
+                as={NavLink}
+                name="shop"
+                onClick={this.handleItemClick}
+                active={activeItem === 'shop'}
+                to="/shop"
+              >
+                Shop
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                name="items"
+                onClick={this.handleItemClick}
+                active={activeItem === 'items'}
+                to="/items"
+              >
+                My items
+              </Menu.Item>
+            </Menu>
+          </div>
+        </Container>
         <Header as="h1" icon textAlign="center">
           <div className="header-custom-image-container">
             <Image src="assets/images/multiplier-x10.svg" className="image-icon-header" />
           </div>
           <Header.Content>
-                Multiplier
+            Multiplier (
+            { nbMultiplierByTen }
+            )
           </Header.Content>
         </Header>
         <Container textAlign="center" fluid>
@@ -98,6 +138,8 @@ class MultiplierByTen extends React.Component {
                     <Table.Cell>{bet.Match.DrawRating}</Table.Cell>
                     <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
                     <Table.Cell textAlign="center">
+                      {nbMultiplierByTen !== 0 && bet.Multiply === 0
+                      && (
                       <Button.Group>
                         <Button
                           inverted
@@ -110,6 +152,8 @@ class MultiplierByTen extends React.Component {
                           </div>
                         </Button>
                       </Button.Group>
+                      )
+                      }
                     </Table.Cell>
                   </Table.Row>
                 ))}

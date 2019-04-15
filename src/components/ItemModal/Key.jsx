@@ -1,14 +1,18 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Input, Label, Pagination, Table,
+  Button, Container, Header, Icon, Input, Label, Menu, Pagination, Table,
 } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 import UserService from '../../service/UserService';
+import Item from '../../model/Item';
 
 class Key extends React.Component {
   state = {
     users: [],
     totalPages: 1,
+    nbKeys: 0,
     showPagination: true,
+    activeItem: 'items',
   };
 
   componentDidMount() {
@@ -19,6 +23,11 @@ class Key extends React.Component {
           totalPages: response.data.TotalPages,
         });
       });
+    UserService.getFromToken().then((res) => {
+      this.setState({
+        nbKeys: res.data.Items.filter(item => item.Type === Item.TYPE_KEY).length,
+      });
+    });
   }
 
   getNextUsers(event) {
@@ -30,6 +39,8 @@ class Key extends React.Component {
         });
       });
   }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   searchUsers(event) {
     const searchTerm = event.target.closest('div.input').getElementsByTagName('input')[0].value;
@@ -57,16 +68,42 @@ class Key extends React.Component {
 
   render() {
     const {
-      users, totalPages, showPagination,
+      users, totalPages, showPagination, nbKeys, activeItem,
     } = this.state;
     const { currentUser } = this.props;
 
     return (
       <div id="bomb">
+        <Container fluid>
+          <div id="inlineMenu">
+            <Menu>
+              <Menu.Item
+                as={NavLink}
+                name="shop"
+                onClick={this.handleItemClick}
+                active={activeItem === 'shop'}
+                to="/shop"
+              >
+                Shop
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                name="items"
+                onClick={this.handleItemClick}
+                active={activeItem === 'items'}
+                to="/items"
+              >
+                My items
+              </Menu.Item>
+            </Menu>
+          </div>
+        </Container>
         <Header as="h1" icon textAlign="center">
           <Icon name="key" circular />
           <Header.Content>
-                Key
+            Key (
+            { nbKeys }
+            )
           </Header.Content>
         </Header>
         <Container textAlign="center" fluid>
@@ -120,7 +157,7 @@ class Key extends React.Component {
                       </div>
                     </Table.Cell>
                     <Table.Cell textAlign="center">
-                      {user.Username !== currentUser.unique_name
+                      {nbKeys !== 0 && user.Username !== currentUser.unique_name
                         && (
                         <Button.Group>
                           <Button

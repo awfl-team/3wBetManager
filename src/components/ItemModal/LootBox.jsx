@@ -2,10 +2,12 @@ import React from 'react';
 import {
   Button,
   Container,
-  Header, Icon, Image,
+  Header, Icon, Image, Menu,
 } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import Item from '../../model/Item';
+import UserService from '../../service/UserService';
 
 let randomizer;
 let lootResult;
@@ -13,12 +15,20 @@ let lootResult;
 class LootBox extends React.Component {
   state = {
     items: [],
+    itemsLooted: [],
+    nbLootbox: 0,
+    activeItem: 'items',
   };
 
   componentDidMount() {
     ItemService.getAllItems().then((res) => {
-      const itemsWithoutLife = res.data.filter(item => item.Type !== 'LIFE');
+      const itemsWithoutLife = res.data.filter(item => item.Type !== Item.TYPE_LIFE);
       this.setState({ items: itemsWithoutLife });
+    });
+    UserService.getFromToken().then((res) => {
+      this.setState({
+        nbLootbox: res.data.Items.filter(item => item.Type === Item.TYPE_LOOT_BOX).length,
+      });
     });
   }
 
@@ -32,10 +42,23 @@ class LootBox extends React.Component {
       document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
       this.showRandomizer();
       lootResult = setTimeout(() => {
-        this.hideRandomizer();
-        this.showLoot();
+        this.setState({ itemsLooted: [] });
+        ItemService.useLoot().then((res) => {
+          this.setState({ itemsLooted: res.data });
+          this.hideRandomizer();
+          this.showLoot();
+        });
       }, 3000);
     }, 100);
+  }
+
+  fakeLoot = () => {
+    this.setState({ itemsLooted: [] });
+    ItemService.useLoot().then((res) => {
+      this.setState({ itemsLooted: res.data });
+      this.setState(prevState => ({ nbLootbox: prevState.nbLootbox + 1 }));
+      this.showLoot();
+    });
   }
 
   showRandomizer = () => {
@@ -51,18 +74,51 @@ class LootBox extends React.Component {
     document.getElementById('loot-container').classList.remove('hide');
   };
 
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
-    const { items } = this.state;
+    const {
+      items, itemsLooted, nbLootbox, activeItem,
+    } = this.state;
     return (
       <div id="lootbox">
+        <Container fluid>
+          <div id="inlineMenu">
+            <Menu>
+              <Menu.Item
+                as={NavLink}
+                name="shop"
+                onClick={this.handleItemClick}
+                active={activeItem === 'shop'}
+                to="/shop"
+              >
+                Shop
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                name="items"
+                onClick={this.handleItemClick}
+                active={activeItem === 'items'}
+                to="/items"
+              >
+                My items
+              </Menu.Item>
+            </Menu>
+          </div>
+        </Container>
         <div id="loot-action-container">
           <Header as="h1" icon textAlign="center">
             <Icon name="box" circular />
-            <Header.Content>Lootbox </Header.Content>
+            <Header.Content>
+              Lootbox (
+              {nbLootbox}
+              )
+            </Header.Content>
           </Header>
           <Container textAlign="center" fluid>
             <Button.Group>
               <Button id="openAction" onClick={this.openLootBox}>Open my lootbox</Button>
+              <Button id="test" onClick={this.fakeLoot}>Fake my loot my lootbox</Button>
             </Button.Group>
           </Container>
         </div>
@@ -149,7 +205,7 @@ class LootBox extends React.Component {
               <Header.Content>There it is ! *mangasme*</Header.Content>
             </Header>
             <div>
-              {items.map(item => (
+              {itemsLooted.map(item => (
                 <div className="loot" key={item.Id}>
                   <div className="loot-title">
                     <h3 className="item-name">{item.Name}</h3>
