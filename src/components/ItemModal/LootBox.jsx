@@ -56,7 +56,7 @@ class LootBox extends React.Component {
     this.setState({ itemsLooted: [] });
     ItemService.useLoot().then((res) => {
       this.setState({ itemsLooted: res.data });
-      this.setState(prevState => ({ nbLootbox: prevState.nbLootbox + 1 }));
+      this.setState(prevState => ({ nbLootbox: prevState.nbLootbox - 1 }));
       this.showLoot();
     });
   }

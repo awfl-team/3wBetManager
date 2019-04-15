@@ -58,7 +58,7 @@ class MultiplierByTen extends React.Component {
         message: 'Multiplier used',
         type: 'success',
       });
-      this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen + 1 }));
+      this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen - 1 }));
     });
   };
 

@@ -42,7 +42,7 @@ class Bomb extends React.Component {
         message: 'Bomb used',
         type: 'success',
       });
-      this.setState(prevState => ({ nbBombs: prevState.nbBombs + 1 }));
+      this.setState(prevState => ({ nbBombs: prevState.nbBombs - 1 }));
     });
   };
 
