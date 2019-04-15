@@ -56,7 +56,7 @@ class Shop extends React.Component {
     const { user, itemsBought, totalCost } = this.state;
     if (totalCost <= user.Point) {
       ItemService.addItemsToUser(itemsBought).then(() => {
-        this.state.user.Point -= totalCost;
+        user.Point -= totalCost;
         this.setState(
           { itemsBought: [], user, totalCost: 0 },
         );
