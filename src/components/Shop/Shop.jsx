@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import ItemService from '../../service/ItemService';
 import User from '../../model/User';
+import Item from '../../model/Item';
 import UserService from '../../service/UserService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
@@ -55,7 +56,10 @@ class Shop extends React.Component {
     const { user, itemsBought, totalCost } = this.state;
     if (totalCost <= user.Point) {
       ItemService.addItemsToUser(itemsBought).then(() => {
-        this.setState({ itemsBought: [] });
+        this.state.user.Point -= totalCost;
+        this.setState(
+          { itemsBought: [], user, totalCost: 0 },
+        );
         this.props.addSnackbar({
           message: 'Items buy',
           type: 'success',
@@ -135,11 +139,11 @@ class Shop extends React.Component {
                       alt="item"
                       src={
                         `assets/images/${
-                          item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
-                          || item.Type === 'KEY' ? 'key-x1.svg' : ''
-                          || item.Type === 'LIFE' ? 'life-x1.svg' : ''
-                          || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
-                          || item.Type === 'LOOT_BOXE' ? 'lootbox.svg' : ''}`
+                          item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                          || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                          || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                          || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                          || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                       }
                     />
                   </div>

@@ -12,4 +12,16 @@ export default class ItemService {
   static updateCost(item) {
     return API.put(`items/${item.Id}`, item);
   }
+
+  static useBomb(userId) {
+    return API.put(`items/bomb/${userId}`);
+  }
+
+  static useMultiplier(betId, multiplierValue) {
+    return API.put(`items/multiplier/${multiplierValue}/${betId}`);
+  }
+
+  static useLoot() {
+    return API.post('items/loot');
+  }
 }

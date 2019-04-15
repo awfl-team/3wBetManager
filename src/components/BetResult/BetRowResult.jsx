@@ -4,6 +4,7 @@ import {
 } from 'semantic-ui-react';
 import moment from 'moment';
 import BetService from '../../service/BetService';
+import Bet from '../../model/Bet';
 
 class BetRowResult extends React.Component {
   state = {
@@ -73,8 +74,10 @@ class BetRowResult extends React.Component {
                 <div className="container-versus-details">
                   <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>
                   <div className="container-versus-details-results-bet">
-                    <Label className={bet.Status === 'Perfect' ? 'greenLabel' : ''
-                    || bet.Status === 'Wrong' ? 'redLabel' : '' || bet.Status === 'Ok' ? 'orangeLabel' : ''}
+                    <Label className={
+                      bet.Status === Bet.STATUS_PERFECT ? 'greenLabel' : ''
+                      || bet.Status === Bet.STATUS_WRONG ? 'redLabel' : ''
+                      || bet.Status === Bet.STATUS_OK ? 'orangeLabel' : ''}
                     >
                       {bet.Status}
                     </Label>

@@ -1,15 +1,11 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Label, Menu, Modal,
+  Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import UserService from '../../service/UserService';
-import LootBox from '../ItemModal/LootBox';
-import Bomb from '../ItemModal/Bomb';
-import Key from '../ItemModal/Key';
-import Multiplicator from '../ItemModal/Multiplicator';
-
+import Item from '../../model/Item';
 
 class Items extends React.Component {
   state = {
@@ -33,7 +29,9 @@ class Items extends React.Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { items, userItems, activeItem } = this.state;
+    const {
+      items, userItems, activeItem,
+    } = this.state;
     return (
       <div id="items">
         <Container fluid>
@@ -77,20 +75,20 @@ class Items extends React.Component {
                   </div>
                   <div className={
                     `loot-image ${
-                      item.Rarity === 'Legendary' ? 'legendary' : ''
-                    || item.Rarity === 'Rare' ? 'rare' : ''
-                    || item.Rarity === 'Epic' ? 'epic' : ''
-                    || item.Rarity === 'Common' ? 'common' : ''}`
+                      item.Rarity === Item.RARITY_LEGENDARY ? 'legendary' : ''
+                    || item.Rarity === Item.RARITY_RARE ? 'rare' : ''
+                    || item.Rarity === Item.RARITY_EPIC ? 'epic' : ''
+                    || item.Rarity === Item.RARITY_COMMON ? 'common' : ''}`
                   }
                   >
                     <img
                       alt="item"
                       src={
                         `assets/images/${
-                          item.Type === 'BOMB' ? 'bomb-x1.svg' : ''
-                          || item.Type === 'KEY' ? 'key-x1.svg' : ''
-                          || item.Type === 'MULTIPLY_BY_TEN' ? 'multiplier-x10.svg' : ''
-                          || item.Type === 'LOOT_BOXE' ? 'lootbox.svg' : ''}`
+                          item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                          || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                          || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                          || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                       }
                     />
                   </div>
@@ -100,31 +98,54 @@ class Items extends React.Component {
                 </div>
                 <div className="item-card-bottom">
                   <Button.Group size="large">
-                    <Modal
-                      trigger={(
-                        <Button
-                          inverted
-                          color="green"
-                          disabled={userItems.filter(i => i.Type === item.Type).length === 0}
-                        >
-                          <Icon name="bolt" />
-                        </Button>
-                      )}
-                      className="item-modal"
+                    {item.Type === Item.TYPE_BOMB
+                    && (
+                    <Link
+                      to="/bomb"
+                      className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                          }
                     >
-                      {item.Type === 'LOOT_BOXE'
-                      && <LootBox />
-                      }
-                      {item.Type === 'BOMB'
-                      && <Bomb />
-                      }
-                      {item.Type === 'KEY'
-                      && <Key />
-                      }
-                      {item.Type === 'MULTIPLY_BY_TEN'
-                      && <Multiplicator />
-                      }
-                    </Modal>
+                      <Icon name="bolt" />
+                    </Link>
+                    )
+                    }
+                    {item.Type === Item.TYPE_KEY
+                    && (
+                      <Link
+                        to="/key"
+                        className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                            }
+                      >
+                        <Icon name="bolt" />
+                      </Link>
+                    )
+                    }
+                    {item.Type === Item.TYPE_MULTIPLY_BY_TEN
+                    && (
+                      <Link
+                        to="/multiplierbyten"
+                        className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                            }
+                      >
+                        <Icon name="bolt" />
+                      </Link>
+                    )
+                    }
+                    {item.Type === Item.TYPE_LOOT_BOX
+                    && (
+                      <Link
+                        to="/lootbox"
+                        className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                        }
+                      >
+                        <Icon name="bolt" />
+                      </Link>
+                    )
+                    }
                   </Button.Group>
                 </div>
               </div>

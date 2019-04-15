@@ -157,3 +157,24 @@ input[type=number] {
     }
   }
 }
+
+.header-custom-image-container {
+  box-shadow: 0 0 0 0.2em #42b983 !important;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 112px;
+  height: 112px;
+  padding: 20px;
+  border-radius: 500rem;
+  .image-icon-header {
+    height: 100%;
+  }
+}
+.custom-button-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .image-icon-button {
+    height: 20px;
+  }
+}

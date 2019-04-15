@@ -10,6 +10,7 @@
   align-items: center;
   transition: all 0.5s ease;
   color: black;
+  z-index: 1001;
 
   &.snackbar {
     &-danger, &-warning, &-success, &-default {

@@ -31,7 +31,7 @@ class App extends React.Component {
             <Route path="/signup" exact component={SignUp} />
             <Route path="/reset_password/:token" exact component={ResetPasswordComponent} />
             <Route
-              path="/(dashboard|profile|update-profile|bestBetters|user/*|bet/myBets|bet/submitBets|admin|items|lootbox|shop)"
+              path="/(dashboard|profile|update-profile|bestBetters|user/*|bet/myBets|bet/submitBets|admin|items|lootbox|shop|bomb|key|multiplierbyten)"
               component={UserLayout}
             />
             <Route component={NotFound} />
