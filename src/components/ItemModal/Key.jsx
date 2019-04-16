@@ -3,8 +3,19 @@ import {
   Button, Container, Header, Icon, Input, Label, Menu, Pagination, Table,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import Item from '../../model/Item';
+import ItemService from '../../service/ItemService';
+import { addSnackBar } from '../../actions/SnackBarActions';
+import AudioHandlerService from '../../service/AudioHandlerService';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
+
 
 class Key extends React.Component {
   state = {
@@ -40,7 +51,29 @@ class Key extends React.Component {
       });
   }
 
+  handleClick = (userId) => {
+    ItemService.useBomb(userId).then(() => {
+      this.props.addSnackbar({
+        message: 'Key used',
+        type: 'success',
+      });
+      this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
+      AudioHandlerService.useKey();
+    });
+  };
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  clearSearch() {
+    UserService.getAllUsersPaginated()
+      .then((response) => {
+        this.setState({
+          users: response.data.Items,
+          totalPages: response.data.TotalPages,
+          showPagination: true,
+        });
+      });
+  }
 
   searchUsers(event) {
     const searchTerm = event.target.closest('div.input').getElementsByTagName('input')[0].value;
@@ -53,17 +86,6 @@ class Key extends React.Component {
           });
         });
     }
-  }
-
-  clearSearch() {
-    UserService.getAllUsersPaginated()
-      .then((response) => {
-        this.setState({
-          users: response.data.Items,
-          totalPages: response.data.TotalPages,
-          showPagination: true,
-        });
-      });
   }
 
   render() {
@@ -157,18 +179,16 @@ class Key extends React.Component {
                       </div>
                     </Table.Cell>
                     <Table.Cell textAlign="center">
-                      {nbKeys !== 0 && user.Username !== currentUser.unique_name
-                        && (
-                        <Button.Group>
-                          <Button
-                            icon="key"
-                            inverted
-                            className="green"
-                            fluid
-                          />
-                        </Button.Group>
-                        )
-                        }
+                      <Button.Group>
+                        <Button
+                          onClick={this.handleClick(user.Id)}
+                          icon="key"
+                          inverted
+                          className="green"
+                          fluid
+                          disabled={nbKeys === 0 || currentUser.unique_name === user.Username}
+                        />
+                      </Button.Group>
                     </Table.Cell>
                   </Table.Row>
                 ))}
@@ -195,4 +215,6 @@ class Key extends React.Component {
   }
 }
 
-export default Key;
+
+const key = connect(null, mapDispatchToProps)(Key);
+export default key;

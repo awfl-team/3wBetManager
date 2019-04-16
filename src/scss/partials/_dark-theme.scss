@@ -124,26 +124,32 @@ input[type=number] {
   color: $white;
 }
 
-.ui.table tr.active {
-  background-color: $vue !important;
-  border: 2px solid $vue-green;
-  transition: $main-transition;
+.ui.table tr {
+  &.active {
+    background-color: $vue !important;
+    border: 2px solid $vue-green;
+    transition: $main-transition;
 
-  &:hover {
-    background-color: $vue-contrast !important;
+    &:hover {
+      background-color: $vue-contrast !important;
+    }
+
+    td {
+      color: $white;
+      font-weight: bold;
+    }
   }
-
-
-  td {
-    color: $white;
-    font-weight: bold;
-  }
-
 }
 
 .ui.table {
   border: 2px solid $vue-contrast !important;
   background: #1D2935 !important;
+  tr {
+    transition: $main-transition;
+    &.bet.buffed {
+      border: 2px solid $yellow !important;
+    }
+  }
 }
 
 .pagination {
@@ -176,5 +182,30 @@ input[type=number] {
   align-items: center;
   .image-icon-button {
     height: 20px;
+    opacity: 1;
+    &.hide {
+      opacity: 0;
+    }
+  }
+}
+
+.ui.progress {
+  & > .label {
+   color: $white !important;
+  }
+  &.success {
+    & > .label {
+      color: $vue-green !important;
+    }
+  }
+  &.warning {
+    & > .label {
+      color: $orange !important;
+    }
+  }
+  &.error {
+    & > .label {
+      color: $red !important;
+    }
   }
 }

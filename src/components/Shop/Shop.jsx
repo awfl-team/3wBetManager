@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Menu,
+  Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
@@ -9,6 +9,10 @@ import User from '../../model/User';
 import Item from '../../model/Item';
 import UserService from '../../service/UserService';
 import { addSnackBar } from '../../actions/SnackBarActions';
+import AudioHandlerService from '../../service/AudioHandlerService';
+
+let longPressInterval;
+let themeHandler;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -22,8 +26,11 @@ class Shop extends React.Component {
     user: User,
     items: [],
     itemsBought: [],
+    userItems: [],
     totalCost: 0,
     activeItem: 'shop',
+    theme: null,
+    isThemeActive: false,
   };
 
   componentDidMount() {
@@ -31,8 +38,62 @@ class Shop extends React.Component {
       this.setState({ items: res.data });
     });
     UserService.getFromToken().then((res) => {
-      this.setState({ user: res.data });
+      this.setState({
+        user: res.data,
+        userItems: res.data.Items,
+      });
     });
+    this.handleKeyboard();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', themeHandler);
+  }
+
+  handleKeyboard = () => {
+    let sequence = [];
+    themeHandler = (event) => {
+      sequence.push(event.key.toLowerCase());
+      if (sequence.length > 9) {
+        sequence = [];
+      }
+      const sequenceString = sequence.join('');
+      if (sequenceString === 'cocomongo' && this.state.theme === null) {
+        this.setState({ theme: AudioHandlerService.initTheme() });
+        this.setState({ isThemeActive: true });
+        sequence = [];
+      } else if (sequenceString === 'cocomongo' && this.state.isThemeActive === true && this.state.theme !== null) {
+        AudioHandlerService.muteTheme(this.state.theme);
+        this.setState({ isThemeActive: false });
+        sequence = [];
+      } else if (sequenceString === 'cocomongo' && this.state.isThemeActive === false && this.state.theme !== null) {
+        AudioHandlerService.resumeTheme(this.state.theme);
+        this.setState({ isThemeActive: true });
+        sequence = [];
+      } else if (sequenceString === 'reset') {
+        AudioHandlerService.muteTheme(this.state.theme);
+        this.setState({ theme: AudioHandlerService.initTheme() });
+        this.setState({ isThemeActive: true });
+        sequence = [];
+      }
+    };
+    document.addEventListener('keydown', themeHandler);
+  };
+
+  handleButtonPress = (item, direction) => {
+    let i = 0;
+    longPressInterval = setInterval(() => {
+      if (direction > 0) {
+        i = +1;
+      } else {
+        i = -1;
+      }
+      this.handleChange(i, item);
+    }, 70);
+  }
+
+  handleButtonRelease = () => {
+    clearInterval(longPressInterval);
   }
 
   handleChange = (number, item) => {
@@ -60,8 +121,14 @@ class Shop extends React.Component {
         this.setState(
           { itemsBought: [], user, totalCost: 0 },
         );
+        UserService.getFromToken().then((res) => {
+          this.setState({
+            user: res.data,
+            userItems: res.data.Items,
+          });
+        });
         this.props.addSnackbar({
-          message: 'Items buy',
+          message: 'Items bought',
           type: 'success',
         });
       });
@@ -77,7 +144,7 @@ class Shop extends React.Component {
 
   render() {
     const {
-      items, itemsBought, totalCost, activeItem, user,
+      items, itemsBought, totalCost, activeItem, user, userItems,
     } = this.state;
     return (
       <div id="3wShop">
@@ -120,6 +187,9 @@ class Shop extends React.Component {
           <div id="items-container" className="shop">
             {items.map(item => (
               <div key={item.Id} className="item-card">
+                <Label floating className="greenLabel">
+                  {userItems.filter(i => i.Type === item.Type).length}
+                </Label>
                 <div className="loot">
                   <div className="loot-title">
                     <h3 className="item-name">{item.Name}</h3>
@@ -153,11 +223,27 @@ class Shop extends React.Component {
                 </div>
                 <div className="item-card-bottom">
                   <Button.Group size="large">
-                    <Button onClick={() => this.handleChange(-1, item)} inverted color="red">
+                    <Button
+                      onClick={() => this.handleChange(-1, item)}
+                      onTouchStart={() => this.handleButtonPress(item, -1)}
+                      onTouchEnd={() => this.handleButtonRelease(item, -1)}
+                      onMouseDown={() => this.handleButtonPress(item, -1)}
+                      onMouseUp={() => this.handleButtonRelease(item, -1)}
+                      inverted
+                      color="red"
+                    >
                       <Icon name="minus" />
                     </Button>
                     <Button.Or text={itemsBought.filter(i => i.Type === item.Type).length} />
-                    <Button onClick={() => this.handleChange(1, item)} inverted color="green">
+                    <Button
+                      onClick={() => this.handleChange(1, item)}
+                      onTouchStart={() => this.handleButtonPress(item, +1)}
+                      onTouchEnd={() => this.handleButtonRelease(item, +1)}
+                      onMouseDown={() => this.handleButtonPress(item, +1)}
+                      onMouseUp={() => this.handleButtonRelease(item, +1)}
+                      inverted
+                      color="green"
+                    >
                       <Icon name="add" />
                     </Button>
                   </Button.Group>

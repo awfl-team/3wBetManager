@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import Item from '../../model/Item';
 import UserService from '../../service/UserService';
+import AudioHandlerService from '../../service/AudioHandlerService';
 
 let randomizer;
 let lootResult;
@@ -18,6 +19,7 @@ class LootBox extends React.Component {
     itemsLooted: [],
     nbLootbox: 0,
     activeItem: 'items',
+    isLooting: false,
   };
 
   componentDidMount() {
@@ -38,27 +40,37 @@ class LootBox extends React.Component {
   }
 
   openLootBox = () => {
+    this.hideLoot();
     randomizer = setTimeout(() => {
       document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
       this.showRandomizer();
+      this.setState({ isLooting: true });
+
+      AudioHandlerService.startLoot();
       lootResult = setTimeout(() => {
         this.setState({ itemsLooted: [] });
         ItemService.useLoot().then((res) => {
-          this.setState({ itemsLooted: res.data });
+          const legendaryItems = [];
+          res.data.forEach((item) => {
+            if (item.Rarity === Item.RARITY_LEGENDARY) {
+              legendaryItems.push(item);
+            }
+          });
+          if (legendaryItems.length > 0) {
+            AudioHandlerService.openedLoot(true);
+          } else {
+            AudioHandlerService.openedLoot(false);
+          }
           this.hideRandomizer();
           this.showLoot();
+          this.setState(prevState => ({ nbLootbox: prevState.nbLootbox - 1 }));
+          this.setState({
+            isLooting: false,
+            itemsLooted: res.data,
+          });
         });
       }, 3000);
     }, 100);
-  }
-
-  fakeLoot = () => {
-    this.setState({ itemsLooted: [] });
-    ItemService.useLoot().then((res) => {
-      this.setState({ itemsLooted: res.data });
-      this.setState(prevState => ({ nbLootbox: prevState.nbLootbox - 1 }));
-      this.showLoot();
-    });
   }
 
   showRandomizer = () => {
@@ -74,14 +86,25 @@ class LootBox extends React.Component {
     document.getElementById('loot-container').classList.remove('hide');
   };
 
+  hideLoot = () => {
+    document.getElementById('loot-container').classList.add('hide');
+  };
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
     const {
-      items, itemsLooted, nbLootbox, activeItem,
+      items, itemsLooted, nbLootbox, activeItem, isLooting,
     } = this.state;
     return (
       <div id="lootbox">
+        <Button
+          className="green open-action-button"
+          onClick={this.openLootBox}
+          disabled={nbLootbox === 0 || isLooting === true}
+        >
+          Open
+        </Button>
         <Container fluid>
           <div id="inlineMenu">
             <Menu>
@@ -115,12 +138,6 @@ class LootBox extends React.Component {
               )
             </Header.Content>
           </Header>
-          <Container textAlign="center" fluid>
-            <Button.Group>
-              <Button id="openAction" onClick={this.openLootBox}>Open my lootbox</Button>
-              <Button id="test" onClick={this.fakeLoot}>Fake my loot my lootbox</Button>
-            </Button.Group>
-          </Container>
         </div>
         <div id="loot-slide-container" className="hide">
           <Header as="h1" icon textAlign="center">
@@ -202,7 +219,14 @@ class LootBox extends React.Component {
               <div className="header-custom-image-container">
                 <Image src="assets/images/lootbox.svg" className="image-icon-header" />
               </div>
-              <Header.Content>There it is ! *mangasme*</Header.Content>
+              <Header.Content>
+                There it is !
+                (
+                {nbLootbox}
+                {' '}
+                to open
+                )
+              </Header.Content>
             </Header>
             <div>
               {itemsLooted.map(item => (

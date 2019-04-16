@@ -8,6 +8,7 @@ import UserService from '../../service/UserService';
 import ItemService from '../../service/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
+import AudioHandlerService from '../../service/AudioHandlerService';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -36,17 +37,46 @@ class Bomb extends React.Component {
     });
   }
 
-  handleClick = (userId) => {
+  handleClick = (userId, event) => {
+    const elem = event.target;
     ItemService.useBomb(userId).then(() => {
       this.props.addSnackbar({
         message: 'Bomb used',
         type: 'success',
       });
       this.setState(prevState => ({ nbBombs: prevState.nbBombs - 1 }));
+      this.handleButtonAnimationShow(elem);
+      setTimeout(() => {
+        this.handleButtonAnimationHide(elem);
+      }, 500);
+      UserService.getCurrentUserAmongSiblings().then(((response) => {
+        this.setState({
+          userAmongSiblings: response.data,
+        });
+      }));
     });
   };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  handleButtonAnimationShow(elem) {
+    const bombAnimation = elem.closest('.buttons').getElementsByClassName('bomb-animation')[0];
+    const buttonImage = elem.closest('.buttons').getElementsByClassName('image-icon-button')[0];
+    bombAnimation.classList.add('show');
+    bombAnimation.classList.remove('hide');
+    buttonImage.classList.add('hide');
+    buttonImage.classList.remove('show');
+    AudioHandlerService.useBomb();
+  }
+
+  handleButtonAnimationHide(elem) {
+    const bombAnimation = elem.parentElement.parentElement.getElementsByClassName('bomb-animation')[0];
+    const buttonImage = elem.parentElement.parentElement.getElementsByClassName('image-icon-button')[0];
+    bombAnimation.classList.add('hide');
+    bombAnimation.classList.remove('show');
+    buttonImage.classList.add('show');
+    buttonImage.classList.remove('hide');
+  }
 
   render() {
     const { userAmongSiblings, nbBombs, activeItem } = this.state;
@@ -132,22 +162,22 @@ class Bomb extends React.Component {
                       <Table.Cell>{user.NbOkBets}</Table.Cell>
                       <Table.Cell>{user.NbPerfectBets}</Table.Cell>
                       <Table.Cell textAlign="center">
-                        {nbBombs !== 0 && user.Username !== currentUser.unique_name
-                        && (
-                          <Button.Group>
-                            <Button
-                              onClick={() => this.handleClick(user.Id)}
-                              inverted
-                              className="green"
-                              fluid
-                            >
-                              <div className="custom-button-image-container">
-                                <Image src="assets/images/bomb-x1.svg" className="image-icon-button" />
-                              </div>
-                            </Button>
-                          </Button.Group>
-                        )
-                        }
+                        <Button.Group className="button-position-reference">
+                          <Button
+                            onClick={e => this.handleClick(user.Id, e)}
+                            inverted
+                            className="green"
+                            fluid
+                            disabled={nbBombs === 0 || currentUser.unique_name === user.Username}
+                          >
+                            <div className="bomb-animation hide">
+                              <img alt="anim" src="assets/images/explosion.gif" />
+                            </div>
+                            <div className="custom-button-image-container">
+                              <Image src="assets/images/bomb-x1.svg" className="image-icon-button" />
+                            </div>
+                          </Button>
+                        </Button.Group>
                       </Table.Cell>
                     </Table.Row>
                   ))}

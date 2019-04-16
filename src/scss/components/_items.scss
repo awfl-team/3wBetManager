@@ -1,0 +1,35 @@
+#bomb {
+  .button-position-reference {
+    position: relative;
+
+    .bomb-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      &.show {
+        display: block;
+      }
+      &.hide {
+        display: none;
+      }
+      img {
+        width: 60px;
+        height: 40px;
+        object-fit: contain;
+      }
+    }
+  }
+}
+
+.open-action {
+  &-button {
+    width: 200px;
+    margin: 0 auto !important;
+    display: block !important;
+    border-radius: 25px !important;
+    font-size: 1.25rem !important;
+    position: fixed;
+    right: 110px;
+    bottom: 20px;
+  }
+}

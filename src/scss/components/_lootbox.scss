@@ -98,7 +98,9 @@
 #loot-slide{
   overflow: hidden;
   white-space: nowrap;
-  width: 500px;
+  min-width: 250px;
+  max-width: 500px;
+  width: 100%;
   min-height: 260px;
   display: flex;
   margin: 0 auto;
