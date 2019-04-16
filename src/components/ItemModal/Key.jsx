@@ -181,7 +181,7 @@ class Key extends React.Component {
                     <Table.Cell textAlign="center">
                       <Button.Group>
                         <Button
-                          onClick={() => {this.handleClick(user.Id)}}
+                          onClick={() => { this.handleClick(user.Id); }}
                           icon="key"
                           inverted
                           className="green"
