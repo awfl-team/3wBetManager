@@ -68,6 +68,7 @@ class Profile extends React.Component {
             this.setState({
               user: response.data,
               isPrivate: response.data.IsPrivate,
+              items: response.data.Items,
               canReset: response.data.Life !== 0,
               userLives: response.data.Items.filter(i => i.Type === 'LIFE').length,
               userPoints: response.data.Point,

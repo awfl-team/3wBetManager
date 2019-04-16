@@ -22,6 +22,6 @@ export default class ItemService {
   }
 
   static useLoot() {
-    return API.post('items/loot');
+    return API.get('items/loot');
   }
 }

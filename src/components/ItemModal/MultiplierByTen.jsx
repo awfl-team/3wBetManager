@@ -10,6 +10,7 @@ import ItemService from '../../service/ItemService';
 import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import UserService from '../../service/UserService';
+import AudioHandlerService from '../../service/AudioHandlerService';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -23,6 +24,7 @@ class MultiplierByTen extends React.Component {
     totalPages: 1,
     nbMultiplierByTen: 0,
     activeItem: 'items',
+    currentPage: 1,
   };
 
   componentDidMount() {
@@ -43,6 +45,7 @@ class MultiplierByTen extends React.Component {
   }
 
   getNextBets(event) {
+    this.setState({ currentPage: event.target.getAttribute('value') });
     BetService.getUserFinishedBetsPaginated(event.target.getAttribute('value'))
       .then((response) => {
         this.setState({
@@ -58,6 +61,14 @@ class MultiplierByTen extends React.Component {
         message: 'Multiplier used',
         type: 'success',
       });
+      BetService.getUserFinishedBetsPaginated(this.state.currentPage)
+        .then((response) => {
+          this.setState({
+            bets: response.data.Items,
+            totalPages: response.data.TotalPages,
+          });
+        });
+      AudioHandlerService.useMultiplier();
       this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen - 1 }));
     });
   };
@@ -105,9 +116,11 @@ class MultiplierByTen extends React.Component {
             )
           </Header.Content>
         </Header>
+        {bets.length > 0
+        && (
         <Container textAlign="center" fluid>
           <div className="scrollable-table-container">
-            <Table celled striped unstackable inverted className="primary-bg">
+            <Table celled striped unstackable structured inverted className="primary-bg">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Competition</Table.HeaderCell>
@@ -124,57 +137,61 @@ class MultiplierByTen extends React.Component {
 
               <Table.Body>
                 {bets.map(bet => (
-                  <Table.Row key={bet.Id}>
+                  <Table.Row key={bet.Id} className={bet.Multiply !== 0 ? 'bet buffed' : ''}>
                     <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
                     <Table.Cell>{moment(bet.Match.UtcDate).format('MM/DD/YYYY')}</Table.Cell>
                     <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
                     <Table.Cell>{bet.Match.AwayTeam.Name}</Table.Cell>
                     <Table.Cell>
                       {bet.HomeTeamScore}
-                        -
+                      -
                       {bet.AwayTeamScore}
                     </Table.Cell>
                     <Table.Cell>{bet.Match.HomeTeamRating}</Table.Cell>
                     <Table.Cell>{bet.Match.DrawRating}</Table.Cell>
                     <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
                     <Table.Cell textAlign="center">
-                      {nbMultiplierByTen !== 0 && bet.Multiply === 0
-                      && (
                       <Button.Group>
                         <Button
                           inverted
                           className="green"
                           fluid
                           onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_10)}
+                          disabled={!!(nbMultiplierByTen !== 0 && bet.Multiply !== 0)}
                         >
                           <div className="custom-button-image-container">
                             <Image src="assets/images/multiplier-x10.svg" className="image-icon-button" />
                           </div>
                         </Button>
                       </Button.Group>
-                      )
-                      }
                     </Table.Cell>
                   </Table.Row>
                 ))}
               </Table.Body>
             </Table>
           </div>
-          {bets.length >= 10
-            && (
-              <Pagination
-                ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
-                firstItem={null}
-                lastItem={null}
-                defaultActivePage={1}
-                prevItem={{ content: <Icon name="angle left" />, icon: true }}
-                nextItem={{ content: <Icon name="angle right" />, icon: true }}
-                totalPages={totalPages}
-                onPageChange={event => this.getNextBets(event)}
-              />
-            )
-            }
+          {totalPages > 1
+          && (
+            <Pagination
+              ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
+              firstItem={null}
+              lastItem={null}
+              defaultActivePage={1}
+              prevItem={{ content: <Icon name="angle left" />, icon: true }}
+              nextItem={{ content: <Icon name="angle right" />, icon: true }}
+              totalPages={totalPages}
+              onPageChange={event => this.getNextBets(event)}
+            />
+          )
+          }
         </Container>
+        )
+        }
+        {bets.length === 0
+        && (
+        <h2>You have no bets</h2>
+        )
+        }
       </div>
     );
   }
