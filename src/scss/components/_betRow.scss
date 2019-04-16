@@ -9,6 +9,9 @@
       align-items: center;
       flex-direction: column;
     }
+    &.buffed {
+      border: 1px $yellow solid !important;
+    }
 
     &:not(:first-child) {
       margin-top: 50px;

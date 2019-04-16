@@ -12,6 +12,7 @@ import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
 
 let longPressInterval;
+let longPressBuffer;
 let themeHandler;
 
 function mapDispatchToProps(dispatch) {
@@ -82,17 +83,20 @@ class Shop extends React.Component {
 
   handleButtonPress = (item, direction) => {
     let i = 0;
-    longPressInterval = setInterval(() => {
-      if (direction > 0) {
-        i = +1;
-      } else {
-        i = -1;
-      }
-      this.handleChange(i, item);
-    }, 70);
+    longPressBuffer = setTimeout(() => {
+      longPressInterval = setInterval(() => {
+        if (direction > 0) {
+          i = +1;
+        } else {
+          i = -1;
+        }
+        this.handleChange(i, item);
+      }, 70);
+    }, 500);
   }
 
   handleButtonRelease = () => {
+    clearTimeout(longPressBuffer);
     clearInterval(longPressInterval);
   }
 
