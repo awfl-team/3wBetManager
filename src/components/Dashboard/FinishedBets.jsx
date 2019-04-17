@@ -72,6 +72,18 @@ class FinishedBets extends React.Component {
                     >
                       {finishedBet.Status}
                     </Label>
+                    {finishedBet.Multiply !== 0
+                      && (
+                      <div>
+                        <span> | </span>
+                        <Label className="orangeLabel">
+                          x
+                          {' '}
+                          {finishedBet.Multiply}
+                        </Label>
+                      </div>
+                      )
+                    }
                     <span> | </span>
                     <div>
                       {finishedBet.PointsWon}
