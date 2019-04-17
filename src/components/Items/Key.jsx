@@ -52,7 +52,7 @@ class Key extends React.Component {
   }
 
   handleClick = (userId) => {
-    ItemService.useBomb(userId).then(() => {
+    ItemService.useKey(userId).then(() => {
       this.props.addSnackbar({
         message: 'Key used',
         type: 'success',

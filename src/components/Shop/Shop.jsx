@@ -71,7 +71,7 @@ class Shop extends React.Component {
         AudioHandlerService.resumeTheme(this.state.theme);
         this.setState({ isThemeActive: true });
         sequence = [];
-      } else if (sequenceString === 'reset') {
+      } else if (sequenceString === 'reset' && this.state.theme !== null) {
         AudioHandlerService.muteTheme(this.state.theme);
         this.setState({ theme: AudioHandlerService.initTheme() });
         this.setState({ isThemeActive: true });

@@ -17,6 +17,10 @@ export default class ItemService {
     return API.put(`items/bomb/${userId}`);
   }
 
+  static useKey(userId) {
+    return API.get(`items/key/${userId}`);
+  }
+
   static useMultiplier(betId, multiplierValue) {
     return API.put(`items/multiplier/${multiplierValue}/${betId}`);
   }

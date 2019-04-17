@@ -22,7 +22,7 @@ class ConsultProfileStats extends React.Component {
     dataSetYear: [],
   };
 
-  componentWillReceiveProps() {
+  componentDidMount() {
     this.getPublicBetsByTypeData(this.props.userId);
     this.getPublicEarningsStatsPerType(this.props.userId);
     this.getPublicCoinsStats(this.props.userId);

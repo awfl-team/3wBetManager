@@ -12,8 +12,6 @@ class ConsultProfile extends React.Component {
     userLives: '',
   };
 
-  // @todo Refactor stats of consultProfile and profile as a component
-
   componentDidMount() {
     UserService.getUserById(this.props.match.params.userId)
       .then((response) => {
@@ -50,23 +48,21 @@ class ConsultProfile extends React.Component {
           </Header>
           )}
         <Container textAlign="center" className="container-centered">
-          {user.IsPrivate === false
-          && (
-          <div>
-            <div className="profile-lives">
-              <div>
-                <Icon color="red" name="heart" size="big" />
-                <span>{userLives}</span>
-              </div>
-            </div>
-            <div className="profile-coins">
-              <Icon color="yellow" name="copyright" size="big" />
-              <span>{user.Point}</span>
+          <div className="profile-lives">
+            <div>
+              <Icon color="red" name="heart" size="big" />
+              <span>{userLives}</span>
             </div>
           </div>
+          <div className="profile-coins">
+            <Icon color="yellow" name="copyright" size="big" />
+            <span>{user.Point}</span>
+          </div>
+          {user.IsPrivate === false
+          && (
+            <ConsultProfileStats userId={this.props.match.params.userId} />
           )
           }
-          <ConsultProfileStats userId={this.props.match.params.userId} />
           { user.IsPrivate === true
             && <h2>You are only able to see his lives, coins and username</h2>
           }

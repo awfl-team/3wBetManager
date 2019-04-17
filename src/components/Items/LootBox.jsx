@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Button,
   Container,
   Header, Icon, Image, Menu,
 } from 'semantic-ui-react';
@@ -98,13 +97,6 @@ class LootBox extends React.Component {
     } = this.state;
     return (
       <div id="lootbox">
-        <Button
-          className="green open-action-button"
-          onClick={this.openLootBox}
-          disabled={nbLootbox === 0 || isLooting === true}
-        >
-          Open
-        </Button>
         <Container fluid>
           <div id="inlineMenu">
             <Menu>
@@ -262,6 +254,17 @@ class LootBox extends React.Component {
             </div>
           </div>
         </Container>
+        <div className="ui fluid container submit-bets-action">
+          <button
+            type="button"
+            className="ui green button submit-bets-action-button"
+            tabIndex="-1"
+            onClick={this.openLootBox}
+            disabled={nbLootbox <= 0 || isLooting === true}
+          >
+            Open
+          </button>
+        </div>
       </div>
     );
   }

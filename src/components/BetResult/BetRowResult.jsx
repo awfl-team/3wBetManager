@@ -39,7 +39,7 @@ class BetRowResult extends React.Component {
                   </div>
                 </div>
                 <div className="container-versus">
-                  <div className="match-info">{moment(bet.Match.UtcDate).format('DD/MM/YYYY')}</div>
+                  <div className="match-info">{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</div>
                   <div className="container-versus-details">
                     <div className="home-score ">{bet.Match.Score.FullTime.HomeTeam}</div>
                     <div className="versus-text"> -</div>
@@ -72,7 +72,7 @@ class BetRowResult extends React.Component {
                   <Icon color="yellow" name="copyright" />
                 </Message.Header>
                 <div className="container-versus-details">
-                  <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>
+                  <div className="bet-date">{moment(bet.Date).format('MM-DD-YYYY')}</div>
                   <div className="container-versus-details-results-bet">
                     <Label className={
                       bet.Status === Bet.STATUS_PERFECT ? 'greenLabel' : ''

@@ -168,7 +168,7 @@ class Bomb extends React.Component {
                             inverted
                             className="green"
                             fluid
-                            disabled={nbBombs === 0 || currentUser.unique_name === user.Username}
+                            disabled={nbBombs <= 0 || currentUser.unique_name === user.Username}
                           >
                             <div className="bomb-animation hide">
                               <img alt="anim" src="assets/images/explosion.gif" />

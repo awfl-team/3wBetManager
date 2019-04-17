@@ -139,7 +139,7 @@ class MultiplierByTen extends React.Component {
                 {bets.map(bet => (
                   <Table.Row key={bet.Id} className={bet.Multiply !== 0 ? 'bet buffed' : ''}>
                     <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
-                    <Table.Cell>{moment(bet.Match.UtcDate).format('MM/DD/YYYY')}</Table.Cell>
+                    <Table.Cell>{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</Table.Cell>
                     <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
                     <Table.Cell>{bet.Match.AwayTeam.Name}</Table.Cell>
                     <Table.Cell>
