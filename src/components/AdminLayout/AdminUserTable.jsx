@@ -9,7 +9,7 @@ import {
   Table,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';

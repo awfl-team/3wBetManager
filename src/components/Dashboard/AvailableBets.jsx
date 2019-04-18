@@ -60,7 +60,10 @@ class AvailableBets extends React.Component {
                     && (
                       <div>
                         <span> | </span>
-                        <Label className="orangeLabel">
+                        <Label className={availableBet.Multiply === 10 ? 'legendaryLabel' : ''
+                        || availableBet.Multiply === 5 ? 'epicLabel' : ''
+                        || availableBet.Multiply === 2 ? 'rareLabel' : ''}
+                        >
                           x
                           {' '}
                           {availableBet.Multiply}

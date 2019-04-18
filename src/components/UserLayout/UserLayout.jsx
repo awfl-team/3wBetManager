@@ -19,7 +19,7 @@ import Shop from '../Shop/Shop';
 import Items from '../Profile/Items';
 import Bomb from '../Items/Bomb';
 import Key from '../Items/Key';
-import MultiplierByTen from '../Items/MultiplierByTen';
+import Multiplier from '../Items/MultiplierByTen';
 
 class UserLayout extends React.Component {
   state = {
@@ -115,9 +115,9 @@ class UserLayout extends React.Component {
               <Route path="/shop" component={Shop} />
               <Route path="/admin" component={AdminLayout} />
               <Route path="/lootbox" component={LootBox} />
-              <Route path="/bomb" component={() => <Bomb currentUser={this.props.user} />} />
-              <Route path="/key" component={() => <Key currentUser={this.props.user} history={this.props.history} />} />
-              <Route path="/multiplierbyten" component={() => <MultiplierByTen currentUser={this.props.user} />} />
+              <Route path="/bomb" component={Bomb} />
+              <Route path="/key" component={Key} />
+              <Route path="/multiplier" component={Multiplier} />
               <PageScroller />
             </Segment>
           </Sidebar.Pusher>

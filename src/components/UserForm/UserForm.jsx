@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Button, Container, Header, Icon, Radio,
 } from 'semantic-ui-react';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import FormUserService from '../../service/FormUserService';

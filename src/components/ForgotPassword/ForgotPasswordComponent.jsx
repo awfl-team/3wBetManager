@@ -1,5 +1,5 @@
 import React from 'react';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';

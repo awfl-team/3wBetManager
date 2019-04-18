@@ -1,28 +1,22 @@
 import React from 'react';
 import {
-  Button, Container, Header, Icon, Image, Menu, Pagination, Table,
+  Button, Container, Header, Icon, Image, Label, Menu, Pagination, Table,
 } from 'semantic-ui-react';
 import moment from 'moment';
-import connect from 'react-redux/es/connect/connect';
 import { NavLink } from 'react-router-dom';
 import BetService from '../../service/BetService';
 import ItemService from '../../service/ItemService';
 import Item from '../../model/Item';
-import { addSnackBar } from '../../actions/SnackBarActions';
 import UserService from '../../service/UserService';
 import AudioHandlerService from '../../service/AudioHandlerService';
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-  };
-}
 
 class MultiplierByTen extends React.Component {
   state = {
     bets: [],
     totalPages: 1,
     nbMultiplierByTen: 0,
+    nbMultiplierByFive: 0,
+    nbMultiplierByTwo: 0,
     activeItem: 'items',
     currentPage: 1,
   };
@@ -39,6 +33,12 @@ class MultiplierByTen extends React.Component {
       this.setState({
         nbMultiplierByTen: res.data.Items.filter(
           item => item.Type === Item.TYPE_MULTIPLY_BY_TEN,
+        ).length,
+        nbMultiplierByFive: res.data.Items.filter(
+          item => item.Type === Item.TYPE_MULTIPLY_BY_FIVE,
+        ).length,
+        nbMultiplierByTwo: res.data.Items.filter(
+          item => item.Type === Item.TYPE_MULTIPLY_BY_TWO,
         ).length,
       });
     });
@@ -57,10 +57,6 @@ class MultiplierByTen extends React.Component {
 
   handleClick = (betId, multiplierValue) => {
     ItemService.useMultiplier(betId, multiplierValue).then(() => {
-      this.props.addSnackbar({
-        message: 'Multiplier used',
-        type: 'success',
-      });
       BetService.getUserFinishedBetsPaginated(this.state.currentPage)
         .then((response) => {
           this.setState({
@@ -69,7 +65,19 @@ class MultiplierByTen extends React.Component {
           });
         });
       AudioHandlerService.useMultiplier();
-      this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen - 1 }));
+      switch (multiplierValue) {
+        case 10:
+          this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen - 1 }));
+          break;
+        case 5:
+          this.setState(prevState => ({ nbMultiplierByFive: prevState.nbMultiplierByFive - 1 }));
+          break;
+        case 2:
+          this.setState(prevState => ({ nbMultiplierByTwo: prevState.nbMultiplierByTwo - 1 }));
+          break;
+        default:
+          break;
+      }
     });
   };
 
@@ -77,7 +85,7 @@ class MultiplierByTen extends React.Component {
 
   render() {
     const {
-      bets, totalPages, nbMultiplierByTen, activeItem,
+      bets, totalPages, nbMultiplierByTen, activeItem, nbMultiplierByTwo, nbMultiplierByFive,
     } = this.state;
 
     return (
@@ -111,9 +119,18 @@ class MultiplierByTen extends React.Component {
             <Image src="assets/images/multiplier-x10.svg" className="image-icon-header" />
           </div>
           <Header.Content>
-            Multiplier (
-            { nbMultiplierByTen }
-            )
+            Multipliers
+            <div>
+              <Label className="legendaryLabel">
+                {nbMultiplierByTen}
+              </Label>
+              <Label className="epicLabel">
+                {nbMultiplierByFive}
+              </Label>
+              <Label className="rareLabel">
+                {nbMultiplierByTwo}
+              </Label>
+            </div>
           </Header.Content>
         </Header>
         {bets.length > 0
@@ -137,7 +154,14 @@ class MultiplierByTen extends React.Component {
 
               <Table.Body>
                 {bets.map(bet => (
-                  <Table.Row key={bet.Id} className={bet.Multiply !== 0 ? 'bet buffed' : ''}>
+                  <Table.Row
+                    key={bet.Id}
+                    className={
+                    bet.Multiply === 10 ? 'bet buffed-x10' : ''
+                    || bet.Multiply === 5 ? 'bet buffed-x5' : ''
+                    || bet.Multiply === 2 ? 'bet buffed-x2' : ''
+                  }
+                  >
                     <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
                     <Table.Cell>{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</Table.Cell>
                     <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
@@ -154,14 +178,35 @@ class MultiplierByTen extends React.Component {
                       <Button.Group>
                         <Button
                           inverted
-                          className="green"
-                          fluid
+                          className="legendary"
                           onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_10)}
-                          disabled={!!(nbMultiplierByTen !== 0 && bet.Multiply !== 0)}
+                          disabled={
+                            nbMultiplierByTen === 0
+                          || bet.Multiply === 10}
                         >
-                          <div className="custom-button-image-container">
-                            <Image src="assets/images/multiplier-x10.svg" className="image-icon-button" />
-                          </div>
+                          x10
+                        </Button>
+                        <Button
+                          inverted
+                          className="epic"
+                          onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_5)}
+                          disabled={
+                            nbMultiplierByFive <= 0
+                            || bet.Multiply === 5
+                          }
+                        >
+                         x5
+                        </Button>
+                        <Button
+                          inverted
+                          className="rare"
+                          onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_2)}
+                          disabled={
+                            nbMultiplierByTwo <= 0
+                            || bet.Multiply === 2
+                          }
+                        >
+                          x2
                         </Button>
                       </Button.Group>
                     </Table.Cell>
@@ -197,5 +242,4 @@ class MultiplierByTen extends React.Component {
   }
 }
 
-const multiplierByTen = connect(null, mapDispatchToProps)(MultiplierByTen);
-export default multiplierByTen;
+export default MultiplierByTen;

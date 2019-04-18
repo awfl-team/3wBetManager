@@ -2,24 +2,18 @@ import React from 'react';
 import {
   Button, Container, Header, Icon, Image, Label, Menu, Table,
 } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import ItemService from '../../service/ItemService';
-import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
 import AudioHandlerService from '../../service/AudioHandlerService';
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-  };
-}
+import User from '../../model/User';
 
 class Bomb extends React.Component {
   state = {
     userAmongSiblings: [],
     nbBombs: 0,
+    currentUser: User,
     activeItem: 'items',
   };
 
@@ -32,6 +26,7 @@ class Bomb extends React.Component {
 
     UserService.getFromToken().then((res) => {
       this.setState({
+        currentUser: res.data,
         nbBombs: res.data.Items.filter(item => item.Type === Item.TYPE_BOMB).length,
       });
     });
@@ -40,10 +35,6 @@ class Bomb extends React.Component {
   handleClick = (userId, event) => {
     const elem = event.target;
     ItemService.useBomb(userId).then(() => {
-      this.props.addSnackbar({
-        message: 'Bomb used',
-        type: 'success',
-      });
       this.setState(prevState => ({ nbBombs: prevState.nbBombs - 1 }));
       this.handleButtonAnimationShow(elem);
       setTimeout(() => {
@@ -79,8 +70,9 @@ class Bomb extends React.Component {
   }
 
   render() {
-    const { userAmongSiblings, nbBombs, activeItem } = this.state;
-    const { currentUser } = this.props;
+    const {
+      userAmongSiblings, nbBombs, activeItem, currentUser,
+    } = this.state;
 
     return (
       <div id="bomb">
@@ -168,7 +160,7 @@ class Bomb extends React.Component {
                             inverted
                             className="green"
                             fluid
-                            disabled={nbBombs <= 0 || currentUser.unique_name === user.Username}
+                            disabled={nbBombs <= 0 || currentUser.Username === user.Username}
                           >
                             <div className="bomb-animation hide">
                               <img alt="anim" src="assets/images/explosion.gif" />
@@ -191,5 +183,4 @@ class Bomb extends React.Component {
   }
 }
 
-const bomb = connect(null, mapDispatchToProps)(Bomb);
-export default bomb;
+export default Bomb;

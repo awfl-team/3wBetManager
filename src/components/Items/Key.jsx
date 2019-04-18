@@ -3,19 +3,11 @@ import {
   Button, Container, Header, Icon, Input, Label, Menu, Pagination, Table,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import Item from '../../model/Item';
 import ItemService from '../../service/ItemService';
-import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-  };
-}
-
+import User from '../../model/User';
 
 class Key extends React.Component {
   state = {
@@ -24,6 +16,7 @@ class Key extends React.Component {
     nbKeys: 0,
     showPagination: true,
     activeItem: 'items',
+    currentUser: User,
   };
 
   componentDidMount() {
@@ -36,6 +29,7 @@ class Key extends React.Component {
       });
     UserService.getFromToken().then((res) => {
       this.setState({
+        currentUser: res.data,
         nbKeys: res.data.Items.filter(item => item.Type === Item.TYPE_KEY).length,
       });
     });
@@ -53,10 +47,6 @@ class Key extends React.Component {
 
   handleClick = (userId) => {
     ItemService.useKey(userId).then(() => {
-      this.props.addSnackbar({
-        message: 'Key used',
-        type: 'success',
-      });
       this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
       AudioHandlerService.useKey();
     });
@@ -90,9 +80,8 @@ class Key extends React.Component {
 
   render() {
     const {
-      users, totalPages, showPagination, nbKeys, activeItem,
+      users, totalPages, showPagination, nbKeys, activeItem, currentUser,
     } = this.state;
-    const { currentUser } = this.props;
 
     return (
       <div id="bomb">
@@ -186,7 +175,7 @@ class Key extends React.Component {
                           inverted
                           className="green"
                           fluid
-                          disabled={nbKeys === 0 || currentUser.unique_name === user.Username}
+                          disabled={nbKeys === 0 || currentUser.Username === user.Username}
                         />
                       </Button.Group>
                     </Table.Cell>
@@ -216,5 +205,4 @@ class Key extends React.Component {
 }
 
 
-const key = connect(null, mapDispatchToProps)(Key);
-export default key;
+export default Key;

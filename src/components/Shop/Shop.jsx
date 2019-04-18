@@ -3,12 +3,10 @@ import {
   Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import connect from 'react-redux/es/connect/connect';
 import ItemService from '../../service/ItemService';
 import User from '../../model/User';
 import Item from '../../model/Item';
 import UserService from '../../service/UserService';
-import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
 
 let longPressInterval;
@@ -217,6 +215,9 @@ class Shop extends React.Component {
                           || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
                           || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
                           || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                          || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
+                          || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
+                          || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
                           || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                       }
                     />
@@ -280,5 +281,4 @@ class Shop extends React.Component {
   }
 }
 
-const shop = connect(null, mapDispatchToProps)(Shop);
-export default shop;
+export default Shop;
