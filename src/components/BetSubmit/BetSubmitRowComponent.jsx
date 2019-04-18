@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Image, Input, Label,
-} from 'semantic-ui-react';
+import { Image, Input, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { addTableBet } from '../../actions/TableBetActions';

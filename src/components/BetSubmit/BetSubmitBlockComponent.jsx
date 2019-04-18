@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Container,
-} from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import BetService from '../../service/BetService';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 

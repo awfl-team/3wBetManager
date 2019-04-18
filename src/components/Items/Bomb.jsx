@@ -9,6 +9,7 @@ import ItemService from '../../service/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
 import AudioHandlerService from '../../service/AudioHandlerService';
+import User from '../../model/User';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -20,6 +21,7 @@ class Bomb extends React.Component {
   state = {
     userAmongSiblings: [],
     nbBombs: 0,
+    currentUser: User,
     activeItem: 'items',
   };
 
@@ -32,6 +34,7 @@ class Bomb extends React.Component {
 
     UserService.getFromToken().then((res) => {
       this.setState({
+        currentUser: res.data,
         nbBombs: res.data.Items.filter(item => item.Type === Item.TYPE_BOMB).length,
       });
     });
@@ -79,8 +82,9 @@ class Bomb extends React.Component {
   }
 
   render() {
-    const { userAmongSiblings, nbBombs, activeItem } = this.state;
-    const { currentUser } = this.props;
+    const {
+      userAmongSiblings, nbBombs, activeItem, currentUser,
+    } = this.state;
 
     return (
       <div id="bomb">
@@ -168,7 +172,7 @@ class Bomb extends React.Component {
                             inverted
                             className="green"
                             fluid
-                            disabled={nbBombs <= 0 || currentUser.unique_name === user.Username}
+                            disabled={nbBombs <= 0 || currentUser.Username === user.Username}
                           >
                             <div className="bomb-animation hide">
                               <img alt="anim" src="assets/images/explosion.gif" />

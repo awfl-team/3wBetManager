@@ -23,7 +23,12 @@ class BetRowResult extends React.Component {
       <div id="betRows">
         <Container fluid>
           {bets.map(bet => (
-            <div key={bet.Id} className={`betRow ${bet.Multiply !== 0 ? 'buffed' : ''}`}>
+            <div
+              key={bet.Id}
+              className={`betRow ${bet.Multiply === 10 ? 'buffed-x10' : ''
+              || bet.Multiply === 5 ? 'buffed-x5' : ''
+              || bet.Multiply === 2 ? 'buffed-x2' : ''}`}
+            >
               <div className="betRow-info">
                 <div className="container-hometeam">
                   <div className="team-image">

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Container, Header, Icon,
-} from 'semantic-ui-react';
+import { Container, Header, Icon } from 'semantic-ui-react';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 import ConsultProfileStats from '../Stats/ConsultProfileStats';

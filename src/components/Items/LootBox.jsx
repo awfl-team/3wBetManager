@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  Container,
-  Header, Icon, Image, Menu,
+  Container, Header, Icon, Image, Menu,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
@@ -155,13 +154,16 @@ class LootBox extends React.Component {
                       <img
                         alt="item"
                         src={
-                              `assets/images/${
-                                item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
-                                || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
-                                || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
-                                || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
-                                || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
-                            }
+                          `assets/images/${
+                            item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                            || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                            || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
+                            || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
+                            || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
+                          }
                       />
                     </div>
                     <div className="loot-description">
@@ -187,13 +189,16 @@ class LootBox extends React.Component {
                       <img
                         alt="item"
                         src={
-                              `assets/images/${
-                                item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
-                                || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
-                                || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
-                                || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
-                                || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
-                            }
+                          `assets/images/${
+                            item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                            || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                            || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
+                            || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
+                            || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
+                          }
                       />
                     </div>
                     <div className="loot-description">
@@ -242,6 +247,9 @@ class LootBox extends React.Component {
                             || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
                             || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
                             || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
+                            || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
+                            || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
                             || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                         }
                     />

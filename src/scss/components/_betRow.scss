@@ -10,7 +10,15 @@
       flex-direction: column;
     }
     &.buffed {
-      border: 1px $yellow solid !important;
+      &-x10 {
+        border: 2px solid $legendary !important;
+      }
+      &-x5 {
+        border: 2px solid $epic !important;
+      }
+      &-x2 {
+        border: 2px solid $rare !important;
+      }
     }
 
     &:not(:first-child) {

@@ -52,6 +52,18 @@ i.circular.icon{
     background-color: $orange;
     border-color: $orange;
   }
+  &.rareLabel {
+    background-color: $rare;
+    border-color: $rare;
+  }
+  &.epicLabel {
+    background-color: $epic;
+    border-color: $epic;
+  }
+  &.legendaryLabel {
+    background-color: $legendary;
+    border-color: $legendary;
+  }
   &.infoLabel {
     background-color: $blue;
     border-color: $blue;
@@ -73,6 +85,33 @@ i.circular.icon{
   color: $white !important;
   &:hover {
     background: $vue-green !important;
+  }
+}
+
+.ui.inverted.rare.button {
+  border: 2px $rare solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $rare !important;
+  }
+}
+
+.ui.inverted.epic.button {
+  border: 2px $epic solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $epic !important;
+  }
+}
+
+.ui.inverted.legendary.button {
+  border: 2px $legendary solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $legendary !important;
   }
 }
 
@@ -147,7 +186,15 @@ input[type=number] {
   tr {
     transition: $main-transition;
     &.bet.buffed {
-      border: 2px solid $yellow !important;
+      &-x10 {
+        border: 2px solid $legendary !important;
+      }
+      &-x5 {
+        border: 2px solid $epic !important;
+      }
+      &-x2 {
+        border: 2px solid $rare !important;
+      }
     }
   }
 }

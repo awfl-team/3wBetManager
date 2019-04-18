@@ -1,12 +1,6 @@
 import React from 'react';
 import {
-  Button,
-  Header,
-  Icon,
-  Input, Label,
-  Pagination,
-  Radio,
-  Table,
+  Button, Header, Icon, Input, Label, Pagination, Radio, Table,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';

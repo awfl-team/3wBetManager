@@ -16,8 +16,13 @@ class Items extends React.Component {
 
   componentDidMount() {
     ItemService.getAllItems().then((res) => {
-      const itemsWithoutLife = res.data.filter(item => item.Type !== 'LIFE');
-      this.setState({ items: itemsWithoutLife });
+      let itemsFilteredUsable;
+      itemsFilteredUsable = res.data.filter(item => item.Type !== Item.TYPE_MULTIPLY_BY_TWO);
+      itemsFilteredUsable = itemsFilteredUsable.filter(
+        item => item.Type !== Item.TYPE_MULTIPLY_BY_FIVE,
+      );
+      itemsFilteredUsable = itemsFilteredUsable.filter(item => item.Type !== Item.TYPE_LIFE);
+      this.setState({ items: itemsFilteredUsable });
     });
     UserService.getFromToken().then((res) => {
       this.setState({
@@ -67,11 +72,25 @@ class Items extends React.Component {
             {items.map(item => (
               <div key={item.Id} className="item-card">
                 <Label floating className="greenLabel">
-                  {userItems.filter(i => i.Type === item.Type).length}
+                  {(item.Type === Item.TYPE_MULTIPLY_BY_TEN
+                    || item.Type === Item.TYPE_MULTIPLY_BY_FIVE
+                    || item.Type === Item.TYPE_MULTIPLY_BY_TWO) ? (
+                      userItems.filter(i => i.Type === Item.TYPE_MULTIPLY_BY_TWO).length
+                    + userItems.filter(i => i.Type === Item.TYPE_MULTIPLY_BY_FIVE).length
+                    + userItems.filter(i => i.Type === Item.TYPE_MULTIPLY_BY_TEN).length
+                    ) : (
+                      userItems.filter(i => i.Type === item.Type).length
+                    )}
                 </Label>
                 <div className="loot">
                   <div className="loot-title">
-                    <h3 className="item-name">{item.Name}</h3>
+                    {(item.Type === Item.TYPE_MULTIPLY_BY_TEN
+                      || item.Type === Item.TYPE_MULTIPLY_BY_FIVE
+                      || item.Type === Item.TYPE_MULTIPLY_BY_TWO) ? (
+                        <h3 className="item-name">Multipliers</h3>
+                      ) : (
+                        <h3 className="item-name">{item.Name}</h3>
+                      )}
                   </div>
                   <div className={
                     `loot-image ${
@@ -88,6 +107,9 @@ class Items extends React.Component {
                           item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
                           || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
                           || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                          || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
+                          || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
+                          || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
                           || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
                       }
                     />
@@ -110,6 +132,18 @@ class Items extends React.Component {
                     </Link>
                     )
                     }
+                    {item.Type === Item.TYPE_MYSTERY
+                    && (
+                      <Link
+                        to="/mystery"
+                        className={`button ui green inverted small icon 
+                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
+                        }
+                      >
+                        <Icon name="bolt" />
+                      </Link>
+                    )
+                    }
                     {item.Type === Item.TYPE_KEY
                     && (
                       <Link
@@ -122,10 +156,17 @@ class Items extends React.Component {
                       </Link>
                     )
                     }
-                    {item.Type === Item.TYPE_MULTIPLY_BY_TEN
+                    {(item.Type === Item.TYPE_MULTIPLY_BY_TEN
+                      || item.Type === Item.TYPE_MULTIPLY_BY_FIVE
+                      || item.Type === Item.TYPE_MULTIPLY_BY_TWO)
                     && (
                       <Link
-                        to="/multiplierbyten"
+                        to={{
+                          pathname: '/multiplier',
+                          state: {
+                            test: true,
+                          },
+                        }}
                         className={`button ui green inverted small icon 
                           ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
                             }
