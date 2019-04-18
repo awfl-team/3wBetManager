@@ -15,8 +15,8 @@ let lootResult;
 class LootBox extends React.Component {
   state = {
     items: [],
-    itemsLooted: [],
-    nbLootbox: 0,
+    itemLooted: Item,
+    nbMysteryBox: 0,
     activeItem: 'items',
     isLooting: false,
   };
@@ -28,7 +28,7 @@ class LootBox extends React.Component {
     });
     UserService.getFromToken().then((res) => {
       this.setState({
-        nbLootbox: res.data.Items.filter(item => item.Type === Item.TYPE_LOOT_BOX).length,
+        nbMysteryBox: res.data.Items.filter(item => item.Type === Item.TYPE_MYSTERY).length,
       });
     });
   }
@@ -47,14 +47,11 @@ class LootBox extends React.Component {
 
       AudioHandlerService.startLoot();
       lootResult = setTimeout(() => {
-        this.setState({ itemsLooted: [] });
-        ItemService.useLoot().then((res) => {
+        ItemService.useMystery().then((res) => {
           const legendaryItems = [];
-          res.data.forEach((item) => {
-            if (item.Rarity === Item.RARITY_LEGENDARY) {
-              legendaryItems.push(item);
-            }
-          });
+          if (res.data.Rarity === Item.RARITY_LEGENDARY) {
+            legendaryItems.push(res.data);
+          }
           if (legendaryItems.length > 0) {
             AudioHandlerService.openedLoot(true);
           } else {
@@ -62,10 +59,10 @@ class LootBox extends React.Component {
           }
           this.hideRandomizer();
           this.showLoot();
-          this.setState(prevState => ({ nbLootbox: prevState.nbLootbox - 1 }));
+          this.setState(prevState => ({ nbMysteryBox: prevState.nbMysteryBox - 1 }));
           this.setState({
             isLooting: false,
-            itemsLooted: res.data,
+            itemLooted: res.data,
           });
         });
       }, 3000);
@@ -93,7 +90,7 @@ class LootBox extends React.Component {
 
   render() {
     const {
-      items, itemsLooted, nbLootbox, activeItem, isLooting,
+      items, itemLooted, nbMysteryBox, activeItem, isLooting,
     } = this.state;
     return (
       <div id="lootbox">
@@ -123,10 +120,12 @@ class LootBox extends React.Component {
         </Container>
         <div id="loot-action-container">
           <Header as="h1" icon textAlign="center">
-            <Icon name="box" circular />
+            <div className="header-custom-image-container">
+              <Image src="assets/images/mystery.svg" className="image-icon-header" />
+            </div>
             <Header.Content>
-              Lootbox (
-              {nbLootbox}
+              Mystery Box (
+              {nbMysteryBox}
               )
             </Header.Content>
           </Header>
@@ -220,46 +219,44 @@ class LootBox extends React.Component {
               <Header.Content>
                 There it is !
                 (
-                {nbLootbox}
+                {nbMysteryBox}
                 {' '}
                 to open
                 )
               </Header.Content>
             </Header>
             <div>
-              {itemsLooted.map(item => (
-                <div className="loot" key={item.Id}>
-                  <div className="loot-title">
-                    <h3 className="item-name">{item.Name}</h3>
-                  </div>
-                  <div className={
-                      `loot-image ${
-                        item.Rarity === 'Legendary' ? 'legendary' : ''
-                      || item.Rarity === 'Rare' ? 'rare' : ''
-                      || item.Rarity === 'Epic' ? 'epic' : ''
-                      || item.Rarity === 'Common' ? 'common' : ''}`
-                    }
-                  >
-                    <img
-                      alt="item"
-                      src={
-                          `assets/images/${
-                            item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
-                            || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
-                            || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
-                            || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
-                            || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
-                            || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
-                            || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
-                            || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
-                        }
-                    />
-                  </div>
-                  <div className="loot-description">
-                    {item.Description}
-                  </div>
+              <div className="loot" key={itemLooted.Id}>
+                <div className="loot-title">
+                  <h3 className="itemLooted-name">{itemLooted.Name}</h3>
                 </div>
-              ))}
+                <div className={
+                  `loot-image ${
+                    itemLooted.Rarity === 'Legendary' ? 'legendary' : ''
+                    || itemLooted.Rarity === 'Rare' ? 'rare' : ''
+                    || itemLooted.Rarity === 'Epic' ? 'epic' : ''
+                    || itemLooted.Rarity === 'Common' ? 'common' : ''}`
+                }
+                >
+                  <img
+                    alt="itemLooted"
+                    src={
+                      `assets/images/${
+                        itemLooted.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                        || itemLooted.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                        || itemLooted.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                        || itemLooted.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                        || itemLooted.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
+                        || itemLooted.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
+                        || itemLooted.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
+                        || itemLooted.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
+                    }
+                  />
+                </div>
+                <div className="loot-description">
+                  {itemLooted.Description}
+                </div>
+              </div>
             </div>
           </div>
         </Container>
@@ -269,7 +266,7 @@ class LootBox extends React.Component {
             className="ui green button submit-bets-action-button"
             tabIndex="-1"
             onClick={this.openLootBox}
-            disabled={nbLootbox <= 0 || isLooting === true}
+            disabled={nbMysteryBox <= 0 || isLooting === true}
           >
             Open
           </button>

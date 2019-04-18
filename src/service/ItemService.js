@@ -28,4 +28,8 @@ export default class ItemService {
   static useLoot() {
     return API.get('items/loot');
   }
+
+  static useMystery() {
+    return API.get('items/mystery');
+  }
 }

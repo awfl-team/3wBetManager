@@ -11,6 +11,7 @@ import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import UserService from '../../service/UserService';
 import AudioHandlerService from '../../service/AudioHandlerService';
+import withAuth from '../AuthGuard/AuthGuard';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -18,7 +19,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class MultiplierByTen extends React.Component {
+class Multiplier extends React.Component {
   state = {
     bets: [],
     totalPages: 1,
@@ -254,5 +255,5 @@ class MultiplierByTen extends React.Component {
   }
 }
 
-const multiplierByTen = connect(null, mapDispatchToProps)(MultiplierByTen);
-export default multiplierByTen;
+const multiplier = connect(null, mapDispatchToProps)(Multiplier);
+export default withAuth(multiplier);

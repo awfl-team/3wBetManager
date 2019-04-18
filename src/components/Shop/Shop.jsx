@@ -10,6 +10,7 @@ import Item from '../../model/Item';
 import UserService from '../../service/UserService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
+import withAuth from '../AuthGuard/AuthGuard';
 
 let longPressInterval;
 let longPressBuffer;
@@ -284,4 +285,4 @@ class Shop extends React.Component {
 }
 
 const shop = connect(null, mapDispatchToProps)(Shop);
-export default shop;
+export default withAuth(shop);
