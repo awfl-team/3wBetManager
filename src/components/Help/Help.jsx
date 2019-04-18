@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Menu, Header, Icon, Modal,
+  Button, Header, Icon, Menu, Modal,
 } from 'semantic-ui-react';
 
 class Help extends React.Component {

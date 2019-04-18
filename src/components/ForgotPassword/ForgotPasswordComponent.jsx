@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import connect from 'react-redux/es/connect/connect';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
@@ -60,5 +60,6 @@ class ForgotPasswordComponent extends React.Component {
     );
   }
 }
+
 const forgotPasswordComponent = connect(null, mapDispatchToProps)(ForgotPasswordComponent);
 export default forgotPasswordComponent;

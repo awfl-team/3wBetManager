@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  Container,
-  Header, Icon, Image, Menu,
+  Container, Header, Icon, Image, Menu,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';

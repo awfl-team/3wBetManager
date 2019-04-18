@@ -116,5 +116,6 @@ class AdminItemsManager extends React.Component {
     );
   }
 }
+
 const adminItemsManager = connect(null, mapDispatchToProps)(AdminItemsManager);
 export default adminItemsManager;

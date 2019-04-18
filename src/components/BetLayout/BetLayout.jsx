@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Container, Menu,
-} from 'semantic-ui-react';
+import { Container, Menu } from 'semantic-ui-react';
 import { NavLink, Route } from 'react-router-dom';
 import BetLayoutResult from '../BetResult/BetLayoutResult';
 import BetSubmitLayout from '../BetSubmit/BetSubmitLayout';

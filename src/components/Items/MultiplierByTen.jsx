@@ -3,12 +3,20 @@ import {
   Button, Container, Header, Icon, Image, Label, Menu, Pagination, Table,
 } from 'semantic-ui-react';
 import moment from 'moment';
+import connect from 'react-redux/es/connect/connect';
 import { NavLink } from 'react-router-dom';
 import BetService from '../../service/BetService';
 import ItemService from '../../service/ItemService';
 import Item from '../../model/Item';
+import { addSnackBar } from '../../actions/SnackBarActions';
 import UserService from '../../service/UserService';
 import AudioHandlerService from '../../service/AudioHandlerService';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
 
 class MultiplierByTen extends React.Component {
   state = {
@@ -57,6 +65,10 @@ class MultiplierByTen extends React.Component {
 
   handleClick = (betId, multiplierValue) => {
     ItemService.useMultiplier(betId, multiplierValue).then(() => {
+      this.props.addSnackbar({
+        message: 'Multiplier used',
+        type: 'success',
+      });
       BetService.getUserFinishedBetsPaginated(this.state.currentPage)
         .then((response) => {
           this.setState({
@@ -242,4 +254,5 @@ class MultiplierByTen extends React.Component {
   }
 }
 
-export default MultiplierByTen;
+const multiplierByTen = connect(null, mapDispatchToProps)(MultiplierByTen);
+export default multiplierByTen;

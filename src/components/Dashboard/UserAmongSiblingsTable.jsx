@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Icon, Label, Table,
-} from 'semantic-ui-react';
+import { Icon, Label, Table } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import UserService from '../../service/UserService';
 

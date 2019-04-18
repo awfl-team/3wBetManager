@@ -3,10 +3,12 @@ import {
   Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import connect from 'react-redux/es/connect/connect';
 import ItemService from '../../service/ItemService';
 import User from '../../model/User';
 import Item from '../../model/Item';
 import UserService from '../../service/UserService';
+import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
 
 let longPressInterval;
@@ -281,4 +283,5 @@ class Shop extends React.Component {
   }
 }
 
-export default Shop;
+const shop = connect(null, mapDispatchToProps)(Shop);
+export default shop;

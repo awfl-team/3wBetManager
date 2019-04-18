@@ -197,4 +197,5 @@ class Items extends React.Component {
     );
   }
 }
+
 export default Items;

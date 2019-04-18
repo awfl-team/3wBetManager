@@ -1,15 +1,9 @@
 import React from 'react';
 import {
-  Button,
-  Header,
-  Icon,
-  Input, Label,
-  Pagination,
-  Radio,
-  Table,
+  Button, Header, Icon, Input, Label, Pagination, Radio, Table,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import connect from 'react-redux/es/connect/connect';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';

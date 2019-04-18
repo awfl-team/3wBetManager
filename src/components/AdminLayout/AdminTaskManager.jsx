@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import connect from 'react-redux/es/connect/connect';
 import {
   Button, Container, Header, Icon, List, Progress,
 } from 'semantic-ui-react';

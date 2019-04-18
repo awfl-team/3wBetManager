@@ -3,11 +3,20 @@ import {
   Button, Container, Header, Icon, Input, Label, Menu, Pagination, Table,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import UserService from '../../service/UserService';
 import Item from '../../model/Item';
 import ItemService from '../../service/ItemService';
+import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
 import User from '../../model/User';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
+
 
 class Key extends React.Component {
   state = {
@@ -47,6 +56,10 @@ class Key extends React.Component {
 
   handleClick = (userId) => {
     ItemService.useKey(userId).then(() => {
+      this.props.addSnackbar({
+        message: 'Key used',
+        type: 'success',
+      });
       this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
       AudioHandlerService.useKey();
     });
@@ -204,5 +217,5 @@ class Key extends React.Component {
   }
 }
 
-
-export default Key;
+const key = connect(null, mapDispatchToProps)(Key);
+export default key;
