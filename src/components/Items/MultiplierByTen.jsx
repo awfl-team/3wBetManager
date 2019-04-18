@@ -3,7 +3,7 @@ import {
   Button, Container, Header, Icon, Image, Label, Menu, Pagination, Table,
 } from 'semantic-ui-react';
 import moment from 'moment';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import BetService from '../../service/BetService';
 import ItemService from '../../service/ItemService';
