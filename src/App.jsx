@@ -29,7 +29,6 @@ class App extends React.Component {
     connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
     const notificationHub = connection.createHubProxy('notificationHub');
     notificationHub.on('NotifyUser', (message) => {
-      console.log('ntm roman');
       NotificationHelper.createNotif(message);
     });
     if (isConnect !== true) {
@@ -39,7 +38,6 @@ class App extends React.Component {
         })
         .fail(() => {
           // TODO add snackbar message
-          console.log('Could not connect');
         });
     }
   }
