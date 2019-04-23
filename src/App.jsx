@@ -23,23 +23,47 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    let isConnect = false;
     Notification.requestPermission().then().catch();
     const connection = $.hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
     connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
-    const notificationHub = connection.createHubProxy('notificationHub');
-    notificationHub.on('NotifyUser', (message) => {
-      NotificationHelper.createNotif(message);
+    setTimeout(() => {
+      const notificationHub = connection.createHubProxy('notificationHub');
+      console.log('test');
+      notificationHub.on('NotifyUser', (message) => {
+        console.log('ok');
+        NotificationHelper.createNotif(message);
+      });
+    }, 500);
+    connection.received((data) => {
+      console.log('ntm c#');
+      console.log(data);
     });
-    if (isConnect !== true) {
-      connection.start()
-        .done(() => {
-          isConnect = true;
-        })
-        .fail(() => {
-          // TODO add snackbar message
-        });
-    }
+    connection.logging = true;
+    connection.error((error) => {
+      console.log(`SignalR error: ${error}`);
+    });
+    connection.start()
+      .done(() => {
+        console.log('nique bien ta mère roman');
+      })
+      .fail((err) => {
+        console.log(err);
+      });
+    connection.connectionSlow(() => {
+      console.log('connectionSlow');
+    });
+    connection.starting(() => {
+      console.log('starting');
+    });
+    connection.received(() => {
+      console.log('received');
+    });
+    connection.reconnecting(() => {
+      console.log('reconnecting');
+    });
+    connection.disconnected(() => {
+      console.log('disconnected');
+    });
   }
 
   render() {
