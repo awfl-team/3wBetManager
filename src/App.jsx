@@ -11,8 +11,6 @@ import SnackBar from './components/SnackBar/SnackBar';
 import NotFound from './components/404/NotFound';
 import ForgotPasswordComponent from './components/ForgotPassword/ForgotPasswordComponent';
 import ResetPasswordComponent from './components/ForgotPassword/ResetPasswordComponent';
-import AuthService from './service/AuthService';
-import NotificationHelper from './service/helpers/NotificationHelper';
 
 window.jQuery = $;
 require('signalr');
@@ -21,50 +19,6 @@ class App extends React.Component {
   state = {
     toLogin: false,
   };
-
-  componentDidMount() {
-    Notification.requestPermission().then().catch();
-    const connection = $.hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
-    connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
-    setTimeout(() => {
-      const notificationHub = connection.createHubProxy('notificationHub');
-      console.log('test');
-      notificationHub.on('NotifyUser', (message) => {
-        console.log('ok');
-        NotificationHelper.createNotif(message);
-      });
-    }, 500);
-    connection.received((data) => {
-      console.log('ntm c#');
-      console.log(data);
-    });
-    connection.logging = true;
-    connection.error((error) => {
-      console.log(`SignalR error: ${error}`);
-    });
-    connection.start()
-      .done(() => {
-        console.log('nique bien ta mère roman');
-      })
-      .fail((err) => {
-        console.log(err);
-      });
-    connection.connectionSlow(() => {
-      console.log('connectionSlow');
-    });
-    connection.starting(() => {
-      console.log('starting');
-    });
-    connection.received(() => {
-      console.log('received');
-    });
-    connection.reconnecting(() => {
-      console.log('reconnecting');
-    });
-    connection.disconnected(() => {
-      console.log('disconnected');
-    });
-  }
 
   render() {
     const { toLogin } = this.state;
