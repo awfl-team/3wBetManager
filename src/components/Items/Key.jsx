@@ -9,6 +9,7 @@ import Item from '../../model/Item';
 import ItemService from '../../service/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
+import User from '../../model/User';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -24,6 +25,7 @@ class Key extends React.Component {
     nbKeys: 0,
     showPagination: true,
     activeItem: 'items',
+    currentUser: User,
   };
 
   componentDidMount() {
@@ -36,6 +38,7 @@ class Key extends React.Component {
       });
     UserService.getFromToken().then((res) => {
       this.setState({
+        currentUser: res.data,
         nbKeys: res.data.Items.filter(item => item.Type === Item.TYPE_KEY).length,
       });
     });
@@ -52,7 +55,7 @@ class Key extends React.Component {
   }
 
   handleClick = (userId) => {
-    ItemService.useBomb(userId).then(() => {
+    ItemService.useKey(userId).then(() => {
       this.props.addSnackbar({
         message: 'Key used',
         type: 'success',
@@ -90,9 +93,8 @@ class Key extends React.Component {
 
   render() {
     const {
-      users, totalPages, showPagination, nbKeys, activeItem,
+      users, totalPages, showPagination, nbKeys, activeItem, currentUser,
     } = this.state;
-    const { currentUser } = this.props;
 
     return (
       <div id="bomb">
@@ -186,7 +188,7 @@ class Key extends React.Component {
                           inverted
                           className="green"
                           fluid
-                          disabled={nbKeys === 0 || currentUser.unique_name === user.Username}
+                          disabled={nbKeys === 0 || currentUser.Username === user.Username}
                         />
                       </Button.Group>
                     </Table.Cell>
@@ -214,7 +216,6 @@ class Key extends React.Component {
     );
   }
 }
-
 
 const key = connect(null, mapDispatchToProps)(Key);
 export default key;

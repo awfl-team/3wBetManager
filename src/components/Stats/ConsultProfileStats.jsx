@@ -1,8 +1,6 @@
 import React from 'react';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
-import {
-  Container, Grid,
-} from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import GraphService from '../../service/GraphService';
 import StatsBuilderService from '../../service/StatsBuilderService';
 
@@ -22,7 +20,7 @@ class ConsultProfileStats extends React.Component {
     dataSetYear: [],
   };
 
-  componentWillReceiveProps() {
+  componentDidMount() {
     this.getPublicBetsByTypeData(this.props.userId);
     this.getPublicEarningsStatsPerType(this.props.userId);
     this.getPublicCoinsStats(this.props.userId);

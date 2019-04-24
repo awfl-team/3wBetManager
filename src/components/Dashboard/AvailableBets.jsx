@@ -48,12 +48,30 @@ class AvailableBets extends React.Component {
                   </p>
                 </List.Description>
                 <List.Description>
-                  <Label>
-                    Bet :
-                    {availableBet.HomeTeamScore}
-                    -
-                    {availableBet.AwayTeamScore}
-                  </Label>
+                  <div className="whiteColor tags">
+                    <Label>
+                      Bet :
+                      {availableBet.HomeTeamScore}
+                      -
+                      {availableBet.AwayTeamScore}
+                    </Label>
+                    {' '}
+                    {availableBet.Multiply !== 0
+                    && (
+                      <div>
+                        <span> | </span>
+                        <Label className={availableBet.Multiply === 10 ? 'legendaryLabel' : ''
+                        || availableBet.Multiply === 5 ? 'epicLabel' : ''
+                        || availableBet.Multiply === 2 ? 'rareLabel' : ''}
+                        >
+                          x
+                          {' '}
+                          {availableBet.Multiply}
+                        </Label>
+                      </div>
+                    )
+                    }
+                  </div>
                 </List.Description>
               </List.Content>
             </List.Item>

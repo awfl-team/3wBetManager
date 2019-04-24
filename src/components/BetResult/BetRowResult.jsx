@@ -23,7 +23,12 @@ class BetRowResult extends React.Component {
       <div id="betRows">
         <Container fluid>
           {bets.map(bet => (
-            <div key={bet.Id} className={`betRow ${bet.Multiply !== 0 ? 'buffed' : ''}`}>
+            <div
+              key={bet.Id}
+              className={`betRow ${bet.Multiply === 10 ? 'buffed-x10' : ''
+              || bet.Multiply === 5 ? 'buffed-x5' : ''
+              || bet.Multiply === 2 ? 'buffed-x2' : ''}`}
+            >
               <div className="betRow-info">
                 <div className="container-hometeam">
                   <div className="team-image">
@@ -39,7 +44,7 @@ class BetRowResult extends React.Component {
                   </div>
                 </div>
                 <div className="container-versus">
-                  <div className="match-info">{moment(bet.Match.UtcDate).format('DD/MM/YYYY')}</div>
+                  <div className="match-info">{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</div>
                   <div className="container-versus-details">
                     <div className="home-score ">{bet.Match.Score.FullTime.HomeTeam}</div>
                     <div className="versus-text"> -</div>
@@ -72,7 +77,7 @@ class BetRowResult extends React.Component {
                   <Icon color="yellow" name="copyright" />
                 </Message.Header>
                 <div className="container-versus-details">
-                  <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>
+                  <div className="bet-date">{moment(bet.Date).format('MM-DD-YYYY')}</div>
                   <div className="container-versus-details-results-bet">
                     <Label className={
                       bet.Status === Bet.STATUS_PERFECT ? 'greenLabel' : ''

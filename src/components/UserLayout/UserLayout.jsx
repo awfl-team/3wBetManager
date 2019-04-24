@@ -14,12 +14,13 @@ import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Help from '../Help/Help';
-import LootBox from '../ItemModal/LootBox';
+import LootBox from '../Items/LootBox';
 import Shop from '../Shop/Shop';
 import Items from '../Profile/Items';
-import Bomb from '../ItemModal/Bomb';
-import Key from '../ItemModal/Key';
-import MultiplierByTen from '../ItemModal/MultiplierByTen';
+import Bomb from '../Items/Bomb';
+import Key from '../Items/Key';
+import Multiplier from '../Items/Multiplier';
+import Mystery from '../Items/Mystery';
 
 class UserLayout extends React.Component {
   state = {
@@ -114,10 +115,11 @@ class UserLayout extends React.Component {
               <Route path="/bet" component={BetLayout} />
               <Route path="/shop" component={Shop} />
               <Route path="/admin" component={AdminLayout} />
-              <Route path="/lootbox" component={() => <LootBox currentUser={this.props.user} />} />
-              <Route path="/bomb" component={() => <Bomb currentUser={this.props.user} />} />
-              <Route path="/key" component={() => <Key currentUser={this.props.user} />} />
-              <Route path="/multiplierbyten" component={() => <MultiplierByTen currentUser={this.props.user} />} />
+              <Route path="/lootbox" component={LootBox} />
+              <Route path="/bomb" component={Bomb} />
+              <Route path="/mystery" component={Mystery} />
+              <Route path="/key" component={Key} />
+              <Route path="/multiplier" component={Multiplier} />
               <PageScroller />
             </Segment>
           </Sidebar.Pusher>

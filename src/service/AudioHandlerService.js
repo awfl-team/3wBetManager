@@ -47,33 +47,17 @@ export default class AudioHandlerService {
 
   static initTheme() {
     const audio = this.initAudioObject();
-    const i = Math.floor(Math.random() * 10);
-    switch (i) {
-      case 1:
-        audio.src = 'assets/sounds/1.mp3';
-        break;
-      case 2:
-        audio.src = 'assets/sounds/2.mp3';
-        break;
-      case 3:
-        audio.src = 'assets/sounds/3.mp3';
-        break;
-      case 4:
-        audio.src = 'assets/sounds/4.mp3';
-        break;
-      case 5:
-        audio.src = 'assets/sounds/5.mp3';
-        break;
-      case 6:
-        audio.src = 'assets/sounds/6.mp3';
-        break;
-      case 7:
-        audio.src = 'assets/sounds/7.mp3';
-        break;
-      default:
-        audio.src = 'assets/sounds/1.mp3';
-        break;
-    }
+    const tracks = [
+      'assets/sounds/theme-1.mp3',
+      'assets/sounds/theme-2.mp3',
+      'assets/sounds/theme-3.mp3',
+      'assets/sounds/theme-4.mp3',
+      'assets/sounds/theme-5.mp3',
+      'assets/sounds/theme-6.mp3',
+      'assets/sounds/theme-7.mp3',
+    ];
+    audio.src = tracks[Math.floor(Math.random() * tracks.length)];
+
     audio.play();
     return audio;
   }
