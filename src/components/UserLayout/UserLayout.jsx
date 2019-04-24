@@ -4,7 +4,6 @@ import {
   Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import $ from 'jquery';
-import { connect } from 'react-redux';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
@@ -24,16 +23,9 @@ import Key from '../Items/Key';
 import Multiplier from '../Items/Multiplier';
 import Mystery from '../Items/Mystery';
 import NotificationHelper from '../../service/helpers/NotificationHelper';
-import { addSnackBar } from '../../actions/SnackBarActions';
 
 window.jQuery = $;
 require('signalr');
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-  };
-}
 
 class UserLayout extends React.Component {
   state = {
@@ -52,10 +44,6 @@ class UserLayout extends React.Component {
     });
     connection.start()
       .fail(() => {
-        this.props.addSnackbar({
-          message: 'Error : For now, you are not able to receive notification.',
-          type: 'error',
-        });
       });
   }
 
@@ -160,6 +148,4 @@ class UserLayout extends React.Component {
   }
 }
 
-const userLayout = connect(null, mapDispatchToProps)(UserLayout);
-
-export default withAuth(userLayout);
+export default withAuth(UserLayout);
