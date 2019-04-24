@@ -60,5 +60,6 @@ class ForgotPasswordComponent extends React.Component {
     );
   }
 }
+
 const forgotPasswordComponent = connect(null, mapDispatchToProps)(ForgotPasswordComponent);
 export default forgotPasswordComponent;

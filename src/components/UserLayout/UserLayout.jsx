@@ -16,12 +16,13 @@ import BetLayout from '../BetLayout/BetLayout';
 import PageScroller from '../PageScroller/PageScroller';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Help from '../Help/Help';
-import LootBox from '../ItemModal/LootBox';
+import LootBox from '../Items/LootBox';
 import Shop from '../Shop/Shop';
 import Items from '../Profile/Items';
-import Bomb from '../ItemModal/Bomb';
-import Key from '../ItemModal/Key';
-import MultiplierByTen from '../ItemModal/MultiplierByTen';
+import Bomb from '../Items/Bomb';
+import Key from '../Items/Key';
+import Multiplier from '../Items/Multiplier';
+import Mystery from '../Items/Mystery';
 import NotificationHelper from '../../service/helpers/NotificationHelper';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
@@ -41,6 +42,7 @@ class UserLayout extends React.Component {
   };
 
   componentDidMount() {
+    // TODO test https://www.npmjs.com/package/signalr-no-jquery
     Notification.requestPermission().then().catch();
     const connection = $.hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
     connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
@@ -48,12 +50,8 @@ class UserLayout extends React.Component {
     notificationHub.on('NotifyUser', (message) => {
       NotificationHelper.createNotif(message);
     });
-    connection.error((error) => {
-      console.log(`SignalR error: ${error}`);
-    });
     connection.start()
-      .fail((err) => {
-        console.log(err);
+      .fail(() => {
         this.props.addSnackbar({
           message: 'Error : For now, you are not able to receive notification.',
           type: 'error',
@@ -148,10 +146,11 @@ class UserLayout extends React.Component {
               <Route path="/bet" component={BetLayout} />
               <Route path="/shop" component={Shop} />
               <Route path="/admin" component={AdminLayout} />
-              <Route path="/lootbox" component={() => <LootBox currentUser={this.props.user} />} />
-              <Route path="/bomb" component={() => <Bomb currentUser={this.props.user} />} />
-              <Route path="/key" component={() => <Key currentUser={this.props.user} />} />
-              <Route path="/multiplierbyten" component={() => <MultiplierByTen currentUser={this.props.user} />} />
+              <Route path="/lootbox" component={LootBox} />
+              <Route path="/bomb" component={Bomb} />
+              <Route path="/mystery" component={Mystery} />
+              <Route path="/key" component={Key} />
+              <Route path="/multiplier" component={Multiplier} />
               <PageScroller />
             </Segment>
           </Sidebar.Pusher>

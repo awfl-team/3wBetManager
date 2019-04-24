@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Image, Input, Label,
-} from 'semantic-ui-react';
+import { Image, Input, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { addTableBet } from '../../actions/TableBetActions';
@@ -85,7 +83,7 @@ class BetSubmitRowComponent extends React.Component {
             </div>
           </div>
           <div className="container-versus">
-            <div className="match-info">{moment(match.UtcDate).format('DD/MM/YYYY')}</div>
+            <div className="match-info">{moment(match.UtcDate).format('MM-DD-YYYY')}</div>
             <div className="container-versus-details">
               <div className="home-score ">
                 <Input defaultValue={bet ? bet.HomeTeamScore : ''} onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />

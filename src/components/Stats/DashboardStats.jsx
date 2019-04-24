@@ -1,8 +1,6 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import {
-  Button,
-} from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import GraphService from '../../service/GraphService';
 import StatsBuilderService from '../../service/StatsBuilderService';
 
