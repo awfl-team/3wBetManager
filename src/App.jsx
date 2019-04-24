@@ -2,7 +2,6 @@ import React from 'react';
 import {
   HashRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
-import $ from 'jquery';
 import Homepage from './components/Homepage/Homepage';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
@@ -11,9 +10,6 @@ import SnackBar from './components/SnackBar/SnackBar';
 import NotFound from './components/404/NotFound';
 import ForgotPasswordComponent from './components/ForgotPassword/ForgotPasswordComponent';
 import ResetPasswordComponent from './components/ForgotPassword/ResetPasswordComponent';
-
-window.jQuery = $;
-require('signalr');
 
 class App extends React.Component {
   state = {

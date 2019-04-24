@@ -4,6 +4,7 @@ import {
   Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import $ from 'jquery';
+import { connect } from 'react-redux';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
@@ -22,6 +23,16 @@ import Bomb from '../ItemModal/Bomb';
 import Key from '../ItemModal/Key';
 import MultiplierByTen from '../ItemModal/MultiplierByTen';
 import NotificationHelper from '../../service/helpers/NotificationHelper';
+import { addSnackBar } from '../../actions/SnackBarActions';
+
+window.jQuery = $;
+require('signalr');
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
+  };
+}
 
 class UserLayout extends React.Component {
   state = {
@@ -33,44 +44,21 @@ class UserLayout extends React.Component {
     Notification.requestPermission().then().catch();
     const connection = $.hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
     connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
-    setTimeout(() => {
-      const notificationHub = connection.createHubProxy('notificationHub');
-      console.log('test');
-      $(notificationHub).on('NotifyUser', (message) => {
-        console.log('ok');
-        NotificationHelper.createNotif(message);
-      });
-    }, 500);
-    connection.received((data) => {
-      console.log('ntm c#');
-      console.log(data);
+    const notificationHub = connection.createHubProxy('notificationHub');
+    notificationHub.on('NotifyUser', (message) => {
+      NotificationHelper.createNotif(message);
     });
-    connection.logging = true;
     connection.error((error) => {
       console.log(`SignalR error: ${error}`);
     });
     connection.start()
-      .done(() => {
-        console.log('***** **** *** CENSORED *** ****');
-      })
       .fail((err) => {
         console.log(err);
+        this.props.addSnackbar({
+          message: 'Error : For now, you are not able to receive notification.',
+          type: 'error',
+        });
       });
-    connection.connectionSlow(() => {
-      console.log('connectionSlow');
-    });
-    connection.starting(() => {
-      console.log('starting');
-    });
-    connection.received(() => {
-      console.log('received');
-    });
-    connection.reconnecting(() => {
-      console.log('reconnecting');
-    });
-    connection.disconnected(() => {
-      console.log('disconnected');
-    });
   }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
@@ -173,4 +161,6 @@ class UserLayout extends React.Component {
   }
 }
 
-export default withAuth(UserLayout);
+const userLayout = connect(null, mapDispatchToProps)(UserLayout);
+
+export default withAuth(userLayout);
