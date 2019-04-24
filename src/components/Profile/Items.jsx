@@ -6,7 +6,6 @@ import { Link, NavLink } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
 import UserService from '../../service/UserService';
 import Item from '../../model/Item';
-import withAuth from '../AuthGuard/AuthGuard';
 
 class Items extends React.Component {
   state = {
@@ -199,4 +198,4 @@ class Items extends React.Component {
   }
 }
 
-export default withAuth(Items);
+export default Items;

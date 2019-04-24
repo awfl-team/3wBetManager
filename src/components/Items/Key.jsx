@@ -10,7 +10,6 @@ import ItemService from '../../service/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
 import User from '../../model/User';
-import withAuth from '../AuthGuard/AuthGuard';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -219,4 +218,4 @@ class Key extends React.Component {
 }
 
 const key = connect(null, mapDispatchToProps)(Key);
-export default withAuth(key);
+export default key;

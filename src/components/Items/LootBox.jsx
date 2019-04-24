@@ -7,7 +7,6 @@ import ItemService from '../../service/ItemService';
 import Item from '../../model/Item';
 import UserService from '../../service/UserService';
 import AudioHandlerService from '../../service/AudioHandlerService';
-import withAuth from '../AuthGuard/AuthGuard';
 
 let randomizer;
 let lootResult;
@@ -279,4 +278,4 @@ class LootBox extends React.Component {
   }
 }
 
-export default withAuth(LootBox);
+export default LootBox;

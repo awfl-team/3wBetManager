@@ -10,7 +10,6 @@ import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
 import AudioHandlerService from '../../service/AudioHandlerService';
 import User from '../../model/User';
-import withAuth from '../AuthGuard/AuthGuard';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -197,4 +196,4 @@ class Bomb extends React.Component {
 }
 
 const bomb = connect(null, mapDispatchToProps)(Bomb);
-export default withAuth(bomb);
+export default bomb;

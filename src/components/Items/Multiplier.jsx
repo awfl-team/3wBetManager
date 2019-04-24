@@ -11,7 +11,6 @@ import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import UserService from '../../service/UserService';
 import AudioHandlerService from '../../service/AudioHandlerService';
-import withAuth from '../AuthGuard/AuthGuard';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -256,4 +255,4 @@ class Multiplier extends React.Component {
 }
 
 const multiplier = connect(null, mapDispatchToProps)(Multiplier);
-export default withAuth(multiplier);
+export default multiplier;
