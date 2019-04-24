@@ -37,14 +37,13 @@ class UserLayout extends React.Component {
     // TODO test https://www.npmjs.com/package/signalr-no-jquery
     Notification.requestPermission().then().catch();
     const connection = $.hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
+    console.log(connection);
     connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
     const notificationHub = connection.createHubProxy('notificationHub');
     notificationHub.on('NotifyUser', (message) => {
       NotificationHelper.createNotif(message);
     });
-    connection.start()
-      .fail(() => {
-      });
+    connection.start({ jsonp: true });
   }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
