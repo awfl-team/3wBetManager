@@ -12,7 +12,6 @@
     "axios": "^0.18.0",
     "chart.js": "^2.7.3",
     "classnames": "^2.2.6",
-    "jquery": "^3.4.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
@@ -29,7 +28,7 @@
     "redux": "^4.0.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0",
-    "signalr": "^2.4.1"
+    "signalr-no-jquery": "^0.1.8"
   },
   "scripts": {
     "start": "react-scripts start",

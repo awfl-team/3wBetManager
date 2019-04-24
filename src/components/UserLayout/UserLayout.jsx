@@ -3,7 +3,7 @@ import { NavLink, Redirect, Route } from 'react-router-dom';
 import {
   Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
-import $ from 'jquery';
+import { hubConnection } from 'signalr-no-jquery';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
@@ -24,8 +24,6 @@ import Multiplier from '../Items/Multiplier';
 import Mystery from '../Items/Mystery';
 import NotificationHelper from '../../service/helpers/NotificationHelper';
 
-window.jQuery = $;
-require('signalr');
 
 class UserLayout extends React.Component {
   state = {
@@ -34,16 +32,19 @@ class UserLayout extends React.Component {
   };
 
   componentDidMount() {
-    // TODO test https://www.npmjs.com/package/signalr-no-jquery
     Notification.requestPermission().then().catch();
-    const connection = $.hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
+    const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
     connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
     const notificationHub = connection.createHubProxy('notificationHub');
     notificationHub.on('NotifyUser', (message) => {
       NotificationHelper.createNotif(message);
     });
-    connection.start()
-      .fail(() => {
+    connection.start({ jsonp: true })
+      .done(() => {
+        console.log('start');
+      })
+      .fail((err) => {
+        console.log(err);
       });
   }
 
