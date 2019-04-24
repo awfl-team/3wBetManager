@@ -56,7 +56,7 @@ export default class AudioHandlerService {
       'assets/sounds/theme-6.mp3',
       'assets/sounds/theme-7.mp3',
     ];
-    audio.src = tracks[Math.floor(Math.random() * 7)];
+    audio.src = tracks[Math.floor(Math.random() * tracks.length)];
 
     audio.play();
     return audio;
