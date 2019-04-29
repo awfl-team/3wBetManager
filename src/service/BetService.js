@@ -17,6 +17,14 @@ export default class BetService {
     return API.get('bets/current');
   }
 
+  static getFinishBetLimitedWithKey(userId) {
+    return API.get(`bets/${userId}/results/key`);
+  }
+
+  static getCurrentBetLimitedWithKey(userId) {
+    return API.get(`bets/${userId}/current/key`);
+  }
+
   static getNbBetsInCompetitionForResult(competitionId) {
     return API.get(`bets/${competitionId}/result/number`);
   }
