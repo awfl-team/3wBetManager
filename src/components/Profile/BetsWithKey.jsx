@@ -15,11 +15,9 @@ class BetsWithKey extends React.Component {
 
   componentDidMount() {
     BetService.getCurrentBetLimitedWithKey(this.props.userId).then((response) => {
-      console.log(response)
       this.setState({ availableBets: response.data });
     });
     BetService.getFinishBetLimitedWithKey(this.props.userId).then((response) => {
-      console.log(response)
       this.setState({ finishedBets: response.data });
     });
   }
