@@ -28,7 +28,7 @@ class ConsultProfileWithKey extends React.Component {
   render() {
     const { user, userLives } = this.state;
     return (
-      <div id="profile">
+      <div id="consultWithKey">
         <Header as="h1" icon textAlign="center">
           <Icon name="user" circular />
           <Header.Content>
