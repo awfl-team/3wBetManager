@@ -62,6 +62,10 @@ class Key extends React.Component {
       });
       this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
       AudioHandlerService.useKey();
+      this.props.history.push({
+        pathname: '/bypass',
+        state: { userId },
+      });
     });
   };
 

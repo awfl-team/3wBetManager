@@ -23,6 +23,7 @@ import Key from '../Items/Key';
 import Multiplier from '../Items/Multiplier';
 import Mystery from '../Items/Mystery';
 import NotificationHelper from '../../service/helpers/NotificationHelper';
+import ConsultProfileWithKey from '../Profile/ConsultProfileWithKey';
 
 
 class UserLayout extends React.Component {
@@ -132,6 +133,7 @@ class UserLayout extends React.Component {
               <Route path="/update-profile" component={UpdateProfile} />
               <Route path="/bestBetters" component={BestBettersLayout} />
               <Route path="/user/:userId" component={ConsultProfile} />
+              <Route path="/bypass" component={ConsultProfileWithKey} />
               <Route path="/bet" component={BetLayout} />
               <Route path="/shop" component={Shop} />
               <Route path="/admin" component={AdminLayout} />
