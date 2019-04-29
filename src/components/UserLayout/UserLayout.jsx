@@ -98,6 +98,15 @@ class UserLayout extends React.Component {
               <Icon name="fire" />
               Top 50
             </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              activeClassName="active"
+              to="/shop"
+              className={this.props.history.location.pathname === '/items' ? 'active' : ''}
+            >
+              <Icon name="shop" />
+              3wShop
+            </Menu.Item>
             { this.props.user.role === 'ADMIN'
               && (
               <Menu.Item
@@ -113,15 +122,6 @@ class UserLayout extends React.Component {
               </Menu.Item>
               )
             }
-            <Menu.Item
-              as={NavLink}
-              activeClassName="active"
-              to="/shop"
-              className={this.props.history.location.pathname === '/items' ? 'active' : ''}
-            >
-              <Icon name="shop" />
-              3wShop
-            </Menu.Item>
           </Sidebar>
           <div />
           <Sidebar.Pusher className={!visible ? 'full-width' : ''}>

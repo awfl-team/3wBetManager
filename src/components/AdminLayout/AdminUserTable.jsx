@@ -174,7 +174,7 @@ class AdminUserTable extends React.Component {
                   <Table.Cell>
                     <Radio
                       toggle
-                      disabled={this.props.user.email === user.email}
+                      disabled={this.props.user.email === user.Email}
                       defaultChecked={user.Role === 'ADMIN'}
                       onClick={() => this.handleClick(user)}
                     />
