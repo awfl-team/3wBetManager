@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Grid,
-  Icon, Image, Label, List, Card
+  Icon, Image, Label, List, Card,
 } from 'semantic-ui-react';
 import moment from 'moment';
 import BetService from '../../service/BetService';
