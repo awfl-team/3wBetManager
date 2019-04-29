@@ -6,7 +6,6 @@ function Homepage() {
     <div>
       <div className="pusher" id="homepage">
         <div className="ui inverted vertical masthead center aligned segment hp-Header">
-          <div className="mask" />
           <div className="ui container">
             <div className="ui large secondary  menu">
               <div className="right item">
@@ -16,10 +15,8 @@ function Homepage() {
             </div>
           </div>
 
-          <div className="ui text container">
-            <h1 className="ui inverted header">
-                  3wBet-Manager
-            </h1>
+          <div className="ui text container brand">
+            <img src="assets/images/logo-brand.svg" alt="brand" />
             <h2>Manage your bets</h2>
           </div>
         </div>
@@ -52,7 +49,7 @@ function Homepage() {
             <div className="row">
               <div className="six wide left floated column">
                 <img
-                  src="assets/images/second-section.jpg"
+                  src="assets/images/first-section.jpg"
                   className="ui large bordered rounded image"
                   alt="football"
                 />
