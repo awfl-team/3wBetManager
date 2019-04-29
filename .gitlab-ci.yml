@@ -10,7 +10,6 @@ pages:
   stage: deploy
   script:
     - npm install
-    - npm rebuild node-sass
     - npm run build
     - rm -rf public
     - mv build public
