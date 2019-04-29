@@ -66,7 +66,7 @@ class ResetPasswordComponent extends React.Component {
     } else {
       this.props.addSnackbar({
         message: 'Invalid token',
-        type: 'error',
+        type: 'danger',
       });
     }
   }

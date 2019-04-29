@@ -29,6 +29,10 @@ export default class UserService {
     return API.post('forgot_password', user);
   }
 
+  static verifyAccount(user) {
+    return API.put('verify_account', user);
+  }
+
   static resetPassword(user) {
     return API.put('reset_password', user);
   }
