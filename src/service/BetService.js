@@ -18,7 +18,7 @@ export default class BetService {
   }
 
   static getFinishBetLimitedWithKey(userId) {
-    return API.get(`bets/${userId}/results/key`);
+    return API.get(`bets/${userId}/result/key`);
   }
 
   static getCurrentBetLimitedWithKey(userId) {

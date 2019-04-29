@@ -49,7 +49,7 @@ function Homepage() {
             <div className="row">
               <div className="six wide left floated column">
                 <img
-                  src="assets/images/first-section.jpg"
+                  src="assets/images/second-section.jpg"
                   className="ui large bordered rounded image"
                   alt="football"
                 />
