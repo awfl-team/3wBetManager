@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="be6c9b17-08c6-4b15-9adc-54e3634a2054" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/UserLayout/UserLayout.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="40" column="77" selection-start-line="40" selection-start-column="77" selection-end-line="40" selection-end-column="77" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/scss/base/_colors.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="15" column="19" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Profile/Profile.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1920">
+              <caret line="91" column="11" selection-start-line="88" selection-start-column="7" selection-end-line="91" selection-end-column="11" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/scss/components/_profile.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="528">
+              <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/signalr/jquery.signalR.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/helpers/NotificationHelper.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="24">
+              <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/AuthService.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/App.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="11" column="88" selection-start-line="11" selection-start-column="88" selection-end-line="11" selection-end-column="88" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Login/Login.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="528">
+              <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>epic</find>
+      <find>ItemModal</find>
+      <find>nbBombs</find>
+      <find>=== 0</find>
+      <find>buy</find>
+      <find>/user/</find>
+      <find>push</find>
+      <find>redirect</find>
+      <find>DD/MM/YYYY</find>
+      <find>MM/DD</find>
+      <find>|| item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''</find>
+      <find>MultiplierByTen</find>
+      <find>params</find>
+      <find>currentUser</find>
+      <find>Multiplier</find>
+      <find>props</find>
+      <find>nbMultiplierByTen</find>
+      <find>buffe</find>
+      <find>Label</find>
+      <find>lavel</find>
+      <find>label</find>
+      <find>legendary</find>
+      <find>rareLabel</find>
+      <find>buffed</find>
+      <find>button</find>
+      <find>react-redux/es/connect/connect</find>
+      <find>connect from</find>
+      <find>connect</find>
+      <find>addS</find>
+      <find>BetService</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>&amp;nbsp;</replace>
+      <replace>{' '}</replace>
+      <replace>https://steamuserimages-a.akamaihd.net/ugc/939437582927019730/096E1FF572F90D9EA3D893F05CE4C0BCFAA4C3CC/</replace>
+      <replace>TYPE_MULTIPLY_BY_TEN</replace>
+      <replace>Multiplier</replace>
+      <replace>react-redux</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>D:\xampp\htdocs\react-master-group-1\src\scss</dir>
+      <dir>D:\xampp\htdocs\react-master-group-1\src</dir>
+      <dir>D:\xampp\htdocs\react-master-group-1\src\components</dir>
+      <dir>D:\xampp\htdocs\react-master-group-1\src\components\Items</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/components/Homepage/Homepage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/BetSubmit/BetSubmitBlockComponent.jsx" />
+        <option value="$PROJECT_DIR$/src/scss/components/_items.scss" />
+        <option value="$PROJECT_DIR$/src/components/ItemModal/LootBox.jsx" />
+        <option value="$PROJECT_DIR$/src/components/ItemModal/Bomb.jsx" />
+        <option value="$PROJECT_DIR$/src/components/ItemModal/MultiplierByTen.jsx" />
+        <option value="$PROJECT_DIR$/src/components/ItemModal/Key.jsx" />
+        <option value="$PROJECT_DIR$/src/scss/components/_all.scss" />
+        <option value="$PROJECT_DIR$/src/scss/base/_colors.scss" />
+        <option value="$PROJECT_DIR$/src/scss/components/_lootbox.scss" />
+        <option value="$PROJECT_DIR$/src/scss/components/_help.scss" />
+        <option value="$PROJECT_DIR$/src/components/Profile/ItemsLayout.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Profile/ConsultProfileKey.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Profile/ConsultProfile.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Stats/ConsultProfileStats.jsx" />
+        <option value="$PROJECT_DIR$/src/service/UserService.js" />
+        <option value="$PROJECT_DIR$/src/components/Profile/ConsultProfileWithKey.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Stats/ProfileStats.jsx" />
+        <option value="$PROJECT_DIR$/src/components/BetSubmit/BetSubmitRowComponent.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Help/Help.jsx" />
+        <option value="$PROJECT_DIR$/src/model/Item.js" />
+        <option value="$PROJECT_DIR$/src/scss/components/_betRow.scss" />
+        <option value="$PROJECT_DIR$/src/scss/partials/_dark-theme.scss" />
+        <option value="$PROJECT_DIR$/src/components/BetResult/BetRowResult.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Dashboard/FinishedBets.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Dashboard/AvailableBets.jsx" />
+        <option value="$PROJECT_DIR$/src/components/UserForm/UserForm.jsx" />
+        <option value="$PROJECT_DIR$/src/components/AdminLayout/AdminUserTable.jsx" />
+        <option value="$PROJECT_DIR$/src/components/AdminLayout/AdminTaskManager.jsx" />
+        <option value="$PROJECT_DIR$/src/components/AdminLayout/AdminItemsManager.jsx" />
+        <option value="$PROJECT_DIR$/src/components/ForgotPassword/ForgotPasswordComponent.jsx" />
+        <option value="$PROJECT_DIR$/src/components/ForgotPassword/ResetPasswordComponent.jsx" />
+        <option value="$PROJECT_DIR$/src/service/BetService.js" />
+        <option value="$PROJECT_DIR$/src/reducers/tableBetReducer.js" />
+        <option value="$PROJECT_DIR$/src/components/Items/MultiplierByTen.jsx" />
+        <option value="$PROJECT_DIR$/src/service/ItemService.js" />
+        <option value="$PROJECT_DIR$/src/components/Shop/Shop.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Profile/Items.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Items/Key.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Items/LootBox.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Items/Multiplier.jsx" />
+        <option value="$PROJECT_DIR$/src/components/ItemGuard/AuthGuard.jsx" />
+        <option value="$PROJECT_DIR$/src/service/AudioHandlerService.js" />
+        <option value="$PROJECT_DIR$/src/components/Items/Mystery.jsx" />
+        <option value="$PROJECT_DIR$/src/components/ItemGuard/ItemGuard.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Items/Bomb.jsx" />
+        <option value="$PROJECT_DIR$/src/service/AuthService.js" />
+        <option value="$PROJECT_DIR$/src/scss/components/_profile.scss" />
+        <option value="$PROJECT_DIR$/src/components/Profile/Profile.jsx" />
+        <option value="$PROJECT_DIR$/src/App.jsx" />
+        <option value="$PROJECT_DIR$/src/components/UserLayout/UserLayout.jsx" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="AdminLayout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="AuthGuard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="BestBetters" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="BetLayout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="BetResult" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="BetSubmit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Help" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Homepage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Profile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Shop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Stats" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="UserLayout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="reducers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="scss" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="scss" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="scss" type="462c0819:PsiDirectoryNode" />
+              <item name="partials" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-master-group-1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-master-group-1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/kiosk" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\lbourge\AppData\Local\JetBrains\Toolbox\apps\WebStorm\ch-0\191.6183.63\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\react-master-group-1\public\assets\sounds" />
+      <recent name="D:\xampp\htdocs\react-master-group-1\public\assets\images" />
+      <recent name="D:\xampp\htdocs\react-master-group-1\build\assets\images" />
+      <recent name="D:\xampp\htdocs\react-master-group-1\src\components\ItemModal" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\react-master-group-1\src\components" />
+      <recent name="D:\xampp\htdocs\react-master-group-1\src\components\Items" />
+      <recent name="D:\xampp\htdocs\react-master-group-1\public\assets\images" />
+      <recent name="D:\xampp\htdocs\react-master-group-1\src\components\Profile" />
+      <recent name="D:\xampp\htdocs\react-master-group-1\public\assets\sounds" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="be6c9b17-08c6-4b15-9adc-54e3634a2054" name="Default Changelist" comment="" />
+      <created>1551083169985</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551083169985</updated>
+      <workItem from="1551083173384" duration="1014000" />
+      <workItem from="1551257889252" duration="671000" />
+      <workItem from="1551258706618" duration="12795000" />
+      <workItem from="1552290451792" duration="4575000" />
+      <workItem from="1552301194851" duration="18596000" />
+      <workItem from="1552923479211" duration="398000" />
+      <workItem from="1553585188080" duration="5981000" />
+      <workItem from="1554706222603" duration="428000" />
+      <workItem from="1554706655209" duration="46463000" />
+      <workItem from="1554975069174" duration="12670000" />
+      <workItem from="1555059937353" duration="17431000" />
+      <workItem from="1555313477193" duration="66000" />
+      <workItem from="1555313559994" duration="81000" />
+      <workItem from="1555313695113" duration="21000" />
+      <workItem from="1555313737147" duration="15192000" />
+      <workItem from="1555406411899" duration="43642000" />
+      <workItem from="1555586889022" duration="514000" />
+      <workItem from="1555587767109" duration="4184000" />
+      <workItem from="1556096135739" duration="18113000" />
+      <workItem from="1556519329409" duration="1525000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="160037000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21390937" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32930845" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49947312" weight="0.3277592" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32929516" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49947312" weight="0.22185062" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49525815" visible="true" weight="0.16833891" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50474185" side_tool="true" visible="true" weight="0.16833891" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/components/Stats/ProfileStats.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="72" column="57" lean-forward="true" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="n#!!block;n#getMonthStats#0;n#ProfileStats#0" />
+            <element signature="n#!!block;n#getYearStats#0;n#ProfileStats#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BetSubmit/BetSubmitRowComponent.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="85" column="16" lean-forward="true" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Help/Help.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Item.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scss/partials/_dark-theme.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="108" column="29" selection-start-line="108" selection-start-column="23" selection-end-line="108" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BetResult/BetRowResult.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="28" column="54" selection-start-line="28" selection-start-column="54" selection-end-line="28" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Dashboard/FinishedBets.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="80" column="66" selection-start-line="80" selection-start-column="57" selection-end-line="80" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/AdminLayout/AdminLayout.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Profile/ConsultProfile.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="7" selection-start-column="7" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/AdminLayout/AdminTaskManager.jsx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BestBetters/BestBettersTable.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1272">
+          <caret line="56" column="34" selection-start-line="56" selection-start-column="34" selection-end-line="56" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BestBetters/BestBettersLayout.jsx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/VerifyService.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/FormUserService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/CompetionService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="22" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/CronService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="21" selection-start-column="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/taskManagerReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="100" selection-start-column="100" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintrc.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BetSubmit/BetSubmitButton.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="114" column="3" selection-start-line="114" selection-start-column="3" selection-end-line="114" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Dashboard/AvailableBets.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-960">
+          <caret line="14" column="58" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/BetService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="21" selection-start-column="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="1" column="31" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/tableBetReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#91#0" expanded="true" />
+            <element signature="e#1074#1321#0" />
+            <element signature="e#1719#1818#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/images/mystery.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Shop/Shop.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6504">
+          <caret line="283" column="3" selection-start-line="283" selection-start-column="3" selection-end-line="283" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/ItemService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="31" column="19" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/images/multiplier-x5.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Items/Key.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Items/LootBox.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="280" column="22" selection-start-line="280" selection-start-column="22" selection-end-line="280" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/AuthGuard/AuthGuard.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="45" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Items/Multiplier.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5639">
+          <caret line="257" column="25" selection-start-line="257" selection-start-column="25" selection-end-line="257" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Profile/Items.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="70" column="24" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/AudioHandlerService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="58" column="42" selection-start-line="58" selection-start-column="42" selection-end-line="58" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Items/Mystery.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ItemGuard/ItemGuard.jsx" />
+    <entry file="file://$PROJECT_DIR$/src/components/Items/Bomb.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/UserService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/signalr/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="336">
+            <caret line="8" column="58" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="58" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="10674" column="21" selection-start-line="10674" selection-start-column="21" selection-end-line="10674" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.webworker.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="4278" column="49" selection-start-line="4278" selection-start-column="43" selection-end-line="4278" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/UserLayout/UserLayout.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="40" column="77" selection-start-line="40" selection-start-column="77" selection-end-line="40" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Profile/Profile.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1920">
+          <caret line="91" column="11" selection-start-line="88" selection-start-column="7" selection-end-line="91" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scss/components/_profile.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/signalr/jquery.signalR.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/helpers/NotificationHelper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/AuthService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="11" column="88" selection-start-line="11" selection-start-column="88" selection-end-line="11" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Login/Login.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scss/base/_colors.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="15" column="19" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
