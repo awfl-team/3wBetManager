@@ -33,7 +33,16 @@ class App extends React.Component {
             <Route path="/reset_password/:token" exact component={ResetPasswordComponent} />
             <Route path="/verify_account/:token" exact component={VerifyAccountComponent} />
             <Route
-              path="/(dashboard|profile|update-profile|bestBetters|bypass|user/*|bet/myBets|bet/submitBets|admin|items|lootbox|shop|bomb|key|multiplier|mystery)"
+              exact
+              sensitive
+              strict
+              path="/(dashboard|profile|update-profile|bestBetters|bypass|bet/myBets|bet/submitBets|items|lootbox|shop|bomb|key|multiplier|mystery|admin/users|admin/items|admin/tasks)"
+              component={UserLayout}
+            />
+            <Route
+              sensitive
+              strict
+              path="/(user/*)"
               component={UserLayout}
             />
             <Route component={NotFound} />
