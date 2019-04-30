@@ -193,7 +193,7 @@ class Multiplier extends React.Component {
                           className="legendary"
                           onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_10)}
                           disabled={
-                            nbMultiplierByTen === 0
+                            nbMultiplierByTen <= 0
                           || bet.Multiply === 10}
                         >
                           x10

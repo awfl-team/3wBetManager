@@ -167,9 +167,7 @@ class Items extends React.Component {
                             test: true,
                           },
                         }}
-                        className={`button ui green inverted small icon 
-                          ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
-                            }
+                        className="button ui green inverted small icon"
                       >
                         <Icon name="bolt" />
                       </Link>
@@ -179,7 +177,7 @@ class Items extends React.Component {
                     && (
                       <Link
                         to="/lootbox"
-                        className={`button ui green inverted small icon 
+                        className={`button ui green inverted small icon
                           ${userItems.filter(i => i.Type === item.Type).length === 0 ? 'disabled' : ''}`
                         }
                       >
