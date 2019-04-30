@@ -22,6 +22,7 @@ class Multiplier extends React.Component {
   state = {
     bets: [],
     totalPages: 1,
+    totalBets: 0,
     nbMultiplierByTen: 0,
     nbMultiplierByFive: 0,
     nbMultiplierByTwo: 0,
@@ -32,9 +33,11 @@ class Multiplier extends React.Component {
   componentDidMount() {
     BetService.getUserFinishedBetsPaginated()
       .then((response) => {
+        console.log(response.data);
         this.setState({
           bets: response.data.Items,
           totalPages: response.data.TotalPages,
+          totalBets: response.data.TotalBets,
         });
       });
     UserService.getFromToken().then((res) => {
@@ -59,6 +62,7 @@ class Multiplier extends React.Component {
         this.setState({
           bets: response.data.Items,
           totalPages: response.data.TotalPages,
+          totalBets: response.data.TotalBets,
         });
       });
   }
@@ -97,7 +101,8 @@ class Multiplier extends React.Component {
 
   render() {
     const {
-      bets, totalPages, nbMultiplierByTen, activeItem, nbMultiplierByTwo, nbMultiplierByFive,
+      bets, totalPages,
+      nbMultiplierByTen, activeItem, nbMultiplierByTwo, nbMultiplierByFive, totalBets,
     } = this.state;
 
     return (
@@ -227,7 +232,7 @@ class Multiplier extends React.Component {
               </Table.Body>
             </Table>
           </div>
-          {totalPages > 1
+          {totalPages >= 2 && totalBets > 10
           && (
             <Pagination
               ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
