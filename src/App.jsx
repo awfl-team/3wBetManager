@@ -10,6 +10,7 @@ import SnackBar from './components/SnackBar/SnackBar';
 import NotFound from './components/404/NotFound';
 import ForgotPasswordComponent from './components/ForgotPassword/ForgotPasswordComponent';
 import ResetPasswordComponent from './components/ForgotPassword/ResetPasswordComponent';
+import VerifyAccountComponent from './components/VerifyAccount/VerifyAccountComponent';
 
 class App extends React.Component {
   state = {
@@ -30,6 +31,7 @@ class App extends React.Component {
             <Route path="/forgot_password" exact component={ForgotPasswordComponent} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/reset_password/:token" exact component={ResetPasswordComponent} />
+            <Route path="/verify_account/:token" exact component={VerifyAccountComponent} />
             <Route
               path="/(dashboard|profile|update-profile|bestBetters|bypass|user/*|bet/myBets|bet/submitBets|admin|items|lootbox|shop|bomb|key|multiplier|mystery)"
               component={UserLayout}
