@@ -18,6 +18,7 @@ class LootBox extends React.Component {
     nbLootbox: 0,
     activeItem: 'items',
     isLooting: false,
+    isDisabled: false,
   };
 
   componentDidMount() {
@@ -38,16 +39,17 @@ class LootBox extends React.Component {
   }
 
   openLootBox = () => {
+    this.setState({ isDisabled: true });
     if (this.state.nbLootbox > 0) {
       this.hideLoot();
       randomizer = setTimeout(() => {
         document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
         this.showRandomizer();
-        this.setState({isLooting: true});
+        this.setState({ isLooting: true });
 
         AudioHandlerService.startLoot();
         lootResult = setTimeout(() => {
-          this.setState({itemsLooted: []});
+          this.setState({ itemsLooted: [] });
           ItemService.useLoot().then((res) => {
             const legendaryItems = [];
             res.data.forEach((item) => {
@@ -62,11 +64,14 @@ class LootBox extends React.Component {
             }
             this.hideRandomizer();
             this.showLoot();
-            this.setState(prevState => ({nbLootbox: prevState.nbLootbox - 1}));
+            this.setState(prevState => ({ nbLootbox: prevState.nbLootbox - 1 }));
             this.setState({
               isLooting: false,
               itemsLooted: res.data,
+              isDisabled: false,
             });
+          }).catch(() => {
+            this.setState({ isDisabled: false });
           });
         }, 3000);
       }, 100);
@@ -94,7 +99,7 @@ class LootBox extends React.Component {
 
   render() {
     const {
-      items, itemsLooted, nbLootbox, activeItem, isLooting,
+      items, itemsLooted, nbLootbox, activeItem, isLooting, isDisabled,
     } = this.state;
     return (
       <div id="lootbox">
@@ -270,7 +275,10 @@ class LootBox extends React.Component {
             className="ui green button submit-bets-action-button"
             tabIndex="-1"
             onClick={this.openLootBox}
-            disabled={nbLootbox <= 0 || isLooting === true}
+            disabled={
+              isDisabled === true
+              || nbLootbox <= 0
+              || isLooting === true}
           >
             Open
           </button>

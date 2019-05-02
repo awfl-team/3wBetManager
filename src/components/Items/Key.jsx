@@ -26,6 +26,7 @@ class Key extends React.Component {
     showPagination: true,
     activeItem: 'items',
     currentUser: User,
+    isDisabled: false,
   };
 
   componentDidMount() {
@@ -55,18 +56,22 @@ class Key extends React.Component {
   }
 
   handleClick = (userId) => {
+    this.setState({ isDisabled: true });
     if (this.state.nbKeys > 0) {
       ItemService.useKey(userId).then(() => {
         this.props.addSnackbar({
           message: 'Key used',
           type: 'success',
         });
-        this.setState(prevState => ({nbKeys: prevState.nbKeys - 1}));
+        this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
         AudioHandlerService.useKey();
         this.props.history.push({
           pathname: '/bypass',
-          state: {userId},
+          state: { userId },
         });
+        this.setState({ isDisabled: false });
+      }).catch(() => {
+        this.setState({ isDisabled: false });
       });
     }
   };
@@ -99,7 +104,7 @@ class Key extends React.Component {
 
   render() {
     const {
-      users, totalPages, showPagination, nbKeys, activeItem, currentUser,
+      users, totalPages, showPagination, nbKeys, activeItem, currentUser, isDisabled,
     } = this.state;
 
     return (
@@ -194,7 +199,10 @@ class Key extends React.Component {
                           inverted
                           className="green"
                           fluid
-                          disabled={nbKeys === 0 || currentUser.Username === user.Username}
+                          disabled={
+                            isDisabled === true
+                            || nbKeys === 0
+                            || currentUser.Username === user.Username}
                         />
                       </Button.Group>
                     </Table.Cell>

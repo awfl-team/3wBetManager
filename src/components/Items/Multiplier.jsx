@@ -28,6 +28,7 @@ class Multiplier extends React.Component {
     nbMultiplierByTwo: 0,
     activeItem: 'items',
     currentPage: 1,
+    isDisabled: false,
   };
 
   componentDidMount() {
@@ -68,6 +69,7 @@ class Multiplier extends React.Component {
   }
 
   handleClick = (betId, multiplierValue) => {
+    this.setState({ isDisabled: true });
     ItemService.useMultiplier(betId, multiplierValue).then(() => {
       this.props.addSnackbar({
         message: 'Multiplier used',
@@ -78,7 +80,10 @@ class Multiplier extends React.Component {
           this.setState({
             bets: response.data.Items,
             totalPages: response.data.TotalPages,
+            isDisabled: false,
           });
+        }).catch(() => {
+          this.setState({ isDisabled: false });
         });
       AudioHandlerService.useMultiplier();
       switch (multiplierValue) {
@@ -102,7 +107,7 @@ class Multiplier extends React.Component {
   render() {
     const {
       bets, totalPages,
-      nbMultiplierByTen, activeItem, nbMultiplierByTwo, nbMultiplierByFive, totalBets,
+      nbMultiplierByTen, activeItem, nbMultiplierByTwo, nbMultiplierByFive, totalBets, isDisabled,
     } = this.state;
 
     return (
@@ -198,7 +203,8 @@ class Multiplier extends React.Component {
                           className="legendary"
                           onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_10)}
                           disabled={
-                            nbMultiplierByTen <= 0
+                            isDisabled === true
+                          || nbMultiplierByTen <= 0
                           || bet.Multiply === 10}
                         >
                           x10
@@ -208,8 +214,9 @@ class Multiplier extends React.Component {
                           className="epic"
                           onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_5)}
                           disabled={
-                            nbMultiplierByFive <= 0
-                            || bet.Multiply === 5
+                            isDisabled === true
+                            || nbMultiplierByFive <= 0
+                            || bet.Multiply >= 5
                           }
                         >
                          x5
@@ -219,8 +226,9 @@ class Multiplier extends React.Component {
                           className="rare"
                           onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_2)}
                           disabled={
-                            nbMultiplierByTwo <= 0
-                            || bet.Multiply === 2
+                            isDisabled === true
+                            || nbMultiplierByTwo <= 0
+                            || bet.Multiply >= 2
                           }
                         >
                           x2

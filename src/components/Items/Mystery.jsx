@@ -18,6 +18,7 @@ class Mystery extends React.Component {
     nbMysteryBox: 0,
     activeItem: 'items',
     isLooting: false,
+    isDisabled: false,
   };
 
   componentDidMount() {
@@ -38,12 +39,13 @@ class Mystery extends React.Component {
   }
 
   openLootBox = () => {
+    this.setState({ isDisabled: true });
     if (this.state.nbMysteryBox > 0) {
       this.hideLoot();
       randomizer = setTimeout(() => {
         document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
         this.showRandomizer();
-        this.setState({isLooting: true});
+        this.setState({ isLooting: true });
 
         AudioHandlerService.startLoot();
         lootResult = setTimeout(() => {
@@ -59,11 +61,14 @@ class Mystery extends React.Component {
             }
             this.hideRandomizer();
             this.showLoot();
-            this.setState(prevState => ({nbMysteryBox: prevState.nbMysteryBox - 1}));
+            this.setState(prevState => ({ nbMysteryBox: prevState.nbMysteryBox - 1 }));
             this.setState({
               isLooting: false,
               itemLooted: res.data,
+              isDisabled: false,
             });
+          }).catch(() => {
+            this.setState({ isDisabled: false });
           });
         }, 3000);
       }, 100);
@@ -91,7 +96,7 @@ class Mystery extends React.Component {
 
   render() {
     const {
-      items, itemLooted, nbMysteryBox, activeItem, isLooting,
+      items, itemLooted, nbMysteryBox, activeItem, isLooting, isDisabled,
     } = this.state;
     return (
       <div id="lootbox">
@@ -267,7 +272,10 @@ class Mystery extends React.Component {
             className="ui green button submit-bets-action-button"
             tabIndex="-1"
             onClick={this.openLootBox}
-            disabled={nbMysteryBox <= 0 || isLooting === true}
+            disabled={
+              isDisabled === true
+              || nbMysteryBox <= 0
+              || isLooting === true}
           >
             Open
           </button>

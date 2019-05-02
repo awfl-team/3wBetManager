@@ -23,6 +23,7 @@ class Bomb extends React.Component {
     nbBombs: 0,
     currentUser: User,
     activeItem: 'items',
+    isDisabled: false,
   };
 
   componentDidMount() {
@@ -42,6 +43,7 @@ class Bomb extends React.Component {
 
   handleClick = (userId, event) => {
     const elem = event.target;
+    this.setState({ isDisabled: true });
     if (this.state.nbBombs > 0) {
       ItemService.useBomb(userId).then(() => {
         this.props.addSnackbar({
@@ -56,8 +58,13 @@ class Bomb extends React.Component {
         UserService.getCurrentUserAmongSiblings().then(((response) => {
           this.setState({
             userAmongSiblings: response.data,
+            isDisabled: false,
           });
         }));
+      }).catch(() => {
+        this.setState({
+          isDisabled: false,
+        });
       });
     }
   };
@@ -85,7 +92,7 @@ class Bomb extends React.Component {
 
   render() {
     const {
-      userAmongSiblings, nbBombs, activeItem, currentUser,
+      userAmongSiblings, nbBombs, activeItem, currentUser, isDisabled,
     } = this.state;
 
     return (
@@ -174,7 +181,11 @@ class Bomb extends React.Component {
                             inverted
                             className="green"
                             fluid
-                            disabled={nbBombs <= 0 || currentUser.Username === user.Username}
+                            disabled={
+                              isDisabled === true
+                              || nbBombs <= 0
+                              || currentUser.Username === user.Username
+                            }
                           >
                             <div className="bomb-animation hide">
                               <img alt="anim" src="assets/images/explosion.gif" />
