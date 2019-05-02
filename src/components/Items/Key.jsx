@@ -55,18 +55,20 @@ class Key extends React.Component {
   }
 
   handleClick = (userId) => {
-    ItemService.useKey(userId).then(() => {
-      this.props.addSnackbar({
-        message: 'Key used',
-        type: 'success',
+    if (this.state.nbKeys > 0) {
+      ItemService.useKey(userId).then(() => {
+        this.props.addSnackbar({
+          message: 'Key used',
+          type: 'success',
+        });
+        this.setState(prevState => ({nbKeys: prevState.nbKeys - 1}));
+        AudioHandlerService.useKey();
+        this.props.history.push({
+          pathname: '/bypass',
+          state: {userId},
+        });
       });
-      this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
-      AudioHandlerService.useKey();
-      this.props.history.push({
-        pathname: '/bypass',
-        state: { userId },
-      });
-    });
+    }
   };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });

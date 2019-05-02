@@ -77,7 +77,7 @@ class DashboardStats extends React.Component {
               active={isDatasetBetsActive}
               primary={isDatasetBetsActive}
             >
-              Bets ber type
+              Bets per type
             </Button>
             <Button.Or />
             <Button

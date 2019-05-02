@@ -38,34 +38,36 @@ class Mystery extends React.Component {
   }
 
   openLootBox = () => {
-    this.hideLoot();
-    randomizer = setTimeout(() => {
-      document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
-      this.showRandomizer();
-      this.setState({ isLooting: true });
+    if (this.state.nbMysteryBox > 0) {
+      this.hideLoot();
+      randomizer = setTimeout(() => {
+        document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
+        this.showRandomizer();
+        this.setState({isLooting: true});
 
-      AudioHandlerService.startLoot();
-      lootResult = setTimeout(() => {
-        ItemService.useMystery().then((res) => {
-          const legendaryItems = [];
-          if (res.data.Rarity === Item.RARITY_LEGENDARY) {
-            legendaryItems.push(res.data);
-          }
-          if (legendaryItems.length > 0) {
-            AudioHandlerService.openedLoot(true);
-          } else {
-            AudioHandlerService.openedLoot(false);
-          }
-          this.hideRandomizer();
-          this.showLoot();
-          this.setState(prevState => ({ nbMysteryBox: prevState.nbMysteryBox - 1 }));
-          this.setState({
-            isLooting: false,
-            itemLooted: res.data,
+        AudioHandlerService.startLoot();
+        lootResult = setTimeout(() => {
+          ItemService.useMystery().then((res) => {
+            const legendaryItems = [];
+            if (res.data.Rarity === Item.RARITY_LEGENDARY) {
+              legendaryItems.push(res.data);
+            }
+            if (legendaryItems.length > 0) {
+              AudioHandlerService.openedLoot(true);
+            } else {
+              AudioHandlerService.openedLoot(false);
+            }
+            this.hideRandomizer();
+            this.showLoot();
+            this.setState(prevState => ({nbMysteryBox: prevState.nbMysteryBox - 1}));
+            this.setState({
+              isLooting: false,
+              itemLooted: res.data,
+            });
           });
-        });
-      }, 3000);
-    }, 100);
+        }, 3000);
+      }, 100);
+    }
   }
 
   showRandomizer = () => {
