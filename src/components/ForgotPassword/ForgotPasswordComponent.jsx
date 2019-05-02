@@ -1,9 +1,9 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
+import { Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import { Icon } from 'semantic-ui-react';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -22,6 +22,7 @@ class ForgotPasswordComponent extends React.Component {
           message: `Email sent to ${user.Email}'`,
           type: 'success',
         });
+        this.props.history.push('/login');
       });
   }
 

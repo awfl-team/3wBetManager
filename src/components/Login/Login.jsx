@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
-import { Icon } from 'semantic-ui-react';
 
 class LoginComponent extends React.Component {
   state = {

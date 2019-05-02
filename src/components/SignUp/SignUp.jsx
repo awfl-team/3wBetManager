@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import FormUserService from '../../service/FormUserService';
-import { Icon } from 'semantic-ui-react';
 
 
 function mapDispatchToProps(dispatch) {
