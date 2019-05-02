@@ -38,37 +38,39 @@ class LootBox extends React.Component {
   }
 
   openLootBox = () => {
-    this.hideLoot();
-    randomizer = setTimeout(() => {
-      document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
-      this.showRandomizer();
-      this.setState({ isLooting: true });
+    if (this.state.nbLootbox > 0) {
+      this.hideLoot();
+      randomizer = setTimeout(() => {
+        document.getElementById('loot-slide').style.width = document.getElementById('slide-comp-1').offsetWidth.toString();
+        this.showRandomizer();
+        this.setState({isLooting: true});
 
-      AudioHandlerService.startLoot();
-      lootResult = setTimeout(() => {
-        this.setState({ itemsLooted: [] });
-        ItemService.useLoot().then((res) => {
-          const legendaryItems = [];
-          res.data.forEach((item) => {
-            if (item.Rarity === Item.RARITY_LEGENDARY) {
-              legendaryItems.push(item);
+        AudioHandlerService.startLoot();
+        lootResult = setTimeout(() => {
+          this.setState({itemsLooted: []});
+          ItemService.useLoot().then((res) => {
+            const legendaryItems = [];
+            res.data.forEach((item) => {
+              if (item.Rarity === Item.RARITY_LEGENDARY) {
+                legendaryItems.push(item);
+              }
+            });
+            if (legendaryItems.length > 0) {
+              AudioHandlerService.openedLoot(true);
+            } else {
+              AudioHandlerService.openedLoot(false);
             }
+            this.hideRandomizer();
+            this.showLoot();
+            this.setState(prevState => ({nbLootbox: prevState.nbLootbox - 1}));
+            this.setState({
+              isLooting: false,
+              itemsLooted: res.data,
+            });
           });
-          if (legendaryItems.length > 0) {
-            AudioHandlerService.openedLoot(true);
-          } else {
-            AudioHandlerService.openedLoot(false);
-          }
-          this.hideRandomizer();
-          this.showLoot();
-          this.setState(prevState => ({ nbLootbox: prevState.nbLootbox - 1 }));
-          this.setState({
-            isLooting: false,
-            itemsLooted: res.data,
-          });
-        });
-      }, 3000);
-    }, 100);
+        }, 3000);
+      }, 100);
+    }
   }
 
   showRandomizer = () => {

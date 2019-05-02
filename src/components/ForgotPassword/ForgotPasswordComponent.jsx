@@ -3,6 +3,7 @@ import connect from 'react-redux/es/connect/connect';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
+import { Icon } from 'semantic-ui-react';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -24,14 +25,19 @@ class ForgotPasswordComponent extends React.Component {
       });
   }
 
+  handleClick() {
+    this.props.history.push('/login');
+  }
+
   render() {
     return (
       <div className="login-page">
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content">
-                  Reset your Password
+              <div className="content" onClick={() => this.handleClick()}>
+                <Icon name="left arrow" />
+                Reset your password
               </div>
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">

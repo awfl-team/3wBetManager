@@ -42,22 +42,24 @@ class Bomb extends React.Component {
 
   handleClick = (userId, event) => {
     const elem = event.target;
-    ItemService.useBomb(userId).then(() => {
-      this.props.addSnackbar({
-        message: 'Bomb used',
-        type: 'success',
-      });
-      this.setState(prevState => ({ nbBombs: prevState.nbBombs - 1 }));
-      this.handleButtonAnimationShow(elem);
-      setTimeout(() => {
-        this.handleButtonAnimationHide(elem);
-      }, 500);
-      UserService.getCurrentUserAmongSiblings().then(((response) => {
-        this.setState({
-          userAmongSiblings: response.data,
+    if (this.state.nbBombs > 0) {
+      ItemService.useBomb(userId).then(() => {
+        this.props.addSnackbar({
+          message: 'Bomb used',
+          type: 'success',
         });
-      }));
-    });
+        this.setState(prevState => ({ nbBombs: prevState.nbBombs - 1 }));
+        this.handleButtonAnimationShow(elem);
+        setTimeout(() => {
+          this.handleButtonAnimationHide(elem);
+        }, 500);
+        UserService.getCurrentUserAmongSiblings().then(((response) => {
+          this.setState({
+            userAmongSiblings: response.data,
+          });
+        }));
+      });
+    }
   };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });

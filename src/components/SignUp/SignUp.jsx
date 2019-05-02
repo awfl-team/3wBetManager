@@ -7,6 +7,7 @@ import AuthService from '../../service/AuthService';
 import VerifyService from '../../service/VerifyService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import FormUserService from '../../service/FormUserService';
+import { Icon } from 'semantic-ui-react';
 
 
 function mapDispatchToProps(dispatch) {
@@ -58,6 +59,10 @@ class SignUpComponent extends React.Component {
     }
   }
 
+  handleClick() {
+    this.props.history.push('/login');
+  }
+
   render() {
     const {
       confirmPassword, password, toDashboard, email, username, className,
@@ -72,8 +77,9 @@ class SignUpComponent extends React.Component {
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content">
-                  Create a new account
+              <div className="content" onClick={() => this.handleClick()}>
+                <Icon name="left arrow" />
+                Create a new account
               </div>
             </h2>
             <form
@@ -163,20 +169,25 @@ class SignUpComponent extends React.Component {
                   </p>
                   <p className={className.formMultipleInfos}>
                     <i className="info circle icon" />
-                      The password requires a
+                      The password requires an
+                    {' '}
                     <span
                       className={className.formdFieldUppercase}
                     >
                     uppercase
                     </span>
                       , a
+                    {' '}
                     <span className={className.formFieldSpecial}>
                         special character
                     </span>
+                    {' '}
                       and
+                    {' '}
                     <span
                       className={className.formFieldWithNumber}
                     >
+                      {' '}
                       a number
                     </span>
                   </p>
