@@ -14,6 +14,7 @@
   margin-top: 25px;
   width: 100%;
   &-button {
+    z-index: 1000 !important;
     width: 200px;
     margin: 0 auto !important;
     display: block !important;
