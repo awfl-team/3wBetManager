@@ -44,7 +44,7 @@ class LoginComponent extends React.Component {
     return (
       <div className="login-page">
         <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
-          <Icon name="home"/>
+          <Icon name="home" />
         </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">

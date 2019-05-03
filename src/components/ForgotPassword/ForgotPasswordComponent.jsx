@@ -1,7 +1,7 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import { Button, Icon } from 'semantic-ui-react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
@@ -35,7 +35,7 @@ class ForgotPasswordComponent extends React.Component {
     return (
       <div className="login-page">
         <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
-          <Icon name="arrow left"/>
+          <Icon name="arrow left" />
         </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">

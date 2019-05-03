@@ -5,7 +5,7 @@ function Homepage() {
   return (
     <div>
       <div className="pusher" id="homepage">
-        <div className="ui inverted vertical masthead center aligned segment hp-Header" style={{backgroundImage: 'url("assets/images/test.jpg")'}}>
+        <div className="ui inverted vertical masthead center aligned segment hp-Header" style={{ backgroundImage: 'url("assets/images/test.jpg")' }}>
           <div className="ui container">
             <div className="ui large secondary  menu">
               <div className="right item">
