@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Icon } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 
@@ -43,13 +43,13 @@ class LoginComponent extends React.Component {
     }
     return (
       <div className="login-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="home"/>
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content" onClick={() => this.handleClick()}>
-                <Icon name="left arrow" />
                 Sign in
-              </div>
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
               <div className="ui stacked">

@@ -5,6 +5,7 @@ import User from '../../model/User';
 import AuthService from '../../service/AuthService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import FormUserService from '../../service/FormUserService';
+import {Button, Icon} from 'semantic-ui-react';
 
 
 function mapDispatchToProps(dispatch) {
@@ -78,6 +79,9 @@ class ResetPasswordComponent extends React.Component {
 
     return (
       <div className="register-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="arrow left"/>
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">

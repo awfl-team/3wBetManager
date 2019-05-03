@@ -1,6 +1,7 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
-import { Icon } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
+import { Link, Redirect } from 'react-router-dom';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
@@ -33,13 +34,13 @@ class ForgotPasswordComponent extends React.Component {
   render() {
     return (
       <div className="login-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="arrow left"/>
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content" onClick={() => this.handleClick()}>
-                <Icon name="left arrow" />
                 Reset your password
-              </div>
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
               <div className="ui stacked">
@@ -61,6 +62,15 @@ class ForgotPasswordComponent extends React.Component {
                 </button>
               </div>
             </form>
+            <div className="ui message">
+              New ?
+              {' '}
+              <Link to="/login">Login</Link>
+              {' '}
+              |
+              {' '}
+              <Link to="/signup">Sign Up</Link>
+            </div>
           </div>
         </div>
       </div>
