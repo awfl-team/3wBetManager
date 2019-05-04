@@ -20,6 +20,7 @@ class UserAmongSiblingsTable extends React.Component {
       <Table celled structured inverted compact unstackable className="primary-bg">
         <Table.Header>
           <Table.Row textAlign="center">
+            <Table.HeaderCell rowSpan="2">Rank</Table.HeaderCell>
             <Table.HeaderCell rowSpan="2">Username</Table.HeaderCell>
             <Table.HeaderCell rowSpan="2">Score</Table.HeaderCell>
             <Table.HeaderCell rowSpan="2">Lives</Table.HeaderCell>
@@ -49,6 +50,7 @@ class UserAmongSiblingsTable extends React.Component {
           {userAmongSiblings.length > 0
             && userAmongSiblings.map(user => (
               <Table.Row key={user.Id} textAlign="center" active={user.IsCurrent}>
+                <Table.Cell>#{user.Rank}</Table.Cell>
                 <Table.Cell>{user.Username}</Table.Cell>
                 <Table.Cell>
                   <span>{user.Point}</span>
