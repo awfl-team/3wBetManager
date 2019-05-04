@@ -50,7 +50,10 @@ class UserAmongSiblingsTable extends React.Component {
           {userAmongSiblings.length > 0
             && userAmongSiblings.map(user => (
               <Table.Row key={user.Id} textAlign="center" active={user.IsCurrent}>
-                <Table.Cell>#{user.Rank}</Table.Cell>
+                <Table.Cell>
+                  #
+                  {user.Rank}
+                </Table.Cell>
                 <Table.Cell>{user.Username}</Table.Cell>
                 <Table.Cell>
                   <span>{user.Point}</span>
