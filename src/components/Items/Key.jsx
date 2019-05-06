@@ -23,7 +23,7 @@ class Key extends React.Component {
     users: [],
     totalPages: 1,
     nbKeys: 0,
-    showPagination: true,
+    totalUsers: true,
     activeItem: 'items',
     currentUser: User,
     isDisabled: false,
@@ -35,6 +35,7 @@ class Key extends React.Component {
         this.setState({
           users: response.data.Items,
           totalPages: response.data.TotalPages,
+          totalUsers: response.data.TotalUsers,
         });
       });
     UserService.getFromToken().then((res) => {
@@ -51,6 +52,7 @@ class Key extends React.Component {
         this.setState({
           users: response.data.Items,
           totalPages: response.data.TotalPages,
+          totalUsers: response.data.TotalUsers,
         });
       });
   }
@@ -84,7 +86,7 @@ class Key extends React.Component {
         this.setState({
           users: response.data.Items,
           totalPages: response.data.TotalPages,
-          showPagination: true,
+          totalUsers: response.data.TotalUsers,
         });
       });
   }
@@ -96,7 +98,7 @@ class Key extends React.Component {
         .then((response) => {
           this.setState({
             users: response.data,
-            showPagination: false,
+            totalUsers: response.data.TotalUsers,
           });
         });
     }
@@ -104,7 +106,7 @@ class Key extends React.Component {
 
   render() {
     const {
-      users, totalPages, showPagination, nbKeys, activeItem, currentUser, isDisabled,
+      users, totalPages, totalUsers, nbKeys, activeItem, currentUser, isDisabled,
     } = this.state;
 
     return (
@@ -211,7 +213,7 @@ class Key extends React.Component {
               </Table.Body>
             </Table>
           </div>
-          {showPagination === true && users.length >= 10
+          {totalPages >= 2 && totalUsers > 10
             && (
               <Pagination
                 ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}

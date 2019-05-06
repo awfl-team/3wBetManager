@@ -51,8 +51,18 @@ class UserAmongSiblingsTable extends React.Component {
             && userAmongSiblings.map(user => (
               <Table.Row key={user.Id} textAlign="center" active={user.IsCurrent}>
                 <Table.Cell>
-                  #
-                  {user.Rank}
+                  {user.Rank === 1
+                  && <Icon name="fire" color="red" size="big" />
+                  }
+                  {user.Rank === 2
+                  && <Icon name="fire" color="yellow" size="big" />
+                  }
+                  {user.Rank === 3
+                  && <Icon name="fire" size="big" />
+                  }
+                  {user.Rank > 3
+                  && `# ${user.Rank}`
+                  }
                 </Table.Cell>
                 <Table.Cell>{user.Username}</Table.Cell>
                 <Table.Cell>
