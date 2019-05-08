@@ -11,6 +11,11 @@ export default class FormUserService {
     className.isPasswordSpecialChar = VerifyService.isPasswordSpecialChar(password);
     className.isPasswordUppercase = VerifyService.isPasswordUppercase(password);
     className.isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
+    className.isPasswordOk = (className.isPasswordIdentical
+      && className.isPasswordNumberCharOk
+      && className.isPasswordSpecialChar
+      && className.isPasswordUppercase
+      && className.isPasswordWithNumber);
 
     className.isEnabled = (className.IsEmailGood && className.isUsernameOk
         && className.isPasswordNumberCharOk && className.isPasswordWithNumber

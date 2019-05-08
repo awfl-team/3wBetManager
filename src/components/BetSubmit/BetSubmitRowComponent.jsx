@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Image, Input, Label,
-} from 'semantic-ui-react';
+import { Image, Input, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { addTableBet } from '../../actions/TableBetActions';
@@ -51,12 +49,16 @@ class BetSubmitRowComponent extends React.Component {
   }
 
   createBet(event, match, inputName) {
-    const data = { match, inputName, value: event.target.value };
-    if (this.state.bet) {
-      data.bet = this.state.bet;
-      data.bet.alreadyUpdated = false;
+    if (event.target.value < 0) {
+      event.target.value = '';
+    } else {
+      const data = { match, inputName, value: event.target.value };
+      if (this.state.bet) {
+        data.bet = this.state.bet;
+        data.bet.alreadyUpdated = false;
+      }
+      this.props.addBet(data);
     }
-    this.props.addBet(data);
   }
 
   render() {
@@ -73,9 +75,10 @@ class BetSubmitRowComponent extends React.Component {
             <div className="team-image">
               <Image src={match.HomeTeam.CrestUrl} />
             </div>
-            <Label className="redLabel">
+            <Label className="greenLabel">
               Win :
-               10
+              {' '}
+              {match.HomeTeamRating === 0 ? 'N/A' : parseFloat(match.HomeTeamRating).toFixed(2)}
             </Label>
             <div className="team-info">
               <div className="team-name">
@@ -84,7 +87,7 @@ class BetSubmitRowComponent extends React.Component {
             </div>
           </div>
           <div className="container-versus">
-            <div className="match-info">{moment(match.UtcDate).format('DD/MM/YYYY')}</div>
+            <div className="match-info">{moment(match.UtcDate).format('MM-DD-YYYY')}</div>
             <div className="container-versus-details">
               <div className="home-score ">
                 <Input defaultValue={bet ? bet.HomeTeamScore : ''} onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />
@@ -96,7 +99,8 @@ class BetSubmitRowComponent extends React.Component {
             </div>
             <Label>
               Draw :
-              90
+              {' '}
+              {match.DrawRating === 0 ? 'N/A' : parseFloat(match.DrawRating).toFixed(2)}
             </Label>
           </div>
           <div className="container-awayteam">
@@ -105,7 +109,8 @@ class BetSubmitRowComponent extends React.Component {
             </div>
             <Label className="greenLabel">
               Win :
-              90
+              {' '}
+              {match.AwayTeamRating === 0 ? 'N/A' : parseFloat(match.AwayTeamRating).toFixed(2)}
             </Label>
             <div className="team-info">
               <div className="team-name">{match.AwayTeam.Name}</div>

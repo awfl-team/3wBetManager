@@ -52,6 +52,18 @@ i.circular.icon{
     background-color: $orange;
     border-color: $orange;
   }
+  &.rareLabel {
+    background-color: $rare;
+    border-color: $rare;
+  }
+  &.epicLabel {
+    background-color: $epic;
+    border-color: $epic;
+  }
+  &.legendaryLabel {
+    background-color: $legendary;
+    border-color: $legendary;
+  }
   &.infoLabel {
     background-color: $blue;
     border-color: $blue;
@@ -66,6 +78,41 @@ i.circular.icon{
 .ui.green.button {
   background-color: $vue-green;
   border-color: $vue-green;
+}
+
+.ui.inverted.green.button {
+  border-color: $vue-green !important;
+  color: $white !important;
+  &:hover {
+    background: $vue-green !important;
+  }
+}
+
+.ui.inverted.rare.button {
+  border: 2px $rare solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $rare !important;
+  }
+}
+
+.ui.inverted.epic.button {
+  border: 2px $epic solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $epic !important;
+  }
+}
+
+.ui.inverted.legendary.button {
+  border: 2px $legendary solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $legendary !important;
+  }
 }
 
 
@@ -116,25 +163,40 @@ input[type=number] {
   color: $white;
 }
 
-.ui.table tr.active {
-  background-color: $vue !important;
-  border: 2px solid $vue-green;
-  transition: $main-transition;
+.ui.table tr {
+  &.active {
+    background-color: $vue !important;
+    border: 2px solid $vue-green;
+    transition: $main-transition;
 
-  &:hover {
-    background-color: $vue-contrast !important;
+    &:hover {
+      background-color: $vue-contrast !important;
+    }
+
+    td {
+      color: $white;
+      font-weight: bold;
+    }
   }
-
-
-  td {
-    color: $white;
-    font-weight: bold;
-  }
-
 }
 
 .ui.table {
   border: 2px solid $vue-contrast !important;
+  background: #1D2935 !important;
+  tr {
+    transition: $main-transition;
+    &.bet.buffed {
+      &-x10 {
+        border: 2px solid $legendary !important;
+      }
+      &-x5 {
+        border: 2px solid $epic !important;
+      }
+      &-x2 {
+        border: 2px solid $rare !important;
+      }
+    }
+  }
 }
 
 .pagination {
@@ -145,6 +207,52 @@ input[type=number] {
     color: $white !important;
     &.active {
       border: 2px solid $vue-green !important;
+    }
+  }
+}
+
+.header-custom-image-container {
+  box-shadow: 0 0 0 0.2em #42b983 !important;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 112px;
+  height: 112px;
+  padding: 20px;
+  border-radius: 500rem;
+  .image-icon-header {
+    height: 100%;
+  }
+}
+.custom-button-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .image-icon-button {
+    height: 20px;
+    opacity: 1;
+    &.hide {
+      opacity: 0;
+    }
+  }
+}
+
+.ui.progress {
+  & > .label {
+   color: $white !important;
+  }
+  &.success {
+    & > .label {
+      color: $vue-green !important;
+    }
+  }
+  &.warning {
+    & > .label {
+      color: $orange !important;
+    }
+  }
+  &.error {
+    & > .label {
+      color: $red !important;
     }
   }
 }

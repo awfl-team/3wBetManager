@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
@@ -66,7 +67,7 @@ class ResetPasswordComponent extends React.Component {
     } else {
       this.props.addSnackbar({
         message: 'Invalid token',
-        type: 'error',
+        type: 'danger',
       });
     }
   }
@@ -78,6 +79,9 @@ class ResetPasswordComponent extends React.Component {
 
     return (
       <div className="register-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="arrow left" />
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
@@ -165,5 +169,4 @@ class ResetPasswordComponent extends React.Component {
 }
 
 const resetPasswordComponent = connect(null, mapDispatchToProps)(ResetPasswordComponent);
-
 export default resetPasswordComponent;

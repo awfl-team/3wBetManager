@@ -27,10 +27,10 @@ class AvailableBets extends React.Component {
               <List.Content>
                 <List.Header>
                   <div className="hometeam">
+                    <span>{availableBet.Match.HomeTeam.Name}</span>
                     <div className="team-image">
                       <Image src={availableBet.Match.HomeTeam.CrestUrl} />
                     </div>
-                    <span>{availableBet.Match.HomeTeam.Name}</span>
                   </div>
                   <div className="versus"><span> VS </span></div>
                   <div className="awayteam">
@@ -43,17 +43,35 @@ class AvailableBets extends React.Component {
                 <List.Description>
                   <p>
                     {availableBet.Match.Competition.Name}
-                    |
+                    <span> | </span>
                     {moment(availableBet.Match.UtcDate).format('MM-DD-YYYY')}
                   </p>
                 </List.Description>
                 <List.Description>
-                  <Label>
-                    Bet :
-                    {availableBet.HomeTeamScore}
-                    -
-                    {availableBet.AwayTeamScore}
-                  </Label>
+                  <div className="whiteColor tags">
+                    <Label>
+                      Bet :
+                      {availableBet.HomeTeamScore}
+                      -
+                      {availableBet.AwayTeamScore}
+                    </Label>
+                    {' '}
+                    {availableBet.Multiply !== 0
+                    && (
+                      <div>
+                        <span> | </span>
+                        <Label className={availableBet.Multiply === 10 ? 'legendaryLabel' : ''
+                        || availableBet.Multiply === 5 ? 'epicLabel' : ''
+                        || availableBet.Multiply === 2 ? 'rareLabel' : ''}
+                        >
+                          x
+                          {' '}
+                          {availableBet.Multiply}
+                        </Label>
+                      </div>
+                    )
+                    }
+                  </div>
                 </List.Description>
               </List.Content>
             </List.Item>

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Icon, List, Rating,
-} from 'semantic-ui-react';
+import { Icon, List } from 'semantic-ui-react';
 
 import { Link } from 'react-router-dom';
 import UserService from '../../service/UserService';
@@ -38,11 +36,13 @@ class Top3 extends React.Component {
               <List.Header as={user.IsPrivate === false ? 'a' : ''}><h4>{user.Username}</h4></List.Header>
               <List.Description>
                 <div className="whiteColor">
-                  <Rating icon="heart" rating={user.Life} maxRating={3} disabled />
+                  <span>{user.Life}</span>
                   {' '}
+                  <Icon color="red" name="heart" size="large" />
                     |
                   {' '}
                   <span>{user.Point}</span>
+                  {' '}
                   <Icon color="yellow" name="copyright" size="large" />
                     |
                   {' '}

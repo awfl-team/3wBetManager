@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Menu, Header, Icon, Modal, Rating,
+  Button, Header, Icon, Menu, Modal,
 } from 'semantic-ui-react';
 
 class Help extends React.Component {
@@ -44,7 +44,8 @@ or want to restart from scratch, you can reset your account !
             <br />
             It'll cost you one
             {' '}
-            <Rating icon="heart" defaultRating={1} maxRating={1} disabled size="huge" />
+            <img alt="icon" src="assets/images/life-x1.svg" className="icon-image" />
+            {' '}
             and reset your
             {' '}
             <Icon color="yellow" name="copyright" />
@@ -90,6 +91,49 @@ It's only cost some
             {' '}
 and
             the matches results for each match you have submited a bet for.
+          </p>
+
+          <h3>
+            Shop & Items
+            <span role="img" aria-label="cocomongo"> &#129381; &#x1F96D;</span>
+          </h3>
+          <p>
+            Let's play a game !
+            <br />
+            You can buy items like
+            {' '}
+            <img alt="icon" src="assets/images/bomb-x1.svg" className="icon-image" />
+            ,
+            {' '}
+            <img alt="icon" src="assets/images/life-x1.svg" className="icon-image" />
+            ,
+            {' '}
+            <img alt="icon" src="assets/images/lootbox.svg" className="icon-image" />
+            {' '}
+            and more ! Items are either
+            {' '}
+            <span className="common">Common</span>
+            ,
+            {' '}
+            <span className="rare">Rare</span>
+            ,
+            {' '}
+            <span className="epic">Epic</span>
+            {' '}
+            or
+            {' '}
+            <span className="legendary">Legendary</span>
+            {' '}
+            !
+            <br />
+            Use those items on other players or on your bets to increase your incomes.
+            <br />
+            Open a lootbox to get random items !
+          </p>
+          <p>
+            It'll only cost you some
+            {' '}
+            <Icon color="yellow" name="copyright" />
           </p>
         </Modal.Content>
         <Modal.Actions>

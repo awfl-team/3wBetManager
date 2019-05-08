@@ -1,14 +1,6 @@
 import React from 'react';
 import {
-  Button,
-  Container,
-  Header,
-  Icon,
-  Input, Label,
-  Pagination,
-  Radio,
-  Rating,
-  Table,
+  Button, Header, Icon, Input, Label, Pagination, Radio, Table,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
@@ -121,26 +113,36 @@ class AdminUserTable extends React.Component {
         <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>
-          Users (
+              Users (
             {totalUsers}
-            )
+              )
           </Header.Content>
         </Header>
-        <Container fluid className="container-centered">
-          <div className="userTableHeader">
-            <Input type="search" labelPosition="right" placeholder="Search a user">
-              <Label icon="close" className="redColor" circular onClick={() => this.clearSearch()} />
-              <input
-                onKeyPress={event => this.searchUsers(event)}
-                onChange={event => this.searchUsers(event)}
-              />
-              <Label icon="search" className="greenColor" circular onClick={() => this.searchUsers()} />
-            </Input>
-            <Link to="/admin/addUser" className="button ui green">
-              <Icon name="add" />
-                Create a user
-            </Link>
-          </div>
+        <div className="userTableHeader">
+          <Input type="search" labelPosition="right" placeholder="Search a user">
+            <Label
+              icon="close"
+              className="redColor"
+              circular
+              onClick={() => this.clearSearch()}
+            />
+            <input
+              onKeyPress={event => this.searchUsers(event)}
+              onChange={event => this.searchUsers(event)}
+            />
+            <Label
+              icon="search"
+              className="greenColor"
+              circular
+              onClick={event => this.searchUsers(event)}
+            />
+          </Input>
+          <Link to="/admin/addUser" className="button ui green">
+            <Icon name="add" />
+            Create a user
+          </Link>
+        </div>
+        <div className="scrollable-table-container">
           <Table celled striped unstackable inverted className="primary-bg">
             <Table.Header>
               <Table.Row>
@@ -152,59 +154,70 @@ class AdminUserTable extends React.Component {
                 <Table.HeaderCell>Actions</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
-
             <Table.Body>
               {users.map(user => (
                 <Table.Row key={user.Id}>
                   <Table.Cell>{user.Username}</Table.Cell>
                   <Table.Cell>{user.Email}</Table.Cell>
                   <Table.Cell>
-                    <Icon color="yellow" name="copyright" size="big" />
-                    <span color="yellow">{user.Point}</span>
+                    <span>{user.Point}</span>
+                    {' '}
+                    <Icon color="yellow" name="copyright" size="large" />
                   </Table.Cell>
                   <Table.Cell>
-                    <Rating icon="heart" rating={user.Life} maxRating={3} disabled size="huge" />
+                    <div>
+                      <span>{user.Items.filter(i => i.Type === 'LIFE').length}</span>
+                      {' '}
+                      <Icon color="red" name="heart" size="large" />
+                    </div>
                   </Table.Cell>
                   <Table.Cell>
                     <Radio
                       toggle
-                      disabled={this.props.user.email === user.email}
+                      disabled={this.props.user.email === user.Email}
                       defaultChecked={user.Role === 'ADMIN'}
                       onClick={() => this.handleClick(user)}
                     />
                   </Table.Cell>
                   <Table.Cell>
-                    <Link to={`/user/${user.Id}`} className="button ui blue small icon">
-                      <Icon name="eye" className="whiteColor" />
-                    </Link>
-                    { user.Email !== this.props.user.email
+                    {user.Email !== this.props.user.email
                     && (
-                    <Button type="button" className="button ui red small icon" onClick={() => this.handleDelete(user)}>
-                      <Icon name="trash" />
-                    </Button>
+                      <Link to={`/user/${user.Id}`} className="button ui blue small icon">
+                        <Icon name="eye" className="whiteColor" />
+                      </Link>
                     )
                     }
-
+                    {user.Email !== this.props.user.email
+                    && (
+                      <Button
+                        type="button"
+                        className="button ui red small icon"
+                        onClick={() => this.handleDelete(user)}
+                      >
+                        <Icon name="trash" />
+                      </Button>
+                    )
+                    }
                   </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
           </Table>
-          {showPagination === true
-            && (
-            <Pagination
-              ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
-              firstItem={null}
-              lastItem={null}
-              defaultActivePage={1}
-              prevItem={{ content: <Icon name="angle left" />, icon: true }}
-              nextItem={{ content: <Icon name="angle right" />, icon: true }}
-              totalPages={totalPages}
-              onPageChange={event => this.getNextUsers(event)}
-            />
-            )
-          }
-        </Container>
+        </div>
+        {showPagination === true
+        && (
+          <Pagination
+            ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
+            firstItem={null}
+            lastItem={null}
+            defaultActivePage={1}
+            prevItem={{ content: <Icon name="angle left" />, icon: true }}
+            nextItem={{ content: <Icon name="angle right" />, icon: true }}
+            totalPages={totalPages}
+            onPageChange={event => this.getNextUsers(event)}
+          />
+        )
+        }
       </div>
     );
   }

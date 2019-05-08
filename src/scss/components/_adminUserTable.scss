@@ -1,38 +1,44 @@
-#adminUserTable {
-  & > .container {
-    @media screen and (max-width: 801px) {
-      overflow-x: scroll;
-    }
-    table {
-      min-width: 800px;
-    }
+.userTableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: $vue;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
 
+  .label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    i {
+      margin: 0 10px;
+    }
+  }
+
+  .button {
+    min-width: 140px;
+  }
+  .pagination {
+    margin: 0 20px;
+  }
+}
+
+#AdminLayout {
+  text-align: center;
+  #adminUserTable {
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
     .userTableHeader {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      background: $vue;
-      border-radius: 5px;
-      width: 100%;
-      min-width: 800px;
-
-      .label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-
-        i {
-          margin: 0 10px;
+      @media screen and (max-width: 450px) {
+        flex-direction: column;
+        .input {
+          margin-bottom: 5px;
         }
-      }
-
-      .button {
-        min-width: 140px;
-      }
-      .pagination {
-        margin: 0 20px;
       }
     }
   }

@@ -5,6 +5,7 @@ import {
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import BetService from '../../service/BetService';
+import Bet from '../../model/Bet';
 
 class FinishedBets extends React.Component {
   state = {
@@ -27,10 +28,10 @@ class FinishedBets extends React.Component {
               <List.Content>
                 <List.Header>
                   <div className="hometeam">
+                    <span>{finishedBet.Match.HomeTeam.Name}</span>
                     <div className="team-image">
                       <Image src={finishedBet.Match.HomeTeam.CrestUrl} />
                     </div>
-                    <span>{finishedBet.Match.HomeTeam.Name}</span>
                   </div>
                   <div className="versus"><span> VS </span></div>
                   <div className="awayteam">
@@ -43,36 +44,55 @@ class FinishedBets extends React.Component {
                 <List.Description>
                   <p>
                     {finishedBet.Match.Competition.Name}
-                    |
+                    <span> | </span>
                     {moment(finishedBet.Match.UtcDate).format('MM-DD-YYYY')}
                   </p>
                 </List.Description>
                 <List.Description>
-                  <div className="whiteColor">
+                  <div className="whiteColor tags">
                     <Label className="infoLabel">
                       Result :
                       {finishedBet.Match.Score.FullTime.HomeTeam}
                       -
                       {finishedBet.Match.Score.FullTime.AwayTeam}
                     </Label>
-                    {' '}
-                    |
-                    {' '}
+                    <span> | </span>
                     <Label>
                       Bet :
                       {finishedBet.HomeTeamScore}
                       -
                       {finishedBet.AwayTeamScore}
                     </Label>
-                    {' '}
-                    |
-                    {' '}
-                    <Label color="green">{finishedBet.Status}</Label>
-                    {' '}
-                    |
-                    {' '}
-                    {finishedBet.PointsWon}
-                    <Icon name="copyright" color="yellow" size="large" />
+                    <span> | </span>
+                    <Label
+                      className={
+                        finishedBet.Status === Bet.STATUS_PERFECT ? 'greenLabel' : ''
+                        || finishedBet.Status === Bet.STATUS_WRONG ? 'redLabel' : ''
+                        || finishedBet.Status === Bet.STATUS_OK ? 'orangeLabel' : ''}
+                    >
+                      {finishedBet.Status}
+                    </Label>
+                    {finishedBet.Multiply !== 0
+                      && (
+                      <div>
+                        <span> | </span>
+                        <Label className={finishedBet.Multiply === 10 ? 'legendaryLabel' : ''
+                        || finishedBet.Multiply === 5 ? 'epicLabel' : ''
+                        || finishedBet.Multiply === 2 ? 'rareLabel' : ''}
+                        >
+                          x
+                          {' '}
+                          {finishedBet.Multiply}
+                        </Label>
+                      </div>
+                      )
+                    }
+                    <span> | </span>
+                    <div>
+                      {finishedBet.PointsWon}
+                      {' '}
+                      <Icon name="copyright" color="yellow" size="large" />
+                    </div>
                   </div>
                 </List.Description>
               </List.Content>

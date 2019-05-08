@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { Button, Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 
@@ -28,6 +29,10 @@ class LoginComponent extends React.Component {
       });
   }
 
+  handleClick() {
+    this.props.history.push('/');
+  }
+
   render() {
     const {
       toDashboard, email, password,
@@ -38,12 +43,13 @@ class LoginComponent extends React.Component {
     }
     return (
       <div className="login-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="home" />
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content">
-                  Sign-in
-              </div>
+                Sign in
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
               <div className="ui stacked">
@@ -82,8 +88,13 @@ class LoginComponent extends React.Component {
 
 
             <div className="ui message">
-                New ? &nbsp;
+              New ?
+              {' '}
               <Link to="/signup">Sign Up</Link>
+              {' '}
+              |
+              {' '}
+              <Link to="/forgot_password">Forgot password</Link>
             </div>
           </div>
         </div>

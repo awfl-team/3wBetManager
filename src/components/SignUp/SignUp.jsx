@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import User from '../../model/User';
 import AuthService from '../../service/AuthService';
@@ -58,6 +59,10 @@ class SignUpComponent extends React.Component {
     }
   }
 
+  handleClick() {
+    this.props.history.push('/login');
+  }
+
   render() {
     const {
       confirmPassword, password, toDashboard, email, username, className,
@@ -69,12 +74,13 @@ class SignUpComponent extends React.Component {
 
     return (
       <div className="register-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="arrow left" />
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content">
-                  Create a new account
-              </div>
+                Create a new account
             </h2>
             <form
               className="ui large form"
@@ -163,20 +169,25 @@ class SignUpComponent extends React.Component {
                   </p>
                   <p className={className.formMultipleInfos}>
                     <i className="info circle icon" />
-                      The password requires a
+                      The password requires an
+                    {' '}
                     <span
                       className={className.formdFieldUppercase}
                     >
                     uppercase
                     </span>
                       , a
+                    {' '}
                     <span className={className.formFieldSpecial}>
                         special character
                     </span>
+                    {' '}
                       and
+                    {' '}
                     <span
                       className={className.formFieldWithNumber}
                     >
+                      {' '}
                       a number
                     </span>
                   </p>
@@ -185,8 +196,13 @@ class SignUpComponent extends React.Component {
               <div className="ui error message" />
             </form>
             <div className="ui message">
-                Already have an account ? &nbsp;
+                Already have an account ?
+              {' '}
               <Link to="/login">Log In</Link>
+              {' '}
+              |
+              {' '}
+              <Link to="/forgot_password">Forgot password</Link>
             </div>
           </div>
         </div>

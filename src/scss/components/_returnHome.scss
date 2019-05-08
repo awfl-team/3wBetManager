@@ -1,0 +1,14 @@
+.login-page, .register-page {
+  position: relative;
+  #returnHome {
+    position: absolute;
+    left: 40px;
+    bottom: 20px;
+    background-color: $vue-contrast;
+    border: 2px solid $vue-green;
+    &:hover {
+      background-color: $vue !important;
+      color: $white !important;
+    }
+  }
+}

@@ -3,9 +3,14 @@ import User from './User';
 import moment from 'moment';
 
 export default class Bet {
+	static STATUS_PERFECT: string = 'Perfect';
+	static STATUS_OK: string = 'Ok';
+	static STATUS_WRONG: string = 'Wrong';
+
 	Id!: string;
 	Guid!: string;
 	Match!: Match;
+	Multiply!: number;
 	User!: User;
 	Date!: Date;
 	HomeTeamScore: number = 0;
@@ -19,6 +24,7 @@ export default class Bet {
 		if (data.Id) this.Id = data.Id;
 		if (data.Guid) this.Guid = data.Guid;
 		if (data.Match) this.Match = new Match(data.Match);
+		if (data.Multiply) this.Multiply = data.Multiply;
 		if (data.User) this.User = new User(data.User);
 		if (data.Date) this.Date = moment(data.Date).toDate();
 		if (data.HomeTeamScore) this.HomeTeamScore = data.HomeTeamScore;

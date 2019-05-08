@@ -5,8 +5,7 @@ function Homepage() {
   return (
     <div>
       <div className="pusher" id="homepage">
-        <div className="ui inverted vertical masthead center aligned segment hp-Header">
-          <div className="mask" />
+        <div className="ui inverted vertical masthead center aligned segment hp-Header" style={{ backgroundImage: 'url("assets/images/test.jpg")' }}>
           <div className="ui container">
             <div className="ui large secondary  menu">
               <div className="right item">
@@ -16,20 +15,13 @@ function Homepage() {
             </div>
           </div>
 
-          <div className="ui text container">
-            <h1 className="ui inverted header">
-                  3wBet-Manager
-            </h1>
-            <h2>Manage your bets</h2>
-            <Link to="/login" className="ui huge red button">
-              Let's go !
-              <i className="right arrow icon" />
-            </Link>
+          <div className="ui text container brand">
+            <img src="assets/images/logo-brand.svg" alt="brand" />
+            <h1>Manage your bets</h1>
           </div>
-
         </div>
 
-        <div className="ui vertical stripe segment bg-vue">
+        <div className="ui vertical stripe segment bg-vue homepage-dark">
           <div className="ui middle aligned stackable grid container">
             <div className="row">
               <div className="eight wide column">

@@ -4,6 +4,7 @@ import {
 } from 'semantic-ui-react';
 import moment from 'moment';
 import BetService from '../../service/BetService';
+import Bet from '../../model/Bet';
 
 class BetRowResult extends React.Component {
   state = {
@@ -22,7 +23,12 @@ class BetRowResult extends React.Component {
       <div id="betRows">
         <Container fluid>
           {bets.map(bet => (
-            <div key={bet.Id} className="betRow">
+            <div
+              key={bet.Id}
+              className={`betRow ${bet.Multiply === 10 ? 'buffed-x10' : ''
+              || bet.Multiply === 5 ? 'buffed-x5' : ''
+              || bet.Multiply === 2 ? 'buffed-x2' : ''}`}
+            >
               <div className="betRow-info">
                 <div className="container-hometeam">
                   <div className="team-image">
@@ -38,7 +44,7 @@ class BetRowResult extends React.Component {
                   </div>
                 </div>
                 <div className="container-versus">
-                  <div className="match-info">{moment(bet.Match.UtcDate).format('DD/MM/YYYY')}</div>
+                  <div className="match-info">{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</div>
                   <div className="container-versus-details">
                     <div className="home-score ">{bet.Match.Score.FullTime.HomeTeam}</div>
                     <div className="versus-text"> -</div>
@@ -64,27 +70,25 @@ class BetRowResult extends React.Component {
                   </div>
                 </div>
               </div>
-              <Message
-                color={bet.Status === 'Perfect' ? 'green' : ''
-              || bet.Status === 'Wrong' ? 'red' : '' || bet.Status === 'OK' ? 'info' : ''}
-                className="betRow-results"
-              >
+              <div className="betRow-results">
                 <Message.Header>
                   {bet.PointsWon}
                   {' '}
                   <Icon color="yellow" name="copyright" />
                 </Message.Header>
                 <div className="container-versus-details">
-                  <div className="bet-date">{moment(bet.Date).format('DD/MM/YYYY')}</div>
+                  <div className="bet-date">{moment(bet.Date).format('MM-DD-YYYY')}</div>
                   <div className="container-versus-details-results-bet">
-                    <Label color={bet.Status === 'Perfect' ? 'green' : ''
-                    || bet.Status === 'Wrong' ? 'red' : '' || bet.Status === 'OK' ? 'info' : ''}
+                    <Label className={
+                      bet.Status === Bet.STATUS_PERFECT ? 'greenLabel' : ''
+                      || bet.Status === Bet.STATUS_WRONG ? 'redLabel' : ''
+                      || bet.Status === Bet.STATUS_OK ? 'orangeLabel' : ''}
                     >
                       {bet.Status}
                     </Label>
                   </div>
                 </div>
-              </Message>
+              </div>
             </div>
           ))}
         </Container>

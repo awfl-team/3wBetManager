@@ -4,6 +4,22 @@
     padding: 15px;
     border: 1px $vue-contrast dashed;
     display: flex;
+    @media screen and (max-width: 768px) {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    &.buffed {
+      &-x10 {
+        border: 2px solid $legendary !important;
+      }
+      &-x5 {
+        border: 2px solid $epic !important;
+      }
+      &-x2 {
+        border: 2px solid $rare !important;
+      }
+    }
 
     &:not(:first-child) {
       margin-top: 50px;
@@ -24,8 +40,20 @@
     &-info, &-results {
       display: flex;
       justify-content: space-between;
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+        flex: 1 1 auto !important;
+      }
 
       .container {
+        &-hometeam, &-awayteam {
+          @media screen and (max-width: 768px) {
+            flex-direction: column-reverse;
+            flex-wrap: nowrap !important;
+            justify-content: center !important;
+            flex: 1 1 auto !important;
+          }
+        }
         &-hometeam, &-versus, &-awayteam {
           display: flex;
           flex: 1 1 33%;
@@ -42,6 +70,9 @@
           }
           .label {
             align-self: flex-start;
+            @media screen and (max-width: 768px) {
+              align-self: center;
+            }
           }
         }
 
@@ -54,9 +85,9 @@
             &-image {
               margin-bottom: 10px;
               img {
-                min-width: 75px;
+                min-width: 100px;
                 max-width: 100px;
-                min-height: 75px;
+                min-height: 100px;
                 max-height: 100px;
                 height: 100%;
                 width: 100%;
@@ -69,7 +100,7 @@
                   border: 2px $red solid;
                 }
 
-                @media screen and (max-width: 800px) {
+                @media screen and (max-width: 768px) {
                   display: none;
                 }
               }
@@ -96,7 +127,7 @@
           }
           &-results {
             margin-bottom: 10px;
-            font-size: 20px;
+            font-size: 1.25rem;
           }
           .versus-text {
             font-weight: bold;
@@ -113,16 +144,16 @@
           align-self: center;
           height: 50px;
           line-height: 42px;
-          font-size: 40px;
+          font-size: 2.5rem;
           box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
-          background: #F8F8F9;
+          background: $vue-contrast;
 
           &-results {
             border-radius: 25px;
             align-self: center;
             height: 30px;
             line-height: 22px;
-            font-size: 20px;
+            font-size: 1.25rem;
 
           }
 
@@ -139,20 +170,30 @@
       flex-wrap: wrap;
       margin: 0;
       flex: 1 0 200px;
-      min-width: 200px;
       min-height: 100px;
+      background: $vue-contrast;
       .header {
-        font-size: 30px;
+        font-size: 1.87rem;
         align-self: flex-end;
         flex: 1 0 100%;
         justify-content: center;
         display: flex;
         margin-bottom: 10px;
+        @media screen and (max-width: 768px) {
+          align-self: center;
+          margin: 10px 0 0 0;
+        }
       }
       .container-versus-details  {
         display: flex;
         flex-wrap: wrap;
         align-self: flex-start;
+        @media screen and (max-width: 768px) {
+          align-self: center;
+          display: flex !important;
+          justify-content: center !important;
+          margin: 10px 0 !important;
+        }
       }
     }
   }
@@ -165,6 +206,12 @@
       align-self: flex-start;
       box-shadow: none;
       background: transparent;
+      @media screen and (max-width: 768px) {
+        align-self: center;
+        display: flex !important;
+        justify-content: center !important;
+        margin: 10px 0 !important;
+      }
       .home-score, .away-score {
         .input {
           width: 50px;
