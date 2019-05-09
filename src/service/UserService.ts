@@ -2,7 +2,12 @@ import API from '../api';
 import User from "../model/User";
 
 export default class UserService {
-
+  static login(email: string, password: string) : Promise<any> {
+    return API.post('login', {
+      Email: email,
+      Password: password,
+    });
+  }
 
   static signUp(user: User) {
     return API.post('register', {

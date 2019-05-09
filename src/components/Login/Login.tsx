@@ -4,7 +4,6 @@ import { Button, Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
 import {AxiosResponse} from "axios";
-import API from "../../api";
 
 interface LoginProps extends RouteComponentProps<any> {
 }
@@ -19,7 +18,7 @@ class LoginComponent extends React.Component<LoginProps> {
 
   handleEmailChange = (event: SyntheticEvent) => {
     const target = event.target as HTMLInputElement;
-    this.setState({ email: target.value });
+    this.setState({ email: target.value })
   };
 
   handlePasswordChange = (event: SyntheticEvent) => {
@@ -31,13 +30,11 @@ class LoginComponent extends React.Component<LoginProps> {
     event.preventDefault();
 
     const target = event.target as any;
-    API.post('login', {
-      Email: target.email.value,
-      Password: target.password.value,
-    })      .then((response: AxiosResponse) => {
+    UserService.login(target.email.value, target.password.value)
+      .then((response: AxiosResponse) => {
         AuthService.setTokenInLocalStorage(response.data);
         this.setState({ toDashboard: true });
-      }).finally(() => console.log('????'));
+      });
   }
 
   handleClick() {
