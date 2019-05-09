@@ -1,14 +1,10 @@
 import API from '../api';
+import User from "../model/User";
 
 export default class UserService {
-  static login(email, password) {
-    return API.post('login', {
-      Email: email,
-      Password: password,
-    });
-  }
 
-  static signUp(user) {
+
+  static signUp(user: User) {
     return API.post('register', {
       Email: user.Email,
       Password: user.Password,
@@ -16,7 +12,7 @@ export default class UserService {
     });
   }
 
-  static addUserAdmin(user) {
+  static addUserAdmin(user: User) {
     return API.post('users', {
       Email: user.Email,
       Password: user.Password,
@@ -25,19 +21,19 @@ export default class UserService {
     });
   }
 
-  static forgotPassword(user) {
+  static forgotPassword(user: User) {
     return API.post('forgot_password', user);
   }
 
-  static verifyAccount(user) {
+  static verifyAccount(user: User) {
     return API.put('verify_account', user);
   }
 
-  static resetPassword(user) {
+  static resetPassword(user: User) {
     return API.put('reset_password', user);
   }
 
-  static getUserById(id) {
+  static getUserById(id: string) {
     return API.get(`users/${id}`);
   }
 
@@ -49,25 +45,25 @@ export default class UserService {
     return API.get('users');
   }
 
-  static searchUsers(searchedTerm) {
+  static searchUsers(searchedTerm: string) {
     return API.get(`users/search/${searchedTerm}`);
   }
 
-  static getAllUsersPaginated(page = 1) {
+  static getAllUsersPaginated(page: number = 1) {
     return API.get(`users/paginated/${page}`);
   }
 
-  static deleteUser(user) {
+  static deleteUser(user: User) {
     return API.delete(`/users/${user.Id}`);
   }
 
-  static handleVisibilityUser(isPrivate) {
+  static handleVisibilityUser(isPrivate: boolean) {
     return API.put('/users/visibility', {
       IsPrivate: isPrivate,
     });
   }
 
-  static updateRoleUser(user) {
+  static updateRoleUser(user: User) {
     return API.put(`/users/${user.Id}/role`, {
       Role: user.Role,
     });
@@ -77,7 +73,7 @@ export default class UserService {
     return API.put('/users/reset');
   }
 
-  static updateUser(user) {
+  static updateUser(user: User) {
     return API.put(`/users/${user.Id}`, {
       Email: user.Email,
       Password: user.Password,

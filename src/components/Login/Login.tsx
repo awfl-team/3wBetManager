@@ -1,32 +1,43 @@
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, {FormEvent, SyntheticEvent} from 'react';
+import {Link, Redirect, RouteComponentProps} from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
 import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
+import {AxiosResponse} from "axios";
+import API from "../../api";
 
-class LoginComponent extends React.Component {
+interface LoginProps extends RouteComponentProps<any> {
+}
+
+
+class LoginComponent extends React.Component<LoginProps> {
   state = {
     toDashboard: false,
     email: '',
     password: '',
   };
 
-  handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
+  handleEmailChange = (event: SyntheticEvent) => {
+    const target = event.target as HTMLInputElement;
+    this.setState({ email: target.value });
   };
 
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+  handlePasswordChange = (event: SyntheticEvent) => {
+    const target = event.target as HTMLInputElement;
+    this.setState({ password: target.value });
   };
 
-  handleSubmit(event) {
+  handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    UserService.login(event.target.email.value, event.target.password.value)
-      .then((response) => {
+    const target = event.target as any;
+    API.post('login', {
+      Email: target.email.value,
+      Password: target.password.value,
+    })      .then((response: AxiosResponse) => {
         AuthService.setTokenInLocalStorage(response.data);
         this.setState({ toDashboard: true });
-      });
+      }).finally(() => console.log('????'));
   }
 
   handleClick() {

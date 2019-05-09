@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from 'axios';
+import axios, {AxiosResponse, AxiosRequestConfig} from 'axios';
 import AuthService from './service/AuthService';
 import { addSnackBar } from './actions/SnackBarActions';
 import store from './store';
@@ -8,7 +8,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 api.interceptors.request.use(
-  (config) => {
+  (config: AxiosRequestConfig) => {
     const token = AuthService.getToken();
     const configuration = config;
     if (token !== null) configuration.headers.Authorization = `Bearer ${token}`;
@@ -17,8 +17,7 @@ api.interceptors.request.use(
   error => Promise.reject(error),
 );
 
-api.interceptors.response.use(((response: AxiosResponse<any>) => {
-  return Promise.reject(response);}), ((error: any) => {
+api.interceptors.response.use(undefined, ((error: any) => {
   let message: string = 'Connection lost with the server :(';
 
   if (error.response) {
