@@ -33,7 +33,8 @@ class BetRowResult extends React.Component {
                 <div className="container-hometeam">
                   <div className="team-image">
                     <Image
-                      src={bet.Match.HomeTeam.CrestUrl}
+                      src={bet.Match.HomeTeam.CrestUrl ? bet.Match.HomeTeam.CrestUrl : '/assets/images/hometeam-placeholder.png'}
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/hometeam-placeholder.png'; }}
                       className={bet.Match.Score.Winner === 'HOME_TEAM' ? 'win' : 'loose'}
                     />
                   </div>
@@ -59,7 +60,8 @@ class BetRowResult extends React.Component {
                 <div className="container-awayteam">
                   <div className="team-image">
                     <Image
-                      src={bet.Match.AwayTeam.CrestUrl}
+                      src={bet.Match.AwayTeam.CrestUrl ? bet.Match.AwayTeam.CrestUrl : '/assets/images/awayteam-placeholder.png'}
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/awayteam-placeholder.png'; }}
                       className={bet.Match.Score.Winner === 'Away_TEAM' ? 'win' : 'loose'}
                     />
                   </div>

@@ -73,7 +73,10 @@ class BetSubmitRowComponent extends React.Component {
         <div className="betRow-info">
           <div className="container-hometeam">
             <div className="team-image">
-              <Image src={match.HomeTeam.CrestUrl} />
+              <Image
+                src={match.HomeTeam.CrestUrl ? match.HomeTeam.CrestUrl : '/assets/images/hometeam-placeholder.png'}
+                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/hometeam-placeholder.png'; }}
+              />
             </div>
             <Label className="greenLabel">
               Win :
@@ -105,7 +108,10 @@ class BetSubmitRowComponent extends React.Component {
           </div>
           <div className="container-awayteam">
             <div className="team-image">
-              <Image src={match.AwayTeam.CrestUrl} />
+              <Image
+                src={match.AwayTeam.CrestUrl ? match.AwayTeam.CrestUrl : '/assets/images/awayteam-placeholder.png'}
+                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/awayteam-placeholder.png'; }}
+              />
             </div>
             <Label className="greenLabel">
               Win :

@@ -20,7 +20,6 @@ class AdminUserTable extends React.Component {
     users: [],
     totalPages: 1,
     totalUsers: 0,
-    showPagination: true,
   };
 
   componentDidMount() {
@@ -52,7 +51,8 @@ class AdminUserTable extends React.Component {
         .then((response) => {
           this.setState({
             users: response.data,
-            showPagination: false,
+            totalPages: response.data.TotalPages,
+            totalUsers: response.data.TotalUsers,
           });
         });
     }
@@ -98,14 +98,13 @@ class AdminUserTable extends React.Component {
           users: response.data.Items,
           totalPages: response.data.TotalPages,
           totalUsers: response.data.TotalUsers,
-          showPagination: true,
         });
       });
   }
 
   render() {
     const {
-      users, totalPages, totalUsers, showPagination,
+      users, totalPages, totalUsers,
     } = this.state;
 
     return (
@@ -204,7 +203,7 @@ class AdminUserTable extends React.Component {
             </Table.Body>
           </Table>
         </div>
-        {showPagination === true
+        {totalPages >= 2 && totalUsers > 10
         && (
           <Pagination
             ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}

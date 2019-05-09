@@ -13,6 +13,7 @@ pages:
     - npm run build
     - rm -rf public
     - mv build public
+    - rm -rf react-master-group-1
   artifacts:
     paths:
     - public
