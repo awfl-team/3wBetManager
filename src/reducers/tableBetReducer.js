@@ -1,4 +1,6 @@
-import { ADD_TABLE_BET, PURGE_TABLE_BET, SET_TABLE_BET } from '../actions/TableBetActions';
+import {
+  ADD_TABLE_BET, PURGE_TABLE_BET, REMOVE_BET, SET_TABLE_BET,
+} from '../actions/TableBetActions';
 import Bet from '../model/Bet';
 
 let findIndexBetByMatch;
@@ -46,6 +48,11 @@ const bets = (state = [], action) => {
       return state;
     case PURGE_TABLE_BET:
       return [];
+    case REMOVE_BET:
+      console.log(state);
+      console.log(action);
+      findIndexBetByMatch = state.findIndex(bet => bet.Match.Id === action.match.Id);
+      return [...state.slice(0, findIndexBetByMatch), ...state.slice(findIndexBetByMatch + 1)];
     case SET_TABLE_BET:
       return [...action.bets];
     default:

@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Input, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { addTableBet } from '../../actions/TableBetActions';
+import { addTableBet, removeBet } from '../../actions/TableBetActions';
 
 const mapStateToProps = state => ({ bets: state.bets });
 
@@ -11,17 +11,22 @@ function mapDispatchToProps(dispatch) {
     addBet: ({
       match, inputName, value, bet,
     }) => dispatch(addTableBet(match, inputName, value, bet)),
+    removeBet: ({
+      match,
+    }) => dispatch(removeBet(match)),
   };
 }
 
 class BetSubmitRowComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.createBet = this.createBet.bind(this);
+    this.handleHomeTeamInput = this.handleHomeTeamInput.bind(this);
     const { bet, match } = this.props;
     this.state = {
       bet,
       match,
+      oldHomeTeamInput: bet ? bet.HomeTeamScore : undefined,
+      oldAwayTeamInput: bet ? bet.AwayTeamScore : undefined,
     };
   }
 
@@ -32,7 +37,7 @@ class BetSubmitRowComponent extends React.Component {
       match = bet.Match;
     }
     if (nextProps.bets.find(betParam => betParam.Match.Id
-        === match.Id && betParam.alreadyUpdated === true)) {
+      === match.Id && betParam.alreadyUpdated === true)) {
       this.setState({
         bet: nextProps.bets.find(betParam => betParam.Match.Id === match.Id),
       });
@@ -49,17 +54,45 @@ class BetSubmitRowComponent extends React.Component {
   }
 
   createBet(event, match, inputName) {
-    if (event.target.value < 0) {
+    const data = {
+      match,
+      inputName,
+      value: event.target.value,
+    };
+    if (this.state.bet) {
+      data.bet = this.state.bet;
+      data.bet.alreadyUpdated = false;
+    }
+    this.props.addBet(data);
+  }
+
+  handleHomeTeamInput(event, match, inputName) {
+    const value = parseInt(event.target.value, 10);
+    if (value < 0) {
       event.target.value = '';
+    }
+    console.log(this.state.oldHomeTeamInput);
+    console.log(event.target.value);
+    if (!this.state.oldHomeTeamInput) {
+      this.createBet(event, match, inputName);
+    } else if (this.state.oldHomeTeamInput !== value) {
+      this.createBet(event, match, inputName);
     } else {
-      const data = { match, inputName, value: event.target.value };
-      if (this.state.bet) {
-        data.bet = this.state.bet;
-        data.bet.alreadyUpdated = false;
-      }
-      this.props.addBet(data);
+      console.log(match);
+      this.props.removeBet(match);
     }
   }
+
+  handleAwayTeamInput(event, match, inputName) {
+    if (event.target.value < 0) {
+      event.target.value = '';
+    }
+    if (!this.state.oldAwayTeamInput) {
+      this.createBet(event, match, inputName);
+      this.setState({ oldAwayTeamInput: event.target.value });
+    }
+  }
+
 
   render() {
     let { match } = this.state;
@@ -74,14 +107,20 @@ class BetSubmitRowComponent extends React.Component {
           <div className="container-hometeam">
             <div className="team-image">
               <Image
-                src={match.HomeTeam.CrestUrl ? match.HomeTeam.CrestUrl : '/assets/images/hometeam-placeholder.png'}
-                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/hometeam-placeholder.png'; }}
+                src={match.HomeTeam.CrestUrl
+                  ? match.HomeTeam.CrestUrl
+                  : '/assets/images/hometeam-placeholder.png'}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/assets/images/hometeam-placeholder.png';
+                }}
               />
             </div>
             <Label className="greenLabel">
               Win :
               {' '}
-              {match.HomeTeamRating === 0 ? 'N/A' : parseFloat(match.HomeTeamRating).toFixed(2)}
+              {match.HomeTeamRating === 0 ? 'N/A' : parseFloat(match.HomeTeamRating)
+                .toFixed(2)}
             </Label>
             <div className="team-info">
               <div className="team-name">
@@ -91,52 +130,84 @@ class BetSubmitRowComponent extends React.Component {
           </div>
           <div className="container-versus">
             <div className="match-info">
-              {moment(match.UtcDate).format() >= moment.utc().format() ? (
-                moment(match.UtcDate).format('MM-DD-YYYY')
-              ) : (
-                <Label className="infoLabel">
+              {moment(match.UtcDate)
+                .format() >= moment.utc()
+                .format() ? (
+                  moment(match.UtcDate)
+                    .format('MM-DD-YYYY')
+                ) : (
+                  <Label className="infoLabel">
                   Underway
-                </Label>
-              )}
+                  </Label>
+                )}
             </div>
             <div className="container-versus-details">
               <div className="home-score ">
-                {moment(match.UtcDate).format() >= moment.utc().format() ? (
-                  <Input defaultValue={bet ? bet.HomeTeamScore : ''} onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />
-                ) : (
-                  <p>
-                    {bet.HomeTeamScore}
-                  </p>
-                )}
+                {moment(match.UtcDate)
+                  .format() >= moment.utc()
+                  .format() ? (
+                    <Input
+                      defaultValue={bet ? bet.HomeTeamScore : ''}
+                      onChange={
+                      event => this.handleHomeTeamInput(event, match,
+                        'home')}
+                      fluid
+                      type="number"
+                      max="9"
+                      min="0"
+                    />
+                  ) : (
+                    <p>
+                      {bet.HomeTeamScore}
+                    </p>
+                  )}
               </div>
               <div className="versus-text"> -</div>
               <div className="away-score loose">
-                {moment(match.UtcDate).format() >= moment.utc().format() ? (
-                  <Input defaultValue={bet ? bet.AwayTeamScore : ''} onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />
-                ) : (
-                  <p>
-                    {bet.AwayTeamScore}
-                  </p>
-                )}
+                {moment(match.UtcDate)
+                  .format() >= moment.utc()
+                  .format() ? (
+                    <Input
+                      defaultValue={bet ? bet.AwayTeamScore : ''}
+                      onChange={
+                      event => this.handleAwayTeamInput(event, match,
+                        'away')}
+                      fluid
+                      type="number"
+                      max="9"
+                      min="0"
+                    />
+                  ) : (
+                    <p>
+                      {bet.AwayTeamScore}
+                    </p>
+                  )}
               </div>
             </div>
             <Label>
               Draw :
               {' '}
-              {match.DrawRating === 0 ? 'N/A' : parseFloat(match.DrawRating).toFixed(2)}
+              {match.DrawRating === 0 ? 'N/A' : parseFloat(match.DrawRating)
+                .toFixed(2)}
             </Label>
           </div>
           <div className="container-awayteam">
             <div className="team-image">
               <Image
-                src={match.AwayTeam.CrestUrl ? match.AwayTeam.CrestUrl : '/assets/images/awayteam-placeholder.png'}
-                onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/awayteam-placeholder.png'; }}
+                src={match.AwayTeam.CrestUrl
+                  ? match.AwayTeam.CrestUrl
+                  : '/assets/images/awayteam-placeholder.png'}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/assets/images/awayteam-placeholder.png';
+                }}
               />
             </div>
             <Label className="greenLabel">
               Win :
               {' '}
-              {match.AwayTeamRating === 0 ? 'N/A' : parseFloat(match.AwayTeamRating).toFixed(2)}
+              {match.AwayTeamRating === 0 ? 'N/A' : parseFloat(match.AwayTeamRating)
+                .toFixed(2)}
             </Label>
             <div className="team-info">
               <div className="team-name">{match.AwayTeam.Name}</div>
