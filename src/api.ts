@@ -1,8 +1,7 @@
-import axios, {AxiosResponse, AxiosRequestConfig} from 'axios';
-import AuthService from './service/AuthService';
+import axios, { AxiosRequestConfig } from 'axios';
 import { addSnackBar } from './actions/SnackBarActions';
+import AuthService from './service/AuthService';
 import store from './store';
-
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -11,7 +10,7 @@ api.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     const token = AuthService.getToken();
     const configuration = config;
-    if (token !== null) configuration.headers.Authorization = `Bearer ${token}`;
+    if (token !== null) { configuration.headers.Authorization = `Bearer ${token}`; }
     return configuration;
   },
   error => Promise.reject(error),

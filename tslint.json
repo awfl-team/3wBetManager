@@ -1,0 +1,12 @@
+{
+  "extends": ["tslint-config-airbnb", "tslint-react"],
+  "linterOptions": {"exclude": ["config/**/*.js", "node_modules/**/*.ts", "coverage/lcov-report/*.js"]},
+  "rules": {
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "import-name": false
+  },
+  "jsRules":{
+    "object-literal-sort-keys": false
+  }
+}

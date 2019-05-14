@@ -1,4 +1,4 @@
 export default class SnackBar {
-    message!: string;
-    type!: string;
+  public message!: string;
+  public type!: string;
 }

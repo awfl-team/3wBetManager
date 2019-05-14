@@ -1,32 +1,31 @@
-import React, {FormEvent, SyntheticEvent} from 'react';
-import {Link, Redirect, RouteComponentProps} from 'react-router-dom';
+import { AxiosResponse } from 'axios';
+import React, { FormEvent, SyntheticEvent } from 'react';
+import { Link, Redirect, RouteComponentProps } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
-import UserService from '../../service/UserService';
 import AuthService from '../../service/AuthService';
-import {AxiosResponse} from "axios";
+import UserService from '../../service/UserService';
 
 interface LoginProps extends RouteComponentProps<any> {
 }
 
-
 class LoginComponent extends React.Component<LoginProps> {
-  state = {
+  public state = {
     toDashboard: false,
     email: '',
     password: '',
   };
 
-  handleEmailChange = (event: SyntheticEvent) => {
+  public handleEmailChange = (event: SyntheticEvent) => {
     const target = event.target as HTMLInputElement;
-    this.setState({ email: target.value })
-  };
+    this.setState({ email: target.value });
+  }
 
-  handlePasswordChange = (event: SyntheticEvent) => {
+  public handlePasswordChange = (event: SyntheticEvent) => {
     const target = event.target as HTMLInputElement;
     this.setState({ password: target.value });
-  };
+  }
 
-  handleSubmit(event: FormEvent) {
+  public handleSubmit(event: FormEvent) {
     event.preventDefault();
 
     const target = event.target as any;
@@ -37,11 +36,11 @@ class LoginComponent extends React.Component<LoginProps> {
       });
   }
 
-  handleClick() {
+  public handleClick() {
     this.props.history.push('/');
   }
 
-  render() {
+  public render() {
     const {
       toDashboard, email, password,
     } = this.state;
@@ -51,7 +50,14 @@ class LoginComponent extends React.Component<LoginProps> {
     }
     return (
       <div className="login-page">
-        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+        <Button
+          color="red"
+          size="huge"
+          id="returnHome"
+          circular={true}
+          icon={true}
+          onClick={() => this.handleClick()}
+        >
           <Icon name="home" />
         </Button>
         <div className="ui middle aligned center aligned fullpage">
@@ -59,7 +65,11 @@ class LoginComponent extends React.Component<LoginProps> {
             <h2 className="ui teal authentication-header">
                 Sign in
             </h2>
-            <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
+            <form
+              className="ui large form"
+              onSubmit={this.handleSubmit.bind(this)}
+              autoComplete="off"
+            >
               <div className="ui stacked">
                 <div className="field">
                   <div className="ui left icon input">
@@ -93,7 +103,6 @@ class LoginComponent extends React.Component<LoginProps> {
                 </button>
               </div>
             </form>
-
 
             <div className="ui message">
               New ?

@@ -1,4 +1,4 @@
-import { SET_COMPETITION_TASK, SET_MATCH_TASK, SET_TEAM_TASK } from '../actions/TaskManagerActions';
+import { SET_COMPETITION_TASK, SET_MATCH_TASK, SET_TEAM_TASK } from "../actions/TaskManagerActions";
 
 const competitionTask = { isRunning: false, isCompleted: false, isFailed: false };
 const teamTask = { isRunning: false, isCompleted: false, isFailed: false };
