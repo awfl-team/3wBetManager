@@ -18,7 +18,6 @@ class BetSubmitBlockComponent extends React.Component {
         bets: response.data.Bets,
         matches: response.data.Matches,
       });
-      this.setState({ });
     });
   }
 

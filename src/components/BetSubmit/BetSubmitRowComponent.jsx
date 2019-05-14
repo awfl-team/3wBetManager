@@ -90,14 +90,34 @@ class BetSubmitRowComponent extends React.Component {
             </div>
           </div>
           <div className="container-versus">
-            <div className="match-info">{moment(match.UtcDate).format('MM-DD-YYYY')}</div>
+            <div className="match-info">
+              {moment(match.UtcDate).format() >= moment.utc().format() ? (
+                moment(match.UtcDate).format('MM-DD-YYYY')
+              ) : (
+                <Label className="infoLabel">
+                  Underway
+                </Label>
+              )}
+            </div>
             <div className="container-versus-details">
               <div className="home-score ">
-                <Input defaultValue={bet ? bet.HomeTeamScore : ''} onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />
+                {moment(match.UtcDate).format() >= moment.utc().format() ? (
+                  <Input defaultValue={bet ? bet.HomeTeamScore : ''} onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />
+                ) : (
+                  <p>
+                    {bet.HomeTeamScore}
+                  </p>
+                )}
               </div>
               <div className="versus-text"> -</div>
               <div className="away-score loose">
-                <Input defaultValue={bet ? bet.AwayTeamScore : ''} onChange={event => this.createBet(event, match, 'away')} fluid type="number" max="9" min="0" />
+                {moment(match.UtcDate).format() >= moment.utc().format() ? (
+                  <Input defaultValue={bet ? bet.AwayTeamScore : ''} onChange={event => this.createBet(event, match, 'home')} fluid type="number" max="9" min="0" />
+                ) : (
+                  <p>
+                    {bet.AwayTeamScore}
+                  </p>
+                )}
               </div>
             </div>
             <Label>
