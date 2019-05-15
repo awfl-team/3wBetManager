@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { ComponentState } from 'react';
 import AuthService from '../../service/AuthService';
+import User from '../../model/User';
+
+interface AuthGuardAdminState extends ComponentState {
+  user?: User;
+}
 
 export default function withAuthAdmin(Component: any) {
-  return class AuthGuardAdmin extends React.Component {
-    state = { user: null };
+  return class AuthGuardAdmin extends React.Component<any, AuthGuardAdminState> {
+    state : { user: User|undefined } = { user: undefined };
 
     componentDidMount() {
       const token = AuthService.getToken();

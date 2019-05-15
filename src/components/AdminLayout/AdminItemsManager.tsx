@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentState } from 'react';
 import {
   Button, Header, Icon, Table,
 } from 'semantic-ui-react';
@@ -13,10 +13,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class AdminItemsManager extends React.Component {
-  state = {
-    items: [],
-  };
+interface AdminItemsManagerState extends ComponentState {
+  items: Item[];
+}
+
+class AdminItemsManager extends React.Component<any, AdminItemsManagerState> {
+  state: { items: Item[] } = { items: [] };
 
   componentDidMount() {
     ItemService.getAllItems().then((res) => {
@@ -24,17 +26,18 @@ class AdminItemsManager extends React.Component {
     });
   }
 
-  handleCostChange = (event: any, itemId: number) => {
+  handleCostChange = (event: any, itemId: string) => {
     const { items } = this.state;
     const index = items.findIndex(item => item.Id === itemId);
     items[index].Cost = event.target.value;
     this.setState({ items });
   }
 
-  handleRarityChange = (event: any, itemId: number) => {
+  handleRarityChange = (event: any, itemId: string) => {
     const { items } = this.state;
     const index = items.findIndex(item => item.Id === itemId);
-    items[index].Rarity = event.target.value;
+    const test: Item =  items[index];
+    test.Rarity = event.target.value;
     this.setState({ items });
   }
 

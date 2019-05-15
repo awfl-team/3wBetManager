@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentState } from 'react';
 import {
   Button, Header, Icon, Input, Label, Pagination, Radio, Table,
 } from 'semantic-ui-react';
@@ -9,14 +9,24 @@ import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
     addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
   };
 }
 
-class AdminUserTable extends React.Component {
-  state = {
+interface AdminUserTableState extends ComponentState {
+  users: User[];
+  totalPages: number;
+  totalUsers: number;
+}
+
+class AdminUserTable extends React.Component<any, AdminUserTableState> {
+  state: {
+    users: User[],
+    totalPages: number,
+    totalUsers: number,
+  } = {
     users: [],
     totalPages: 1,
     totalUsers: 0,
@@ -78,7 +88,7 @@ class AdminUserTable extends React.Component {
   }
 
   handleDelete(user: User) {
-    const users = this.state.users;
+    const users: User[] = this.state.users;
     UserService.deleteUser(user).then(() => {
       if (users.indexOf(user) !== -1) {
         users.splice(users.indexOf(user), 1);

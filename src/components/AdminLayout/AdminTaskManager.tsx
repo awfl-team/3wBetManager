@@ -6,9 +6,9 @@ import {
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import CronHelperService from '../../helpers/CronHelperService';
 
-const mapStateToProps = state => ({ taskManager: state.taskManager });
+const mapStateToProps = (state: { taskManager: any; }) => ({ taskManager: state.taskManager });
 
-class AdminTaskManagerComponent extends React.Component {
+class AdminTaskManagerComponent extends React.Component<any>{
   handleCronCompetitions = () => {
     CronHelperService.handleCompetitionTask();
   }

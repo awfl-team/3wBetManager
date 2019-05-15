@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Container, Menu } from 'semantic-ui-react';
 import { NavLink, Route } from 'react-router-dom';
 import AdminUserTable from './AdminUserTable';
@@ -10,7 +10,7 @@ import withAuthAdmin from '../AuthGuard/AuthGuard';
 class AdminLayout extends React.Component {
   state = { activeItem: 'manageUsers' };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e:SyntheticEvent, { name }:any) => this.setState({ activeItem: name });
 
   render() {
     const { activeItem } = this.state;

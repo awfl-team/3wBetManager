@@ -17,6 +17,7 @@ export default class Item {
 
   public Id!: string;
   public Type!: string;
+  public Name!: string;
   public Description!: string;
   public Cost!: string;
   public Rarity!: string;
@@ -24,6 +25,7 @@ export default class Item {
   constructor(data: any) {
     if (data.Id) { this.Id = data.Id; }
     if (data.Type) { this.Type = data.Type; }
+    if (data.Name) { this.Name = data.Name; }
     if (data.Description) { this.Description = data.Description; }
     if (data.Cost) { this.Cost = data.Cost; }
     if (data.Rarity) { this.Rarity = data.Rarity; }

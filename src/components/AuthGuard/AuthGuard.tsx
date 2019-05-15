@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { ComponentState } from 'react';
 import AuthService from '../../service/AuthService';
+import User from '../../model/User';
+
+interface AuthGuardState extends ComponentState {
+  user?: User;
+}
 
 export default function withAuth(Component: any) {
-  return class AuthGuard extends React.Component {
-    state = { user: null };
+  return class AuthGuard extends React.Component<any, AuthGuardState> {
+    state : { user: User|undefined } = { user: undefined };
 
     componentDidMount() {
       const token = AuthService.getToken();

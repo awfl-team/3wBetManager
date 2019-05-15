@@ -11,7 +11,7 @@ export default class User {
   public Life!: number;
   public Items!: Item[];
 
-  constructor(data: any) {
+  constructor(data?: any) {
     if (data.Id) { this.Id = data.Id; }
     if (data.Role) { this.Role = data.Role; }
     if (data.Password) { this.Password = data.Password; }

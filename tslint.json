@@ -4,7 +4,8 @@
   "rules": {
     "jsx-no-lambda": false,
     "jsx-no-multiline-js": false,
-    "import-name": false
+    "import-name": false,
+    "variable-name": false
   },
   "jsRules":{
     "object-literal-sort-keys": false
