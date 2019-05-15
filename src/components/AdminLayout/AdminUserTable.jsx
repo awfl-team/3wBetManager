@@ -130,8 +130,8 @@ class AdminUserTable extends React.Component {
               )
           </Header.Content>
         </Header>
-        {skeleton !== null && skeleton.showSkeleton ? (
-          <TableSkeleton />
+        {skeleton !== null && skeleton.showSkeleton === false ? (
+          <TableSkeleton width={1700} height={500} />
         ) : (
           <div>
             <div className="userTableHeader">
