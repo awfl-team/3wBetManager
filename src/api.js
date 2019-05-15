@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar';
 import AuthService from './service/AuthService';
 import { addSnackBar } from './actions/SnackBarActions';
 import store from './store';
@@ -7,6 +8,8 @@ import store from './store';
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
+
+loadProgressBar(null, api);
 
 api.interceptors.request.use(
   (config) => {
