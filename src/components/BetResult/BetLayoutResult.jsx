@@ -6,6 +6,7 @@ import CompetitionService from '../../service/CompetionService';
 import BetRowResult from './BetRowResult';
 import withAuth from '../AuthGuard/AuthGuard';
 import BetService from '../../service/BetService';
+import NoBets from '../NoBets/NoBets';
 
 class BetLayoutResult extends React.Component {
   state = {
@@ -49,7 +50,7 @@ class BetLayoutResult extends React.Component {
         </Header>
         <Container fluid>
           { competitions.length === 0 && loading === false
-          && <h2>No records</h2>
+          && <NoBets />
           }
           { competitions.length > 0 && loading === false
             && (
