@@ -26,11 +26,11 @@ class NotFound extends React.Component {
       <div className="notFound-page">
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
-            <h2 className="ui teal authentication-header">
-              <div className="content">
-                <p className="notFound-header">OUPS, 404</p>
-                {token === null
-                && (
+            <div className="content notFound-content">
+              <p className="notFound-header">404</p>
+              <p className="notFound-header-small">It seems you got lost ...</p>
+              {token === null
+              && (
                 <button
                   type="button"
                   onClick={() => this.handleClick('home')}
@@ -38,21 +38,21 @@ class NotFound extends React.Component {
                 >
                   Go to homepage
                 </button>
-                )
-                }
-                {token !== null
-                && (
+              )
+              }
+              {token !== null
+              && (
                 <button
                   type="button"
                   onClick={() => this.handleClick('dashboard')}
                   className="back-button"
                 >
-                      Go to dashboard
+                  Go to dashboard
                 </button>
-                )
-                }
-              </div>
-            </h2>
+              )
+              }
+            </div>
+            <img alt="lost" src="assets/gif/lost.gif" className="lost" />
           </div>
         </div>
       </div>
