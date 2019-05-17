@@ -11,6 +11,7 @@ export default class StatsBuilderService {
           labels: {
             fontColor: 'white',
           },
+          position: 'bottom',
         },
       },
     };
@@ -31,6 +32,7 @@ export default class StatsBuilderService {
           labels: {
             fontColor: 'white',
           },
+          position: 'bottom',
         },
         scales: {
           yAxes: [{

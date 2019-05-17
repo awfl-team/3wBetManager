@@ -5,7 +5,6 @@ import {
 import { Link } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import { showSkeleton, hideSkeleton } from '../../actions/SkeletonActions';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';
 import UserService from '../../service/UserService';
@@ -14,30 +13,26 @@ import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 function mapDispatchToProps(dispatch) {
   return {
     addSnackbar: ({ message, type }) => dispatch(addSnackBar(message, type)),
-    showSkeleton: () => dispatch(showSkeleton()),
-    hideSkeleton: () => dispatch(hideSkeleton()),
   };
 }
-
-const mapStateToProps = state => ({ skeleton: state.skeleton });
 
 class AdminUserTable extends React.Component {
   state = {
     users: [],
     totalPages: 1,
     totalUsers: 0,
+    isLoading: true,
   };
 
 
   componentDidMount() {
-    this.props.showSkeleton();
     UserService.getAllUsersPaginated()
       .then((response) => {
-        this.props.hideSkeleton();
         this.setState({
           users: response.data.Items,
           totalPages: response.data.TotalPages,
           totalUsers: response.data.TotalUsers,
+          isLoading: false,
         });
       });
   }
@@ -113,13 +108,9 @@ class AdminUserTable extends React.Component {
 
   render() {
     const {
-      users, totalPages, totalUsers,
+      users, totalPages, totalUsers, isLoading,
     } = this.state;
-    const {
-      skeleton,
-    } = this.props;
 
-    console.log(skeleton !== null ? skeleton.showSkeleton : '');
     return (
       <div id="adminUserTable">
         <Header as="h1" icon textAlign="center">
@@ -130,7 +121,7 @@ class AdminUserTable extends React.Component {
               )
           </Header.Content>
         </Header>
-        {skeleton !== null && skeleton.showSkeleton === false ? (
+        {isLoading ? (
           <TableSkeleton width={1700} height={500} />
         ) : (
           <div>
@@ -242,5 +233,5 @@ class AdminUserTable extends React.Component {
   }
 }
 
-const AdminUsers = connect(mapStateToProps, mapDispatchToProps)(AdminUserTable);
+const AdminUsers = connect(null, mapDispatchToProps)(AdminUserTable);
 export default withAuthAdmin(AdminUsers);

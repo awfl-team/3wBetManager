@@ -11,6 +11,7 @@ import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import UserService from '../../service/UserService';
 import AudioHandlerService from '../../service/AudioHandlerService';
+import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -29,18 +30,21 @@ class Multiplier extends React.Component {
     activeItem: 'items',
     currentPage: 1,
     isDisabled: false,
+    isUserFinishedBetsLoading: true,
+    isUserLoading: true,
   };
 
   componentDidMount() {
     BetService.getUserFinishedBetsPaginated()
       .then((response) => {
-        console.log(response.data);
         this.setState({
           bets: response.data.Items,
           totalPages: response.data.TotalPages,
           totalBets: response.data.TotalBets,
+          isUserFinishedBetsLoading: false,
         });
       });
+
     UserService.getFromToken().then((res) => {
       this.setState({
         nbMultiplierByTen: res.data.Items.filter(
@@ -52,6 +56,7 @@ class Multiplier extends React.Component {
         nbMultiplierByTwo: res.data.Items.filter(
           item => item.Type === Item.TYPE_MULTIPLY_BY_TWO,
         ).length,
+        isUserLoading: false,
       });
     });
   }
@@ -107,7 +112,9 @@ class Multiplier extends React.Component {
   render() {
     const {
       bets, totalPages,
-      nbMultiplierByTen, activeItem, nbMultiplierByTwo, nbMultiplierByFive, totalBets, isDisabled,
+      nbMultiplierByTen, activeItem, nbMultiplierByTwo,
+      nbMultiplierByFive, isDisabled, totalBets,
+      isUserLoading, isUserFinishedBetsLoading,
     } = this.state;
 
     return (
@@ -157,104 +164,108 @@ class Multiplier extends React.Component {
         </Header>
         {bets.length > 0
         && (
-        <Container textAlign="center" fluid>
-          <div className="scrollable-table-container">
-            <Table celled striped unstackable structured inverted className="primary-bg">
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Competition</Table.HeaderCell>
-                  <Table.HeaderCell>Match date</Table.HeaderCell>
-                  <Table.HeaderCell>Home team</Table.HeaderCell>
-                  <Table.HeaderCell>Away team</Table.HeaderCell>
-                  <Table.HeaderCell>Bet</Table.HeaderCell>
-                  <Table.HeaderCell>Home team odds</Table.HeaderCell>
-                  <Table.HeaderCell>Draw odds</Table.HeaderCell>
-                  <Table.HeaderCell>Away team odds</Table.HeaderCell>
-                  <Table.HeaderCell>Actions</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
+          isUserLoading && isUserFinishedBetsLoading ? (
+            <TableSkeleton width={1700} height={400} />
+          ) : (
+            <Container textAlign="center" fluid>
+              <div className="scrollable-table-container">
+                <Table celled striped unstackable structured inverted className="primary-bg">
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.HeaderCell>Competition</Table.HeaderCell>
+                      <Table.HeaderCell>Match date</Table.HeaderCell>
+                      <Table.HeaderCell>Home team</Table.HeaderCell>
+                      <Table.HeaderCell>Away team</Table.HeaderCell>
+                      <Table.HeaderCell>Bet</Table.HeaderCell>
+                      <Table.HeaderCell>Home team odds</Table.HeaderCell>
+                      <Table.HeaderCell>Draw odds</Table.HeaderCell>
+                      <Table.HeaderCell>Away team odds</Table.HeaderCell>
+                      <Table.HeaderCell>Actions</Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
 
-              <Table.Body>
-                {bets.map(bet => (
-                  <Table.Row
-                    key={bet.Id}
-                    className={
-                    bet.Multiply === 10 ? 'bet buffed-x10' : ''
-                    || bet.Multiply === 5 ? 'bet buffed-x5' : ''
-                    || bet.Multiply === 2 ? 'bet buffed-x2' : ''
-                  }
-                  >
-                    <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
-                    <Table.Cell>{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</Table.Cell>
-                    <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
-                    <Table.Cell>{bet.Match.AwayTeam.Name}</Table.Cell>
-                    <Table.Cell>
-                      {bet.HomeTeamScore}
-                      -
-                      {bet.AwayTeamScore}
-                    </Table.Cell>
-                    <Table.Cell>{bet.Match.HomeTeamRating}</Table.Cell>
-                    <Table.Cell>{bet.Match.DrawRating}</Table.Cell>
-                    <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
-                    <Table.Cell textAlign="center">
-                      <Button.Group>
-                        <Button
-                          inverted
-                          className="legendary"
-                          onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_10)}
-                          disabled={
-                            isDisabled === true
-                          || nbMultiplierByTen <= 0
-                          || bet.Multiply === 10}
-                        >
-                          x10
-                        </Button>
-                        <Button
-                          inverted
-                          className="epic"
-                          onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_5)}
-                          disabled={
-                            isDisabled === true
-                            || nbMultiplierByFive <= 0
-                            || bet.Multiply >= 5
-                          }
-                        >
-                         x5
-                        </Button>
-                        <Button
-                          inverted
-                          className="rare"
-                          onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_2)}
-                          disabled={
-                            isDisabled === true
-                            || nbMultiplierByTwo <= 0
-                            || bet.Multiply >= 2
-                          }
-                        >
-                          x2
-                        </Button>
-                      </Button.Group>
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </div>
-          {totalPages >= 2 && totalBets > 10
-          && (
-            <Pagination
-              ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
-              firstItem={null}
-              lastItem={null}
-              defaultActivePage={1}
-              prevItem={{ content: <Icon name="angle left" />, icon: true }}
-              nextItem={{ content: <Icon name="angle right" />, icon: true }}
-              totalPages={totalPages}
-              onPageChange={event => this.getNextBets(event)}
-            />
+                  <Table.Body>
+                    {bets.map(bet => (
+                      <Table.Row
+                        key={bet.Id}
+                        className={
+                          bet.Multiply === 10 ? 'bet buffed-x10' : ''
+                          || bet.Multiply === 5 ? 'bet buffed-x5' : ''
+                          || bet.Multiply === 2 ? 'bet buffed-x2' : ''
+                        }
+                      >
+                        <Table.Cell>{bet.Match.Competition.Name}</Table.Cell>
+                        <Table.Cell>{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</Table.Cell>
+                        <Table.Cell>{bet.Match.HomeTeam.Name}</Table.Cell>
+                        <Table.Cell>{bet.Match.AwayTeam.Name}</Table.Cell>
+                        <Table.Cell>
+                          {bet.HomeTeamScore}
+                          -
+                          {bet.AwayTeamScore}
+                        </Table.Cell>
+                        <Table.Cell>{bet.Match.HomeTeamRating}</Table.Cell>
+                        <Table.Cell>{bet.Match.DrawRating}</Table.Cell>
+                        <Table.Cell>{bet.Match.AwayTeamRating}</Table.Cell>
+                        <Table.Cell textAlign="center">
+                          <Button.Group>
+                            <Button
+                              inverted
+                              className="legendary"
+                              onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_10)}
+                              disabled={
+                                isDisabled === true
+                                || nbMultiplierByTen <= 0
+                                || bet.Multiply === 10}
+                            >
+                              x10
+                            </Button>
+                            <Button
+                              inverted
+                              className="epic"
+                              onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_5)}
+                              disabled={
+                                isDisabled === true
+                                || nbMultiplierByFive <= 0
+                                || bet.Multiply >= 5
+                              }
+                            >
+                              x5
+                            </Button>
+                            <Button
+                              inverted
+                              className="rare"
+                              onClick={() => this.handleClick(bet.Id, Item.MULTIPLIER_BY_2)}
+                              disabled={
+                                isDisabled === true
+                                || nbMultiplierByTwo <= 0
+                                || bet.Multiply >= 2
+                              }
+                            >
+                              x2
+                            </Button>
+                          </Button.Group>
+                        </Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </div>
+              {totalPages >= 2 && totalBets > 10
+              && (
+                <Pagination
+                  ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
+                  firstItem={null}
+                  lastItem={null}
+                  defaultActivePage={1}
+                  prevItem={{ content: <Icon name="angle left" />, icon: true }}
+                  nextItem={{ content: <Icon name="angle right" />, icon: true }}
+                  totalPages={totalPages}
+                  onPageChange={event => this.getNextBets(event)}
+                />
+              )
+              }
+            </Container>
           )
-          }
-        </Container>
         )
         }
         {bets.length === 0

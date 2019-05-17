@@ -6,7 +6,7 @@ class DashboardStatSkeleton extends React.Component {
   render() {
     return (
       <ContentLoader
-        height={400}
+        height={300}
         width={850}
         speed={2}
         primaryColor="#1D2935"

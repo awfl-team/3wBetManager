@@ -10,6 +10,7 @@ import ItemService from '../../service/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
 import User from '../../model/User';
+import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -27,6 +28,8 @@ class Key extends React.Component {
     activeItem: 'items',
     currentUser: User,
     isDisabled: false,
+    isAllUserLoading: true,
+    isUserLoading: true,
   };
 
   componentDidMount() {
@@ -36,12 +39,14 @@ class Key extends React.Component {
           users: response.data.Items,
           totalPages: response.data.TotalPages,
           totalUsers: response.data.TotalUsers,
+          isAllUserLoading: false,
         });
       });
     UserService.getFromToken().then((res) => {
       this.setState({
         currentUser: res.data,
         nbKeys: res.data.Items.filter(item => item.Type === Item.TYPE_KEY).length,
+        isUserLoading: false,
       });
     });
   }
@@ -106,7 +111,8 @@ class Key extends React.Component {
 
   render() {
     const {
-      users, totalPages, totalUsers, nbKeys, activeItem, currentUser, isDisabled,
+      users, totalPages, totalUsers, nbKeys,
+      activeItem, currentUser, isDisabled, isAllUserLoading, isUserLoading
     } = this.state;
 
     return (
@@ -143,77 +149,80 @@ class Key extends React.Component {
             )
           </Header.Content>
         </Header>
-        <Container textAlign="center" fluid>
-          <div className="userTableHeader">
-            <Input type="search" labelPosition="right" placeholder="Search a user">
-              <Label
-                icon="close"
-                className="redColor"
-                circular
-                onClick={() => this.clearSearch()}
-              />
-              <input
-                onKeyPress={event => this.searchUsers(event)}
-                onChange={event => this.searchUsers(event)}
-              />
-              <Label
-                icon="search"
-                className="greenColor"
-                circular
-                onClick={event => this.searchUsers(event)}
-              />
-            </Input>
-          </div>
-          <div className="scrollable-table-container">
-            <Table celled striped unstackable inverted className="primary-bg">
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Username</Table.HeaderCell>
-                  <Table.HeaderCell>Email</Table.HeaderCell>
-                  <Table.HeaderCell>Score</Table.HeaderCell>
-                  <Table.HeaderCell>Lives</Table.HeaderCell>
-                  <Table.HeaderCell>Actions</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                {users.map(user => (
-                  <Table.Row key={user.Id}>
-                    <Table.Cell>{user.Username}</Table.Cell>
-                    <Table.Cell>{user.Email}</Table.Cell>
-                    <Table.Cell>
-                      <span>{user.Point}</span>
-                      {' '}
-                      <Icon color="yellow" name="copyright" size="large" />
-                    </Table.Cell>
-                    <Table.Cell>
-                      <div>
-                        <span>{user.Items.filter(i => i.Type === 'LIFE').length}</span>
-                        {' '}
-                        <Icon color="red" name="heart" size="large" />
-                      </div>
-                    </Table.Cell>
-                    <Table.Cell textAlign="center">
-                      <Button.Group>
-                        <Button
-                          onClick={() => { this.handleClick(user.Id); }}
-                          icon="key"
-                          inverted
-                          className="green"
-                          fluid
-                          disabled={
-                            isDisabled === true
-                            || nbKeys === 0
-                            || currentUser.Username === user.Username}
-                        />
-                      </Button.Group>
-                    </Table.Cell>
+        { isUserLoading && isAllUserLoading ? (
+          <TableSkeleton width={1700} height={400} />
+        ) : (
+          <Container textAlign="center" fluid>
+            <div className="userTableHeader">
+              <Input type="search" labelPosition="right" placeholder="Search a user">
+                <Label
+                  icon="close"
+                  className="redColor"
+                  circular
+                  onClick={() => this.clearSearch()}
+                />
+                <input
+                  onKeyPress={event => this.searchUsers(event)}
+                  onChange={event => this.searchUsers(event)}
+                />
+                <Label
+                  icon="search"
+                  className="greenColor"
+                  circular
+                  onClick={event => this.searchUsers(event)}
+                />
+              </Input>
+            </div>
+            <div className="scrollable-table-container">
+              <Table celled striped unstackable inverted className="primary-bg">
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Username</Table.HeaderCell>
+                    <Table.HeaderCell>Email</Table.HeaderCell>
+                    <Table.HeaderCell>Score</Table.HeaderCell>
+                    <Table.HeaderCell>Lives</Table.HeaderCell>
+                    <Table.HeaderCell>Actions</Table.HeaderCell>
                   </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </div>
-          {totalPages >= 2 && totalUsers > 10
+                </Table.Header>
+
+                <Table.Body>
+                  {users.map(user => (
+                    <Table.Row key={user.Id}>
+                      <Table.Cell>{user.Username}</Table.Cell>
+                      <Table.Cell>{user.Email}</Table.Cell>
+                      <Table.Cell>
+                        <span>{user.Point}</span>
+                        {' '}
+                        <Icon color="yellow" name="copyright" size="large" />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <div>
+                          <span>{user.Items.filter(i => i.Type === 'LIFE').length}</span>
+                          {' '}
+                          <Icon color="red" name="heart" size="large" />
+                        </div>
+                      </Table.Cell>
+                      <Table.Cell textAlign="center">
+                        <Button.Group>
+                          <Button
+                            onClick={() => { this.handleClick(user.Id); }}
+                            icon="key"
+                            inverted
+                            className="green"
+                            fluid
+                            disabled={
+                              isDisabled === true
+                              || nbKeys === 0
+                              || currentUser.Username === user.Username}
+                          />
+                        </Button.Group>
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
+            </div>
+            {totalPages >= 2 && totalUsers > 10
             && (
               <Pagination
                 ellipsisItem={{ content: <Icon name="ellipsis horizontal" />, icon: true }}
@@ -227,7 +236,9 @@ class Key extends React.Component {
               />
             )
             }
-        </Container>
+          </Container>
+        )
+        }
       </div>
     );
   }

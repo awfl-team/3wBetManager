@@ -3,6 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Button } from 'semantic-ui-react';
 import GraphService from '../../service/GraphService';
 import StatsBuilderService from '../../service/StatsBuilderService';
+import DashboardStatSkeleton from '../SkeletonLoaders/DashboardStatSkeleton';
 
 let dataBuild;
 
@@ -11,6 +12,7 @@ class DashboardStats extends React.Component {
     datasetPieGraph: [],
     isDatasetBetsActive: true,
     isDatasetCoinsActive: false,
+    isLoading: true,
   };
 
   componentDidMount() {
@@ -18,6 +20,7 @@ class DashboardStats extends React.Component {
   }
 
   loadBetsPerTypeDataset = () => {
+    this.setState({ isLoading: true });
     GraphService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
@@ -34,11 +37,13 @@ class DashboardStats extends React.Component {
         datasetPieGraph: dataBuild,
         isDatasetBetsActive: true,
         isDatasetCoinsActive: false,
+        isLoading: false,
       });
     });
   };
 
   loadCoinsUsageDataset = () => {
+    this.setState({ isLoading: true });
     GraphService.getCoinsStats().then((response) => {
       const datas = response.data;
 
@@ -54,41 +59,51 @@ class DashboardStats extends React.Component {
         datasetPieGraph: dataBuild,
         isDatasetBetsActive: false,
         isDatasetCoinsActive: true,
+        isLoading: false,
       });
     });
   };
 
   render() {
-    const { datasetPieGraph, isDatasetBetsActive, isDatasetCoinsActive } = this.state;
+    const {
+      datasetPieGraph, isDatasetBetsActive,
+      isDatasetCoinsActive, isLoading,
+    } = this.state;
 
     return (
       <div>
-        <div className="doughnut-container-max-size">
-          <Doughnut
-            data={{ labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets }}
-            legend={{ position: 'bottom' }}
-            options={datasetPieGraph.options}
-          />
-        </div>
-        <div className="ui two buttons">
-          <Button.Group fluid>
-            <Button
-              onClick={this.loadBetsPerTypeDataset}
-              active={isDatasetBetsActive}
-              primary={isDatasetBetsActive}
-            >
-              Bets per type
-            </Button>
-            <Button.Or />
-            <Button
-              onClick={this.loadCoinsUsageDataset}
-              active={isDatasetCoinsActive}
-              primary={isDatasetCoinsActive}
-            >
-              Coins usage
-            </Button>
-          </Button.Group>
-        </div>
+        { isLoading ? (
+          <DashboardStatSkeleton />
+        ) : (
+          <div>
+            <div className="doughnut-container-max-size">
+              <Doughnut
+                data={{ labels: datasetPieGraph.labels, datasets: datasetPieGraph.datasets }}
+                options={{ legend: datasetPieGraph.options.legend }}
+              />
+            </div>
+            <div className="ui two buttons">
+              <Button.Group fluid>
+                <Button
+                  onClick={this.loadBetsPerTypeDataset}
+                  active={isDatasetBetsActive}
+                  primary={isDatasetBetsActive}
+                >
+                  Bets per type
+                </Button>
+                <Button.Or />
+                <Button
+                  onClick={this.loadCoinsUsageDataset}
+                  active={isDatasetCoinsActive}
+                  primary={isDatasetCoinsActive}
+                >
+                  Coins usage
+                </Button>
+              </Button.Group>
+            </div>
+          </div>
+        )
+        }
       </div>
     );
   }

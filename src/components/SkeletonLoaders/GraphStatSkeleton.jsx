@@ -7,7 +7,7 @@ class GraphStatSkeleton extends React.Component {
     return (
       <ContentLoader
         height={400}
-        width={800}
+        width={1000}
         speed={2}
         primaryColor="#1D2935"
         secondaryColor="#304457"
