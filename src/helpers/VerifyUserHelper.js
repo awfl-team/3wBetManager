@@ -1,4 +1,4 @@
-export default class VerifyService {
+export default class VerifyUserHelper {
   static isEmailOk(value) {
     return (/^[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_]+\.[A-Za-z]+$/.test(value));
   }

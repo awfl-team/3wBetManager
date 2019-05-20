@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 
 
 class NotFound extends React.Component {
@@ -8,7 +8,7 @@ class NotFound extends React.Component {
   };
 
   componentDidMount() {
-    const token = AuthService.getToken();
+    const token = AuthHelper.getToken();
     this.setState({ token });
   }
 

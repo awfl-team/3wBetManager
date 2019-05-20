@@ -4,11 +4,11 @@ import {
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UserService from '../../service/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import Item from '../../model/Item';
-import ItemService from '../../service/ItemService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import User from '../../model/User';
 
 function mapDispatchToProps(dispatch) {
@@ -30,7 +30,7 @@ class Key extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getAllUsersPaginated()
+    UserHttpService.getAllUsersPaginated()
       .then((response) => {
         this.setState({
           users: response.data.Items,
@@ -38,7 +38,7 @@ class Key extends React.Component {
           totalUsers: response.data.TotalUsers,
         });
       });
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         currentUser: res.data,
         nbKeys: res.data.Items.filter(item => item.Type === Item.TYPE_KEY).length,
@@ -47,7 +47,7 @@ class Key extends React.Component {
   }
 
   getNextUsers(event) {
-    UserService.getAllUsersPaginated(event.target.getAttribute('value'))
+    UserHttpService.getAllUsersPaginated(event.target.getAttribute('value'))
       .then((response) => {
         this.setState({
           users: response.data.Items,
@@ -60,13 +60,13 @@ class Key extends React.Component {
   handleClick = (userId) => {
     this.setState({ isDisabled: true });
     if (this.state.nbKeys > 0) {
-      ItemService.useKey(userId).then(() => {
+      ItemHttpService.useKey(userId).then(() => {
         this.props.addSnackbar({
           message: 'Key used',
           type: 'success',
         });
         this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
-        AudioHandlerService.useKey();
+        AudioHandlerHelper.useKey();
         this.props.history.push({
           pathname: '/bypass',
           state: { userId },
@@ -81,7 +81,7 @@ class Key extends React.Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   clearSearch() {
-    UserService.getAllUsersPaginated()
+    UserHttpService.getAllUsersPaginated()
       .then((response) => {
         this.setState({
           users: response.data.Items,
@@ -94,7 +94,7 @@ class Key extends React.Component {
   searchUsers(event) {
     const searchTerm = event.target.closest('div.input').getElementsByTagName('input')[0].value;
     if (searchTerm.length >= 3 || (searchTerm.length > 0 && event.key === 'Enter')) {
-      UserService.searchUsers(searchTerm)
+      UserHttpService.searchUsers(searchTerm)
         .then((response) => {
           this.setState({
             users: response.data,

@@ -1,6 +1,6 @@
 import API from '../api';
 
-export default class BetService {
+export default class BetHttpService {
   static getFinishBet(competitionId) {
     return API.get(`bets/${competitionId}/result`);
   }

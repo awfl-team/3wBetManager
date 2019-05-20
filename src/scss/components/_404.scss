@@ -13,14 +13,14 @@
     font-size: 15rem;
     margin: 0;
 
-    @media screen and (max-width: 1100px) {
+    @media #{$screen-and-max-1100} {
       font-size: 6rem;
     }
 
     &-small {
       font-size: 6rem;
       font-weight: lighter;
-      @media screen and (max-width: 1100px) {
+      @media #{$screen-and-max-1100} {
         font-size: 3rem;
       }
     }

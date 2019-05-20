@@ -1,16 +1,16 @@
 import classNames from 'classnames/bind';
-import VerifyService from './VerifyService';
+import VerifyUserHelper from './VerifyUserHelper';
 
-export default class FormUserService {
+export default class FormClassnameHelper {
   static getClassNames(email, username, password, confirmPassword) {
     const className = {};
-    className.IsEmailGood = VerifyService.isEmailOk(email);
-    className.isUsernameOk = VerifyService.isUsernameOk(username);
-    className.isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
-    className.isPasswordNumberCharOk = VerifyService.isPasswordNumberChars(password);
-    className.isPasswordSpecialChar = VerifyService.isPasswordSpecialChar(password);
-    className.isPasswordUppercase = VerifyService.isPasswordUppercase(password);
-    className.isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
+    className.IsEmailGood = VerifyUserHelper.isEmailOk(email);
+    className.isUsernameOk = VerifyUserHelper.isUsernameOk(username);
+    className.isPasswordIdentical = VerifyUserHelper.isPasswordIdentical(password, confirmPassword);
+    className.isPasswordNumberCharOk = VerifyUserHelper.isPasswordNumberChars(password);
+    className.isPasswordSpecialChar = VerifyUserHelper.isPasswordSpecialChar(password);
+    className.isPasswordUppercase = VerifyUserHelper.isPasswordUppercase(password);
+    className.isPasswordWithNumber = VerifyUserHelper.isPasswordWithNumber(password);
     className.isPasswordOk = (className.isPasswordIdentical
       && className.isPasswordNumberCharOk
       && className.isPasswordSpecialChar
@@ -61,11 +61,11 @@ export default class FormUserService {
 
   static getClassNamesForPassword(password, confirmPassword) {
     const className = {};
-    className.isPasswordIdentical = VerifyService.isPasswordIdentical(password, confirmPassword);
-    className.isPasswordNumberCharOk = VerifyService.isPasswordNumberChars(password);
-    className.isPasswordSpecialChar = VerifyService.isPasswordSpecialChar(password);
-    className.isPasswordUppercase = VerifyService.isPasswordUppercase(password);
-    className.isPasswordWithNumber = VerifyService.isPasswordWithNumber(password);
+    className.isPasswordIdentical = VerifyUserHelper.isPasswordIdentical(password, confirmPassword);
+    className.isPasswordNumberCharOk = VerifyUserHelper.isPasswordNumberChars(password);
+    className.isPasswordSpecialChar = VerifyUserHelper.isPasswordSpecialChar(password);
+    className.isPasswordUppercase = VerifyUserHelper.isPasswordUppercase(password);
+    className.isPasswordWithNumber = VerifyUserHelper.isPasswordWithNumber(password);
 
     className.isEnabled = (className.isPasswordNumberCharOk && className.isPasswordWithNumber
         && className.isPasswordSpecialChar && className.isPasswordUppercase
@@ -103,7 +103,7 @@ export default class FormUserService {
   static refreshClassName(currentTypeHandle,
     currentHandle, currentMail, currentUsername,
     currentPassword, currentConfirmPassword) {
-    const classnames = FormUserService.getClassNames(
+    const classnames = FormClassnameHelper.getClassNames(
       currentTypeHandle === 'email' ? currentHandle : currentMail,
       currentTypeHandle === 'username' ? currentHandle : currentUsername,
       currentTypeHandle === 'password' ? currentHandle : currentPassword,
@@ -127,7 +127,7 @@ export default class FormUserService {
   static refreshClassNameForPassword(currentTypeHandle,
     currentHandle,
     currentPassword, currentConfirmPassword) {
-    const classnames = FormUserService.getClassNamesForPassword(
+    const classnames = FormClassnameHelper.getClassNamesForPassword(
       currentTypeHandle === 'password' ? currentHandle : currentPassword,
       currentTypeHandle === 'confirmPassword' ? currentHandle : currentConfirmPassword,
     );

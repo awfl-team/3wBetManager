@@ -1,8 +1,8 @@
 import React from 'react';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { Container, Grid } from 'semantic-ui-react';
-import GraphService from '../../service/GraphService';
-import StatsBuilderService from '../../service/StatsBuilderService';
+import GraphHttpService from '../../httpServices/GraphHttpService';
+import StatsBuilderHelper from '../../helpers/StatsBuilderHelper';
 
 let dataBuildBetsPerType;
 let dataBuildCoinsPerType;
@@ -28,7 +28,7 @@ class ProfileStats extends React.Component {
   }
 
   getBetsByTypeData() {
-    GraphService.getBetsByTypeData().then((response) => {
+    GraphHttpService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
@@ -36,16 +36,16 @@ class ProfileStats extends React.Component {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
-        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildBetsPerType = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildBetsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
+        dataBuildBetsPerType = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
       this.setState({ dataSetBets: dataBuildBetsPerType });
     });
   }
 
   getEarningsStatsPerType() {
-    GraphService.getEarningsStatsPerType().then((response) => {
+    GraphHttpService.getEarningsStatsPerType().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0
@@ -53,32 +53,32 @@ class ProfileStats extends React.Component {
         const labels = ['Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#F2711C', '#21BA45'];
-        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildCoinsPerType = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildCoinsPerType = StatsBuilderService.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
+        dataBuildCoinsPerType = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
       this.setState({ dataSetEarnings: dataBuildCoinsPerType });
     });
   }
 
   getCoinsStats() {
-    GraphService.getCoinsStats().then((response) => {
+    GraphHttpService.getCoinsStats().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {
         const labels = ['Coins used to buy items', 'Coins used to bet', 'Bets earnings'];
         const nbBets = Object.values(datas);
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
-        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildIncomesAndLoss = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuildIncomesAndLoss = StatsBuilderService.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
+        dataBuildIncomesAndLoss = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
       this.setState({ dataSetCoins: dataBuildIncomesAndLoss });
     });
   }
 
   getMonthStats() {
-    GraphService.getMonthStats().then((resp) => {
+    GraphHttpService.getMonthStats().then((resp) => {
       const datas = resp.data;
       const dates = [];
       const pts = [];
@@ -88,16 +88,16 @@ class ProfileStats extends React.Component {
           dates.push(data.Date);
           pts.push(data.Points);
         });
-        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsGraph(pts, dates);
+        dataBuildCoinsPerMonth = StatsBuilderHelper.buildStatsBetsGraph(pts, dates);
       } else {
-        dataBuildCoinsPerMonth = StatsBuilderService.buildStatsBetsDougnut(['0'], ['undefined']);
+        dataBuildCoinsPerMonth = StatsBuilderHelper.buildStatsBetsDougnut(['0'], ['undefined']);
       }
       this.setState({ dataSetMonth: dataBuildCoinsPerMonth });
     });
   }
 
   getYearStats() {
-    GraphService.getYearStats().then((resp) => {
+    GraphHttpService.getYearStats().then((resp) => {
       const datas = resp.data;
       const dates = [];
       const pts = [];
@@ -107,9 +107,9 @@ class ProfileStats extends React.Component {
           dates.push(data.Date);
           pts.push(data.Points);
         });
-        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsGraph(pts, dates);
+        dataBuildCoinsPerYear = StatsBuilderHelper.buildStatsBetsGraph(pts, dates);
       } else {
-        dataBuildCoinsPerYear = StatsBuilderService.buildStatsBetsDougnut(['0'], ['undefined']);
+        dataBuildCoinsPerYear = StatsBuilderHelper.buildStatsBetsDougnut(['0'], ['undefined']);
       }
       this.setState({ dataSetYear: dataBuildCoinsPerYear });
     });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
-import UserService from '../../service/UserService';
-import AuthService from '../../service/AuthService';
+import UserHttpService from '../../httpServices/UserHttpService';
+import AuthHelper from '../../helpers/AuthHelper';
 
 class LoginComponent extends React.Component {
   state = {
@@ -22,9 +22,9 @@ class LoginComponent extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    UserService.login(event.target.email.value, event.target.password.value)
+    UserHttpService.login(event.target.email.value, event.target.password.value)
       .then((response) => {
-        AuthService.setTokenInLocalStorage(response.data);
+        AuthHelper.setTokenInLocalStorage(response.data);
         this.setState({ toDashboard: true });
       });
   }

@@ -17,8 +17,8 @@
 
     img {
       width: 200px;
-      transition: width 0.3s ease;
-      @media screen and (max-width: 400px) {
+      transition: $transition-width-300ms-ease;
+      @media #{$screen-and-max-400} {
         width: 100px;
       }
     }
@@ -30,7 +30,7 @@
     h1 {
       font-size: 2rem;
       text-align: center;
-      @media screen and (max-width: 400px) {
+      @media #{$screen-and-max-400} {
         font-size: 1.4rem;
       }
     }

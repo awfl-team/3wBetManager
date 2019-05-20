@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon, Label, Table } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import UserService from '../../service/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 
 class BestBettersTable extends React.Component {
   state = {
@@ -9,7 +9,7 @@ class BestBettersTable extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getTop50Betters().then((response) => {
+    UserHttpService.getTop50Betters().then((response) => {
       this.setState({ top50: response.data });
     });
   }

@@ -4,7 +4,7 @@ import {
   Button, Container, Header, Icon, List, Progress,
 } from 'semantic-ui-react';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
-import CronHelperService from '../../service/helpers/CronHelperService';
+import CronHelper from '../../helpers/CronHelper';
 
 
 const mapStateToProps = state => ({ taskManager: state.taskManager });
@@ -12,15 +12,15 @@ const mapStateToProps = state => ({ taskManager: state.taskManager });
 
 class AdminTaskManagerComponent extends React.Component {
   handleCronCompetitions = () => {
-    CronHelperService.handleCompetitionTask();
+    CronHelper.handleCompetitionTask();
   };
 
   handleCronTeams = () => {
-    CronHelperService.handleTeamTask();
+    CronHelper.handleTeamTask();
   };
 
   handleCronMatches = () => {
-    CronHelperService.handleMatchTask();
+    CronHelper.handleMatchTask();
   };
 
   render() {

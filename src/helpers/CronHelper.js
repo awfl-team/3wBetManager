@@ -1,19 +1,19 @@
-import store from '../../store';
-import CronService from '../CronService';
+import store from '../store';
+import CronHttpService from '../httpServices/CronHttpService';
 import {
   setCompetitionTask, setMatchTask, setTeamTask,
-} from '../../actions/TaskManagerActions';
-import { addSnackBar } from '../../actions/SnackBarActions';
+} from '../actions/TaskManagerActions';
+import { addSnackBar } from '../actions/SnackBarActions';
 
 
-export default class CronHelperService {
+export default class CronHelper {
   static handleCompetitionTask() {
     store.dispatch(setCompetitionTask({
       isRunning: true,
       isCompleted: false,
       isFailed: false,
     }));
-    CronService.updateCompetitions().then(
+    CronHttpService.updateCompetitions().then(
       () => {
         store.dispatch(setCompetitionTask({
           isRunning: false,
@@ -36,7 +36,7 @@ export default class CronHelperService {
   static handleMatchTask() {
     store.dispatch(setMatchTask({ isRunning: true, isCompleted: false, isFailed: false }));
 
-    CronService.updateMatches().then(
+    CronHttpService.updateMatches().then(
       () => {
         store.dispatch(setMatchTask({ isRunning: false, isCompleted: true, isFailed: false }));
         store.dispatch(addSnackBar('Match fetch finished', 'success'));
@@ -55,7 +55,7 @@ export default class CronHelperService {
   static handleTeamTask() {
     store.dispatch(setTeamTask({ isRunning: true, isCompleted: false, isFailed: false }));
 
-    CronService.updateTeams().then(
+    CronHttpService.updateTeams().then(
       () => {
         store.dispatch(setTeamTask({ isRunning: false, isCompleted: true, isFailed: false }));
         store.dispatch(addSnackBar('Team fetch finished', 'success'));

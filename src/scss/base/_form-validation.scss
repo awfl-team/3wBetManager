@@ -1,5 +1,5 @@
 .form-info.validation {
-  transition: $main-transition;
+  transition: $transition-all-300ms-ease;
   opacity: 1;
   color: $grey;
   text-align: left;
@@ -7,9 +7,9 @@
   transform-origin: center center;
   font-size:0.68rem;
   height: 125px;
+
   .form-info-title {
     color:$white;
-
   }
   .neutral-form-info {
     color: $red !important;
@@ -23,7 +23,8 @@
   &.hidden {
     opacity: 0;
     height: 0;
-    transition: $main-transition;
+    transition: $transition-all-300ms-ease;
+
     .form-info-title {
       color: transparent;
     }
