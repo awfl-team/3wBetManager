@@ -5,12 +5,12 @@ import {
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import BetService from '../../service/BetService';
-import ItemService from '../../service/ItemService';
+import BetService from '../../services/BetService';
+import ItemService from '../../services/ItemService';
 import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import UserService from '../../service/UserService';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import UserService from '../../services/UserService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -85,7 +85,7 @@ class Multiplier extends React.Component {
         }).catch(() => {
           this.setState({ isDisabled: false });
         });
-      AudioHandlerService.useMultiplier();
+      AudioHandlerHelper.useMultiplier();
       switch (multiplierValue) {
         case 10:
           this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen - 1 }));

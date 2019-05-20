@@ -3,7 +3,7 @@ import {
   Container, Icon, Image, Label, Message,
 } from 'semantic-ui-react';
 import moment from 'moment';
-import BetService from '../../service/BetService';
+import BetService from '../../services/BetService';
 import Bet from '../../model/Bet';
 
 class BetRowResult extends React.Component {

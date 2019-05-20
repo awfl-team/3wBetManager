@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, List } from 'semantic-ui-react';
 
 import { Link } from 'react-router-dom';
-import UserService from '../../service/UserService';
+import UserService from '../../services/UserService';
 
 class Top3 extends React.Component {
   state = {

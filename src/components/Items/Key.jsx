@@ -4,11 +4,11 @@ import {
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UserService from '../../service/UserService';
+import UserService from '../../services/UserService';
 import Item from '../../model/Item';
-import ItemService from '../../service/ItemService';
+import ItemService from '../../services/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import User from '../../model/User';
 
 function mapDispatchToProps(dispatch) {
@@ -66,7 +66,7 @@ class Key extends React.Component {
           type: 'success',
         });
         this.setState(prevState => ({ nbKeys: prevState.nbKeys - 1 }));
-        AudioHandlerService.useKey();
+        AudioHandlerHelper.useKey();
         this.props.history.push({
           pathname: '/bypass',
           state: { userId },

@@ -3,8 +3,8 @@ import {
   Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
-import ItemService from '../../service/ItemService';
-import UserService from '../../service/UserService';
+import ItemService from '../../services/ItemService';
+import UserService from '../../services/UserService';
 import Item from '../../model/Item';
 
 class Items extends React.Component {

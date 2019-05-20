@@ -7,7 +7,7 @@ import connect from 'react-redux/es/connect/connect';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';
-import UserService from '../../service/UserService';
+import UserService from '../../services/UserService';
 
 function mapDispatchToProps(dispatch) {
   return {

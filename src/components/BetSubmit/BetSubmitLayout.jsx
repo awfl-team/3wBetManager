@@ -3,8 +3,8 @@ import {
   Accordion, Container, Header, Icon, Label, Loader,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import CompetitionService from '../../service/CompetionService';
-import BetService from '../../service/BetService';
+import CompetitionService from '../../services/CompetionService';
+import BetService from '../../services/BetService';
 import BetSubmitBlockComponent from './BetSubmitBlockComponent';
 import BetSubmitButton from './BetSubmitButton';
 

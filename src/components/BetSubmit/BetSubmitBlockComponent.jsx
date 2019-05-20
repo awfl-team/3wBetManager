@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
-import BetService from '../../service/BetService';
+import BetService from '../../services/BetService';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 
 class BetSubmitBlockComponent extends React.Component {

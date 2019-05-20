@@ -4,11 +4,11 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import UserService from '../../service/UserService';
-import ItemService from '../../service/ItemService';
+import UserService from '../../services/UserService';
+import ItemService from '../../services/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import User from '../../model/User';
 
 function mapDispatchToProps(dispatch) {
@@ -78,7 +78,7 @@ class Bomb extends React.Component {
     bombAnimation.classList.remove('hide');
     buttonImage.classList.add('hide');
     buttonImage.classList.remove('show');
-    AudioHandlerService.useBomb();
+    AudioHandlerHelper.useBomb();
   }
 
   handleButtonAnimationHide(elem) {

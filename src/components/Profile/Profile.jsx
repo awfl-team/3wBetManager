@@ -5,8 +5,8 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import UserService from '../../service/UserService';
-import AuthService from '../../service/AuthService';
+import UserService from '../../services/UserService';
+import AuthHelper from '../../helpers/AuthHelper';
 import User from '../../model/User';
 import ProfileStats from '../Stats/ProfileStats';
 import withAuth from '../AuthGuard/AuthGuard';
@@ -55,7 +55,7 @@ class Profile extends React.Component {
   handleCloseReset = () => this.setState({ modalResetOpen: false });
 
   handleDelete = () => {
-    AuthService.logout();
+    AuthHelper.logout();
     UserService.deleteUser(this.state.user).then(() => this.props.history.push('/'));
   };
 

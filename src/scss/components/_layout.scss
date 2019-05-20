@@ -14,7 +14,7 @@
   .menu {
     a{
       &.active{
-        transition: all 0.2s ease;
+        transition: $transition-all-300ms-ease;
         &.item {
           background-color: $vue-contrast !important;
           position: relative;
@@ -49,15 +49,15 @@
     height: calc(100% - 40px);
     &.full-width {
       width: 100%;
-      @media screen and (max-width: 768px){
+      @media #{$screen-and-max-768}{
         &:after {
           visibility: hidden;
         }
       }
     }
     width: calc(100% - 150px);
-    transition: transform 500ms ease, -webkit-transform 500ms ease;
-    @media screen and (max-width: 768px){
+    transition: $transition-transform-500ms-ease;
+    @media #{$screen-and-max-768}{
       width: 100% !important;
       transform: translate3d(0, 0, 0) !important;
       &:after {
@@ -69,7 +69,7 @@
         overflow: hidden;
         visibility: visible;
         opacity: 1;
-        transition: opacity 500ms;
+        transition: $transition-opacity-500ms;
         will-change: opacity;
         z-index: 1000;
         width: 100%;
@@ -114,14 +114,14 @@
 
 .menu {
   .item.menu-hamburger {
-    @media screen and (max-width: 450px) {
+    @media #{$screen-and-max-450} {
       flex: 0 1 auto;
     }
   }
 }
 .navbar {
   .item {
-    @media screen and (max-width: 450px) {
+    @media #{$screen-and-max-450} {
       flex: 0 1 auto;
     }
   }

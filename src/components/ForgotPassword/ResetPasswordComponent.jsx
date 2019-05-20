@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
-import UserService from '../../service/UserService';
+import UserService from '../../services/UserService';
 import User from '../../model/User';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import FormUserService from '../../service/FormUserService';
+import FormClassnameHelper from '../../helpers/FormClassnameHelper';
 
 
 function mapDispatchToProps(dispatch) {
@@ -27,10 +27,10 @@ class ResetPasswordComponent extends React.Component {
       password, confirmPassword,
     } = this.state;
     this.setState({
-      className: FormUserService.getClassNamesForPassword(password,
+      className: FormClassnameHelper.getClassNamesForPassword(password,
         confirmPassword),
     });
-    AuthService.setTokenInLocalStorage(this.props.match.params.token);
+    AuthHelper.setTokenInLocalStorage(this.props.match.params.token);
     UserService.getFromToken().then(() => {
       this.setState({ tokenIsValid: true });
     });
@@ -41,7 +41,7 @@ class ResetPasswordComponent extends React.Component {
       password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassNameForPassword(property,
+    const refreshedClassName = FormClassnameHelper.refreshClassNameForPassword(property,
       event.target.value, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,

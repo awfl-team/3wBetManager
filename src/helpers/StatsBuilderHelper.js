@@ -1,4 +1,4 @@
-export default class StatsBuilderService {
+export default class StatsBuilderHelper {
   static buildStatsBetsDougnut(aDatas, aLabels, aColors) {
     return {
       datasets: [{

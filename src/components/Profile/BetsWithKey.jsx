@@ -4,7 +4,7 @@ import {
   Icon, Image, Label, List, Card,
 } from 'semantic-ui-react';
 import moment from 'moment';
-import BetService from '../../service/BetService';
+import BetService from '../../services/BetService';
 import Bet from '../../model/Bet';
 
 class BetsWithKey extends React.Component {

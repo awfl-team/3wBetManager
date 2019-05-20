@@ -2,12 +2,12 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
-import UserService from '../../service/UserService';
+import UserService from '../../services/UserService';
 import User from '../../model/User';
-import AuthService from '../../service/AuthService';
-import VerifyService from '../../service/VerifyService';
+import AuthHelper from '../../helpers/AuthHelper';
+import VerifyUserHelper from '../../helpers/VerifyUserHelper';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import FormUserService from '../../service/FormUserService';
+import FormClassnameHelper from '../../helpers/FormClassnameHelper';
 
 
 function mapDispatchToProps(dispatch) {
@@ -31,7 +31,7 @@ class SignUpComponent extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property,
+    const refreshedClassName = FormClassnameHelper.refreshClassName(property,
       event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,
@@ -52,7 +52,7 @@ class SignUpComponent extends React.Component {
         .then(() => {
           UserService.login(user.Email, user.Password)
             .then((response) => {
-              AuthService.setTokenInLocalStorage(response.data);
+              AuthHelper.setTokenInLocalStorage(response.data);
               this.setState({ toDashboard: true });
             });
         });
@@ -98,7 +98,7 @@ class SignUpComponent extends React.Component {
                       value={email}
                       onChange={e => this.handleChange('email', e)}
                       className={className.isEmailOk ? 'okInput' : `${email}` !== ''
-                          && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
+                          && !VerifyUserHelper.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
                 </div>

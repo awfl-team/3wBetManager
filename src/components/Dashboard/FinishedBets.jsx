@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import BetService from '../../service/BetService';
+import BetService from '../../services/BetService';
 import Bet from '../../model/Bet';
 
 class FinishedBets extends React.Component {

@@ -3,7 +3,7 @@ import {
   Button, Header, Icon, Table,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import ItemService from '../../service/ItemService';
+import ItemService from '../../services/ItemService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
 function mapDispatchToProps(dispatch) {

@@ -1,7 +1,7 @@
 .main-button {
   background-color: $vue-green !important;
   color: $white;
-  transition: $main-transition;
+  transition: $transition-all-300ms-ease;
   border-radius: 25px !important;
   border: $vue-green 2px solid !important;
   &:hover {
@@ -40,7 +40,7 @@
 }
 
 .button {
-  @media screen and (max-width: 450px) {
+  @media #{$screen-and-max-450} {
     font-size: 0.9rem !important;
   }
 }

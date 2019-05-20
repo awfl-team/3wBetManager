@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
-import UserService from '../../service/UserService';
-import AuthService from '../../service/AuthService';
+import UserService from '../../services/UserService';
+import AuthHelper from '../../helpers/AuthHelper';
 
 class LoginComponent extends React.Component {
   state = {
@@ -24,7 +24,7 @@ class LoginComponent extends React.Component {
 
     UserService.login(event.target.email.value, event.target.password.value)
       .then((response) => {
-        AuthService.setTokenInLocalStorage(response.data);
+        AuthHelper.setTokenInLocalStorage(response.data);
         this.setState({ toDashboard: true });
       });
   }

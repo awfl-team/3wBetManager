@@ -4,8 +4,8 @@ import {
 } from 'semantic-ui-react';
 import connect from 'react-redux/es/connect/connect';
 import User from '../../model/User';
-import UserService from '../../service/UserService';
-import FormUserService from '../../service/FormUserService';
+import UserService from '../../services/UserService';
+import FormClassnameHelper from '../../helpers/FormClassnameHelper';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
@@ -30,7 +30,7 @@ class UserForm extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property,
+    const refreshedClassName = FormClassnameHelper.refreshClassName(property,
       event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,

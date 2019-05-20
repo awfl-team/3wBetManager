@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { loadProgressBar } from 'axios-progress-bar';
-import AuthService from './service/AuthService';
+import AuthHelper from './helpers/AuthHelper';
 import { addSnackBar } from './actions/SnackBarActions';
 import store from './store';
 
@@ -13,7 +13,7 @@ loadProgressBar(null, api);
 
 api.interceptors.request.use(
   (config) => {
-    const token = AuthService.getToken();
+    const token = AuthHelper.getToken();
     const configuration = config;
     if (token !== null) configuration.headers.Authorization = `Bearer ${token}`;
     return configuration;

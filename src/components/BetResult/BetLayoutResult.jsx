@@ -2,10 +2,10 @@ import React from 'react';
 import {
   Accordion, Container, Header, Icon, Label, Loader,
 } from 'semantic-ui-react';
-import CompetitionService from '../../service/CompetionService';
+import CompetitionService from '../../services/CompetionService';
 import BetRowResult from './BetRowResult';
 import withAuth from '../AuthGuard/AuthGuard';
-import BetService from '../../service/BetService';
+import BetService from '../../services/BetService';
 import NoBets from '../NoBets/NoBets';
 
 class BetLayoutResult extends React.Component {

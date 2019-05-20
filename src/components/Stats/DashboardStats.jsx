@@ -1,8 +1,8 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Button } from 'semantic-ui-react';
-import GraphService from '../../service/GraphService';
-import StatsBuilderService from '../../service/StatsBuilderService';
+import GraphService from '../../services/GraphService';
+import StatsBuilderHelper from '../../helpers/StatsBuilderHelper';
 
 let dataBuild;
 
@@ -26,9 +26,9 @@ class DashboardStats extends React.Component {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuild = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
+        dataBuild = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
       this.setState({
         datasetPieGraph: dataBuild,
@@ -46,9 +46,9 @@ class DashboardStats extends React.Component {
         const labels = ['Coins used to buy items', 'Coins used to bet', 'Bets earnings'];
         const nbBets = Object.values(datas);
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuild = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
+        dataBuild = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['NaN'], ['#000000']);
       }
       this.setState({
         datasetPieGraph: dataBuild,

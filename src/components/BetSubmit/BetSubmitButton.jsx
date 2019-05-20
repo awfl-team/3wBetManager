@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { purgeTableBet, setTableBet } from '../../actions/TableBetActions';
-import BetService from '../../service/BetService';
+import BetService from '../../services/BetService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
 const mapStateToProps = state => ({ bets: state.bets });

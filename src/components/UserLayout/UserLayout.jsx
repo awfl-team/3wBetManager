@@ -6,7 +6,7 @@ import {
 import { hubConnection } from 'signalr-no-jquery';
 import Hammer from 'hammerjs';
 import Dashboard from '../Dashboard/Dashboard';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import withAuth from '../AuthGuard/AuthGuard';
@@ -23,7 +23,7 @@ import Bomb from '../Items/Bomb';
 import Key from '../Items/Key';
 import Multiplier from '../Items/Multiplier';
 import Mystery from '../Items/Mystery';
-import NotificationHelper from '../../service/helpers/NotificationHelper';
+import NotificationHelper from '../../helpers/NotificationHelper';
 import ConsultProfileWithKey from '../Profile/ConsultProfileWithKey';
 
 let gestureHandler;
@@ -40,7 +40,7 @@ class UserLayout extends React.Component {
     this.handleResize();
     Notification.requestPermission().then().catch();
     const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
-    connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
+    connection.qs = { username: AuthHelper.getUserInfo(AuthHelper.getToken()).unique_name };
     const notificationHub = connection.createHubProxy('notificationHub');
     notificationHub.on('NotifyUser', (message) => {
       NotificationHelper.createNotif(message);
@@ -66,7 +66,7 @@ class UserLayout extends React.Component {
 
   handleSwipe = () => {
     gestureHandler = new Hammer(document.getElementById('root'));
-    gestureHandler.on('swipe', (event) => {
+    gestureHandler.on('swipe pan', (event) => {
       switch (event.direction) {
         case 2:
           /* Swipe to left */
@@ -94,7 +94,7 @@ class UserLayout extends React.Component {
   logout() {
     gestureHandler.destroy();
     window.removeEventListener('resize', resizeHandlerEvent);
-    AuthService.logout();
+    AuthHelper.logout();
     this.props.history.push('/login');
     this.setState({ toHome: true });
   }

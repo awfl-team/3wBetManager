@@ -2,7 +2,7 @@ import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import { Button, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import UserService from '../../service/UserService';
+import UserService from '../../services/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
 

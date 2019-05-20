@@ -1,12 +1,12 @@
-import store from '../../store';
-import CronService from '../CronService';
+import store from '../store';
+import CronService from '../services/CronService';
 import {
   setCompetitionTask, setMatchTask, setTeamTask,
-} from '../../actions/TaskManagerActions';
-import { addSnackBar } from '../../actions/SnackBarActions';
+} from '../actions/TaskManagerActions';
+import { addSnackBar } from '../actions/SnackBarActions';
 
 
-export default class CronHelperService {
+export default class CronHelper {
   static handleCompetitionTask() {
     store.dispatch(setCompetitionTask({
       isRunning: true,

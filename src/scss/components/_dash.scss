@@ -11,7 +11,7 @@
   }
 
   .column {
-    @media screen and (max-width: 1024px) {
+    @media #{$screen-and-max-1024} {
       margin-bottom: 20px !important;
     }
   }
@@ -51,7 +51,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          @media screen and (max-width: 450px) {
+          @media #{$screen-and-max-450} {
             font-size: 0.8rem;
           }
           .team-image {
@@ -59,7 +59,7 @@
               height: 75px;
               width: 75px;
               border-radius: 50%;
-              @media screen and (max-width: 768px){
+              @media #{$screen-and-max-768}{
                 display: none;
               }
             }
@@ -96,7 +96,7 @@
         &> div {
          display: inline-block;
         }
-        @media screen and (max-width: 768px) {
+        @media #{$screen-and-max-768} {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;

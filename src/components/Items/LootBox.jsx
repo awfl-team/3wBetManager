@@ -3,10 +3,10 @@ import {
   Container, Header, Icon, Image, Menu,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import ItemService from '../../service/ItemService';
+import ItemService from '../../services/ItemService';
 import Item from '../../model/Item';
-import UserService from '../../service/UserService';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import UserService from '../../services/UserService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 
 let randomizer;
 let lootResult;
@@ -47,7 +47,7 @@ class LootBox extends React.Component {
         this.showRandomizer();
         this.setState({ isLooting: true });
 
-        AudioHandlerService.startLoot();
+        AudioHandlerHelper.startLoot();
         lootResult = setTimeout(() => {
           this.setState({ itemsLooted: [] });
           ItemService.useLoot().then((res) => {
@@ -58,9 +58,9 @@ class LootBox extends React.Component {
               }
             });
             if (legendaryItems.length > 0) {
-              AudioHandlerService.openedLoot(true);
+              AudioHandlerHelper.openedLoot(true);
             } else {
-              AudioHandlerService.openedLoot(false);
+              AudioHandlerHelper.openedLoot(false);
             }
             this.hideRandomizer();
             this.showLoot();

@@ -1,9 +1,9 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
-import UserService from '../../service/UserService';
+import UserService from '../../services/UserService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -17,7 +17,7 @@ class VerifyAccountComponent extends React.Component {
   };
 
   componentDidMount() {
-    AuthService.setTokenInLocalStorage(this.props.match.params.token);
+    AuthHelper.setTokenInLocalStorage(this.props.match.params.token);
     UserService.getFromToken().then((res) => {
       this.setState({ tokenIsValid: true });
       if (this.state.tokenIsValid === true) {

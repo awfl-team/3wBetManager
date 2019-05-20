@@ -1,4 +1,4 @@
-export default class AudioHandlerService {
+export default class AudioHandlerHelper {
   static startLoot() {
     const audio = this.initAudioObject();
     audio.src = 'assets/sounds/wait-for-loot.ogg';
