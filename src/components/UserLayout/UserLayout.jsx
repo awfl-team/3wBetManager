@@ -66,14 +66,15 @@ class UserLayout extends React.Component {
 
   handleSwipe = () => {
     gestureHandler = new Hammer(document.getElementById('root'));
-    gestureHandler.on('swipe pan', (event) => {
+    gestureHandler.get('pan').set({ threshold: 100 });
+    gestureHandler.on('panleft panright', (event) => {
       if (event.target.closest('table') === null) {
         switch (event.direction) {
-          case 2:
+          case Hammer.DIRECTION_LEFT:
           /* Swipe to left */
             this.setState({ visible: false });
             break;
-          case 4:
+          case Hammer.DIRECTION_RIGHT:
           /* Swipe to right */
             this.setState({ visible: true });
             break;
