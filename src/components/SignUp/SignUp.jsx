@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import User from '../../model/User';
 import AuthHelper from '../../helpers/AuthHelper';
 import VerifyUserHelper from '../../helpers/VerifyUserHelper';
@@ -48,9 +48,9 @@ class SignUpComponent extends React.Component {
     // TODO change this
     user.Role = 'USER';
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.signUp(user)
+      UserHttpService.signUp(user)
         .then(() => {
-          UserService.login(user.Email, user.Password)
+          UserHttpService.login(user.Email, user.Password)
             .then((response) => {
               AuthHelper.setTokenInLocalStorage(response.data);
               this.setState({ toDashboard: true });

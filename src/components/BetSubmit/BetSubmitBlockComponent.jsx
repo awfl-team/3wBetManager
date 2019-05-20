@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
-import BetService from '../../services/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
 
 class BetSubmitBlockComponent extends React.Component {
@@ -13,7 +13,7 @@ class BetSubmitBlockComponent extends React.Component {
   }
 
   componentDidMount() {
-    BetService.getCurrentBetAndMatches(this.props.competitionId).then((response) => {
+    BetHttpService.getCurrentBetAndMatches(this.props.competitionId).then((response) => {
       this.setState({
         bets: response.data.Bets,
         matches: response.data.Matches,

@@ -3,7 +3,7 @@ import {
   Container, Icon, Image, Label, Message,
 } from 'semantic-ui-react';
 import moment from 'moment';
-import BetService from '../../services/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import Bet from '../../model/Bet';
 
 class BetRowResult extends React.Component {
@@ -12,7 +12,7 @@ class BetRowResult extends React.Component {
   };
 
   componentDidMount() {
-    BetService.getFinishBet(this.props.competitionId).then((response) => {
+    BetHttpService.getFinishBet(this.props.competitionId).then((response) => {
       this.setState({ bets: response.data });
     });
   }

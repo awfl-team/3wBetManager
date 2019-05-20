@@ -3,9 +3,9 @@ import {
   Container, Header, Icon, Image, Menu,
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import ItemService from '../../services/ItemService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import Item from '../../model/Item';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 
 let randomizer;
@@ -22,11 +22,11 @@ class Mystery extends React.Component {
   };
 
   componentDidMount() {
-    ItemService.getAllItems().then((res) => {
+    ItemHttpService.getAllItems().then((res) => {
       const items = res.data;
       this.setState({ items });
     });
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         nbMysteryBox: res.data.Items.filter(item => item.Type === Item.TYPE_MYSTERY).length,
       });
@@ -49,7 +49,7 @@ class Mystery extends React.Component {
 
         AudioHandlerHelper.startLoot();
         lootResult = setTimeout(() => {
-          ItemService.useMystery().then((res) => {
+          ItemHttpService.useMystery().then((res) => {
             const legendaryItems = [];
             if (res.data.Rarity === Item.RARITY_LEGENDARY) {
               legendaryItems.push(res.data);

@@ -1,6 +1,6 @@
 import API from '../api';
 
-export default class ItemService {
+export default class ItemHttpService {
   static getAllItems() {
     return API.get('items');
   }

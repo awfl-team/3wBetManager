@@ -2,7 +2,7 @@ import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import { Button, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
@@ -17,7 +17,7 @@ class ForgotPasswordComponent extends React.Component {
     event.preventDefault();
     const user = new User();
     user.Email = event.target.email.value;
-    UserService.forgotPassword(user)
+    UserHttpService.forgotPassword(user)
       .then(() => {
         this.props.addSnackbar({
           message: `Email sent to ${user.Email}'`,

@@ -5,11 +5,11 @@ import {
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import BetService from '../../services/BetService';
-import ItemService from '../../services/ItemService';
+import BetHttpService from '../../httpServices/BetHttpService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 
 function mapDispatchToProps(dispatch) {
@@ -32,7 +32,7 @@ class Multiplier extends React.Component {
   };
 
   componentDidMount() {
-    BetService.getUserFinishedBetsPaginated()
+    BetHttpService.getUserFinishedBetsPaginated()
       .then((response) => {
         console.log(response.data);
         this.setState({
@@ -41,7 +41,7 @@ class Multiplier extends React.Component {
           totalBets: response.data.TotalBets,
         });
       });
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         nbMultiplierByTen: res.data.Items.filter(
           item => item.Type === Item.TYPE_MULTIPLY_BY_TEN,
@@ -58,7 +58,7 @@ class Multiplier extends React.Component {
 
   getNextBets(event) {
     this.setState({ currentPage: event.target.getAttribute('value') });
-    BetService.getUserFinishedBetsPaginated(event.target.getAttribute('value'))
+    BetHttpService.getUserFinishedBetsPaginated(event.target.getAttribute('value'))
       .then((response) => {
         this.setState({
           bets: response.data.Items,
@@ -70,12 +70,12 @@ class Multiplier extends React.Component {
 
   handleClick = (betId, multiplierValue) => {
     this.setState({ isDisabled: true });
-    ItemService.useMultiplier(betId, multiplierValue).then(() => {
+    ItemHttpService.useMultiplier(betId, multiplierValue).then(() => {
       this.props.addSnackbar({
         message: 'Multiplier used',
         type: 'success',
       });
-      BetService.getUserFinishedBetsPaginated(this.state.currentPage)
+      BetHttpService.getUserFinishedBetsPaginated(this.state.currentPage)
         .then((response) => {
           this.setState({
             bets: response.data.Items,

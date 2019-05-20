@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header, Icon } from 'semantic-ui-react';
 import User from '../../model/User';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import ConsultProfileStats from '../Stats/ConsultProfileStats';
 import BetsWithKey from './BetsWithKey';
 
@@ -13,7 +13,7 @@ class ConsultProfileWithKey extends React.Component {
 
   componentDidMount() {
     if (this.props.location.state !== undefined) {
-      UserService.getUserById(this.props.location.state.userId)
+      UserHttpService.getUserById(this.props.location.state.userId)
         .then((response) => {
           this.setState({ user: response.data, userLives: response.data.Items.filter(i => i.Type === 'LIFE').length });
         })

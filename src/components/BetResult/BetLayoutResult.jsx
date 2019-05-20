@@ -2,10 +2,10 @@ import React from 'react';
 import {
   Accordion, Container, Header, Icon, Label, Loader,
 } from 'semantic-ui-react';
-import CompetitionService from '../../services/CompetionService';
+import CompetitionService from '../../httpServices/CompetionHttpService';
 import BetRowResult from './BetRowResult';
 import withAuth from '../AuthGuard/AuthGuard';
-import BetService from '../../services/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import NoBets from '../NoBets/NoBets';
 
 class BetLayoutResult extends React.Component {
@@ -19,7 +19,7 @@ class BetLayoutResult extends React.Component {
     const competitionsWithNbBet = [];
     CompetitionService.getAllCompetitions().then((response) => {
       response.data.forEach((competition) => {
-        BetService.getNbBetsInCompetitionForResult(competition.Id).then((res) => {
+        BetHttpService.getNbBetsInCompetitionForResult(competition.Id).then((res) => {
           if (res.data.NbBet !== undefined) {
             competition.NbBet = res.data.NbBet;
             competitionsWithNbBet.push(competition);

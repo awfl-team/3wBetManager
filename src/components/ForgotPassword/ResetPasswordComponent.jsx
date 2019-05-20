@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import User from '../../model/User';
 import AuthHelper from '../../helpers/AuthHelper';
 import { addSnackBar } from '../../actions/SnackBarActions';
@@ -31,7 +31,7 @@ class ResetPasswordComponent extends React.Component {
         confirmPassword),
     });
     AuthHelper.setTokenInLocalStorage(this.props.match.params.token);
-    UserService.getFromToken().then(() => {
+    UserHttpService.getFromToken().then(() => {
       this.setState({ tokenIsValid: true });
     });
   }
@@ -57,7 +57,7 @@ class ResetPasswordComponent extends React.Component {
       const user = new User();
       user.Password = event.target.password.value;
       if (event.target.password.value === event.target.confirmPassword.value) {
-        UserService.resetPassword(user).then(() => {
+        UserHttpService.resetPassword(user).then(() => {
           this.props.addSnackbar({
             message: 'Password Reset',
             type: 'success',

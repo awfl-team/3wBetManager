@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { Container, Grid } from 'semantic-ui-react';
-import GraphService from '../../services/GraphService';
+import GraphHttpService from '../../httpServices/GraphHttpService';
 import StatsBuilderHelper from '../../helpers/StatsBuilderHelper';
 
 let dataBuildBetsPerType;
@@ -28,7 +28,7 @@ class ProfileStats extends React.Component {
   }
 
   getBetsByTypeData() {
-    GraphService.getBetsByTypeData().then((response) => {
+    GraphHttpService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
@@ -45,7 +45,7 @@ class ProfileStats extends React.Component {
   }
 
   getEarningsStatsPerType() {
-    GraphService.getEarningsStatsPerType().then((response) => {
+    GraphHttpService.getEarningsStatsPerType().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0
@@ -62,7 +62,7 @@ class ProfileStats extends React.Component {
   }
 
   getCoinsStats() {
-    GraphService.getCoinsStats().then((response) => {
+    GraphHttpService.getCoinsStats().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {
@@ -78,7 +78,7 @@ class ProfileStats extends React.Component {
   }
 
   getMonthStats() {
-    GraphService.getMonthStats().then((resp) => {
+    GraphHttpService.getMonthStats().then((resp) => {
       const datas = resp.data;
       const dates = [];
       const pts = [];
@@ -97,7 +97,7 @@ class ProfileStats extends React.Component {
   }
 
   getYearStats() {
-    GraphService.getYearStats().then((resp) => {
+    GraphHttpService.getYearStats().then((resp) => {
       const datas = resp.data;
       const dates = [];
       const pts = [];

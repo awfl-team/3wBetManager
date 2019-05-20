@@ -1,7 +1,7 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Button } from 'semantic-ui-react';
-import GraphService from '../../services/GraphService';
+import GraphHttpService from '../../httpServices/GraphHttpService';
 import StatsBuilderHelper from '../../helpers/StatsBuilderHelper';
 
 let dataBuild;
@@ -18,7 +18,7 @@ class DashboardStats extends React.Component {
   }
 
   loadBetsPerTypeDataset = () => {
-    GraphService.getBetsByTypeData().then((response) => {
+    GraphHttpService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
@@ -39,7 +39,7 @@ class DashboardStats extends React.Component {
   };
 
   loadCoinsUsageDataset = () => {
-    GraphService.getCoinsStats().then((response) => {
+    GraphHttpService.getCoinsStats().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {

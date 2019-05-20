@@ -3,8 +3,8 @@ import {
   Accordion, Container, Header, Icon, Label, Loader,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import CompetitionService from '../../services/CompetionService';
-import BetService from '../../services/BetService';
+import CompetitionService from '../../httpServices/CompetionHttpService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import BetSubmitBlockComponent from './BetSubmitBlockComponent';
 import BetSubmitButton from './BetSubmitButton';
 
@@ -23,8 +23,9 @@ class BetSubmitLayout extends React.Component {
     const competitionsWithBets = [];
     CompetitionService.getAllCompetitions().then((response) => {
       const competitions = response.data;
-      const promises = competitions
-        .map(competition => BetService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id));
+      const promises = competitions.map(
+        competition => BetHttpService.getNbBetsAndMatchesInCompetitionForSubmit(competition.Id),
+      );
       Promise.all(promises).then((responses) => {
         responses.forEach((res, index) => {
           if (res.data.NbBet !== undefined) {

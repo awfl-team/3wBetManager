@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import AuthHelper from '../../helpers/AuthHelper';
 import User from '../../model/User';
 import ProfileStats from '../Stats/ProfileStats';
@@ -32,7 +32,7 @@ class Profile extends React.Component {
   // @todo Refactor stats of consultProfile and profile as a component
 
   componentDidMount() {
-    UserService.getFromToken()
+    UserHttpService.getFromToken()
       .then((response) => {
         const canReset = response.data.Items.filter(i => i.Type === 'LIFE').length !== 0;
         this.setState({
@@ -56,14 +56,14 @@ class Profile extends React.Component {
 
   handleDelete = () => {
     AuthHelper.logout();
-    UserService.deleteUser(this.state.user).then(() => this.props.history.push('/'));
+    UserHttpService.deleteUser(this.state.user).then(() => this.props.history.push('/'));
   };
 
   handleReset = () => {
-    UserService.resetUser()
+    UserHttpService.resetUser()
       .then(() => {
         this.setState({ modalResetOpen: false });
-        UserService.getFromToken()
+        UserHttpService.getFromToken()
           .then((response) => {
             this.setState({
               user: response.data,
@@ -84,7 +84,7 @@ class Profile extends React.Component {
   handleVisibilityUser = () => {
     const { isPrivate } = this.state;
     this.setState({ isPrivate: !isPrivate });
-    UserService.handleVisibilityUser(!isPrivate)
+    UserHttpService.handleVisibilityUser(!isPrivate)
       .then(() => {
         this.props.addSnackbar({
           message: 'Profile\'s visibility updated',

@@ -1,6 +1,6 @@
 import API from '../api';
 
-export default class CronService {
+export default class CronHttpService {
   static updateCompetitions() {
     return API.post('/cron/competitions');
   }

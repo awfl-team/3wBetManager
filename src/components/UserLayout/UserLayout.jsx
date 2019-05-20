@@ -31,7 +31,7 @@ let resizeHandlerEvent;
 
 class UserLayout extends React.Component {
   state = {
-    visible: window.innerWidth > 792,
+    visible: window.innerWidth > 800,
     toHome: false,
   };
 
@@ -56,7 +56,7 @@ class UserLayout extends React.Component {
 
   handleResize = () => {
     resizeHandlerEvent = window.addEventListener('resize', () => {
-      if (window.innerWidth > 792) {
+      if (window.innerWidth > 800) {
         this.setState({ visible: true });
       } else {
         this.setState({ visible: false });
@@ -67,18 +67,20 @@ class UserLayout extends React.Component {
   handleSwipe = () => {
     gestureHandler = new Hammer(document.getElementById('root'));
     gestureHandler.on('swipe pan', (event) => {
-      switch (event.direction) {
-        case 2:
+      if (event.target.closest('table') === null) {
+        switch (event.direction) {
+          case 2:
           /* Swipe to left */
-          this.setState({ visible: false });
-          break;
-        case 4:
+            this.setState({ visible: false });
+            break;
+          case 4:
           /* Swipe to right */
-          this.setState({ visible: true });
-          break;
-        default:
-          this.setState({ visible: false });
-          break;
+            this.setState({ visible: true });
+            break;
+          default:
+            this.setState({ visible: false });
+            break;
+        }
       }
     });
   }
@@ -86,7 +88,7 @@ class UserLayout extends React.Component {
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
   handleSidenavBehaviorOnWindowSize = () => {
-    if (window.innerWidth < 792) {
+    if (window.innerWidth < 800) {
       this.setState(previousState => ({ visible: !previousState.visible }));
     }
   }

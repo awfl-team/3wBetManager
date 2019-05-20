@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import BetService from '../../services/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import Bet from '../../model/Bet';
 
 class FinishedBets extends React.Component {
@@ -13,7 +13,7 @@ class FinishedBets extends React.Component {
   };
 
   componentDidMount() {
-    BetService.getFinishBetLimited().then((response) => {
+    BetHttpService.getFinishBetLimited().then((response) => {
       this.setState({ finishedBets: response.data });
     });
   }

@@ -3,7 +3,7 @@ import {
   Button, Container, Header, Icon,
 } from 'semantic-ui-react';
 import User from '../../model/User';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import AuthHelper from '../../helpers/AuthHelper';
 import FormClassnameHelper from '../../helpers/FormClassnameHelper';
 
@@ -19,7 +19,7 @@ class UpdateProfile extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getFromToken()
+    UserHttpService.getFromToken()
       .then((response) => {
         this.setState({ user: response.data });
         this.setState({ username: response.data.Username });
@@ -50,7 +50,7 @@ class UpdateProfile extends React.Component {
     );
     user.Id = this.state.user.Id;
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.updateUser(user).then((response) => {
+      UserHttpService.updateUser(user).then((response) => {
         AuthHelper.setTokenInLocalStorage(response.data);
         this.props.history.push('/profile');
       });

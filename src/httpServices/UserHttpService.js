@@ -1,6 +1,6 @@
 import API from '../api';
 
-export default class UserService {
+export default class UserHttpService {
   static login(email, password) {
     return API.post('login', {
       Email: email,

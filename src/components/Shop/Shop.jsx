@@ -4,10 +4,10 @@ import {
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
-import ItemService from '../../services/ItemService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import User from '../../model/User';
 import Item from '../../model/Item';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import withAuth from '../AuthGuard/AuthGuard';
@@ -36,10 +36,10 @@ class Shop extends React.Component {
   };
 
   componentDidMount() {
-    ItemService.getAllItems().then((res) => {
+    ItemHttpService.getAllItems().then((res) => {
       this.setState({ items: res.data });
     });
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         user: res.data,
         userItems: res.data.Items,
@@ -121,12 +121,12 @@ class Shop extends React.Component {
   handleSubmit = () => {
     const { user, itemsBought, totalCost } = this.state;
     if (totalCost <= user.Point) {
-      ItemService.addItemsToUser(itemsBought).then(() => {
+      ItemHttpService.addItemsToUser(itemsBought).then(() => {
         user.Point -= totalCost;
         this.setState(
           { itemsBought: [], user, totalCost: 0 },
         );
-        UserService.getFromToken().then((res) => {
+        UserHttpService.getFromToken().then((res) => {
           this.setState({
             user: res.data,
             userItems: res.data.Items,

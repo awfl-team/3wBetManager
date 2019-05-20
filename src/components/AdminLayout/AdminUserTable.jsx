@@ -7,7 +7,7 @@ import connect from 'react-redux/es/connect/connect';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import User from '../../model/User';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -23,7 +23,7 @@ class AdminUserTable extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getAllUsersPaginated()
+    UserHttpService.getAllUsersPaginated()
       .then((response) => {
         this.setState({
           users: response.data.Items,
@@ -34,7 +34,7 @@ class AdminUserTable extends React.Component {
   }
 
   getNextUsers(event) {
-    UserService.getAllUsersPaginated(event.target.getAttribute('value'))
+    UserHttpService.getAllUsersPaginated(event.target.getAttribute('value'))
       .then((response) => {
         this.setState({
           users: response.data.Items,
@@ -47,7 +47,7 @@ class AdminUserTable extends React.Component {
   searchUsers(event) {
     const searchTerm = event.target.closest('div.input').getElementsByTagName('input')[0].value;
     if (searchTerm.length >= 3 || (searchTerm.length > 0 && event.key === 'Enter')) {
-      UserService.searchUsers(searchTerm)
+      UserHttpService.searchUsers(searchTerm)
         .then((response) => {
           this.setState({
             users: response.data,
@@ -59,7 +59,7 @@ class AdminUserTable extends React.Component {
   }
 
   handleClick(user) {
-    UserService.getUserById(user.Id).then((resp) => {
+    UserHttpService.getUserById(user.Id).then((resp) => {
       const userToUpdate = resp.data;
       const userAfterUpdate = new User();
       userAfterUpdate.Id = user.Id;
@@ -68,7 +68,7 @@ class AdminUserTable extends React.Component {
       } else {
         userAfterUpdate.Role = 'ADMIN';
       }
-      UserService.updateRoleUser(userAfterUpdate).then(() => {
+      UserHttpService.updateRoleUser(userAfterUpdate).then(() => {
         this.props.addSnackbar({
           message: `${userToUpdate.Username}'s role updated`,
           type: 'success',
@@ -79,7 +79,7 @@ class AdminUserTable extends React.Component {
 
   handleDelete(user) {
     const users = this.state.users;
-    UserService.deleteUser(user).then(() => {
+    UserHttpService.deleteUser(user).then(() => {
       if (users.indexOf(user) !== -1) {
         users.splice(users.indexOf(user), 1);
       }
@@ -92,7 +92,7 @@ class AdminUserTable extends React.Component {
   }
 
   clearSearch() {
-    UserService.getAllUsersPaginated()
+    UserHttpService.getAllUsersPaginated()
       .then((response) => {
         this.setState({
           users: response.data.Items,

@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { purgeTableBet, setTableBet } from '../../actions/TableBetActions';
-import BetService from '../../services/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
 const mapStateToProps = state => ({ bets: state.bets });
@@ -31,7 +31,7 @@ class BetSubmitButtonComponent extends React.Component {
 
   handleSubmit = () => {
     const { bets } = this.props;
-    BetService.AddOrUpdateBet(bets.filter(bet => bet.alreadyUpdated === false))
+    BetHttpService.AddOrUpdateBet(bets.filter(bet => bet.alreadyUpdated === false))
       .then((responses) => {
         this.props.addSnackbar({
           message: 'Successfully added bets !',

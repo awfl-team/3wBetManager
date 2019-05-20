@@ -3,8 +3,8 @@ import {
   Button, Container, Header, Icon, Label, Menu,
 } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
-import ItemService from '../../services/ItemService';
-import UserService from '../../services/UserService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import Item from '../../model/Item';
 
 class Items extends React.Component {
@@ -15,7 +15,7 @@ class Items extends React.Component {
   };
 
   componentDidMount() {
-    ItemService.getAllItems().then((res) => {
+    ItemHttpService.getAllItems().then((res) => {
       let itemsFilteredUsable;
       itemsFilteredUsable = res.data.filter(item => item.Type !== Item.TYPE_MULTIPLY_BY_TWO);
       itemsFilteredUsable = itemsFilteredUsable.filter(
@@ -24,7 +24,7 @@ class Items extends React.Component {
       itemsFilteredUsable = itemsFilteredUsable.filter(item => item.Type !== Item.TYPE_LIFE);
       this.setState({ items: itemsFilteredUsable });
     });
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         userItems: res.data.Items,
       });

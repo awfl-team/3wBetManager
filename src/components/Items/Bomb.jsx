@@ -4,8 +4,8 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import UserService from '../../services/UserService';
-import ItemService from '../../services/ItemService';
+import UserHttpService from '../../httpServices/UserHttpService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
 import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
@@ -27,13 +27,13 @@ class Bomb extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getCurrentUserAmongSiblings().then(((response) => {
+    UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
       this.setState({
         userAmongSiblings: response.data,
       });
     }));
 
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         currentUser: res.data,
         nbBombs: res.data.Items.filter(item => item.Type === Item.TYPE_BOMB).length,
@@ -45,7 +45,7 @@ class Bomb extends React.Component {
     const elem = event.target;
     this.setState({ isDisabled: true });
     if (this.state.nbBombs > 0) {
-      ItemService.useBomb(userId).then(() => {
+      ItemHttpService.useBomb(userId).then(() => {
         this.props.addSnackbar({
           message: 'Bomb used',
           type: 'success',
@@ -55,7 +55,7 @@ class Bomb extends React.Component {
         setTimeout(() => {
           this.handleButtonAnimationHide(elem);
         }, 500);
-        UserService.getCurrentUserAmongSiblings().then(((response) => {
+        UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
           this.setState({
             userAmongSiblings: response.data,
             isDisabled: false,

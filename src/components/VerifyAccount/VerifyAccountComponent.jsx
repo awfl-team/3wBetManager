@@ -1,6 +1,6 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
-import UserService from '../../services/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AuthHelper from '../../helpers/AuthHelper';
@@ -18,10 +18,10 @@ class VerifyAccountComponent extends React.Component {
 
   componentDidMount() {
     AuthHelper.setTokenInLocalStorage(this.props.match.params.token);
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({ tokenIsValid: true });
       if (this.state.tokenIsValid === true) {
-        UserService.verifyAccount(res.data).then(() => {
+        UserHttpService.verifyAccount(res.data).then(() => {
           this.props.addSnackbar({
             message: 'Your email address is confirm',
             type: 'success',
@@ -43,7 +43,7 @@ class VerifyAccountComponent extends React.Component {
       const user = new User();
       user.Password = event.target.password.value;
       if (event.target.password.value === event.target.confirmPassword.value) {
-        UserService.resetPassword(user).then(() => {
+        UserHttpService.resetPassword(user).then(() => {
           this.props.addSnackbar({
             message: 'Password Reset',
             type: 'success',
