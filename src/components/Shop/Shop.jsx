@@ -11,7 +11,6 @@ import UserService from '../../service/UserService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerService from '../../service/AudioHandlerService';
 import withAuth from '../AuthGuard/AuthGuard';
-import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 import ItemSkeleton from '../SkeletonLoaders/ItemSkeleton';
 
 let longPressInterval;

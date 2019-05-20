@@ -112,7 +112,7 @@ class Key extends React.Component {
   render() {
     const {
       users, totalPages, totalUsers, nbKeys,
-      activeItem, currentUser, isDisabled, isAllUserLoading, isUserLoading
+      activeItem, currentUser, isDisabled, isAllUserLoading, isUserLoading,
     } = this.state;
 
     return (
