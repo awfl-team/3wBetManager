@@ -4,6 +4,7 @@ import {
   Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import { hubConnection } from 'signalr-no-jquery';
+import Hammer from 'hammerjs';
 import Dashboard from '../Dashboard/Dashboard';
 import AuthService from '../../service/AuthService';
 import Profile from '../Profile/Profile';
@@ -25,14 +26,18 @@ import Mystery from '../Items/Mystery';
 import NotificationHelper from '../../service/helpers/NotificationHelper';
 import ConsultProfileWithKey from '../Profile/ConsultProfileWithKey';
 
+let gestureHandler;
+let resizeHandlerEvent;
 
 class UserLayout extends React.Component {
   state = {
-    visible: true,
+    visible: window.innerWidth > 792,
     toHome: false,
   };
 
   componentDidMount() {
+    this.handleSwipe();
+    this.handleResize();
     Notification.requestPermission().then().catch();
     const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
     connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
@@ -49,9 +54,46 @@ class UserLayout extends React.Component {
       });
   }
 
+  handleResize = () => {
+    resizeHandlerEvent = window.addEventListener('resize', () => {
+      if (window.innerWidth > 792) {
+        this.setState({ visible: true });
+      } else {
+        this.setState({ visible: false });
+      }
+    });
+  }
+
+  handleSwipe = () => {
+    gestureHandler = new Hammer(document.getElementById('root'));
+    gestureHandler.on('swipe', (event) => {
+      switch (event.direction) {
+        case 2:
+          /* Swipe to left */
+          this.setState({ visible: false });
+          break;
+        case 4:
+          /* Swipe to right */
+          this.setState({ visible: true });
+          break;
+        default:
+          this.setState({ visible: false });
+          break;
+      }
+    });
+  }
+
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
+  handleSidenavBehaviorOnWindowSize = () => {
+    if (window.innerWidth < 792) {
+      this.setState(previousState => ({ visible: !previousState.visible }));
+    }
+  }
+
   logout() {
+    gestureHandler.destroy();
+    window.removeEventListener('resize', resizeHandlerEvent);
     AuthService.logout();
     this.props.history.push('/login');
     this.setState({ toHome: true });
@@ -81,7 +123,7 @@ class UserLayout extends React.Component {
         </Menu>
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation="push" visible={visible} icon="labeled" inverted vertical width="thin" className="primary-bg">
-            <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
+            <Menu.Item as={NavLink} activeClassName="active" to="/dashboard" onClick={() => this.handleSidenavBehaviorOnWindowSize()}>
               <Icon name="dashboard" />
               Dashboard
             </Menu.Item>
@@ -90,11 +132,12 @@ class UserLayout extends React.Component {
               activeClassName="active"
               className={this.props.history.location.pathname === '/bet/submitBets' ? 'active' : ''}
               to="/bet/myBets"
+              onClick={() => this.handleSidenavBehaviorOnWindowSize()}
             >
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters">
+            <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters" onClick={() => this.handleSidenavBehaviorOnWindowSize()}>
               <Icon name="fire" />
               Top 50
             </Menu.Item>
@@ -103,6 +146,7 @@ class UserLayout extends React.Component {
               activeClassName="active"
               to="/shop"
               className={this.props.history.location.pathname === '/items' ? 'active' : ''}
+              onClick={() => this.handleSidenavBehaviorOnWindowSize()}
             >
               <Icon name="shop" />
               3wShop
@@ -116,6 +160,7 @@ class UserLayout extends React.Component {
                 || this.props.history.location.pathname === '/admin/items'
                 || this.props.history.location.pathname === '/admin/addUser' ? 'active' : ''}
                 to="/admin/users"
+                onClick={() => this.handleSidenavBehaviorOnWindowSize()}
               >
                 <Icon name="angular" />
                     Admin
