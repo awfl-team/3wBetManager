@@ -1,6 +1,6 @@
 #profile {
   .container-centered{
-    @media screen and (max-width: 768px){
+    @media #{$screen-and-max-768}{
       justify-content: center;
       flex-direction: row;
       flex-wrap: wrap;
@@ -27,7 +27,7 @@
         justify-content: center;
         position: absolute;
         top: 10px;
-        @media screen and (max-width: 768px){
+        @media #{$screen-and-max-768}{
           position: initial;
         }
         span {

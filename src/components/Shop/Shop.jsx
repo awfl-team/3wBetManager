@@ -4,12 +4,12 @@ import {
 } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
-import ItemService from '../../service/ItemService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import User from '../../model/User';
 import Item from '../../model/Item';
-import UserService from '../../service/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import withAuth from '../AuthGuard/AuthGuard';
 import ItemSkeleton from '../SkeletonLoaders/ItemSkeleton';
 
@@ -39,13 +39,13 @@ class Shop extends React.Component {
   };
 
   componentDidMount() {
-    ItemService.getAllItems().then((res) => {
+    ItemHttpService.getAllItems().then((res) => {
       this.setState({
         items: res.data,
         isItemsLoading: false,
       });
     });
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         user: res.data,
         userItems: res.data.Items,
@@ -68,20 +68,20 @@ class Shop extends React.Component {
       }
       const sequenceString = sequence.join('');
       if (sequenceString === 'cocomongo' && this.state.theme === null) {
-        this.setState({ theme: AudioHandlerService.initTheme() });
+        this.setState({ theme: AudioHandlerHelper.initTheme() });
         this.setState({ isThemeActive: true });
         sequence = [];
       } else if (sequenceString === 'cocomongo' && this.state.isThemeActive === true && this.state.theme !== null) {
-        AudioHandlerService.muteTheme(this.state.theme);
+        AudioHandlerHelper.muteTheme(this.state.theme);
         this.setState({ isThemeActive: false });
         sequence = [];
       } else if (sequenceString === 'cocomongo' && this.state.isThemeActive === false && this.state.theme !== null) {
-        AudioHandlerService.resumeTheme(this.state.theme);
+        AudioHandlerHelper.resumeTheme(this.state.theme);
         this.setState({ isThemeActive: true });
         sequence = [];
       } else if (sequenceString === 'reset' && this.state.theme !== null) {
-        AudioHandlerService.muteTheme(this.state.theme);
-        this.setState({ theme: AudioHandlerService.initTheme() });
+        AudioHandlerHelper.muteTheme(this.state.theme);
+        this.setState({ theme: AudioHandlerHelper.initTheme() });
         this.setState({ isThemeActive: true });
         sequence = [];
       }
@@ -128,12 +128,12 @@ class Shop extends React.Component {
   handleSubmit = () => {
     const { user, itemsBought, totalCost } = this.state;
     if (totalCost <= user.Point) {
-      ItemService.addItemsToUser(itemsBought).then(() => {
+      ItemHttpService.addItemsToUser(itemsBought).then(() => {
         user.Point -= totalCost;
         this.setState(
           { itemsBought: [], user, totalCost: 0 },
         );
-        UserService.getFromToken().then((res) => {
+        UserHttpService.getFromToken().then((res) => {
           this.setState({
             user: res.data,
             userItems: res.data.Items,

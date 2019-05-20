@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import BetService from '../../service/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import LimitedBetsSkeleton from '../SkeletonLoaders/LimitedBetsSkeleton';
 
 class AvailableBets extends React.Component {
@@ -14,7 +14,7 @@ class AvailableBets extends React.Component {
   };
 
   componentDidMount() {
-    BetService.getCurrentBetLimited().then((response) => {
+    BetHttpService.getCurrentBetLimited().then((response) => {
       this.setState({
         availableBets: response.data,
         isLoading: false,

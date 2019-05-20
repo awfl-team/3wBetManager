@@ -4,11 +4,11 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import UserService from '../../service/UserService';
-import ItemService from '../../service/ItemService';
+import UserHttpService from '../../httpServices/UserHttpService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import User from '../../model/User';
 import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 
@@ -26,7 +26,7 @@ class Bomb extends React.Component {
     bombAnimation.classList.remove('hide');
     buttonImage.classList.add('hide');
     buttonImage.classList.remove('show');
-    AudioHandlerService.useBomb();
+    AudioHandlerHelper.useBomb();
   }
 
   static handleButtonAnimationHide(elem) {
@@ -49,14 +49,14 @@ class Bomb extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getCurrentUserAmongSiblings().then(((response) => {
+    UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
       this.setState({
         userAmongSiblings: response.data,
         isUserAmongSiblingsLoading: false,
       });
     }));
 
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         currentUser: res.data,
         nbBombs: res.data.Items.filter(item => item.Type === Item.TYPE_BOMB).length,
@@ -69,7 +69,7 @@ class Bomb extends React.Component {
     const elem = event.target;
     this.setState({ isDisabled: true });
     if (this.state.nbBombs > 0) {
-      ItemService.useBomb(userId).then(() => {
+      ItemHttpService.useBomb(userId).then(() => {
         this.props.addSnackbar({
           message: 'Bomb used',
           type: 'success',
@@ -79,7 +79,7 @@ class Bomb extends React.Component {
         setTimeout(() => {
           Bomb.handleButtonAnimationHide(elem);
         }, 500);
-        UserService.getCurrentUserAmongSiblings().then(((response) => {
+        UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
           this.setState({
             userAmongSiblings: response.data,
             isDisabled: false,
@@ -94,6 +94,25 @@ class Bomb extends React.Component {
   };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  handleButtonAnimationShow(elem) {
+    const bombAnimation = elem.closest('.buttons').getElementsByClassName('bomb-animation')[0];
+    const buttonImage = elem.closest('.buttons').getElementsByClassName('image-icon-button')[0];
+    bombAnimation.classList.add('show');
+    bombAnimation.classList.remove('hide');
+    buttonImage.classList.add('hide');
+    buttonImage.classList.remove('show');
+    AudioHandlerHelper.useBomb();
+  }
+
+  handleButtonAnimationHide(elem) {
+    const bombAnimation = elem.parentElement.parentElement.getElementsByClassName('bomb-animation')[0];
+    const buttonImage = elem.parentElement.parentElement.getElementsByClassName('image-icon-button')[0];
+    bombAnimation.classList.add('hide');
+    bombAnimation.classList.remove('show');
+    buttonImage.classList.add('show');
+    buttonImage.classList.remove('hide');
+  }
 
   render() {
     const {

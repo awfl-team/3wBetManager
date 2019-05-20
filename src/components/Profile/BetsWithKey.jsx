@@ -4,7 +4,7 @@ import {
   Icon, Image, Label, List, Card,
 } from 'semantic-ui-react';
 import moment from 'moment';
-import BetService from '../../service/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
 import Bet from '../../model/Bet';
 import LimitedBetsSkeleton from '../SkeletonLoaders/LimitedBetsSkeleton';
 
@@ -17,13 +17,13 @@ class BetsWithKey extends React.Component {
   };
 
   componentDidMount() {
-    BetService.getCurrentBetLimitedWithKey(this.props.userId).then((response) => {
+    BetHttpService.getCurrentBetLimitedWithKey(this.props.userId).then((response) => {
       this.setState({
         availableBets: response.data,
         isAvailableBetsLoading: false,
       });
     });
-    BetService.getFinishBetLimitedWithKey(this.props.userId).then((response) => {
+    BetHttpService.getFinishBetLimitedWithKey(this.props.userId).then((response) => {
       this.setState({
         finishedBets: response.data,
         isFinishedBetsLoading: false,

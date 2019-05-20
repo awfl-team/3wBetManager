@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   padding: 20px;
   justify-content: center;
-  transition: height 1s;
+  transition: $transition-height-1000ms;
   &.hide {
     height: 0;
     padding: 0;
@@ -40,7 +40,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: height 1s;
+  transition: $transition-height-1000ms;
   background-color: rgba(20, 20, 20, 0.76);
   padding: 20px;
   margin: 10px;
@@ -106,7 +106,7 @@
   margin: 0 auto;
   &-container {
     height: 450px;
-    transition: height 0.3s ease;
+    transition: $transition-height-300ms-ease;
     &.hide {
       height: 0;
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon, Label, Table } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import UserService from '../../service/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 
 class UserAmongSiblingsTable extends React.Component {
@@ -11,7 +11,7 @@ class UserAmongSiblingsTable extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getCurrentUserAmongSiblings().then(((response) => {
+    UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
       this.setState({
         userAmongSiblings: response.data,
         isLoading: false,

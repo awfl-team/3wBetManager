@@ -3,7 +3,7 @@ import {
   Button, Header, Icon, Table,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import ItemService from '../../service/ItemService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 
@@ -20,7 +20,7 @@ class AdminItemsManager extends React.Component {
   };
 
   componentDidMount() {
-    ItemService.getAllItems().then((res) => {
+    ItemHttpService.getAllItems().then((res) => {
       this.setState({
         items: res.data,
         isLoading: false,
@@ -43,7 +43,7 @@ class AdminItemsManager extends React.Component {
   };
 
   submitCost = (item) => {
-    ItemService.updateCost(item).then(() => {
+    ItemHttpService.updateCost(item).then(() => {
       this.props.addSnackbar({
         message: 'Item update',
         type: 'success',

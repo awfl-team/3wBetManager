@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, List } from 'semantic-ui-react';
 
 import { Link } from 'react-router-dom';
-import UserService from '../../service/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import Top3Skeleton from '../SkeletonLoaders/Top3Skeleton';
 
 class Top3 extends React.Component {
@@ -12,7 +12,7 @@ class Top3 extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getTop3().then((response) => {
+    UserHttpService.getTop3().then((response) => {
       this.setState({
         usersTop3: response.data,
         isLoading: false,

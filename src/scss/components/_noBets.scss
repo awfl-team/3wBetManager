@@ -1,6 +1,7 @@
 .no-bets-container {
   display: flex;
   justify-content: center;
+  padding: 15px;
 
   &-content {
     display: flex;
@@ -16,14 +17,22 @@
 
     img {
       width: 200px;
+      transition: $transition-width-300ms-ease;
+      @media #{$screen-and-max-400} {
+        width: 100px;
+      }
     }
 
     .button {
       font-size: 1.2rem;
     }
 
-    p {
-      font-size: 1.6rem;
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      @media #{$screen-and-max-400} {
+        font-size: 1.4rem;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import API from '../api';
 
-export default class GraphService {
+export default class GraphHttpService {
   /* UserToken routes */
   static getBetsByTypeData() {
     return API.get('stats/type');

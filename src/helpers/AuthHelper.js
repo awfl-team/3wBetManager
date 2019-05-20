@@ -1,6 +1,6 @@
 import * as jwtdecode from 'jwt-decode';
 
-export default class AuthService {
+export default class AuthHelper {
   static getUserInfo(token) {
     return jwtdecode(token);
   }

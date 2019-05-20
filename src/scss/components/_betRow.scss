@@ -4,7 +4,7 @@
     padding: 15px;
     border: 1px $vue-contrast dashed;
     display: flex;
-    @media screen and (max-width: 768px) {
+    @media #{$screen-and-max-768} {
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -32,7 +32,7 @@
         position: absolute;
         top: -25px;
         left: calc(50% - 160px);
-        @media screen and (max-width: 800px) {
+        @media #{$screen-and-max-800} {
           display: none;
         }
       }
@@ -40,14 +40,14 @@
     &-info, &-results {
       display: flex;
       justify-content: space-between;
-      @media screen and (max-width: 768px) {
+      @media #{$screen-and-max-768} {
         flex-direction: column;
         flex: 1 1 auto !important;
       }
 
       .container {
         &-hometeam, &-awayteam {
-          @media screen and (max-width: 768px) {
+          @media #{$screen-and-max-768} {
             flex-direction: column-reverse;
             flex-wrap: nowrap !important;
             justify-content: center !important;
@@ -70,7 +70,7 @@
           }
           .label {
             align-self: flex-start;
-            @media screen and (max-width: 768px) {
+            @media #{$screen-and-max-768} {
               align-self: center;
             }
           }
@@ -100,7 +100,7 @@
                   border: 2px $red solid;
                 }
 
-                @media screen and (max-width: 768px) {
+                @media #{$screen-and-max-768} {
                   display: none;
                 }
               }
@@ -179,7 +179,7 @@
         justify-content: center;
         display: flex;
         margin-bottom: 10px;
-        @media screen and (max-width: 768px) {
+        @media #{$screen-and-max-768} {
           align-self: center;
           margin: 10px 0 0 0;
         }
@@ -188,7 +188,7 @@
         display: flex;
         flex-wrap: wrap;
         align-self: flex-start;
-        @media screen and (max-width: 768px) {
+        @media #{$screen-and-max-768} {
           align-self: center;
           display: flex !important;
           justify-content: center !important;
@@ -206,7 +206,7 @@
       align-self: flex-start;
       box-shadow: none;
       background: transparent;
-      @media screen and (max-width: 768px) {
+      @media #{$screen-and-max-768} {
         align-self: center;
         display: flex !important;
         justify-content: center !important;

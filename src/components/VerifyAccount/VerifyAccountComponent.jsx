@@ -1,9 +1,9 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
-import UserService from '../../service/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import User from '../../model/User';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -17,11 +17,11 @@ class VerifyAccountComponent extends React.Component {
   };
 
   componentDidMount() {
-    AuthService.setTokenInLocalStorage(this.props.match.params.token);
-    UserService.getFromToken().then((res) => {
+    AuthHelper.setTokenInLocalStorage(this.props.match.params.token);
+    UserHttpService.getFromToken().then((res) => {
       this.setState({ tokenIsValid: true });
       if (this.state.tokenIsValid === true) {
-        UserService.verifyAccount(res.data).then(() => {
+        UserHttpService.verifyAccount(res.data).then(() => {
           this.props.addSnackbar({
             message: 'Your email address is confirm',
             type: 'success',
@@ -43,7 +43,7 @@ class VerifyAccountComponent extends React.Component {
       const user = new User();
       user.Password = event.target.password.value;
       if (event.target.password.value === event.target.confirmPassword.value) {
-        UserService.resetPassword(user).then(() => {
+        UserHttpService.resetPassword(user).then(() => {
           this.props.addSnackbar({
             message: 'Password Reset',
             type: 'success',
