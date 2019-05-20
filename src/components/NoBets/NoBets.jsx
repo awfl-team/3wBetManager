@@ -1,6 +1,6 @@
 import React from 'react';
-import {Icon} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 class NoBets extends React.Component {
   render() {
