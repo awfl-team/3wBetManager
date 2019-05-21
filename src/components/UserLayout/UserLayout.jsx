@@ -38,20 +38,19 @@ class UserLayout extends React.Component {
   componentDidMount() {
     this.handleSwipe();
     this.handleResize();
-    Notification.requestPermission().then().catch();
-    const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
-    connection.qs = { username: AuthHelper.getUserInfo(AuthHelper.getToken()).unique_name };
-    const notificationHub = connection.createHubProxy('notificationHub');
-    notificationHub.on('NotifyUser', (message) => {
-      NotificationHelper.createNotif(message);
-    });
-    connection.start({ jsonp: true })
-      .done(() => {
-        console.log('start');
-      })
-      .fail((err) => {
-        console.log(err);
-      });
+    if (Notification) {
+      if (Notification.permission === 'granted') {
+        this.establishNotificationConnection();
+      } else {
+        try {
+          Notification.requestPermission().then(() => {
+            this.establishNotificationConnection();
+          });
+        } catch (error) {
+          console.log('Notification are not available on your browser');
+        }
+      }
+    }
   }
 
   handleResize = () => {
@@ -92,6 +91,22 @@ class UserLayout extends React.Component {
     if (window.innerWidth < 800) {
       this.setState(previousState => ({ visible: !previousState.visible }));
     }
+  }
+
+  establishNotificationConnection() {
+    const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
+    connection.qs = { username: AuthHelper.getUserInfo(AuthHelper.getToken()).unique_name };
+    const notificationHub = connection.createHubProxy('notificationHub');
+    notificationHub.on('NotifyUser', (message) => {
+      NotificationHelper.createNotif(message);
+    });
+    connection.start({ jsonp: true })
+      .done(() => {
+        console.log('start');
+      })
+      .fail((err) => {
+        console.log(err);
+      });
   }
 
   logout() {

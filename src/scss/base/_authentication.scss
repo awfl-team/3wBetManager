@@ -1,6 +1,7 @@
 .register-page, .login-page, .notFound-page {
   background: $vue;
   height: 100%;
+  min-height: 800px;
 
   .fullpage {
     display: flex;
