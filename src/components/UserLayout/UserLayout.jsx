@@ -38,17 +38,21 @@ class UserLayout extends React.Component {
   componentDidMount() {
     this.handleSwipe();
     this.handleResize();
-    if (Notification) {
+    try {
       if (Notification.permission === 'granted') {
         this.establishNotificationConnection();
       } else {
-        try {
-          Notification.requestPermission().then(() => {
-            this.establishNotificationConnection();
-          });
-        } catch (error) {
-          console.log('Notification are not available on your browser');
-        }
+        Notification.requestPermission().then(() => {
+          this.establishNotificationConnection();
+        });
+      }
+    } catch (error) {
+      if (error instanceof TypeError) {
+        Notification.requestPermission(() => {
+          this.establishNotificationConnection();
+        });
+      } else {
+        console.log('Notification are not available on your browser');
       }
     }
   }
