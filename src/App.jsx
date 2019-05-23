@@ -36,7 +36,7 @@ class App extends React.Component {
               exact
               sensitive
               strict
-              path="/(dashboard|profile|update-profile|bestBetters|bypass|bet/myBets|bet/submitBets|items|lootbox|shop|bomb|key|multiplier|mystery|admin/users|admin/items|admin/tasks)"
+              path="/(dashboard|profile|update-profile|bestBetters|bypass|bet/myBets|bet/submitBets|items|lootbox|shop|bomb|key|multiplier|mystery|admin/users|admin/items|admin/tasks|admin/addUser)"
               component={UserLayout}
             />
             <Route

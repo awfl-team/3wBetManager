@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header, Icon } from 'semantic-ui-react';
 import User from '../../model/User';
-import UserService from '../../service/UserService';
+import UserHttpService from '../../httpServices/UserHttpService';
 import ConsultProfileStats from '../Stats/ConsultProfileStats';
 
 class ConsultProfile extends React.Component {
@@ -11,7 +11,7 @@ class ConsultProfile extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getUserById(this.props.match.params.userId)
+    UserHttpService.getUserById(this.props.match.params.userId)
       .then((response) => {
         this.setState({
           user: response.data,

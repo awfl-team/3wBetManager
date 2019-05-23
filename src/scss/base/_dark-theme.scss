@@ -1,0 +1,262 @@
+.content, .header, h1, h2, h3, h4, h5, h6, span, p, .title, .competition-accordion {
+  color: $white !important;
+}
+
+i.circular.icon{
+  box-shadow: 0 0 0 0.1em $vue-green !important;
+}
+
+.whiteColor {
+  color: $white !important;
+}
+
+.greenColor {
+  background-color: $vue-green !important;
+  color: $white !important;
+}
+
+.redColor {
+  background-color: $red !important;
+  color: $white !important;
+}
+
+.whiteColor {
+  color: $white !important;
+}
+
+.ui.labeled.button:not([class*="left labeled"]) > .button {
+  background-color: $vue-green;
+  color: $vue;
+}
+
+.ui.labeled.button:not([class*="left labeled"]) > .label {
+  background-color: $vue;
+  border: 2px solid $vue-green;
+  color: white;
+}
+
+.ui.label {
+  color: $white;
+  background-color: $vue-contrast;
+  border-color: $vue-contrast;
+
+  &.greenLabel {
+    background-color: $vue-green;
+    border-color: $vue-green;
+  }
+  &.redLabel {
+    background-color: $red;
+    border-color: $red;
+  }
+  &.orangeLabel {
+    background-color: $orange;
+    border-color: $orange;
+  }
+  &.rareLabel {
+    background-color: $rare;
+    border-color: $rare;
+  }
+  &.epicLabel {
+    background-color: $epic;
+    border-color: $epic;
+  }
+  &.legendaryLabel {
+    background-color: $legendary;
+    border-color: $legendary;
+  }
+  &.infoLabel {
+    background-color: $blue;
+    border-color: $blue;
+  }
+}
+
+.ui.red.button {
+  background-color: $red;
+  border-color: $red;
+}
+
+.ui.green.button {
+  background-color: $vue-green;
+  border-color: $vue-green;
+}
+
+.ui.inverted.green.button {
+  border-color: $vue-green !important;
+  color: $white !important;
+  &:hover {
+    background: $vue-green !important;
+  }
+}
+
+.ui.inverted.rare.button {
+  border: 2px $rare solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $rare !important;
+  }
+}
+
+.ui.inverted.epic.button {
+  border: 2px $epic solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $epic !important;
+  }
+}
+
+.ui.inverted.legendary.button {
+  border: 2px $legendary solid !important;
+  box-shadow: 0 0 !important;
+  color: $white !important;
+  &:hover, &:focus {
+    background: $legendary !important;
+  }
+}
+
+
+.ui.cards > .card, .ui.card, .ui.styled.accordion  {
+  background: $vue !important;
+  box-shadow: none !important;
+}
+
+.ui.card > .content {
+  &:first-child {
+    background-color: $vue-green;
+    font-weight: bold;
+  }
+}
+
+
+input[type=number] {
+  background-color: $vue-contrast !important;
+  color: $white !important;
+  position: relative;
+  transition: $transition-border-color-200ms-ease;
+  &:focus {
+    border: 2px solid transparent;
+  }
+  &:focus {
+    border-color: $vue-green !important;
+  }
+}
+
+.ui.styled.accordion .title {
+  border-top: 0;
+}
+
+.bg-vue {
+  background-color: $material-lightgray-bg !important;
+  * {
+    color: $vue !important;
+  }
+}
+
+.footer {
+  background-color: $vue !important;
+}
+
+.ui.button {
+  background-color: $vue-contrast;
+  border-color: $vue-contrast;
+  color: $white;
+}
+
+.ui.table tr {
+  &.active {
+    background-color: $vue !important;
+    border: 2px solid $vue-green;
+    transition: $transition-all-300ms-ease;
+
+    &:hover {
+      background-color: $vue-contrast !important;
+    }
+
+    td {
+      color: $white;
+      font-weight: bold;
+    }
+  }
+}
+
+.ui.table {
+  border: 2px solid $vue-contrast !important;
+  background: #1D2935 !important;
+  tr {
+    transition: $transition-all-300ms-ease;
+    &.bet.buffed {
+      &-x10 {
+        border: 2px solid $legendary !important;
+      }
+      &-x5 {
+        border: 2px solid $epic !important;
+      }
+      &-x2 {
+        border: 2px solid $rare !important;
+      }
+    }
+  }
+}
+
+.pagination {
+  background: $vue !important;
+  .item {
+    background: $vue !important;
+
+    color: $white !important;
+    &.active {
+      border: 2px solid $vue-green !important;
+    }
+  }
+}
+
+.header-custom-image-container {
+  box-shadow: 0 0 0 0.2em #42b983 !important;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 112px;
+  height: 112px;
+  padding: 20px;
+  border-radius: 500rem;
+  .image-icon-header {
+    height: 100%;
+  }
+}
+.custom-button-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .image-icon-button {
+    height: 20px;
+    opacity: 1;
+    &.hide {
+      opacity: 0;
+    }
+  }
+}
+
+.ui.progress {
+  & > .label {
+   color: $white !important;
+  }
+  &.success {
+    & > .label {
+      color: $vue-green !important;
+    }
+  }
+  &.warning {
+    & > .label {
+      color: $orange !important;
+    }
+  }
+  &.error {
+    & > .label {
+      color: $red !important;
+    }
+  }
+}
+
+.or {
+  z-index: 0 !important;
+}

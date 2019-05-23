@@ -34,7 +34,7 @@
     margin: 0 auto;
     width: 100%;
     .userTableHeader {
-      @media screen and (max-width: 450px) {
+      @media #{$screen-and-max-500} {
         flex-direction: column;
         .input {
           margin-bottom: 5px;

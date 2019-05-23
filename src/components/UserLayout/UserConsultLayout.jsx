@@ -4,7 +4,7 @@ import {
   Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import withAuth from '../AuthGuard/AuthGuard';
@@ -20,7 +20,7 @@ class UserLayout extends React.Component {
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
   logout() {
-    AuthService.logout();
+    AuthHelper.logout();
     this.props.history.push('/login');
     this.setState({ toHome: true });
   }

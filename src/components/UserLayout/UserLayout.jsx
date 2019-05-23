@@ -4,8 +4,9 @@ import {
   Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import { hubConnection } from 'signalr-no-jquery';
+import Hammer from 'hammerjs';
 import Dashboard from '../Dashboard/Dashboard';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import withAuth from '../AuthGuard/AuthGuard';
@@ -22,20 +23,83 @@ import Bomb from '../Items/Bomb';
 import Key from '../Items/Key';
 import Multiplier from '../Items/Multiplier';
 import Mystery from '../Items/Mystery';
-import NotificationHelper from '../../service/helpers/NotificationHelper';
+import NotificationHelper from '../../helpers/NotificationHelper';
 import ConsultProfileWithKey from '../Profile/ConsultProfileWithKey';
 
+let gestureHandler;
+let resizeHandlerEvent;
 
 class UserLayout extends React.Component {
   state = {
-    visible: true,
+    visible: window.innerWidth > 800,
     toHome: false,
   };
 
   componentDidMount() {
-    Notification.requestPermission().then().catch();
+    this.handleSwipe();
+    this.handleResize();
+    try {
+      if (Notification.permission === 'granted') {
+        this.establishNotificationConnection();
+      } else {
+        Notification.requestPermission().then(() => {
+          this.establishNotificationConnection();
+        });
+      }
+    } catch (error) {
+      if (error instanceof TypeError) {
+        Notification.requestPermission(() => {
+          this.establishNotificationConnection();
+        });
+      } else {
+        console.log('Notification are not available on your browser');
+      }
+    }
+  }
+
+  handleResize = () => {
+    resizeHandlerEvent = window.addEventListener('resize', () => {
+      if (window.innerWidth > 800) {
+        this.setState({ visible: true });
+      } else {
+        this.setState({ visible: false });
+      }
+    });
+  }
+
+  handleSwipe = () => {
+    gestureHandler = new Hammer(document.getElementById('root'));
+    gestureHandler.get('pan').set({ threshold: 100 });
+    gestureHandler.on('panleft panright', (event) => {
+      if (event.target.closest('table') === null) {
+        switch (event.direction) {
+          case Hammer.DIRECTION_LEFT:
+          /* Swipe to left */
+            this.setState({ visible: false });
+            break;
+          case Hammer.DIRECTION_RIGHT:
+          /* Swipe to right */
+            this.setState({ visible: true });
+            break;
+          default:
+            this.setState({ visible: false });
+            break;
+        }
+      }
+    });
+  }
+
+  handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
+
+  handleSidenavBehaviorOnWindowSize = () => {
+    if (window.innerWidth < 800) {
+      this.setState(previousState => ({ visible: !previousState.visible }));
+    }
+  }
+
+  establishNotificationConnection() {
     const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
-    connection.qs = { username: AuthService.getUserInfo(AuthService.getToken()).unique_name };
+    connection.qs = { username: AuthHelper.getUserInfo(AuthHelper.getToken()).unique_name };
     const notificationHub = connection.createHubProxy('notificationHub');
     notificationHub.on('NotifyUser', (message) => {
       NotificationHelper.createNotif(message);
@@ -43,10 +107,10 @@ class UserLayout extends React.Component {
     connection.start({ jsonp: true });
   }
 
-  handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
-
   logout() {
-    AuthService.logout();
+    gestureHandler.destroy();
+    window.removeEventListener('resize', resizeHandlerEvent);
+    AuthHelper.logout();
     this.props.history.push('/login');
     this.setState({ toHome: true });
   }
@@ -75,7 +139,7 @@ class UserLayout extends React.Component {
         </Menu>
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation="push" visible={visible} icon="labeled" inverted vertical width="thin" className="primary-bg">
-            <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
+            <Menu.Item as={NavLink} activeClassName="active" to="/dashboard" onClick={() => this.handleSidenavBehaviorOnWindowSize()}>
               <Icon name="dashboard" />
               Dashboard
             </Menu.Item>
@@ -84,11 +148,12 @@ class UserLayout extends React.Component {
               activeClassName="active"
               className={this.props.history.location.pathname === '/bet/submitBets' ? 'active' : ''}
               to="/bet/myBets"
+              onClick={() => this.handleSidenavBehaviorOnWindowSize()}
             >
               <Icon name="ticket" />
               My Bets
             </Menu.Item>
-            <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters">
+            <Menu.Item as={NavLink} activeClassName="active" to="/bestBetters" onClick={() => this.handleSidenavBehaviorOnWindowSize()}>
               <Icon name="fire" />
               Top 50
             </Menu.Item>
@@ -97,6 +162,7 @@ class UserLayout extends React.Component {
               activeClassName="active"
               to="/shop"
               className={this.props.history.location.pathname === '/items' ? 'active' : ''}
+              onClick={() => this.handleSidenavBehaviorOnWindowSize()}
             >
               <Icon name="shop" />
               3wShop
@@ -110,6 +176,7 @@ class UserLayout extends React.Component {
                 || this.props.history.location.pathname === '/admin/items'
                 || this.props.history.location.pathname === '/admin/addUser' ? 'active' : ''}
                 to="/admin/users"
+                onClick={() => this.handleSidenavBehaviorOnWindowSize()}
               >
                 <Icon name="angular" />
                     Admin

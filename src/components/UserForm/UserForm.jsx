@@ -4,8 +4,8 @@ import {
 } from 'semantic-ui-react';
 import connect from 'react-redux/es/connect/connect';
 import User from '../../model/User';
-import UserService from '../../service/UserService';
-import FormUserService from '../../service/FormUserService';
+import UserHttpService from '../../httpServices/UserHttpService';
+import FormClassnameHelper from '../../helpers/FormClassnameHelper';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
@@ -30,7 +30,7 @@ class UserForm extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property,
+    const refreshedClassName = FormClassnameHelper.refreshClassName(property,
       event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,
@@ -58,7 +58,7 @@ class UserForm extends React.Component {
       user.Role = 'USER';
     }
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.addUserAdmin(user).then(() => {
+      UserHttpService.addUserAdmin(user).then(() => {
         this.props.addSnackbar({
           message: `${user.Username}'s account created`,
           type: 'success',

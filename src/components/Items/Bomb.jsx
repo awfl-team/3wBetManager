@@ -4,11 +4,11 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import UserService from '../../service/UserService';
-import ItemService from '../../service/ItemService';
+import UserHttpService from '../../httpServices/UserHttpService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import User from '../../model/User';
 
 function mapDispatchToProps(dispatch) {
@@ -27,13 +27,13 @@ class Bomb extends React.Component {
   };
 
   componentDidMount() {
-    UserService.getCurrentUserAmongSiblings().then(((response) => {
+    UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
       this.setState({
         userAmongSiblings: response.data,
       });
     }));
 
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         currentUser: res.data,
         nbBombs: res.data.Items.filter(item => item.Type === Item.TYPE_BOMB).length,
@@ -45,7 +45,7 @@ class Bomb extends React.Component {
     const elem = event.target;
     this.setState({ isDisabled: true });
     if (this.state.nbBombs > 0) {
-      ItemService.useBomb(userId).then(() => {
+      ItemHttpService.useBomb(userId).then(() => {
         this.props.addSnackbar({
           message: 'Bomb used',
           type: 'success',
@@ -55,7 +55,7 @@ class Bomb extends React.Component {
         setTimeout(() => {
           this.handleButtonAnimationHide(elem);
         }, 500);
-        UserService.getCurrentUserAmongSiblings().then(((response) => {
+        UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
           this.setState({
             userAmongSiblings: response.data,
             isDisabled: false,
@@ -78,7 +78,7 @@ class Bomb extends React.Component {
     bombAnimation.classList.remove('hide');
     buttonImage.classList.add('hide');
     buttonImage.classList.remove('show');
-    AudioHandlerService.useBomb();
+    AudioHandlerHelper.useBomb();
   }
 
   handleButtonAnimationHide(elem) {
@@ -136,6 +136,7 @@ class Bomb extends React.Component {
             <Table celled structured inverted compact unstackable className="primary-bg">
               <Table.Header>
                 <Table.Row textAlign="center">
+                  <Table.HeaderCell rowSpan="2">Rank</Table.HeaderCell>
                   <Table.HeaderCell rowSpan="2">Username</Table.HeaderCell>
                   <Table.HeaderCell rowSpan="2">Score</Table.HeaderCell>
                   <Table.HeaderCell rowSpan="2">Lives</Table.HeaderCell>
@@ -158,6 +159,20 @@ class Bomb extends React.Component {
                 {userAmongSiblings.length > 0
                   && userAmongSiblings.map(user => (
                     <Table.Row key={user.Id} textAlign="center" active={user.IsCurrent}>
+                      <Table.Cell>
+                        {user.Rank === 1
+                        && <Icon name="fire" color="red" size="big" />
+                        }
+                        {user.Rank === 2
+                        && <Icon name="fire" color="yellow" size="big" />
+                        }
+                        {user.Rank === 3
+                        && <Icon name="fire" size="big" />
+                        }
+                        {user.Rank > 3
+                        && `# ${user.Rank}`
+                        }
+                      </Table.Cell>
                       <Table.Cell>{user.Username}</Table.Cell>
                       <Table.Cell>
                         <span>{user.Point}</span>

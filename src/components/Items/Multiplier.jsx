@@ -5,12 +5,12 @@ import {
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import BetService from '../../service/BetService';
-import ItemService from '../../service/ItemService';
+import BetHttpService from '../../httpServices/BetHttpService';
+import ItemHttpService from '../../httpServices/ItemHttpService';
 import Item from '../../model/Item';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import UserService from '../../service/UserService';
-import AudioHandlerService from '../../service/AudioHandlerService';
+import UserHttpService from '../../httpServices/UserHttpService';
+import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -32,7 +32,7 @@ class Multiplier extends React.Component {
   };
 
   componentDidMount() {
-    BetService.getUserFinishedBetsPaginated()
+    BetHttpService.getUserFinishedBetsPaginated()
       .then((response) => {
         this.setState({
           bets: response.data.Items,
@@ -40,7 +40,7 @@ class Multiplier extends React.Component {
           totalBets: response.data.TotalBets,
         });
       });
-    UserService.getFromToken().then((res) => {
+    UserHttpService.getFromToken().then((res) => {
       this.setState({
         nbMultiplierByTen: res.data.Items.filter(
           item => item.Type === Item.TYPE_MULTIPLY_BY_TEN,
@@ -57,7 +57,7 @@ class Multiplier extends React.Component {
 
   getNextBets(event) {
     this.setState({ currentPage: event.target.getAttribute('value') });
-    BetService.getUserFinishedBetsPaginated(event.target.getAttribute('value'))
+    BetHttpService.getUserFinishedBetsPaginated(event.target.getAttribute('value'))
       .then((response) => {
         this.setState({
           bets: response.data.Items,
@@ -69,12 +69,12 @@ class Multiplier extends React.Component {
 
   handleClick = (betId, multiplierValue) => {
     this.setState({ isDisabled: true });
-    ItemService.useMultiplier(betId, multiplierValue).then(() => {
+    ItemHttpService.useMultiplier(betId, multiplierValue).then(() => {
       this.props.addSnackbar({
         message: 'Multiplier used',
         type: 'success',
       });
-      BetService.getUserFinishedBetsPaginated(this.state.currentPage)
+      BetHttpService.getUserFinishedBetsPaginated(this.state.currentPage)
         .then((response) => {
           this.setState({
             bets: response.data.Items,
@@ -84,7 +84,7 @@ class Multiplier extends React.Component {
         }).catch(() => {
           this.setState({ isDisabled: false });
         });
-      AudioHandlerService.useMultiplier();
+      AudioHandlerHelper.useMultiplier();
       switch (multiplierValue) {
         case 10:
           this.setState(prevState => ({ nbMultiplierByTen: prevState.nbMultiplierByTen - 1 }));
