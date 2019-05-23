@@ -14,7 +14,6 @@ export function purgeTableBet() {
 }
 
 export function removeBet(match) {
-  console.log(match);
   return { type: REMOVE_BET, match };
 }
 

@@ -40,13 +40,7 @@ class UserLayout extends React.Component {
     notificationHub.on('NotifyUser', (message) => {
       NotificationHelper.createNotif(message);
     });
-    connection.start({ jsonp: true })
-      .done(() => {
-        console.log('start');
-      })
-      .fail((err) => {
-        console.log(err);
-      });
+    connection.start({ jsonp: true });
   }
 
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));

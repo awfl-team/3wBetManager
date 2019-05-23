@@ -34,7 +34,6 @@ class Multiplier extends React.Component {
   componentDidMount() {
     BetService.getUserFinishedBetsPaginated()
       .then((response) => {
-        console.log(response.data);
         this.setState({
           bets: response.data.Items,
           totalPages: response.data.TotalPages,

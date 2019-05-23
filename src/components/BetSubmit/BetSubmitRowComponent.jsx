@@ -11,9 +11,7 @@ function mapDispatchToProps(dispatch) {
     addBet: ({
       match, inputName, value, bet,
     }) => dispatch(addTableBet(match, inputName, value, bet)),
-    removeBet: ({
-      match,
-    }) => dispatch(removeBet(match)),
+    removeBet: match => dispatch(removeBet(match)),
   };
 }
 
@@ -25,8 +23,10 @@ class BetSubmitRowComponent extends React.Component {
     this.state = {
       bet,
       match,
-      oldHomeTeamInput: bet ? bet.HomeTeamScore : undefined,
-      oldAwayTeamInput: bet ? bet.AwayTeamScore : undefined,
+      HomeTeamInput: bet ? parseInt(bet.HomeTeamScore, 10) : undefined,
+      AwayTeamInput: bet ? parseInt(bet.AwayTeamScore, 10) : undefined,
+      oldHomeTeamInput: bet ? parseInt(bet.HomeTeamScore, 10) : undefined,
+      oldAwayTeamInput: bet ? parseInt(bet.AwayTeamScore, 10) : undefined,
     };
   }
 
@@ -37,9 +37,14 @@ class BetSubmitRowComponent extends React.Component {
       match = bet.Match;
     }
     if (nextProps.bets.find(betParam => betParam.Match.Id
-      === match.Id && betParam.alreadyUpdated === true)) {
+        === match.Id && betParam.alreadyUpdated === true)) {
+      const nextBet = nextProps.bets.find(betParam => betParam.Match.Id === match.Id);
       this.setState({
-        bet: nextProps.bets.find(betParam => betParam.Match.Id === match.Id),
+        bet: nextBet,
+        oldHomeTeamInput: parseInt(nextBet.HomeTeamScore, 10),
+        oldAwayTeamInput: parseInt(nextBet.AwayTeamScore, 10),
+        HomeTeamInput: parseInt(nextBet.HomeTeamScore, 10),
+        AwayTeamInput: parseInt(nextBet.AwayTeamScore, 10),
       });
     }
   }
@@ -53,11 +58,11 @@ class BetSubmitRowComponent extends React.Component {
     return !!nextProps.bets.find(betParam => betParam.Match.Id === match.Id);
   }
 
-  createBet(event, match, inputName) {
+  createBet(value, match, inputName) {
     const data = {
       match,
       inputName,
-      value: event.target.value,
+      value,
     };
     if (this.state.bet) {
       data.bet = this.state.bet;
@@ -67,29 +72,26 @@ class BetSubmitRowComponent extends React.Component {
   }
 
   handleHomeTeamInput(event, match, inputName) {
-    const value = parseInt(event.target.value, 10);
-    if (value < 0) {
-      event.target.value = '';
-    }
-    console.log(this.state.oldHomeTeamInput);
-    console.log(event.target.value);
+    const value = parseInt(event.target.value, 10) || 0;
+    this.setState({ HomeTeamInput: value });
     if (!this.state.oldHomeTeamInput) {
-      this.createBet(event, match, inputName);
+      this.createBet(value, match, inputName);
     } else if (this.state.oldHomeTeamInput !== value) {
-      this.createBet(event, match, inputName);
-    } else {
-      console.log(match);
+      this.createBet(value, match, inputName);
+    } else if (value === this.state.oldHomeTeamInput && this.state.AwayTeamInput === this.state.oldAwayTeamInput) {
       this.props.removeBet(match);
     }
   }
 
   handleAwayTeamInput(event, match, inputName) {
-    if (event.target.value < 0) {
-      event.target.value = '';
-    }
+    const value = parseInt(event.target.value, 10);
+    this.setState({ AwayTeamInput: value });
     if (!this.state.oldAwayTeamInput) {
-      this.createBet(event, match, inputName);
-      this.setState({ oldAwayTeamInput: event.target.value });
+      this.createBet(value, match, inputName);
+    } else if (this.state.oldAwayTeamInput !== value) {
+      this.createBet(value, match, inputName);
+    } else if (this.state.HomeTeamInput === this.state.oldHomeTeamInput && value === this.state.oldAwayTeamInput) {
+      this.props.removeBet(match);
     }
   }
 
@@ -117,7 +119,7 @@ class BetSubmitRowComponent extends React.Component {
               />
             </div>
             <Label className="greenLabel">
-              Win :
+                Win :
               {' '}
               {match.HomeTeamRating === 0 ? 'N/A' : parseFloat(match.HomeTeamRating)
                 .toFixed(2)}
@@ -137,7 +139,7 @@ class BetSubmitRowComponent extends React.Component {
                     .format('MM-DD-YYYY')
                 ) : (
                   <Label className="infoLabel">
-                  Underway
+                      Underway
                   </Label>
                 )}
             </div>
@@ -149,8 +151,8 @@ class BetSubmitRowComponent extends React.Component {
                     <Input
                       defaultValue={bet ? bet.HomeTeamScore : ''}
                       onChange={
-                      event => this.handleHomeTeamInput(event, match,
-                        'home')}
+                            event => this.handleHomeTeamInput(event, match,
+                              'home')}
                       fluid
                       type="number"
                       max="9"
@@ -170,8 +172,8 @@ class BetSubmitRowComponent extends React.Component {
                     <Input
                       defaultValue={bet ? bet.AwayTeamScore : ''}
                       onChange={
-                      event => this.handleAwayTeamInput(event, match,
-                        'away')}
+                            event => this.handleAwayTeamInput(event, match,
+                              'away')}
                       fluid
                       type="number"
                       max="9"
@@ -185,7 +187,7 @@ class BetSubmitRowComponent extends React.Component {
               </div>
             </div>
             <Label>
-              Draw :
+                Draw :
               {' '}
               {match.DrawRating === 0 ? 'N/A' : parseFloat(match.DrawRating)
                 .toFixed(2)}
@@ -204,7 +206,7 @@ class BetSubmitRowComponent extends React.Component {
               />
             </div>
             <Label className="greenLabel">
-              Win :
+                Win :
               {' '}
               {match.AwayTeamRating === 0 ? 'N/A' : parseFloat(match.AwayTeamRating)
                 .toFixed(2)}
