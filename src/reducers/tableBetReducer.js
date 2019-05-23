@@ -1,4 +1,6 @@
-import { ADD_TABLE_BET, PURGE_TABLE_BET, SET_TABLE_BET } from '../actions/TableBetActions';
+import {
+  ADD_TABLE_BET, PURGE_TABLE_BET, REMOVE_BET, SET_TABLE_BET,
+} from '../actions/TableBetActions';
 import Bet from '../model/Bet';
 
 let findIndexBetByMatch;
@@ -37,15 +39,12 @@ const bets = (state = [], action) => {
       if (action.inputName === 'home') state[findIndexBetByMatch].HomeTeamScore = action.value === '' ? 0 : action.value;
       if (action.inputName === 'away') state[findIndexBetByMatch].AwayTeamScore = action.value === '' ? 0 : action.value;
 
-      // remove bet
-      if (action.value === '' && state[findIndexBetByMatch].HomeTeamScore === 0 && state[findIndexBetByMatch].AwayTeamScore === 0) {
-        return [...state.slice(0, findIndexBetByMatch), ...state.slice(findIndexBetByMatch + 1)];
-      }
-
-
       return state;
     case PURGE_TABLE_BET:
       return [];
+    case REMOVE_BET:
+      findIndexBetByMatch = state.findIndex(bet => bet.Match.Id === action.match.Id);
+      return [...state.slice(0, findIndexBetByMatch), ...state.slice(findIndexBetByMatch + 1)];
     case SET_TABLE_BET:
       return [...action.bets];
     default:
