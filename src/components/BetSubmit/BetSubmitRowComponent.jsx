@@ -78,7 +78,8 @@ class BetSubmitRowComponent extends React.Component {
       this.createBet(value, match, inputName);
     } else if (this.state.oldHomeTeamInput !== value) {
       this.createBet(value, match, inputName);
-    } else if (value === this.state.oldHomeTeamInput && this.state.AwayTeamInput === this.state.oldAwayTeamInput) {
+    } else if (value === this.state.oldHomeTeamInput
+        && this.state.AwayTeamInput === this.state.oldAwayTeamInput) {
       this.props.removeBet(match);
     }
   }
@@ -90,7 +91,8 @@ class BetSubmitRowComponent extends React.Component {
       this.createBet(value, match, inputName);
     } else if (this.state.oldAwayTeamInput !== value) {
       this.createBet(value, match, inputName);
-    } else if (this.state.HomeTeamInput === this.state.oldHomeTeamInput && value === this.state.oldAwayTeamInput) {
+    } else if (this.state.HomeTeamInput === this.state.oldHomeTeamInput
+        && value === this.state.oldAwayTeamInput) {
       this.props.removeBet(match);
     }
   }
