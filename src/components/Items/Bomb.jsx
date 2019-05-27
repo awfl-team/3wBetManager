@@ -10,6 +10,7 @@ import { addSnackBar } from '../../actions/SnackBarActions';
 import Item from '../../model/Item';
 import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import User from '../../model/User';
+import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -18,18 +19,40 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Bomb extends React.Component {
+  static handleButtonAnimationShow(elem) {
+    const bombAnimation = elem.closest('.buttons').getElementsByClassName('bomb-animation')[0];
+    const buttonImage = elem.closest('.buttons').getElementsByClassName('image-icon-button')[0];
+    bombAnimation.classList.add('show');
+    bombAnimation.classList.remove('hide');
+    buttonImage.classList.add('hide');
+    buttonImage.classList.remove('show');
+    AudioHandlerHelper.useBomb();
+  }
+
+  static handleButtonAnimationHide(elem) {
+    const bombAnimation = elem.parentElement.parentElement.getElementsByClassName('bomb-animation')[0];
+    const buttonImage = elem.parentElement.parentElement.getElementsByClassName('image-icon-button')[0];
+    bombAnimation.classList.add('hide');
+    bombAnimation.classList.remove('show');
+    buttonImage.classList.add('show');
+    buttonImage.classList.remove('hide');
+  }
+
   state = {
     userAmongSiblings: [],
     nbBombs: 0,
     currentUser: User,
     activeItem: 'items',
     isDisabled: false,
+    isUserAmongSiblingsLoading: true,
+    isUserLoading: true,
   };
 
   componentDidMount() {
     UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
       this.setState({
         userAmongSiblings: response.data,
+        isUserAmongSiblingsLoading: false,
       });
     }));
 
@@ -37,6 +60,7 @@ class Bomb extends React.Component {
       this.setState({
         currentUser: res.data,
         nbBombs: res.data.Items.filter(item => item.Type === Item.TYPE_BOMB).length,
+        isUserLoading: false,
       });
     });
   }
@@ -51,9 +75,9 @@ class Bomb extends React.Component {
           type: 'success',
         });
         this.setState(prevState => ({ nbBombs: prevState.nbBombs - 1 }));
-        this.handleButtonAnimationShow(elem);
+        Bomb.handleButtonAnimationShow(elem);
         setTimeout(() => {
-          this.handleButtonAnimationHide(elem);
+          Bomb.handleButtonAnimationHide(elem);
         }, 500);
         UserHttpService.getCurrentUserAmongSiblings().then(((response) => {
           this.setState({
@@ -92,7 +116,8 @@ class Bomb extends React.Component {
 
   render() {
     const {
-      userAmongSiblings, nbBombs, activeItem, currentUser, isDisabled,
+      userAmongSiblings, nbBombs, activeItem,
+      currentUser, isDisabled, isUserAmongSiblingsLoading, isUserLoading,
     } = this.state;
 
     return (
@@ -132,31 +157,34 @@ class Bomb extends React.Component {
           </Header.Content>
         </Header>
         <Container textAlign="center" fluid>
-          <div className="scrollable-table-container">
-            <Table celled structured inverted compact unstackable className="primary-bg">
-              <Table.Header>
-                <Table.Row textAlign="center">
-                  <Table.HeaderCell rowSpan="2">Rank</Table.HeaderCell>
-                  <Table.HeaderCell rowSpan="2">Username</Table.HeaderCell>
-                  <Table.HeaderCell rowSpan="2">Score</Table.HeaderCell>
-                  <Table.HeaderCell rowSpan="2">Lives</Table.HeaderCell>
-                  <Table.HeaderCell colSpan="3">Nb bets per type</Table.HeaderCell>
-                  <Table.HeaderCell rowSpan="2">Actions</Table.HeaderCell>
-                </Table.Row>
-                <Table.Row textAlign="center">
-                  <Table.HeaderCell>
-                    <Label className="redLabel">Wrong</Label>
-                  </Table.HeaderCell>
-                  <Table.HeaderCell>
-                    <Label className="orangeLabel">Ok</Label>
-                  </Table.HeaderCell>
-                  <Table.HeaderCell>
-                    <Label className="greenLabel">Perfect</Label>
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {userAmongSiblings.length > 0
+          { isUserAmongSiblingsLoading && isUserLoading ? (
+            <TableSkeleton width={1700} height={400} />
+          ) : (
+            <div className="scrollable-table-container">
+              <Table celled structured inverted compact unstackable className="primary-bg">
+                <Table.Header>
+                  <Table.Row textAlign="center">
+                    <Table.HeaderCell rowSpan="2">Rank</Table.HeaderCell>
+                    <Table.HeaderCell rowSpan="2">Username</Table.HeaderCell>
+                    <Table.HeaderCell rowSpan="2">Score</Table.HeaderCell>
+                    <Table.HeaderCell rowSpan="2">Lives</Table.HeaderCell>
+                    <Table.HeaderCell colSpan="3">Nb bets per type</Table.HeaderCell>
+                    <Table.HeaderCell rowSpan="2">Actions</Table.HeaderCell>
+                  </Table.Row>
+                  <Table.Row textAlign="center">
+                    <Table.HeaderCell>
+                      <Label className="redLabel">Wrong</Label>
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      <Label className="orangeLabel">Ok</Label>
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      <Label className="greenLabel">Perfect</Label>
+                    </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {userAmongSiblings.length > 0
                   && userAmongSiblings.map(user => (
                     <Table.Row key={user.Id} textAlign="center" active={user.IsCurrent}>
                       <Table.Cell>
@@ -214,9 +242,12 @@ class Bomb extends React.Component {
                     </Table.Row>
                   ))}
 
-              </Table.Body>
-            </Table>
-          </div>
+                </Table.Body>
+              </Table>
+            </div>
+          )
+          }
+
         </Container>
       </div>
     );

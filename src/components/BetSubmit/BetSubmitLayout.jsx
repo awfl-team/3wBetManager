@@ -7,6 +7,7 @@ import CompetitionService from '../../httpServices/CompetionHttpService';
 import BetHttpService from '../../httpServices/BetHttpService';
 import BetSubmitBlockComponent from './BetSubmitBlockComponent';
 import BetSubmitButton from './BetSubmitButton';
+import NoBetsSubmit from '../NoBets/NoBetsSubmit';
 
 const mapStateToProps = state => ({ bets: state.bets });
 
@@ -15,7 +16,7 @@ class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,
     competitionsWithBets: [],
-    loading: true,
+    isLoading: true,
   };
 
 
@@ -36,7 +37,7 @@ class BetSubmitLayout extends React.Component {
         });
         this.setState({
           competitionsWithBets,
-          loading: false,
+          isLoading: false,
         });
       });
     });
@@ -53,7 +54,7 @@ class BetSubmitLayout extends React.Component {
 
   render() {
     const {
-      activeIndex, competitionsWithBets, loading,
+      activeIndex, competitionsWithBets, isLoading,
     } = this.state;
     return (
       <div id="betCup">
@@ -61,8 +62,12 @@ class BetSubmitLayout extends React.Component {
           <Icon name="ticket" circular />
           <Header.Content>Available bets</Header.Content>
         </Header>
-        {competitionsWithBets.length > 0 && loading === false
-          ? (
+        {isLoading ? (
+          <Loader id="betLoader" size="huge" active inline="centered" />
+        ) : (
+          competitionsWithBets.length <= 0 ? (
+            <NoBetsSubmit />
+          ) : (
             <Container fluid>
               <Accordion fluid styled>
                 {competitionsWithBets.map((competition, index) => (
@@ -93,23 +98,9 @@ class BetSubmitLayout extends React.Component {
                 ))}
               </Accordion>
             </Container>
-          ) : competitionsWithBets.length === 0 && loading === false
-            ? (
-              <div className="noBetFound">
-                <div className="ui middle aligned center aligned fullpage">
-                  <div className="column">
-                    <h2 className="ui teal authentication-header">
-                      <div className="content">
-                        <p className="noBetFound-header">No bets found at the moment</p>
-                        <p className="back-button">Click here to reload the page</p>
-                      </div>
-                    </h2>
-                  </div>
-                </div>
-              </div>
-            )
-            : <Loader id="betLoader" size="huge" active inline="centered" />
-          }
+          )
+        )
+        }
         <BetSubmitButton />
       </div>
     );

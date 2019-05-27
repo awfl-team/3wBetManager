@@ -5,7 +5,17 @@ export default class User {
 
     Password;
 
+    Rank;
+
+    NbWrongBets;
+
+    NbOkBets;
+
+    NbPerfectBets;
+
     Email;
+
+    IsCurrent;
 
     Point;
 

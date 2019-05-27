@@ -5,6 +5,7 @@ import {
 import { connect } from 'react-redux';
 import ItemHttpService from '../../httpServices/ItemHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
+import TableSkeleton from '../SkeletonLoaders/TableSkeleton';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -15,11 +16,15 @@ function mapDispatchToProps(dispatch) {
 class AdminItemsManager extends React.Component {
   state = {
     items: [],
+    isLoading: true,
   };
 
   componentDidMount() {
     ItemHttpService.getAllItems().then((res) => {
-      this.setState({ items: res.data });
+      this.setState({
+        items: res.data,
+        isLoading: false,
+      });
     });
   }
 
@@ -48,7 +53,7 @@ class AdminItemsManager extends React.Component {
 
 
   render() {
-    const { items } = this.state;
+    const { items, isLoading } = this.state;
     return (
       <div id="adminItemsManager">
         <Header as="h1" icon textAlign="center">
@@ -60,57 +65,62 @@ class AdminItemsManager extends React.Component {
           </Header.Content>
         </Header>
         <div className="items-table">
-          <Table celled structured compact inverted unstackable className="primary-bg">
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Cost</Table.HeaderCell>
-                <Table.HeaderCell>Rarity</Table.HeaderCell>
-                <Table.HeaderCell>Actions</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {items.map(item => (
-                <Table.Row key={item.Id}>
-                  <Table.Cell>{item.Name}</Table.Cell>
-                  <Table.Cell>
-                    <div className="ui form">
-                      <div className="field">
-                        <input
-                          className="fluid"
-                          type="text"
-                          name="cost"
-                          placeholder="Cost"
-                          defaultValue={item.Cost}
-                          onChange={event => this.handleCostChange(event, item.Id)}
-                        />
-                      </div>
-                    </div>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <div className="ui form">
-                      <div className="field">
-                        <select
-                          className="ui fluid search dropdown"
-                          defaultValue={item.Rarity}
-                          name="rarity"
-                          onChange={event => this.handleRarityChange(event, item.Id)}
-                        >
-                          <option>Common</option>
-                          <option>Rare</option>
-                          <option>Epic</option>
-                          <option>Legendary</option>
-                        </select>
-                      </div>
-                    </div>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Button onClick={() => this.submitCost(item)} type="button" circular color="green" size="large">Submit</Button>
-                  </Table.Cell>
+          { isLoading ? (
+            <TableSkeleton width={1700} height={400} />
+          ) : (
+            <Table celled structured compact inverted unstackable className="primary-bg">
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Name</Table.HeaderCell>
+                  <Table.HeaderCell>Cost</Table.HeaderCell>
+                  <Table.HeaderCell>Rarity</Table.HeaderCell>
+                  <Table.HeaderCell>Actions</Table.HeaderCell>
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
+              </Table.Header>
+              <Table.Body>
+                {items.map(item => (
+                  <Table.Row key={item.Id}>
+                    <Table.Cell>{item.Name}</Table.Cell>
+                    <Table.Cell>
+                      <div className="ui form">
+                        <div className="field">
+                          <input
+                            className="fluid"
+                            type="text"
+                            name="cost"
+                            placeholder="Cost"
+                            defaultValue={item.Cost}
+                            onChange={event => this.handleCostChange(event, item.Id)}
+                          />
+                        </div>
+                      </div>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <div className="ui form">
+                        <div className="field">
+                          <select
+                            className="ui fluid search dropdown"
+                            defaultValue={item.Rarity}
+                            name="rarity"
+                            onChange={event => this.handleRarityChange(event, item.Id)}
+                          >
+                            <option>Common</option>
+                            <option>Rare</option>
+                            <option>Epic</option>
+                            <option>Legendary</option>
+                          </select>
+                        </div>
+                      </div>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Button onClick={() => this.submitCost(item)} type="button" circular color="green" size="large">Submit</Button>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          )
+          }
         </div>
       </div>
     );

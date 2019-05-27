@@ -3,6 +3,9 @@ import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { Container, Grid } from 'semantic-ui-react';
 import GraphHttpService from '../../httpServices/GraphHttpService';
 import StatsBuilderHelper from '../../helpers/StatsBuilderHelper';
+import PieStatSkeleton from '../SkeletonLoaders/PieStatSkeleton';
+import GraphPointsStatSkeleton from '../SkeletonLoaders/GraphPointsStatSkeleton';
+import GraphStatSkeleton from '../SkeletonLoaders/GraphStatSkeleton';
 
 let dataBuildBetsPerType;
 let dataBuildCoinsPerType;
@@ -17,6 +20,11 @@ class ProfileStats extends React.Component {
     dataSetEarnings: [],
     dataSetMonth: [],
     dataSetYear: [],
+    isBetsLoading: true,
+    isCoinsLoading: true,
+    isEarningsLoading: true,
+    isMonthLoading: true,
+    isYearLoading: true,
   };
 
   componentWillReceiveProps() {
@@ -40,7 +48,11 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildBetsPerType = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
-      this.setState({ dataSetBets: dataBuildBetsPerType });
+
+      this.setState({
+        dataSetBets: dataBuildBetsPerType,
+        isBetsLoading: false,
+      });
     });
   }
 
@@ -57,7 +69,11 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerType = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
-      this.setState({ dataSetEarnings: dataBuildCoinsPerType });
+
+      this.setState({
+        dataSetEarnings: dataBuildCoinsPerType,
+        isEarningsLoading: false,
+      });
     });
   }
 
@@ -73,7 +89,10 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildIncomesAndLoss = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
-      this.setState({ dataSetCoins: dataBuildIncomesAndLoss });
+      this.setState({
+        dataSetCoins: dataBuildIncomesAndLoss,
+        isCoinsLoading: false,
+      });
     });
   }
 
@@ -92,7 +111,11 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerMonth = StatsBuilderHelper.buildStatsBetsDougnut(['0'], ['undefined']);
       }
-      this.setState({ dataSetMonth: dataBuildCoinsPerMonth });
+
+      this.setState({
+        dataSetMonth: dataBuildCoinsPerMonth,
+        isMonthLoading: false,
+      });
     });
   }
 
@@ -111,13 +134,18 @@ class ProfileStats extends React.Component {
       } else {
         dataBuildCoinsPerYear = StatsBuilderHelper.buildStatsBetsDougnut(['0'], ['undefined']);
       }
-      this.setState({ dataSetYear: dataBuildCoinsPerYear });
+
+      this.setState({
+        dataSetYear: dataBuildCoinsPerYear,
+        isYearLoading: false,
+      });
     });
   }
 
   render() {
     const {
       dataSetBets, dataSetCoins, dataSetEarnings, dataSetMonth, dataSetYear,
+      isBetsLoading, isCoinsLoading, isEarningsLoading, isMonthLoading, isYearLoading,
     } = this.state;
 
     return (
@@ -126,58 +154,78 @@ class ProfileStats extends React.Component {
           <Grid>
             <Grid.Row columns={15} divided centered>
               <Grid.Column textAlign="center" computer={5} tablet={15}>
-                <div className="doughnut-container-max-size">
-                  <h3>Finished bets per type</h3>
-                  <Doughnut
-                    data={{ labels: dataSetBets.labels, datasets: dataSetBets.datasets }}
-                    legend={{ position: 'bottom' }}
-                    options={dataSetBets.options}
-                  />
-                </div>
+                { isBetsLoading ? (
+                  <PieStatSkeleton />
+                ) : (
+                  <div className="doughnut-container-max-size">
+                    <h3>Finished bets per type</h3>
+                    <Doughnut
+                      data={{ labels: dataSetBets.labels, datasets: dataSetBets.datasets }}
+                      options={dataSetBets.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
               <Grid.Column textAlign="center" computer={5} tablet={15}>
-                <div className="doughnut-container-max-size">
-                  <h3>Bets incomes and losses per types</h3>
-                  <Doughnut
-                    data={{ labels: dataSetEarnings.labels, datasets: dataSetEarnings.datasets }}
-                    legend={{ position: 'bottom' }}
-                    options={dataSetEarnings.options}
-                  />
-                </div>
+                { isEarningsLoading ? (
+                  <PieStatSkeleton />
+                ) : (
+                  <div className="doughnut-container-max-size">
+                    <h3>Bets incomes and losses per types</h3>
+                    <Doughnut
+                      data={{ labels: dataSetEarnings.labels, datasets: dataSetEarnings.datasets }}
+                      options={dataSetEarnings.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
               <Grid.Column textAlign="center" computer={5} tablet={15}>
-                <div className="doughnut-container-max-size">
-                  <h3>Coins total usages per purpose</h3>
-                  <Doughnut
-                    data={{ labels: dataSetCoins.labels, datasets: dataSetCoins.datasets }}
-                    legend={{ position: 'bottom' }}
-                    options={dataSetCoins.options}
-                  />
-                </div>
+                { isCoinsLoading ? (
+                  <PieStatSkeleton />
+                ) : (
+                  <div className="doughnut-container-max-size">
+                    <h3>Coins total usages per purpose</h3>
+                    <Doughnut
+                      data={{ labels: dataSetCoins.labels, datasets: dataSetCoins.datasets }}
+                      options={dataSetCoins.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
             </Grid.Row>
             <Grid.Row columns={16}>
               <Grid.Column textAlign="center" computer={8} tablet={16}>
-                <div className="graph-container-max-size">
-                  <h3>Earned coins since last reset per months</h3>
-                  <Line
-                    data={{ labels: dataSetMonth.labels, datasets: dataSetMonth.datasets }}
-                    fill="false"
-                    legend={{ position: 'bottom' }}
-                    options={dataSetMonth.options}
-                  />
-                </div>
+                { isMonthLoading ? (
+                  <GraphPointsStatSkeleton />
+                ) : (
+                  <div className="graph-container-max-size">
+                    <h3>Earned coins since last reset per months</h3>
+                    <Line
+                      data={{ labels: dataSetMonth.labels, datasets: dataSetMonth.datasets }}
+                      fill="false"
+                      options={dataSetMonth.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
               <Grid.Column textAlign="center" computer={8} tablet={16}>
-                <div className="graph-container-max-size">
-                  <h3>Earned coins since last reset per years</h3>
-                  <Bar
-                    data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }}
-                    fill="false"
-                    legend={{ position: 'bottom' }}
-                    options={dataSetYear.options}
-                  />
-                </div>
+                { isYearLoading ? (
+                  <GraphStatSkeleton />
+                ) : (
+                  <div className="graph-container-max-size">
+                    <h3>Earned coins since last reset per years</h3>
+                    <Bar
+                      data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }}
+                      fill="false"
+                      options={dataSetYear.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
             </Grid.Row>
           </Grid>

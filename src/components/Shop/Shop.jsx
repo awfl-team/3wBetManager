@@ -11,6 +11,7 @@ import UserHttpService from '../../httpServices/UserHttpService';
 import { addSnackBar } from '../../actions/SnackBarActions';
 import AudioHandlerHelper from '../../helpers/AudioHandlerHelper';
 import withAuth from '../AuthGuard/AuthGuard';
+import ItemSkeleton from '../SkeletonLoaders/ItemSkeleton';
 
 let longPressInterval;
 let longPressBuffer;
@@ -33,16 +34,22 @@ class Shop extends React.Component {
     activeItem: 'shop',
     theme: null,
     isThemeActive: false,
+    isItemsLoading: true,
+    isUserLoading: true,
   };
 
   componentDidMount() {
     ItemHttpService.getAllItems().then((res) => {
-      this.setState({ items: res.data });
+      this.setState({
+        items: res.data,
+        isItemsLoading: false,
+      });
     });
     UserHttpService.getFromToken().then((res) => {
       this.setState({
         user: res.data,
         userItems: res.data.Items,
+        isUserLoading: false,
       });
     });
     this.handleKeyboard();
@@ -149,7 +156,9 @@ class Shop extends React.Component {
 
   render() {
     const {
-      items, itemsBought, totalCost, activeItem, user, userItems,
+      items, itemsBought, totalCost,
+      activeItem, user, userItems,
+      isItemsLoading, isUserLoading,
     } = this.state;
     return (
       <div id="3wShop">
@@ -183,83 +192,91 @@ class Shop extends React.Component {
             3wShop
           </Header.Content>
         </Header>
-        <Container textAlign="center" fluid>
-          <div className="profile-coins">
-            <span>{user.Point}</span>
-            {' '}
-            <Icon color="yellow" name="copyright" size="big" />
-          </div>
-          <div id="items-container" className="shop">
-            {items.map(item => (
-              <div key={item.Id} className="item-card">
-                <Label floating className="greenLabel">
-                  {userItems.filter(i => i.Type === item.Type).length}
-                </Label>
-                <div className="loot">
-                  <div className="loot-title">
-                    <h3 className="item-name">{item.Name}</h3>
-                    <span>{item.Cost}</span>
-                    {' '}
-                    <Icon color="yellow" name="copyright" size="big" />
-                  </div>
-                  <div className={
-                    `loot-image ${
-                      item.Rarity === 'Legendary' ? 'legendary' : ''
-                      || item.Rarity === 'Rare' ? 'rare' : ''
-                      || item.Rarity === 'Epic' ? 'epic' : ''
-                      || item.Rarity === 'Common' ? 'common' : ''}`
-                  }
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        `assets/images/${
-                          item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
-                          || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
-                          || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
-                          || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
-                          || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
-                          || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
-                          || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
-                          || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
-                      }
-                    />
-                  </div>
-                  <div className="loot-description">
-                    {item.Description}
-                  </div>
+        <div>
+          {
+            isItemsLoading && isUserLoading ? (
+              <ItemSkeleton />
+            ) : (
+              <Container textAlign="center" fluid>
+                <div className="profile-coins">
+                  <span>{user.Point}</span>
+                  {' '}
+                  <Icon color="yellow" name="copyright" size="big" />
                 </div>
-                <div className="item-card-bottom">
-                  <Button.Group size="large">
-                    <Button
-                      onClick={() => this.handleChange(-1, item)}
-                      onTouchStart={() => this.handleButtonPress(item, -1)}
-                      onTouchEnd={() => this.handleButtonRelease(item, -1)}
-                      onMouseDown={() => this.handleButtonPress(item, -1)}
-                      onMouseUp={() => this.handleButtonRelease(item, -1)}
-                      inverted
-                      color="red"
-                    >
-                      <Icon name="minus" />
-                    </Button>
-                    <Button.Or text={itemsBought.filter(i => i.Type === item.Type).length} />
-                    <Button
-                      onClick={() => this.handleChange(1, item)}
-                      onTouchStart={() => this.handleButtonPress(item, +1)}
-                      onTouchEnd={() => this.handleButtonRelease(item, +1)}
-                      onMouseDown={() => this.handleButtonPress(item, +1)}
-                      onMouseUp={() => this.handleButtonRelease(item, +1)}
-                      inverted
-                      color="green"
-                    >
-                      <Icon name="add" />
-                    </Button>
-                  </Button.Group>
+                <div id="items-container" className="shop">
+                  {items.map(item => (
+                    <div key={item.Id} className="item-card">
+                      <Label floating className="greenLabel">
+                        {userItems.filter(i => i.Type === item.Type).length}
+                      </Label>
+                      <div className="loot">
+                        <div className="loot-title">
+                          <h3 className="item-name">{item.Name}</h3>
+                          <span>{item.Cost}</span>
+                          {' '}
+                          <Icon color="yellow" name="copyright" size="big" />
+                        </div>
+                        <div className={
+                          `loot-image ${
+                            item.Rarity === 'Legendary' ? 'legendary' : ''
+                            || item.Rarity === 'Rare' ? 'rare' : ''
+                            || item.Rarity === 'Epic' ? 'epic' : ''
+                            || item.Rarity === 'Common' ? 'common' : ''}`
+                        }
+                        >
+                          <img
+                            alt="item"
+                            src={
+                              `assets/images/${
+                                item.Type === Item.TYPE_BOMB ? 'bomb-x1.svg' : ''
+                                || item.Type === Item.TYPE_KEY ? 'key-x1.svg' : ''
+                                || item.Type === Item.TYPE_LIFE ? 'life-x1.svg' : ''
+                                || item.Type === Item.TYPE_MULTIPLY_BY_TEN ? 'multiplier-x10.svg' : ''
+                                || item.Type === Item.TYPE_MULTIPLY_BY_FIVE ? 'multiplier-x5.svg' : ''
+                                || item.Type === Item.TYPE_MULTIPLY_BY_TWO ? 'multiplier-x2.svg' : ''
+                                || item.Type === Item.TYPE_MYSTERY ? 'mystery.svg' : ''
+                                || item.Type === Item.TYPE_LOOT_BOX ? 'lootbox.svg' : ''}`
+                            }
+                          />
+                        </div>
+                        <div className="loot-description">
+                          {item.Description}
+                        </div>
+                      </div>
+                      <div className="item-card-bottom">
+                        <Button.Group size="large">
+                          <Button
+                            onClick={() => this.handleChange(-1, item)}
+                            onTouchStart={() => this.handleButtonPress(item, -1)}
+                            onTouchEnd={() => this.handleButtonRelease(item, -1)}
+                            onMouseDown={() => this.handleButtonPress(item, -1)}
+                            onMouseUp={() => this.handleButtonRelease(item, -1)}
+                            inverted
+                            color="red"
+                          >
+                            <Icon name="minus" />
+                          </Button>
+                          <Button.Or text={itemsBought.filter(i => i.Type === item.Type).length} />
+                          <Button
+                            onClick={() => this.handleChange(1, item)}
+                            onTouchStart={() => this.handleButtonPress(item, +1)}
+                            onTouchEnd={() => this.handleButtonRelease(item, +1)}
+                            onMouseDown={() => this.handleButtonPress(item, +1)}
+                            onMouseUp={() => this.handleButtonRelease(item, +1)}
+                            inverted
+                            color="green"
+                          >
+                            <Icon name="add" />
+                          </Button>
+                        </Button.Group>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </Container>
+              </Container>
+            )
+          }
+        </div>
         <div className="ui fluid container submit-bets-action">
           <button
             type="button"
