@@ -12,7 +12,7 @@ class BetLayoutResult extends React.Component {
   state = {
     activeIndex: 0,
     competitions: [],
-    loading: true,
+    isLoading: true,
   };
 
   componentDidMount() {
@@ -23,11 +23,13 @@ class BetLayoutResult extends React.Component {
           if (res.data.NbBet !== undefined) {
             competition.NbBet = res.data.NbBet;
             competitionsWithNbBet.push(competition);
-            this.setState({ competitions: competitionsWithNbBet });
+            this.setState({
+              competitions: competitionsWithNbBet,
+              isLoading: false,
+            });
           }
         });
       });
-      this.setState({ loading: false });
     });
   }
 
@@ -40,7 +42,7 @@ class BetLayoutResult extends React.Component {
   };
 
   render() {
-    const { activeIndex, competitions, loading } = this.state;
+    const { activeIndex, competitions, isLoading } = this.state;
 
     return (
       <div id="betCup">
@@ -49,37 +51,36 @@ class BetLayoutResult extends React.Component {
           <Header.Content>Results</Header.Content>
         </Header>
         <Container fluid>
-          { competitions.length === 0 && loading === false
-          && <NoBets />
-          }
-          { competitions.length > 0 && loading === false
-            && (
-            <Accordion fluid styled>
-              {competitions.map((competition, index) => (
-                <div key={competition.Id}>
-                  <Accordion.Title
-                    active={activeIndex === index}
-                    index={index}
-                    onClick={this.handleClick}
-                    className="competition-accordion"
-                  >
-                    <Icon name="dropdown" />
-                    {competition.Name}
-                    <Label attached="top right">
-                      <Icon name="ticket" />
-                      {competition.NbBet}
-                    </Label>
-                  </Accordion.Title>
-                  <Accordion.Content active={activeIndex === index}>
-                    <BetRowResult competitionId={competition.Id} />
-                  </Accordion.Content>
-                </div>
-              ))}
-            </Accordion>
+          {isLoading ? (
+            <Loader id="betLoader" size="huge" active inline="centered" />
+          ) : (
+            competitions.length <= 0 ? (
+              <NoBets />
+            ) : (
+              <Accordion fluid styled>
+                {competitions.map((competition, index) => (
+                  <div key={competition.Id}>
+                    <Accordion.Title
+                      active={activeIndex === index}
+                      index={index}
+                      onClick={this.handleClick}
+                      className="competition-accordion"
+                    >
+                      <Icon name="dropdown" />
+                      {competition.Name}
+                      <Label attached="top right">
+                        <Icon name="ticket" />
+                        {competition.NbBet}
+                      </Label>
+                    </Accordion.Title>
+                    <Accordion.Content active={activeIndex === index}>
+                      <BetRowResult competitionId={competition.Id} />
+                    </Accordion.Content>
+                  </div>
+                ))}
+              </Accordion>
             )
-          }
-          {loading === true
-            && <Loader id="betLoader" size="huge" active inline="centered" />
+          )
           }
         </Container>
       </div>

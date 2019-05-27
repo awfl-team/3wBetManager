@@ -58,8 +58,8 @@ class BetsWithKey extends React.Component {
                               <span>{finishedBet.Match.HomeTeam.Name}</span>
                               <div className="team-image">
                                 <Image
-                                  src={finishedBet.Match.HomeTeam.CrestUrl ? finishedBet.Match.HomeTeam.CrestUrl : '/assets/images/hometeam-placeholder.png'}
-                                  onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/hometeam-placeholder.png'; }}
+                                  src={finishedBet.Match.HomeTeam.CrestUrl ? finishedBet.Match.HomeTeam.CrestUrl : 'assets/images/hometeam-placeholder.png'}
+                                  onError={(e) => { e.target.onerror = null; e.target.src = 'assets/images/hometeam-placeholder.png'; }}
                                 />
                               </div>
                             </div>
@@ -67,8 +67,8 @@ class BetsWithKey extends React.Component {
                             <div className="awayteam">
                               <div className="team-image">
                                 <Image
-                                  src={finishedBet.Match.AwayTeam.CrestUrl ? finishedBet.Match.AwayTeam.CrestUrl : '/assets/images/awayteam-placeholder.png'}
-                                  onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/awayteam-placeholder.png'; }}
+                                  src={finishedBet.Match.AwayTeam.CrestUrl ? finishedBet.Match.AwayTeam.CrestUrl : 'assets/images/awayteam-placeholder.png'}
+                                  onError={(e) => { e.target.onerror = null; e.target.src = 'assets/images/awayteam-placeholder.png'; }}
                                 />
                               </div>
                               <span>{finishedBet.Match.AwayTeam.Name}</span>
@@ -165,8 +165,8 @@ class BetsWithKey extends React.Component {
                               <span>{availableBet.Match.HomeTeam.Name}</span>
                               <div className="team-image">
                                 <Image
-                                  src={availableBet.Match.HomeTeam.CrestUrl ? availableBet.Match.HomeTeam.CrestUrl : '/assets/images/hometeam-placeholder.png'}
-                                  onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/hometeam-placeholder.png'; }}
+                                  src={availableBet.Match.HomeTeam.CrestUrl ? availableBet.Match.HomeTeam.CrestUrl : 'assets/images/hometeam-placeholder.png'}
+                                  onError={(e) => { e.target.onerror = null; e.target.src = 'assets/images/hometeam-placeholder.png'; }}
                                 />
                               </div>
                             </div>
@@ -174,8 +174,8 @@ class BetsWithKey extends React.Component {
                             <div className="awayteam">
                               <div className="team-image">
                                 <Image
-                                  src={availableBet.Match.AwayTeam.CrestUrl ? availableBet.Match.AwayTeam.CrestUrl : '/assets/images/awayteam-placeholder.png'}
-                                  onError={(e) => { e.target.onerror = null; e.target.src = '/assets/images/awayteam-placeholder.png'; }}
+                                  src={availableBet.Match.AwayTeam.CrestUrl ? availableBet.Match.AwayTeam.CrestUrl : 'assets/images/awayteam-placeholder.png'}
+                                  onError={(e) => { e.target.onerror = null; e.target.src = 'assets/images/awayteam-placeholder.png'; }}
                                 />
                               </div>
                               <span>{availableBet.Match.AwayTeam.Name}</span>
