@@ -38,20 +38,23 @@ class UserLayout extends React.Component {
   componentDidMount() {
     this.handleSwipe();
     this.handleResize();
-    Notification.requestPermission().then().catch();
-    const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
-    connection.qs = { username: AuthHelper.getUserInfo(AuthHelper.getToken()).unique_name };
-    const notificationHub = connection.createHubProxy('notificationHub');
-    notificationHub.on('NotifyUser', (message) => {
-      NotificationHelper.createNotif(message);
-    });
-    connection.start({ jsonp: true })
-      .done(() => {
-        console.log('start');
-      })
-      .fail((err) => {
-        console.log(err);
-      });
+    try {
+      if (Notification.permission === 'granted') {
+        this.establishNotificationConnection();
+      } else {
+        Notification.requestPermission().then(() => {
+          this.establishNotificationConnection();
+        });
+      }
+    } catch (error) {
+      if (error instanceof TypeError) {
+        Notification.requestPermission(() => {
+          this.establishNotificationConnection();
+        });
+      } else {
+        console.log('Notification are not available on your browser');
+      }
+    }
   }
 
   handleResize = () => {
@@ -66,14 +69,15 @@ class UserLayout extends React.Component {
 
   handleSwipe = () => {
     gestureHandler = new Hammer(document.getElementById('root'));
-    gestureHandler.on('swipe pan', (event) => {
+    gestureHandler.get('pan').set({ threshold: 100 });
+    gestureHandler.on('panleft panright', (event) => {
       if (event.target.closest('table') === null) {
         switch (event.direction) {
-          case 2:
+          case Hammer.DIRECTION_LEFT:
           /* Swipe to left */
             this.setState({ visible: false });
             break;
-          case 4:
+          case Hammer.DIRECTION_RIGHT:
           /* Swipe to right */
             this.setState({ visible: true });
             break;
@@ -91,6 +95,16 @@ class UserLayout extends React.Component {
     if (window.innerWidth < 800) {
       this.setState(previousState => ({ visible: !previousState.visible }));
     }
+  }
+
+  establishNotificationConnection() {
+    const connection = hubConnection(process.env.REACT_APP_API_URL.slice(0, -1));
+    connection.qs = { username: AuthHelper.getUserInfo(AuthHelper.getToken()).unique_name };
+    const notificationHub = connection.createHubProxy('notificationHub');
+    notificationHub.on('NotifyUser', (message) => {
+      NotificationHelper.createNotif(message);
+    });
+    connection.start({ jsonp: true });
   }
 
   logout() {
