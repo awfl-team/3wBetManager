@@ -118,7 +118,7 @@ class FinishedBets extends React.Component {
               <List.Item>
                 <List.Content>
                   <List.Header>
-                    <Link to="/bet/mybets" className="button ui icon">
+                    <Link to="/bet/myBets" className="button ui icon">
                       My results
                       <Icon name="arrow right" />
                     </Link>
