@@ -63,6 +63,12 @@
               @media #{$screen-and-max-768}{
                 display: none;
               }
+              &.win {
+                border: 2px $green solid;
+              }
+              &.loose {
+                border: 2px $red solid;
+              }
             }
             margin-right: 5px;
           }

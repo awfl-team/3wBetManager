@@ -21,7 +21,6 @@ export default class UserHttpService {
       Email: user.Email,
       Password: user.Password,
       Username: user.Username,
-      Role: user.Role,
     });
   }
 

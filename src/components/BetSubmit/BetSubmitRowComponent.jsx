@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Input, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { addTableBet, removeBet } from '../../actions/TableBetActions';
 import SubmitBetsSkeleton from '../SkeletonLoaders/SubmitBetsSkeleton';
 
@@ -75,7 +75,9 @@ class BetSubmitRowComponent extends React.Component {
   handleHomeTeamInput(event, match, inputName) {
     const value = parseInt(event.target.value, 10) || 0;
     this.setState({ HomeTeamInput: value });
-    if (!this.state.oldHomeTeamInput) {
+    if (value === 0 && this.state.AwayTeamInput === 0 && event.target.value === '') {
+      this.props.removeBet(match);
+    } else if (!this.state.oldHomeTeamInput) {
       this.createBet(value, match, inputName);
     } else if (this.state.oldHomeTeamInput !== value) {
       this.createBet(value, match, inputName);
@@ -86,9 +88,11 @@ class BetSubmitRowComponent extends React.Component {
   }
 
   handleAwayTeamInput(event, match, inputName) {
-    const value = parseInt(event.target.value, 10);
+    const value = parseInt(event.target.value, 10) || 0;
     this.setState({ AwayTeamInput: value });
-    if (!this.state.oldAwayTeamInput) {
+    if (value === 0 && this.state.HomeTeamInput === 0 && event.target.value === '') {
+      this.props.removeBet(match);
+    } else if (!this.state.oldAwayTeamInput) {
       this.createBet(value, match, inputName);
     } else if (this.state.oldAwayTeamInput !== value) {
       this.createBet(value, match, inputName);
@@ -140,58 +144,52 @@ class BetSubmitRowComponent extends React.Component {
               </div>
               <div className="container-versus">
                 <div className="match-info">
-                  {moment(match.UtcDate)
-                    .format() >= moment.utc()
-                    .format() ? (
-                      moment(match.UtcDate)
-                        .format('MM-DD-YYYY')
-                    ) : (
-                      <Label className="infoLabel">
+                  {moment(match.UtcDate).tz('Europe/Paris').format() >= moment.utc().tz('Europe/Paris').format() ? (
+                    moment(match.UtcDate)
+                      .format('MM-DD-YYYY')
+                  ) : (
+                    <Label className="infoLabel">
                       Underway
-                      </Label>
-                    )}
+                    </Label>
+                  )}
                 </div>
                 <div className="container-versus-details">
                   <div className="home-score ">
-                    {moment(match.UtcDate)
-                      .format() >= moment.utc()
-                      .format() ? (
-                        <Input
-                          defaultValue={bet ? bet.HomeTeamScore : ''}
-                          onChange={
+                    {moment(match.UtcDate).tz('Europe/Paris').format() >= moment.utc().tz('Europe/Paris').format() ? (
+                      <Input
+                        defaultValue={bet ? bet.HomeTeamScore : ''}
+                        onChange={
                           event => this.handleHomeTeamInput(event, match,
                             'home')}
-                          fluid
-                          type="number"
-                          max="9"
-                          min="0"
-                        />
-                      ) : (
-                        <p>
-                          {bet.HomeTeamScore}
-                        </p>
-                      )}
+                        fluid
+                        type="number"
+                        max="9"
+                        min="0"
+                      />
+                    ) : (
+                      <p>
+                        {bet.HomeTeamScore}
+                      </p>
+                    )}
                   </div>
                   <div className="versus-text"> -</div>
                   <div className="away-score loose">
-                    {moment(match.UtcDate)
-                      .format() >= moment.utc()
-                      .format() ? (
-                        <Input
-                          defaultValue={bet ? bet.AwayTeamScore : ''}
-                          onChange={
+                    {moment(match.UtcDate).tz('Europe/Paris').format() >= moment.utc().tz('Europe/Paris').format() ? (
+                      <Input
+                        defaultValue={bet ? bet.AwayTeamScore : ''}
+                        onChange={
                           event => this.handleAwayTeamInput(event, match,
                             'away')}
-                          fluid
-                          type="number"
-                          max="9"
-                          min="0"
-                        />
-                      ) : (
-                        <p>
-                          {bet.AwayTeamScore}
-                        </p>
-                      )}
+                        fluid
+                        type="number"
+                        max="9"
+                        min="0"
+                      />
+                    ) : (
+                      <p>
+                        {bet.AwayTeamScore}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <Label>

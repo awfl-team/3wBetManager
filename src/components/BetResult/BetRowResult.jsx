@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Container, Icon, Image, Label, Message,
 } from 'semantic-ui-react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import BetHttpService from '../../httpServices/BetHttpService';
 import Bet from '../../model/Bet';
 import ResultsBetsSkeleton from '../SkeletonLoaders/ResultsBetsSkeleton';
@@ -54,11 +54,13 @@ class BetRowResult extends React.Component {
                   </div>
                   <div className="container-versus">
                     <div className="match-info">{moment(bet.Match.UtcDate).format('MM-DD-YYYY')}</div>
+                    <div className="result-label">Results :</div>
                     <div className="container-versus-details">
                       <div className="home-score ">{bet.Match.Score.FullTime.HomeTeam}</div>
                       <div className="versus-text"> -</div>
                       <div className="away-score loose">{bet.Match.Score.FullTime.AwayTeam}</div>
                     </div>
+                    <div className="bet-label">Your bet :</div>
                     <div className="container-versus-details-results">
                       <div className="home-score">{bet.HomeTeamScore}</div>
                       <div className="versus-text"> -</div>
@@ -70,7 +72,7 @@ class BetRowResult extends React.Component {
                       <Image
                         src={bet.Match.AwayTeam.CrestUrl ? bet.Match.AwayTeam.CrestUrl : 'assets/images/awayteam-placeholder.png'}
                         onError={(e) => { e.target.onerror = null; e.target.src = 'assets/images/awayteam-placeholder.png'; }}
-                        className={bet.Match.Score.Winner === 'Away_TEAM' ? 'win' : 'loose'}
+                        className={bet.Match.Score.Winner === 'AWAY_TEAM' ? 'win' : 'loose'}
                       />
                     </div>
                     <div className="team-info">
