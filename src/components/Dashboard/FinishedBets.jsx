@@ -42,6 +42,7 @@ class FinishedBets extends React.Component {
                         <Image
                           src={finishedBet.Match.HomeTeam.CrestUrl ? finishedBet.Match.HomeTeam.CrestUrl : 'assets/images/hometeam-placeholder.png'}
                           onError={(e) => { e.target.onerror = null; e.target.src = 'assets/images/hometeam-placeholder.png'; }}
+                          className={finishedBet.Match.Score.Winner === 'HOME_TEAM' ? 'win' : 'loose'}
                         />
                       </div>
                     </div>
@@ -51,6 +52,7 @@ class FinishedBets extends React.Component {
                         <Image
                           src={finishedBet.Match.AwayTeam.CrestUrl ? finishedBet.Match.AwayTeam.CrestUrl : 'assets/images/awayteam-placeholder.png'}
                           onError={(e) => { e.target.onerror = null; e.target.src = 'assets/images/awayteam-placeholder.png'; }}
+                          className={finishedBet.Match.Score.Winner === 'AWAY_TEAM' ? 'win' : 'loose'}
                         />
                       </div>
                       <span>{finishedBet.Match.AwayTeam.Name}</span>

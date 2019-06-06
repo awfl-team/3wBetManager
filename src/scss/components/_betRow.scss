@@ -57,6 +57,11 @@
         &-hometeam, &-versus, &-awayteam {
           display: flex;
           flex: 1 1 33%;
+
+          .bet-label, .result-label {
+            margin-bottom: 0;
+            margin-top: 10px;
+          }
         }
         &-versus {
           flex: 0 1 15%;

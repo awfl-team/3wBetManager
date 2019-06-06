@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Button, Container, Header, Icon, Radio,
+  Button, Container, Header, Icon,
 } from 'semantic-ui-react';
 import connect from 'react-redux/es/connect/connect';
 import User from '../../model/User';
@@ -20,7 +20,6 @@ class UserForm extends React.Component {
     email: '',
     username: '',
     password: '',
-    checked: false,
     confirmPassword: '',
     className: {},
   };
@@ -39,11 +38,6 @@ class UserForm extends React.Component {
     this.setState(data);
   };
 
-  handleRoleChange = () => {
-    const { checked } = this.state;
-    this.setState({ checked });
-  };
-
   handleSubmit(event) {
     event.preventDefault();
     const user = new User(
@@ -52,16 +46,18 @@ class UserForm extends React.Component {
       event.target.password.value,
       event.target.password.value,
     );
-    if (this.state.checked === true) {
-      user.Role = 'ADMIN';
-    } else {
-      user.Role = 'USER';
-    }
+
     if (event.target.password.value === event.target.confirmPassword.value) {
       UserHttpService.addUserAdmin(user).then(() => {
         this.props.addSnackbar({
           message: `${user.Username}'s account created`,
           type: 'success',
+        });
+        this.setState({
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
         });
       });
     }
@@ -69,7 +65,7 @@ class UserForm extends React.Component {
 
   render() {
     const {
-      confirmPassword, password, email, username, checked, className,
+      confirmPassword, password, email, username, className,
     } = this.state;
 
     return (
@@ -127,19 +123,6 @@ class UserForm extends React.Component {
                     value={confirmPassword}
                     onChange={e => this.handleChange('confirmPassword', e)}
                   />
-                </div>
-              </div>
-              <div className="field">
-                <div className="ui left input">
-                  <Radio
-                    toggle
-                    defaultChecked={checked}
-                    onChange={() => this.handleRoleChange}
-                  />
-                  <p>
-                    {' '}
-                    Admin Role
-                  </p>
                 </div>
               </div>
             </div>
