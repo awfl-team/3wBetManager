@@ -59,17 +59,21 @@ class BetSubmitRowComponent extends React.Component {
     return !!nextProps.bets.find(betParam => betParam.Match.Id === match.Id);
   }
 
-  createBet(value, match, inputName) {
-    const data = {
-      match,
-      inputName,
-      value,
-    };
-    if (this.state.bet) {
-      data.bet = this.state.bet;
-      data.bet.alreadyUpdated = false;
+  createBet(value, match, inputName, event) {
+    if (event.target.value < 0) {
+      event.target.value = '';
+    } else {
+      const data = {
+        match,
+        inputName,
+        value,
+      };
+      if (this.state.bet) {
+        data.bet = this.state.bet;
+        data.bet.alreadyUpdated = false;
+      }
+      this.props.addBet(data);
     }
-    this.props.addBet(data);
   }
 
   handleHomeTeamInput(event, match, inputName) {
@@ -78,9 +82,9 @@ class BetSubmitRowComponent extends React.Component {
     if (value === 0 && this.state.AwayTeamInput === 0 && event.target.value === '') {
       this.props.removeBet(match);
     } else if (!this.state.oldHomeTeamInput) {
-      this.createBet(value, match, inputName);
+      this.createBet(value, match, inputName, event);
     } else if (this.state.oldHomeTeamInput !== value) {
-      this.createBet(value, match, inputName);
+      this.createBet(value, match, inputName, event);
     } else if (value === this.state.oldHomeTeamInput
         && this.state.AwayTeamInput === this.state.oldAwayTeamInput) {
       this.props.removeBet(match);
@@ -93,9 +97,9 @@ class BetSubmitRowComponent extends React.Component {
     if (value === 0 && this.state.HomeTeamInput === 0 && event.target.value === '') {
       this.props.removeBet(match);
     } else if (!this.state.oldAwayTeamInput) {
-      this.createBet(value, match, inputName);
+      this.createBet(value, match, inputName, event);
     } else if (this.state.oldAwayTeamInput !== value) {
-      this.createBet(value, match, inputName);
+      this.createBet(value, match, inputName, event);
     } else if (this.state.HomeTeamInput === this.state.oldHomeTeamInput
         && value === this.state.oldAwayTeamInput) {
       this.props.removeBet(match);
