@@ -25,9 +25,9 @@ class BetLayoutResult extends React.Component {
             competitionsWithNbBet.push(competition);
             this.setState({
               competitions: competitionsWithNbBet,
-              isLoading: false,
             });
           }
+          this.setState({ isLoading: false });
         });
       });
     });
