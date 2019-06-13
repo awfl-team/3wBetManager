@@ -19,13 +19,10 @@ function mapDispatchToProps(dispatch) {
 class BetSubmitRowComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.handleHomeTeamInput = this.handleHomeTeamInput.bind(this);
     const { bet, match } = this.props;
     this.state = {
       bet,
       match,
-      HomeTeamInput: bet ? parseInt(bet.HomeTeamScore, 10) : undefined,
-      AwayTeamInput: bet ? parseInt(bet.AwayTeamScore, 10) : undefined,
       oldHomeTeamInput: bet ? parseInt(bet.HomeTeamScore, 10) : undefined,
       oldAwayTeamInput: bet ? parseInt(bet.AwayTeamScore, 10) : undefined,
     };
@@ -42,10 +39,8 @@ class BetSubmitRowComponent extends React.Component {
       const nextBet = nextProps.bets.find(betParam => betParam.Match.Id === match.Id);
       this.setState({
         bet: nextBet,
-        oldHomeTeamInput: parseInt(nextBet.HomeTeamScore, 10),
-        oldAwayTeamInput: parseInt(nextBet.AwayTeamScore, 10),
-        HomeTeamInput: parseInt(nextBet.HomeTeamScore, 10),
-        AwayTeamInput: parseInt(nextBet.AwayTeamScore, 10),
+        oldHomeTeamInput: nextBet ? parseInt(nextBet.HomeTeamScore, 10) : undefined,
+        oldAwayTeamInput: nextBet ? parseInt(nextBet.AwayTeamScore, 10) : undefined,
       });
     }
   }
@@ -59,53 +54,36 @@ class BetSubmitRowComponent extends React.Component {
     return !!nextProps.bets.find(betParam => betParam.Match.Id === match.Id);
   }
 
-  createBet(value, match, inputName, event) {
+  createBet(value, match, inputName) {
+    const data = {
+      match,
+      inputName,
+      value,
+    };
+    if (this.state.bet) {
+      data.bet = this.state.bet;
+      data.bet.alreadyUpdated = false;
+    }
+    this.props.addBet(data);
+  }
+
+  handleInput(event, match, inputName) {
     if (event.target.value < 0) {
       event.target.value = '';
     } else {
-      const data = {
-        match,
-        inputName,
-        value,
-      };
-      if (this.state.bet) {
-        data.bet = this.state.bet;
-        data.bet.alreadyUpdated = false;
+      const oldInput = `old${inputName}TeamInput`;
+      const value = event.target.value === '' ? '' : Number(event.target.value);
+      if (value === '') {
+        this.props.removeBet(match);
+      } else if (this.state[oldInput] === undefined) {
+        this.createBet(value, match, inputName, event);
+      } else if (this.state[oldInput] !== value) {
+        this.createBet(value, match, inputName, event);
+      } else if (value === this.state[oldInput]) {
+        this.props.removeBet(match);
       }
-      this.props.addBet(data);
     }
   }
-
-  handleHomeTeamInput(event, match, inputName) {
-    const value = parseInt(event.target.value, 10) || 0;
-    this.setState({ HomeTeamInput: value });
-    if (value === 0 && this.state.AwayTeamInput === 0 && event.target.value === '') {
-      this.props.removeBet(match);
-    } else if (!this.state.oldHomeTeamInput) {
-      this.createBet(value, match, inputName, event);
-    } else if (this.state.oldHomeTeamInput !== value) {
-      this.createBet(value, match, inputName, event);
-    } else if (value === this.state.oldHomeTeamInput
-        && this.state.AwayTeamInput === this.state.oldAwayTeamInput) {
-      this.props.removeBet(match);
-    }
-  }
-
-  handleAwayTeamInput(event, match, inputName) {
-    const value = parseInt(event.target.value, 10) || 0;
-    this.setState({ AwayTeamInput: value });
-    if (value === 0 && this.state.HomeTeamInput === 0 && event.target.value === '') {
-      this.props.removeBet(match);
-    } else if (!this.state.oldAwayTeamInput) {
-      this.createBet(value, match, inputName, event);
-    } else if (this.state.oldAwayTeamInput !== value) {
-      this.createBet(value, match, inputName, event);
-    } else if (this.state.HomeTeamInput === this.state.oldHomeTeamInput
-        && value === this.state.oldAwayTeamInput) {
-      this.props.removeBet(match);
-    }
-  }
-
 
   render() {
     let { match } = this.state;
@@ -135,7 +113,7 @@ class BetSubmitRowComponent extends React.Component {
                   />
                 </div>
                 <Label className="greenLabel">
-                  Win :
+                      Win :
                   {' '}
                   {match.HomeTeamRating === 0 ? 'N/A' : parseFloat(match.HomeTeamRating)
                     .toFixed(2)}
@@ -153,51 +131,51 @@ class BetSubmitRowComponent extends React.Component {
                       .format('MM-DD-YYYY')
                   ) : (
                     <Label className="infoLabel">
-                      Underway
-                    </Label>
+                            Underway
+                      </Label>
                   )}
                 </div>
                 <div className="container-versus-details">
                   <div className="home-score ">
                     {moment(match.UtcDate).tz('Europe/Paris').format() >= moment.utc().tz('Europe/Paris').format() ? (
                       <Input
-                        defaultValue={bet ? bet.HomeTeamScore : ''}
-                        onChange={
-                          event => this.handleHomeTeamInput(event, match,
-                            'home')}
-                        fluid
-                        type="number"
-                        max="9"
-                        min="0"
-                      />
+                          defaultValue={bet ? bet.HomeTeamScore : ''}
+                          onChange={
+                                  event => this.handleInput(event, match,
+                                    'Home')}
+                          fluid
+                          type="number"
+                          max="9"
+                          min="0"
+                        />
                     ) : (
-                      <p>
-                        {bet.HomeTeamScore}
-                      </p>
+                        <p>
+                          {bet.HomeTeamScore}
+                        </p>
                     )}
                   </div>
                   <div className="versus-text"> -</div>
                   <div className="away-score loose">
                     {moment(match.UtcDate).tz('Europe/Paris').format() >= moment.utc().tz('Europe/Paris').format() ? (
                       <Input
-                        defaultValue={bet ? bet.AwayTeamScore : ''}
-                        onChange={
-                          event => this.handleAwayTeamInput(event, match,
-                            'away')}
-                        fluid
-                        type="number"
-                        max="9"
-                        min="0"
-                      />
+                          defaultValue={bet ? bet.AwayTeamScore : ''}
+                          onChange={
+                                  event => this.handleInput(event, match,
+                                    'Away')}
+                          fluid
+                          type="number"
+                          max="9"
+                          min="0"
+                        />
                     ) : (
-                      <p>
-                        {bet.AwayTeamScore}
-                      </p>
+                        <p>
+                          {bet.AwayTeamScore}
+                        </p>
                     )}
                   </div>
                 </div>
                 <Label>
-                  Draw :
+                      Draw :
                   {' '}
                   {match.DrawRating === 0 ? 'N/A' : parseFloat(match.DrawRating)
                     .toFixed(2)}
@@ -216,7 +194,7 @@ class BetSubmitRowComponent extends React.Component {
                   />
                 </div>
                 <Label className="greenLabel">
-                  Win :
+                      Win :
                   {' '}
                   {match.AwayTeamRating === 0 ? 'N/A' : parseFloat(match.AwayTeamRating)
                     .toFixed(2)}
@@ -228,7 +206,7 @@ class BetSubmitRowComponent extends React.Component {
             </div>
           </div>
         )
-        }
+          }
 
       </div>
     );
