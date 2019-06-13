@@ -58,8 +58,10 @@ class Profile extends React.Component {
   handleCloseReset = () => this.setState({ modalResetOpen: false });
 
   handleDelete = () => {
-    AuthHelper.logout();
-    UserHttpService.deleteUser(this.state.user).then(() => this.props.history.push('/'));
+    UserHttpService.deleteUser(this.state.user).then(() => {
+      this.props.history.push('/');
+      AuthHelper.logout();
+    });
   };
 
   handleReset = () => {
