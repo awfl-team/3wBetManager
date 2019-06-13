@@ -11,7 +11,6 @@ const bets = (state = [], action) => {
       if (action.bet) {
         const findIndexBet = state.findIndex(bet => bet.Id === action.bet.Id);
         // update bet
-        console.log(action.value);
         if (action.inputName === 'Home') action.bet.HomeTeamScore = action.value === '' ? 0 : action.value;
         if (action.inputName === 'Away') action.bet.AwayTeamScore = action.value === '' ? 0 : action.value;
 
