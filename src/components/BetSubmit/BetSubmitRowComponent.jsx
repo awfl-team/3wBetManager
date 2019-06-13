@@ -132,45 +132,45 @@ class BetSubmitRowComponent extends React.Component {
                   ) : (
                     <Label className="infoLabel">
                             Underway
-                      </Label>
+                    </Label>
                   )}
                 </div>
                 <div className="container-versus-details">
                   <div className="home-score ">
                     {moment(match.UtcDate).tz('Europe/Paris').format() >= moment.utc().tz('Europe/Paris').format() ? (
                       <Input
-                          defaultValue={bet ? bet.HomeTeamScore : ''}
-                          onChange={
+                        defaultValue={bet ? bet.HomeTeamScore : ''}
+                        onChange={
                                   event => this.handleInput(event, match,
                                     'Home')}
-                          fluid
-                          type="number"
-                          max="9"
-                          min="0"
-                        />
+                        fluid
+                        type="number"
+                        max="9"
+                        min="0"
+                      />
                     ) : (
-                        <p>
-                          {bet.HomeTeamScore}
-                        </p>
+                      <p>
+                        {bet.HomeTeamScore}
+                      </p>
                     )}
                   </div>
                   <div className="versus-text"> -</div>
                   <div className="away-score loose">
                     {moment(match.UtcDate).tz('Europe/Paris').format() >= moment.utc().tz('Europe/Paris').format() ? (
                       <Input
-                          defaultValue={bet ? bet.AwayTeamScore : ''}
-                          onChange={
+                        defaultValue={bet ? bet.AwayTeamScore : ''}
+                        onChange={
                                   event => this.handleInput(event, match,
                                     'Away')}
-                          fluid
-                          type="number"
-                          max="9"
-                          min="0"
-                        />
+                        fluid
+                        type="number"
+                        max="9"
+                        min="0"
+                      />
                     ) : (
-                        <p>
-                          {bet.AwayTeamScore}
-                        </p>
+                      <p>
+                        {bet.AwayTeamScore}
+                      </p>
                     )}
                   </div>
                 </div>
