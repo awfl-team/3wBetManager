@@ -1,8 +1,19 @@
-.content, .header, h1, h2, h3, h4, h5, h6, span, p, .title, .competition-accordion {
+.content,
+.header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+.title,
+.competition-accordion {
   color: $white !important;
 }
 
-i.circular.icon{
+i.circular.icon {
   box-shadow: 0 0 0 0.1em $vue-green !important;
 }
 
@@ -44,26 +55,32 @@ i.circular.icon{
     background-color: $vue-green;
     border-color: $vue-green;
   }
+
   &.redLabel {
     background-color: $red;
     border-color: $red;
   }
+
   &.orangeLabel {
     background-color: $orange;
     border-color: $orange;
   }
+
   &.rareLabel {
     background-color: $rare;
     border-color: $rare;
   }
+
   &.epicLabel {
     background-color: $epic;
     border-color: $epic;
   }
+
   &.legendaryLabel {
     background-color: $legendary;
     border-color: $legendary;
   }
+
   &.infoLabel {
     background-color: $blue;
     border-color: $blue;
@@ -92,7 +109,8 @@ i.circular.icon{
   border: 2px $rare solid !important;
   box-shadow: 0 0 !important;
   color: $white !important;
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background: $rare !important;
   }
 }
@@ -101,7 +119,8 @@ i.circular.icon{
   border: 2px $epic solid !important;
   box-shadow: 0 0 !important;
   color: $white !important;
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background: $epic !important;
   }
 }
@@ -110,13 +129,15 @@ i.circular.icon{
   border: 2px $legendary solid !important;
   box-shadow: 0 0 !important;
   color: $white !important;
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background: $legendary !important;
   }
 }
 
-
-.ui.cards > .card, .ui.card, .ui.styled.accordion  {
+.ui.cards > .card,
+.ui.card,
+.ui.styled.accordion {
   background: $vue !important;
   box-shadow: none !important;
 }
@@ -128,8 +149,7 @@ i.circular.icon{
   }
 }
 
-
-input[type=number] {
+input[type="number"] {
   background-color: $vue-contrast !important;
   color: $white !important;
   position: relative;
@@ -182,7 +202,7 @@ input[type=number] {
 
 .ui.table {
   border: 2px solid $vue-contrast !important;
-  background: #1D2935 !important;
+  background: #1d2935 !important;
   tr {
     transition: $transition-all-300ms-ease;
     &.bet.buffed {
@@ -238,7 +258,7 @@ input[type=number] {
 
 .ui.progress {
   & > .label {
-   color: $white !important;
+    color: $white !important;
   }
   &.success {
     & > .label {

@@ -17,7 +17,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-// TODO Add Loader
 class BetSubmitButtonComponent extends React.Component {
   state = {
     modalOpen: false,

@@ -1,6 +1,8 @@
-#dashboard, #consultWithKey {
+#dashboard,
+#consultWithKey {
   .row {
     margin: 30px 0;
+
     .tablet {
       &.column {
         &:last-child {
@@ -16,10 +18,12 @@
     }
   }
 
-  .list{
-    h4, p {
+  .list {
+    h4,
+    p {
       margin-bottom: 5px;
     }
+
     .item {
       margin-bottom: 20px;
     }
@@ -28,12 +32,14 @@
   .betters-table-card {
     padding-bottom: 10px;
   }
+
   .betters-table {
     max-height: 375px;
     overflow-y: scroll;
   }
 
-  .finished-bets, .available-bets {
+  .finished-bets,
+  .available-bets {
     .item {
       .header {
         display: flex;
@@ -41,11 +47,14 @@
         align-items: center;
         margin-bottom: 10px;
 
-        .hometeam, .versus, .awayteam {
+        .hometeam,
+        .versus,
+        .awayteam {
           margin: 0 10px;
         }
 
-        .hometeam, .awayteam {
+        .hometeam,
+        .awayteam {
           font-size: 1rem;
           width: 100%;
           display: flex;
@@ -54,18 +63,21 @@
           @media #{$screen-and-max-450} {
             font-size: 0.8rem;
           }
+
           .team-image {
             img {
               height: 75px;
               width: 75px;
               min-width: 75px;
               border-radius: 50%;
-              @media #{$screen-and-max-768}{
+              @media #{$screen-and-max-768} {
                 display: none;
               }
+
               &.win {
                 border: 2px $green solid;
               }
+
               &.loose {
                 border: 2px $red solid;
               }
@@ -76,9 +88,11 @@
 
         .hometeam {
           justify-content: flex-end;
+
           span {
             justify-self: flex-end;
           }
+
           .team-image {
             margin-left: 10px;
           }
@@ -86,9 +100,11 @@
 
         .awayteam {
           justify-content: flex-start;
+
           span {
             justify-self: flex-start;
           }
+
           .team-image {
             margin-right: 10px;
           }
@@ -99,18 +115,21 @@
           width: 20px;
         }
       }
+
       .tags {
-        &> div {
-         display: inline-block;
+        & > div {
+          display: inline-block;
         }
         @media #{$screen-and-max-768} {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           align-items: Center;
+
           .label {
             margin: 2px 2px;
           }
+
           span {
             display: none;
           }

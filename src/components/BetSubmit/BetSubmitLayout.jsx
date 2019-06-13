@@ -11,7 +11,6 @@ import NoBetsSubmit from '../NoBets/NoBetsSubmit';
 
 const mapStateToProps = state => ({ bets: state.bets });
 
-// TODO Add Loader
 class BetSubmitLayout extends React.Component {
   state = {
     activeIndex: 0,

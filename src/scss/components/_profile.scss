@@ -1,35 +1,41 @@
 #profile {
-  .container-centered{
-    @media #{$screen-and-max-768}{
+  .container-centered {
+    @media #{$screen-and-max-768} {
       justify-content: center;
       flex-direction: row;
       flex-wrap: wrap;
     }
+
     .userInfo-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       flex: 1 1 100%;
 
-      & >.button {
+      & > .button {
         margin: 3px;
       }
     }
+
     .form {
       max-width: 450px;
     }
 
     .profile {
-      &-accessibility ,&-lives, &-coins, &-items {
+      &-accessibility,
+      &-lives,
+      &-coins,
+      &-items {
         margin: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         position: absolute;
         top: 10px;
-        @media #{$screen-and-max-768}{
+        @media #{$screen-and-max-768} {
           position: initial;
         }
+
         span {
           width: 100%;
           margin-right: 5px;
@@ -42,11 +48,11 @@
 
       &-accessibility {
         right: 10px;
-
       }
 
-
-      &-lives, &-coins, &-items {
+      &-lives,
+      &-coins,
+      &-items {
         left: 10px;
       }
 
@@ -62,12 +68,12 @@
         font-size: 1.25rem;
         font-weight: bold;
         color: $brown;
+
         label {
           cursor: pointer;
         }
       }
     }
-
 
     & > .button {
       margin: 5px;

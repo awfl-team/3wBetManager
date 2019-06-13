@@ -45,7 +45,6 @@ class SignUpComponent extends React.Component {
     const user = new User(event.target.email.value,
       event.target.username.value,
       event.target.password.value);
-    // TODO change this
     user.Role = 'USER';
     if (event.target.password.value === event.target.confirmPassword.value) {
       UserHttpService.signUp(user)

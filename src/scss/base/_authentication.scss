@@ -1,4 +1,6 @@
-.register-page, .login-page, .notFound-page {
+.register-page,
+.login-page,
+.notFound-page {
   background: $vue;
   height: 100%;
   min-height: 800px;
@@ -16,9 +18,7 @@
       max-width: 450px;
       min-width: 300px;
       width: 100%;
-
     }
-
   }
   .authentication-header {
     color: $white;
@@ -29,7 +29,8 @@
     color: $red;
   }
 
-  input, .message {
+  input,
+  .message {
     border-radius: 25px !important;
   }
 
@@ -39,9 +40,11 @@
     &:focus {
       border: 2px $blue solid !important;
     }
+
     &.errorInput {
       border: 2px $red solid !important;
     }
+
     &.okInput {
       border: 2px $green solid !important;
     }
@@ -52,7 +55,8 @@ button[type="submit"] {
   &.hide {
     display: none !important;
   }
-  &.show{
+
+  &.show {
     display: block;
   }
 }
