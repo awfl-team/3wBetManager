@@ -5,7 +5,17 @@ export default class User {
 
     Password;
 
+    Rank;
+
+    NbWrongBets;
+
+    NbOkBets;
+
+    NbPerfectBets;
+
     Email;
+
+    IsCurrent;
 
     Point;
 
@@ -14,6 +24,8 @@ export default class User {
     IsPrivate;
 
     Life;
+
+    Items;
 
     constructor(email, username = null, password = null, role = null, isPrivate = null) {
       this.Email = email;

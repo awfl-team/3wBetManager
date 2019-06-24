@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import UserService from '../../service/UserService';
-import AuthService from '../../service/AuthService';
+import { Button, Icon } from 'semantic-ui-react';
+import UserHttpService from '../../httpServices/UserHttpService';
+import AuthHelper from '../../helpers/AuthHelper';
 
 class LoginComponent extends React.Component {
   state = {
@@ -21,11 +22,15 @@ class LoginComponent extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    UserService.login(event.target.email.value, event.target.password.value)
+    UserHttpService.login(event.target.email.value, event.target.password.value)
       .then((response) => {
-        AuthService.setTokenInLocalStorage(response);
+        AuthHelper.setTokenInLocalStorage(response.data);
         this.setState({ toDashboard: true });
       });
+  }
+
+  handleClick() {
+    this.props.history.push('/');
   }
 
   render() {
@@ -38,12 +43,13 @@ class LoginComponent extends React.Component {
     }
     return (
       <div className="login-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="home" />
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content">
-                  Sign-in
-              </div>
+                Sign in
             </h2>
             <form className="ui large form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off">
               <div className="ui stacked">
@@ -75,15 +81,20 @@ class LoginComponent extends React.Component {
                   type="submit"
                   className="ui fluid large teal submit button main-button"
                 >
-Submit
+                Submit
                 </button>
               </div>
             </form>
 
 
             <div className="ui message">
-                New ? &nbsp;
+              New ?
+              {' '}
               <Link to="/signup">Sign Up</Link>
+              {' '}
+              |
+              {' '}
+              <Link to="/forgot_password">Forgot password</Link>
             </div>
           </div>
         </div>

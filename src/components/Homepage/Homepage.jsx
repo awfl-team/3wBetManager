@@ -5,8 +5,7 @@ function Homepage() {
   return (
     <div>
       <div className="pusher" id="homepage">
-        <div className="ui inverted vertical masthead center aligned segment hp-Header">
-          <div className="mask" />
+        <div className="ui inverted vertical masthead center aligned segment hp-Header" style={{ backgroundImage: 'url("assets/images/homeBanner.jpg")' }}>
           <div className="ui container">
             <div className="ui large secondary  menu">
               <div className="right item">
@@ -16,20 +15,13 @@ function Homepage() {
             </div>
           </div>
 
-          <div className="ui text container">
-            <h1 className="ui inverted header">
-                  3wBet-Manager
-            </h1>
-            <h2>Manage your bets</h2>
-            <Link to="/login" className="ui huge red button">
-              Let's go !
-              <i className="right arrow icon" />
-            </Link>
+          <div className="ui text container brand">
+            <img src="assets/images/logo-brand.svg" alt="brand" />
+            <h1>Manage your bets</h1>
           </div>
-
         </div>
 
-        <div className="ui vertical stripe segment">
+        <div className="ui vertical stripe segment bg-vue homepage-dark">
           <div className="ui middle aligned stackable grid container">
             <div className="row">
               <div className="eight wide column">
@@ -42,9 +34,8 @@ function Homepage() {
                     You can use our lovely app to store your real-life's football bet.
                   <br />
                   <br />
-
-                    In addition, you can compare your skills against many other people with some fancy statistics.
-
+                    In addition, you can compare your skills against many other people with some
+                    fancy statistics.
                 </p>
               </div>
               <div className="six wide right floated column">
@@ -67,13 +58,13 @@ function Homepage() {
                 <h3 className="ui header">Why use it ?</h3>
                 <p>
                   First of all, it's free.
-                  {' '}
                   <br />
-                  Second, you're able to store all your past, present and futur bets in one app, for every football cup !
+                  Second, you're able to store all your past, present and futur bets in
+                  one app, for every football cup !
                   <br />
                   <br />
-                  In addition, you will be notified in your web browser about what happened for each followed plays.
-
+                  In addition, you will be notified in your web browser about what happened
+                  for each followed plays.
                   Finally, you can improve your skills thanks to the statistics panel.
                 </p>
               </div>

@@ -3,17 +3,29 @@
   align-items: center;
   margin-bottom: 30px;
   justify-content: space-between;
+  @media #{$screen-and-max-768} {
+    flex-direction: column;
+  }
+
   .progress {
     margin: 0 50px;
     min-width: 100px;
     flex: 1 1 100%;
     max-width: 600px;
+    @media #{$screen-and-max-768} {
+      margin: 10px 0;
+      width: 100%;
+    }
   }
+
   h3 {
     margin: 0 !important;
   }
-  h3, .button-container {
+
+  h3,
+  .button-container {
     flex: 0 0 20%;
+
     button {
       width: 100px;
     }

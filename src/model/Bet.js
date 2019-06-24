@@ -1,9 +1,17 @@
 export default class Bet {
+    static STATUS_PERFECT = 'Perfect';
+
+    static STATUS_OK = 'Ok';
+
+    static STATUS_WRONG = 'Wrong';
+
     Id;
 
     Guid;
 
     Match;
+
+    Multiply;
 
     User;
 

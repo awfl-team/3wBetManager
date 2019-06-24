@@ -1,37 +1,43 @@
 import React from 'react';
-import {
-  Container, Grid, Icon,
-} from 'semantic-ui-react';
-import { Link, Route } from 'react-router-dom';
+import { Container, Menu } from 'semantic-ui-react';
+import { NavLink, Route } from 'react-router-dom';
 import BetLayoutResult from '../BetResult/BetLayoutResult';
 import BetSubmitLayout from '../BetSubmit/BetSubmitLayout';
 import withAuth from '../AuthGuard/AuthGuard';
 
 
 class BetLayout extends React.Component {
+  state = { activeItem: 'manageUsers' };
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
+    const { activeItem } = this.state;
     return (
       <div id="betLayout">
         <Container fluid>
-          <Grid>
-            <Grid.Column floated="right" width={5}>
-              <div align="right">
-                {this.props.history.location.pathname === '/bet/myBets' && (
-                <Link to="/bet/submitBets" className="ui green icon right labeled button">
-                    Manage my bets
-                  <Icon name="right arrow" />
-                </Link>
-                )}
-                {this.props.history.location.pathname === '/bet/submitBets' && (
-                <Link to="/bet/myBets" className="ui green icon right labeled button">
-                      My results
-                  <Icon name="right arrow" />
-                </Link>
-                )}
-              </div>
-            </Grid.Column>
-          </Grid>
+          <div id="inlineMenu">
+            <Menu>
+              <Menu.Item
+                as={NavLink}
+                name="results"
+                onClick={this.handleItemClick}
+                active={activeItem === 'results'}
+                to="/bet/myBets"
+              >
+                My results
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                name="manageBets"
+                onClick={this.handleItemClick}
+                active={activeItem === 'manageBets'}
+                to="/bet/submitBets"
+              >
+                Manage my bets
+              </Menu.Item>
+            </Menu>
+          </div>
         </Container>
         <Container fluid>
           <Route path="/bet/myBets" component={BetLayoutResult} />

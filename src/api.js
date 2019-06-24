@@ -1,17 +1,19 @@
 import axios from 'axios';
-import AuthService from './service/AuthService';
+import { loadProgressBar } from 'axios-progress-bar';
+import AuthHelper from './helpers/AuthHelper';
 import { addSnackBar } from './actions/SnackBarActions';
 import store from './store';
 
 
 const api = axios.create({
-  // api c# url   baseURL: 'http://151.80.136.92:9000/',
   baseURL: process.env.REACT_APP_API_URL,
 });
 
+loadProgressBar(null, api);
+
 api.interceptors.request.use(
   (config) => {
-    const token = AuthService.getToken();
+    const token = AuthHelper.getToken();
     const configuration = config;
     if (token !== null) configuration.headers.Authorization = `Bearer ${token}`;
     return configuration;

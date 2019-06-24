@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UserService from '../../service/UserService';
+import { Button, Icon } from 'semantic-ui-react';
+import UserHttpService from '../../httpServices/UserHttpService';
 import User from '../../model/User';
-import AuthService from '../../service/AuthService';
-import VerifyService from '../../service/VerifyService';
+import AuthHelper from '../../helpers/AuthHelper';
+import VerifyUserHelper from '../../helpers/VerifyUserHelper';
 import { addSnackBar } from '../../actions/SnackBarActions';
-import FormUserService from '../../service/FormUserService';
+import FormClassnameHelper from '../../helpers/FormClassnameHelper';
 
 
 function mapDispatchToProps(dispatch) {
@@ -30,7 +31,8 @@ class SignUpComponent extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property, event.target.value, email, username, password, confirmPassword);
+    const refreshedClassName = FormClassnameHelper.refreshClassName(property,
+      event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,
     };
@@ -43,16 +45,21 @@ class SignUpComponent extends React.Component {
     const user = new User(event.target.email.value,
       event.target.username.value,
       event.target.password.value);
+    user.Role = 'USER';
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.signUp(user)
+      UserHttpService.signUp(user)
         .then(() => {
-          UserService.login(user.Email, user.Password)
+          UserHttpService.login(user.Email, user.Password)
             .then((response) => {
-              AuthService.setTokenInLocalStorage(response);
+              AuthHelper.setTokenInLocalStorage(response.data);
               this.setState({ toDashboard: true });
             });
         });
     }
+  }
+
+  handleClick() {
+    this.props.history.push('/login');
   }
 
   render() {
@@ -66,12 +73,13 @@ class SignUpComponent extends React.Component {
 
     return (
       <div className="register-page">
+        <Button color="red" size="huge" id="returnHome" circular icon onClick={() => this.handleClick()}>
+          <Icon name="arrow left" />
+        </Button>
         <div className="ui middle aligned center aligned fullpage">
           <div className="column">
             <h2 className="ui teal authentication-header">
-              <div className="content">
-                  Create a new account
-              </div>
+                Create a new account
             </h2>
             <form
               className="ui large form"
@@ -89,7 +97,7 @@ class SignUpComponent extends React.Component {
                       value={email}
                       onChange={e => this.handleChange('email', e)}
                       className={className.isEmailOk ? 'okInput' : `${email}` !== ''
-                          && !VerifyService.isEmailOk(email) ? 'errorInput' : ''}
+                          && !VerifyUserHelper.isEmailOk(email) ? 'errorInput' : ''}
                     />
                   </div>
                 </div>
@@ -142,48 +150,44 @@ class SignUpComponent extends React.Component {
                 <div className="form-info validation">
                   <p className={className.formFieldEmailOk}>
                     <i className="info circle icon" />
-                    {' '}
-The email must respect the valid email
+                      The email must respect the valid email
                       format
                   </p>
                   <p className={className.formFieldUsernameOk}>
                     <i className="info circle icon" />
-                    {' '}
-The username requires at least 3 characters
+                      The username requires at least 3 characters
                   </p>
                   <p className={className.formFieldIdentical}>
                     <i className="info circle icon" />
-                    {' '}
-The password must be identical with the
+                      The password must be identical with the
                       password field
                   </p>
                   <p className={className.formFieldNumber}>
                     <i className="info circle icon" />
-                    {' '}
-The password requires at least 12 characters
+                      The password requires at least 12 characters
                   </p>
                   <p className={className.formMultipleInfos}>
                     <i className="info circle icon" />
+                      The password requires an
                     {' '}
-The password requires a
                     <span
                       className={className.formdFieldUppercase}
                     >
                     uppercase
                     </span>
-, a
-                    <span
-                      className={className.formFieldSpecial}
-                    >
-                      {' '}
-special character
+                      , a
+                    {' '}
+                    <span className={className.formFieldSpecial}>
+                        special character
                     </span>
                     {' '}
-and
+                      and
+                    {' '}
                     <span
                       className={className.formFieldWithNumber}
                     >
-a number
+                      {' '}
+                      a number
                     </span>
                   </p>
                 </div>
@@ -191,8 +195,13 @@ a number
               <div className="ui error message" />
             </form>
             <div className="ui message">
-                Already have an account ? &nbsp;
+                Already have an account ?
+              {' '}
               <Link to="/login">Log In</Link>
+              {' '}
+              |
+              {' '}
+              <Link to="/forgot_password">Forgot password</Link>
             </div>
           </div>
         </div>

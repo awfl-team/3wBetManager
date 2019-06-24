@@ -4,7 +4,7 @@ import {
   Container, Icon, Menu, Segment, Sidebar,
 } from 'semantic-ui-react';
 import Dashboard from '../Dashboard/Dashboard';
-import AuthService from '../../service/AuthService';
+import AuthHelper from '../../helpers/AuthHelper';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import withAuth from '../AuthGuard/AuthGuard';
@@ -20,7 +20,7 @@ class UserLayout extends React.Component {
   handleToggleSidenav = () => this.setState(previousState => ({ visible: !previousState.visible }));
 
   logout() {
-    AuthService.logout();
+    AuthHelper.logout();
     this.props.history.push('/login');
     this.setState({ toHome: true });
   }
@@ -36,7 +36,7 @@ class UserLayout extends React.Component {
     }
     return (
       <div className="layout">
-        <Menu inverted>
+        <Menu inverted className="primary-bg">
           <Menu.Item as="a" className="menu-hamburger" onClick={() => this.handleToggleSidenav()}>
             <Icon name="sidebar" />
           </Menu.Item>
@@ -61,6 +61,7 @@ class UserLayout extends React.Component {
             inverted
             vertical
             width="thin"
+            className="primary-bg"
           >
             <Menu.Item as={NavLink} activeClassName="active" to="/dashboard">
               <Icon name="home" />

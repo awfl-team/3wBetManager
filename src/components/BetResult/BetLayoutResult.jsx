@@ -1,30 +1,33 @@
 import React from 'react';
 import {
-  Accordion, Container, Header, Icon, Label,
+  Accordion, Container, Header, Icon, Label, Loader,
 } from 'semantic-ui-react';
-import CompetitionService from '../../service/CompetionService';
+import CompetitionService from '../../httpServices/CompetionHttpService';
 import BetRowResult from './BetRowResult';
 import withAuth from '../AuthGuard/AuthGuard';
-import BetService from '../../service/BetService';
+import BetHttpService from '../../httpServices/BetHttpService';
+import NoBets from '../NoBets/NoBets';
 
-// TODO Add Loader
 class BetLayoutResult extends React.Component {
   state = {
     activeIndex: 0,
     competitions: [],
+    isLoading: true,
   };
 
   componentDidMount() {
     const competitionsWithNbBet = [];
-    CompetitionService.getAllCompetions().then((response) => {
+    CompetitionService.getAllCompetitions().then((response) => {
       response.data.forEach((competition) => {
-        BetService.getNbBetsInCompetitionForResult(competition.Id).then((res) => {
+        BetHttpService.getNbBetsInCompetitionForResult(competition.Id).then((res) => {
           if (res.data.NbBet !== undefined) {
-            competition.NbBet = res.data.NbBets;
+            competition.NbBet = res.data.NbBet;
             competitionsWithNbBet.push(competition);
-            // TODO use await when the function will async
-            this.setState({ competitions: competitionsWithNbBet });
+            this.setState({
+              competitions: competitionsWithNbBet,
+            });
           }
+          this.setState({ isLoading: false });
         });
       });
     });
@@ -39,7 +42,7 @@ class BetLayoutResult extends React.Component {
   };
 
   render() {
-    const { activeIndex, competitions } = this.state;
+    const { activeIndex, competitions, isLoading } = this.state;
 
     return (
       <div id="betCup">
@@ -48,32 +51,36 @@ class BetLayoutResult extends React.Component {
           <Header.Content>Results</Header.Content>
         </Header>
         <Container fluid>
-          { competitions.length === 0
-          && <h2>No records</h2>
-          }
-          { competitions.length > 0
-            && <Accordion fluid styled>
-              {competitions.map((competition, index) => (
-                <div key={competition.Id}>
-                  <Accordion.Title
-                    active={activeIndex === index}
-                    index={index}
-                    onClick={this.handleClick}
-                    className="competition-accordion"
-                  >
-                    <Icon name="dropdown" />
-                    {competition.Name}
-                    <Label attached="top right">
-                      <Icon name="ticket" />
-                      {competition.NbBet}
-                    </Label>
-                  </Accordion.Title>
-                  <Accordion.Content active={activeIndex === index}>
-                    <BetRowResult competitionId={competition.Id} />
-                  </Accordion.Content>
-                </div>
-              ))}
-            </Accordion>
+          {isLoading ? (
+            <Loader id="betLoader" size="huge" active inline="centered" />
+          ) : (
+            competitions.length <= 0 ? (
+              <NoBets />
+            ) : (
+              <Accordion fluid styled>
+                {competitions.map((competition, index) => (
+                  <div key={competition.Id}>
+                    <Accordion.Title
+                      active={activeIndex === index}
+                      index={index}
+                      onClick={this.handleClick}
+                      className="competition-accordion"
+                    >
+                      <Icon name="dropdown" />
+                      {competition.Name}
+                      <Label attached="top right">
+                        <Icon name="ticket" />
+                        {competition.NbBet}
+                      </Label>
+                    </Accordion.Title>
+                    <Accordion.Content active={activeIndex === index}>
+                      <BetRowResult competitionId={competition.Id} />
+                    </Accordion.Content>
+                  </div>
+                ))}
+              </Accordion>
+            )
+          )
           }
         </Container>
       </div>

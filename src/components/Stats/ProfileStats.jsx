@@ -1,92 +1,231 @@
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import {
-  Container, Grid,
-} from 'semantic-ui-react';
-import GraphService from '../../service/GraphService';
-import StatsBuilderService from '../../service/StatsBuilderService';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import { Container, Grid } from 'semantic-ui-react';
+import GraphHttpService from '../../httpServices/GraphHttpService';
+import StatsBuilderHelper from '../../helpers/StatsBuilderHelper';
+import PieStatSkeleton from '../SkeletonLoaders/PieStatSkeleton';
+import GraphPointsStatSkeleton from '../SkeletonLoaders/GraphPointsStatSkeleton';
+import GraphStatSkeleton from '../SkeletonLoaders/GraphStatSkeleton';
 
-let dataBuild;
+let dataBuildBetsPerType;
+let dataBuildCoinsPerType;
+let dataBuildIncomesAndLoss;
+let dataBuildCoinsPerMonth;
+let dataBuildCoinsPerYear;
 
 class ProfileStats extends React.Component {
   state = {
     dataSetBets: [],
     dataSetCoins: [],
+    dataSetEarnings: [],
+    dataSetMonth: [],
+    dataSetYear: [],
+    isBetsLoading: true,
+    isCoinsLoading: true,
+    isEarningsLoading: true,
+    isMonthLoading: true,
+    isYearLoading: true,
   };
 
-  // @todo Refactor stats of consultProfile and profile as a component
-  // @todo Must have a user given. Consult profile must have a user. Profile must have current user.
+  componentWillReceiveProps() {
+    this.getBetsByTypeData();
+    this.getEarningsStatsPerType();
+    this.getCoinsStats();
+    this.getMonthStats();
+    this.getYearStats();
+  }
 
-  componentDidMount() {
-    GraphService.getBetsByTypeData().then((response) => {
+  getBetsByTypeData() {
+    GraphHttpService.getBetsByTypeData().then((response) => {
       const datas = response.data;
 
-      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0 || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
+      if (Object.entries(response.data).length > 0 && (response.data.wrongBets !== 0
+        || response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
         const labels = ['Wrong', 'Ok', 'Perfect'];
         const nbBets = Object.values(datas);
         const colors = ['#DB2828', '#F2711C', '#21BA45'];
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildBetsPerType = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildBetsPerType = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
-      this.setState({ dataSetBets: dataBuild });
-    });
 
-    GraphService.getCoinsStats().then((response) => {
+      this.setState({
+        dataSetBets: dataBuildBetsPerType,
+        isBetsLoading: false,
+      });
+    });
+  }
+
+  getEarningsStatsPerType() {
+    GraphHttpService.getEarningsStatsPerType().then((response) => {
+      const datas = response.data;
+
+      if (Object.entries(response.data).length > 0
+        && (response.data.okBets !== 0 || response.data.perfectBets !== 0)) {
+        const labels = ['Ok', 'Perfect'];
+        const nbBets = Object.values(datas);
+        const colors = ['#F2711C', '#21BA45'];
+        dataBuildCoinsPerType = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
+      } else {
+        dataBuildCoinsPerType = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
+      }
+
+      this.setState({
+        dataSetEarnings: dataBuildCoinsPerType,
+        isEarningsLoading: false,
+      });
+    });
+  }
+
+  getCoinsStats() {
+    GraphHttpService.getCoinsStats().then((response) => {
       const datas = response.data;
 
       if (Object.entries(response.data).length > 0) {
-        const labels = ['Coins used to bet', 'Bets earnings'];
+        const labels = ['Coins used to buy items', 'Coins used to bet', 'Bets earnings'];
         const nbBets = Object.values(datas);
         const colors = ['#3949ab', '#d81b60', '#ffa000'];
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(nbBets, labels, colors);
+        dataBuildIncomesAndLoss = StatsBuilderHelper.buildStatsBetsDougnut(nbBets, labels, colors);
       } else {
-        dataBuild = StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']);
+        dataBuildIncomesAndLoss = StatsBuilderHelper.buildStatsBetsDougnut(['100'], ['undefined'], ['#000000']);
       }
-      this.setState({ dataSetCoins: { datasets: dataBuild.datasets, labels: dataBuild.labels } });
+      this.setState({
+        dataSetCoins: dataBuildIncomesAndLoss,
+        isCoinsLoading: false,
+      });
     });
-
-    // @todo finish graph stats backend
   }
 
-  componentWillReceiveProps(props) {
-    const { user } = this.props;
-    if (props.user !== user) {
-      this.setState(
-        {
-          dataSetBets: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
-          dataSetCoins: StatsBuilderService.buildStatsBetsDougnut(['100'], ['NaN'], ['']),
-        },
-      );
-    }
+  getMonthStats() {
+    GraphHttpService.getMonthStats().then((resp) => {
+      const datas = resp.data;
+      const dates = [];
+      const pts = [];
+
+      if (resp.data.length > 0) {
+        datas.forEach((data) => {
+          dates.push(data.Date);
+          pts.push(data.Points);
+        });
+        dataBuildCoinsPerMonth = StatsBuilderHelper.buildStatsBetsGraph(pts, dates);
+      } else {
+        dataBuildCoinsPerMonth = StatsBuilderHelper.buildStatsBetsDougnut(['0'], ['undefined']);
+      }
+
+      this.setState({
+        dataSetMonth: dataBuildCoinsPerMonth,
+        isMonthLoading: false,
+      });
+    });
+  }
+
+  getYearStats() {
+    GraphHttpService.getYearStats().then((resp) => {
+      const datas = resp.data;
+      const dates = [];
+      const pts = [];
+
+      if (resp.data.length > 0) {
+        datas.forEach((data) => {
+          dates.push(data.Date);
+          pts.push(data.Points);
+        });
+        dataBuildCoinsPerYear = StatsBuilderHelper.buildStatsBetsGraph(pts, dates);
+      } else {
+        dataBuildCoinsPerYear = StatsBuilderHelper.buildStatsBetsDougnut(['0'], ['undefined']);
+      }
+
+      this.setState({
+        dataSetYear: dataBuildCoinsPerYear,
+        isYearLoading: false,
+      });
+    });
   }
 
   render() {
-    const { dataSetBets, dataSetCoins } = this.state;
+    const {
+      dataSetBets, dataSetCoins, dataSetEarnings, dataSetMonth, dataSetYear,
+      isBetsLoading, isCoinsLoading, isEarningsLoading, isMonthLoading, isYearLoading,
+    } = this.state;
 
     return (
       <div>
         <Container textAlign="center" fluid>
           <Grid>
-            <Grid.Row columns={16} divided>
-              <Grid.Column textAlign="center" computer={8} tablet={16}>
-                <div className="doughnut-container-max-size">
-                  <h3>Finished bets per type</h3>
-                  <Doughnut data={{ labels: dataSetBets.labels, datasets: dataSetBets.datasets }} legend={{ position: 'bottom' }} />
-                </div>
+            <Grid.Row columns={15} divided centered>
+              <Grid.Column textAlign="center" computer={5} tablet={15}>
+                { isBetsLoading ? (
+                  <PieStatSkeleton />
+                ) : (
+                  <div className="doughnut-container-max-size">
+                    <h3>Finished bets per type</h3>
+                    <Doughnut
+                      data={{ labels: dataSetBets.labels, datasets: dataSetBets.datasets }}
+                      options={dataSetBets.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
-              <Grid.Column textAlign="center" computer={8} tablet={16}>
-                <div className="doughnut-container-max-size">
-                  <h3>Coins total usages per purpose</h3>
-                  <Doughnut data={{ labels: dataSetCoins.labels, datasets: dataSetCoins.datasets }} legend={{ position: 'bottom' }} />
-                </div>
+              <Grid.Column textAlign="center" computer={5} tablet={15}>
+                { isEarningsLoading ? (
+                  <PieStatSkeleton />
+                ) : (
+                  <div className="doughnut-container-max-size">
+                    <h3>Bets incomes and losses per types</h3>
+                    <Doughnut
+                      data={{ labels: dataSetEarnings.labels, datasets: dataSetEarnings.datasets }}
+                      options={dataSetEarnings.options}
+                    />
+                  </div>
+                )
+                }
+              </Grid.Column>
+              <Grid.Column textAlign="center" computer={5} tablet={15}>
+                { isCoinsLoading ? (
+                  <PieStatSkeleton />
+                ) : (
+                  <div className="doughnut-container-max-size">
+                    <h3>Coins total usages per purpose</h3>
+                    <Doughnut
+                      data={{ labels: dataSetCoins.labels, datasets: dataSetCoins.datasets }}
+                      options={dataSetCoins.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
             </Grid.Row>
             <Grid.Row columns={16}>
-              <Grid.Column textAlign="center" computer={16}>
-                <div className="graph-container-max-size">
-                  <h3>Earned coins since last reset per day</h3>
-                </div>
+              <Grid.Column textAlign="center" computer={8} tablet={16}>
+                { isMonthLoading ? (
+                  <GraphPointsStatSkeleton />
+                ) : (
+                  <div className="graph-container-max-size">
+                    <h3>Earned coins since last reset per months</h3>
+                    <Line
+                      data={{ labels: dataSetMonth.labels, datasets: dataSetMonth.datasets }}
+                      fill="false"
+                      options={dataSetMonth.options}
+                    />
+                  </div>
+                )
+                }
+              </Grid.Column>
+              <Grid.Column textAlign="center" computer={8} tablet={16}>
+                { isYearLoading ? (
+                  <GraphStatSkeleton />
+                ) : (
+                  <div className="graph-container-max-size">
+                    <h3>Earned coins since last reset per years</h3>
+                    <Bar
+                      data={{ labels: dataSetYear.labels, datasets: dataSetYear.datasets }}
+                      fill="false"
+                      options={dataSetYear.options}
+                    />
+                  </div>
+                )
+                }
               </Grid.Column>
             </Grid.Row>
           </Grid>

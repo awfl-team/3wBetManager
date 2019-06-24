@@ -1,35 +1,80 @@
-#betRows, #betRowsResults {
+#betRows,
+#betRowsResults {
   .betRow {
     position: relative;
     padding: 15px;
-    border: 1px $lightgrey dashed;
+    border: 1px $vue-contrast dashed;
     display: flex;
+    @media #{$screen-and-max-768} {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    &.buffed {
+      &-x10 {
+        border: 2px solid $legendary !important;
+      }
+
+      &-x5 {
+        border: 2px solid $epic !important;
+      }
+
+      &-x2 {
+        border: 2px solid $rare !important;
+      }
+    }
 
     &:not(:first-child) {
       margin-top: 50px;
 
       &:before {
-        content: '';
+        content: "";
         width: 320px;
         height: 2px;
-        background-color: $lightgrey;
+        background-color: $vue-contrast;
         position: absolute;
         top: -25px;
         left: calc(50% - 160px);
-        @media screen and (max-width: 800px) {
+        @media #{$screen-and-max-800} {
           display: none;
         }
       }
     }
-    &-info, &-results {
+
+    &-info,
+    &-results {
       display: flex;
       justify-content: space-between;
+      @media #{$screen-and-max-768} {
+        flex-direction: column;
+        flex: 1 1 auto !important;
+      }
 
       .container {
-        &-hometeam, &-versus, &-awayteam {
+        &-hometeam,
+        &-awayteam {
+          @media #{$screen-and-max-768} {
+            flex-direction: column-reverse;
+            flex-wrap: nowrap !important;
+            justify-content: center !important;
+            flex: 1 1 auto !important;
+          }
+        }
+
+        &-hometeam,
+        &-versus,
+        &-awayteam {
           display: flex;
           flex: 1 1 33%;
+
+          .bet-label,
+          .result-label {
+            margin-bottom: 0;
+            margin-top: 10px;
+          }
         }
+
         &-versus {
           flex: 0 1 15%;
           flex-wrap: wrap;
@@ -40,12 +85,17 @@
             width: 100%;
             text-align: center;
           }
+
           .label {
             align-self: flex-start;
+            @media #{$screen-and-max-768} {
+              align-self: center;
+            }
           }
         }
 
-        &-hometeam,  &-awayteam {
+        &-hometeam,
+        &-awayteam {
           flex-direction: column;
           align-items: center;
           justify-content: center;
@@ -53,10 +103,11 @@
           .team {
             &-image {
               margin-bottom: 10px;
+
               img {
-                min-width: 75px;
+                min-width: 100px;
                 max-width: 100px;
-                min-height: 75px;
+                min-height: 100px;
                 max-height: 100px;
                 height: 100%;
                 width: 100%;
@@ -65,15 +116,17 @@
                 &.win {
                   border: 2px $green solid;
                 }
+
                 &.loose {
                   border: 2px $red solid;
                 }
 
-                @media screen and (max-width: 800px) {
+                @media #{$screen-and-max-768} {
                   display: none;
                 }
               }
             }
+
             &-info {
               position: relative;
               margin: 15px;
@@ -82,51 +135,59 @@
             }
           }
         }
-        &-versus-details,  &-versus-details-results{
+
+        &-versus-details,
+        &-versus-details-results {
           flex: 1 0 100%;
           display: flex;
           align-items: center;
           justify-content: space-around;
         }
-        &-versus-details  {
+
+        &-versus-details {
           align-self: center;
+
           .bet-date {
             width: 100%;
             text-align: center;
           }
+
           &-results {
             margin-bottom: 10px;
-            font-size: 20px;
+            font-size: 1.25rem;
           }
+
           .versus-text {
             font-weight: bold;
           }
         }
       }
-
     }
+
     &-info {
       flex: 1 1 80%;
-      .container{
+
+      .container {
         &-versus-details {
           border-radius: 25px;
           align-self: center;
           height: 50px;
           line-height: 42px;
-          font-size: 40px;
-          box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
-          background: #F8F8F9;
+          font-size: 2.5rem;
+          box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset,
+            0px 0px 0px 0px rgba(0, 0, 0, 0);
+          background: $vue-contrast;
 
           &-results {
             border-radius: 25px;
             align-self: center;
             height: 30px;
             line-height: 22px;
-            font-size: 20px;
-
+            font-size: 1.25rem;
           }
 
-          .home-score, .away-score {
+          .home-score,
+          .away-score {
             display: flex;
             width: 50px;
             height: 50px;
@@ -135,28 +196,40 @@
         }
       }
     }
+
     &-results {
       flex-wrap: wrap;
       margin: 0;
       flex: 1 0 200px;
-      min-width: 200px;
       min-height: 100px;
+      background: $vue-contrast;
+
       .header {
-        font-size: 30px;
+        font-size: 1.87rem;
         align-self: flex-end;
         flex: 1 0 100%;
         justify-content: center;
         display: flex;
         margin-bottom: 10px;
+        @media #{$screen-and-max-768} {
+          align-self: center;
+          margin: 10px 0 0 0;
+        }
       }
-      .container-versus-details  {
+
+      .container-versus-details {
         display: flex;
         flex-wrap: wrap;
         align-self: flex-start;
+        @media #{$screen-and-max-768} {
+          align-self: center;
+          display: flex !important;
+          justify-content: center !important;
+          margin: 10px 0 !important;
+        }
       }
     }
   }
-
 }
 
 #betRowsResults {
@@ -165,14 +238,24 @@
       align-self: flex-start;
       box-shadow: none;
       background: transparent;
-      .home-score, .away-score {
+      @media #{$screen-and-max-768} {
+        align-self: center;
+        display: flex !important;
+        justify-content: center !important;
+        margin: 10px 0 !important;
+      }
+
+      .home-score,
+      .away-score {
         .input {
           width: 50px;
           height: 50px;
+
           input {
             padding: 0;
             text-align: center;
-            &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
               -webkit-appearance: none;
               margin: 0;
             }

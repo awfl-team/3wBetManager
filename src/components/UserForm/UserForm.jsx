@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {
-  Button, Container, Header, Icon, Radio,
+  Button, Container, Header, Icon,
 } from 'semantic-ui-react';
 import connect from 'react-redux/es/connect/connect';
 import User from '../../model/User';
-import UserService from '../../service/UserService';
-import FormUserService from '../../service/FormUserService';
+import UserHttpService from '../../httpServices/UserHttpService';
+import FormClassnameHelper from '../../helpers/FormClassnameHelper';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
 import { addSnackBar } from '../../actions/SnackBarActions';
 
@@ -20,7 +20,6 @@ class UserForm extends React.Component {
     email: '',
     username: '',
     password: '',
-    checked: false,
     confirmPassword: '',
     className: {},
   };
@@ -30,16 +29,13 @@ class UserForm extends React.Component {
       email, username, password, confirmPassword,
     } = this.state;
 
-    const refreshedClassName = FormUserService.refreshClassName(property, event.target.value, email, username, password, confirmPassword);
+    const refreshedClassName = FormClassnameHelper.refreshClassName(property,
+      event.target.value, email, username, password, confirmPassword);
     const data = {
       className: refreshedClassName.className,
     };
     data[property] = refreshedClassName[property];
     this.setState(data);
-  };
-
-  handleRoleChange = () => {
-    this.setState({ checked: !this.state.checked });
   };
 
   handleSubmit(event) {
@@ -50,16 +46,18 @@ class UserForm extends React.Component {
       event.target.password.value,
       event.target.password.value,
     );
-    if (this.state.checked === true) {
-      user.Role = 'ADMIN';
-    } else {
-      user.Role = 'USER';
-    }
+
     if (event.target.password.value === event.target.confirmPassword.value) {
-      UserService.addUserAdmin(user).then(() => {
+      UserHttpService.addUserAdmin(user).then(() => {
         this.props.addSnackbar({
           message: `${user.Username}'s account created`,
           type: 'success',
+        });
+        this.setState({
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
         });
       });
     }
@@ -67,7 +65,7 @@ class UserForm extends React.Component {
 
   render() {
     const {
-      confirmPassword, password, email, username, checked, className,
+      confirmPassword, password, email, username, className,
     } = this.state;
 
     return (
@@ -127,16 +125,6 @@ class UserForm extends React.Component {
                   />
                 </div>
               </div>
-              <div className="field">
-                <div className="ui left input">
-                  <Radio
-                    toggle
-                    defaultChecked={checked}
-                    onChange={this.handleRoleChange.bind(this)}
-                  />
-                  <p>&nbsp;&nbsp;Admin Role</p>
-                </div>
-              </div>
             </div>
             <div className="form-info validation">
               <p className={className.formFieldEmailOk}>
@@ -164,24 +152,18 @@ class UserForm extends React.Component {
                 <i className="info circle icon" />
                 {' '}
                 The password requires a
-                <span
-                  className={className.formdFieldUppercase}
-                >
-                    uppercase
+                <span className={className.formdFieldUppercase}>
+                  uppercase
                 </span>
                 , a
-                <span
-                  className={className.formFieldSpecial}
-                >
+                <span className={className.formFieldSpecial}>
                   {' '}
                   special character
                 </span>
                 {' '}
                 and
-                <span
-                  className={className.formFieldWithNumber}
-                >
-a number
+                <span className={className.formFieldWithNumber}>
+                  a number
                 </span>
               </p>
             </div>

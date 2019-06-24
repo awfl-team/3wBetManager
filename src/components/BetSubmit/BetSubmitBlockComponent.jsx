@@ -1,10 +1,8 @@
 import React from 'react';
-import {
-  Container,
-} from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import BetService from '../../service/BetService';
+import { Container } from 'semantic-ui-react';
+import BetHttpService from '../../httpServices/BetHttpService';
 import BetSubmitRowComponent from './BetSubmitRowComponent';
+import SubmitBetsSkeleton from '../SkeletonLoaders/SubmitBetsSkeleton';
 
 class BetSubmitBlockComponent extends React.Component {
   constructor(props) {
@@ -12,32 +10,39 @@ class BetSubmitBlockComponent extends React.Component {
     this.state = {
       bets: [],
       matches: [],
+      isLoading: true,
     };
   }
 
   componentDidMount() {
-    BetService.getCurrentBetAndMatches(this.props.competitionId).then((response) => {
+    BetHttpService.getCurrentBetAndMatches(this.props.competitionId).then((response) => {
       this.setState({
         bets: response.data.Bets,
         matches: response.data.Matches,
+        isLoading: false,
       });
-      this.setState({  });
     });
   }
 
   render() {
-    const { bets, matches } = this.state;
+    const { bets, matches, isLoading } = this.state;
     return (
       <div id="betRowsResults">
-        <Container fluid>
-          {bets.map((bet, key) => (
-            <BetSubmitRowComponent key={key} bet={bet} />
-          ))}
-          {matches.map((match, key) => (
-            <BetSubmitRowComponent key={key} match={match} />
-          ))}
-        </Container>
-
+        {isLoading ? (
+          <SubmitBetsSkeleton />
+        ) : (
+          bets.length >= 0 && matches.length >= 0 && (
+            <Container fluid>
+              {bets.map(bet => (
+                <BetSubmitRowComponent key={bet.Id} bet={bet} isLoading={isLoading} />
+              ))}
+              {matches.map(match => (
+                <BetSubmitRowComponent key={match.Id} match={match} isLoading={isLoading} />
+              ))}
+            </Container>
+          )
+        )
+        }
       </div>
     );
   }

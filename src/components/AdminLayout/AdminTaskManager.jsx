@@ -4,24 +4,23 @@ import {
   Button, Container, Header, Icon, List, Progress,
 } from 'semantic-ui-react';
 import withAuthAdmin from '../AuthGuardAdmin/AuthGuardAdmin';
-import CronHelperService from '../../service/helpers/CronHelperService';
+import CronHelper from '../../helpers/CronHelper';
 
 
 const mapStateToProps = state => ({ taskManager: state.taskManager });
 
 
 class AdminTaskManagerComponent extends React.Component {
-
   handleCronCompetitions = () => {
-    CronHelperService.handleCompetitionTask();
+    CronHelper.handleCompetitionTask();
   };
 
   handleCronTeams = () => {
-    CronHelperService.handleTeamTask();
+    CronHelper.handleTeamTask();
   };
 
   handleCronMatches = () => {
-    CronHelperService.handleMatchTask();
+    CronHelper.handleMatchTask();
   };
 
   render() {
@@ -32,7 +31,8 @@ class AdminTaskManagerComponent extends React.Component {
     const competitionTask = taskManager.competitionTask;
     const matchTask = taskManager.matchTask;
     const teamTask = taskManager.teamTask;
-    const isAnyTaskRunning = (competitionTask.isRunning || matchTask.isRunning || teamTask.isRunning);
+    const isAnyTaskRunning = (competitionTask.isRunning || matchTask.isRunning
+        || teamTask.isRunning);
 
     return (
       <div id="tasks">
@@ -46,7 +46,7 @@ class AdminTaskManagerComponent extends React.Component {
               <List.Content className="task-list-content">
                 <h3>
                   <Icon name="trophy" />
-Update competitions
+                  Update competitions
                 </h3>
                 <Progress
                   percent={100}
@@ -81,7 +81,7 @@ Update competitions
               <List.Content className="task-list-content">
                 <h3>
                   <Icon name="users" />
-Uptate teams
+                  Uptate teams
                 </h3>
                 <Progress
                   percent={100}
@@ -111,7 +111,7 @@ Uptate teams
               <List.Content className="task-list-content">
                 <h3>
                   <Icon name="soccer" />
-Update matches
+                  Update matches
                 </h3>
                 <Progress
                   percent={100}

@@ -1,3 +1,11 @@
+### DEMO
+Go to [https://qsomazzi.gitlab.io/react-master-group-1/#/](https://qsomazzi.gitlab.io/react-master-group-1/#/)
+
+### .ENV
+copy the file `.env.dist`, name it `.env` and replace `REACT_APP_API_URL` with one of the API URL written above. 
+
+### DEFAULT README
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
